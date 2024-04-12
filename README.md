@@ -6,9 +6,9 @@ Manual and auto generated typescript models and constants for Forklift console p
 
 Auto generated [types](/src/generated):
 
-  - [Forklift types](/src/generated/forklift/README.md)
-  - [Kubernetes types](/src/generated/kubernetes/README.md)
-  - [Kubevirt types](/src/generated/kubevirt/README.md)
+  - [Forklift types](/src/generated/forklift)
+  - [Kubernetes types](/src/generated/kubernetes)
+  - [Kubevirt types](/src/generated/kubevirt)
 
 ## Manual
 
