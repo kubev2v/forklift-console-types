@@ -12,7 +12,9 @@ Auto generated [types](/src/generated):
 
 ## Manual
 
-Manual [types](/src/types).
+Manual [types](/src/types):
+
+  - [Forklift inventory](/src/types)
 
 ### Setting the models color and abbr.
 
