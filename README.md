@@ -1,6 +1,6 @@
 # @kubev2v/types
 
-Manual and auto generated typescript models and constants for Forklift controller.
+Manual and auto generated typescript models and constants for Forklift console plugin.
 
 ## Auto generated
 
