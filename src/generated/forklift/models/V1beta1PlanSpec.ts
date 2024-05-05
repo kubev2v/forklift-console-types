@@ -45,6 +45,12 @@ export interface V1beta1PlanSpec {
    * @required {false}
    */
   preserveClusterCpuModel?: boolean;
+  /** preserveStaticIPs
+   * Preserve static IPs of VMs in vSphere (Windows only)
+   *
+   * @required {false}
+   */
+  preserveStaticIPs?: boolean;
   /** provider
    * Providers.
    *

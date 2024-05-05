@@ -10,7 +10,7 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
-import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../kubernetes/models/IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import { V1beta1MigrationSpec } from './V1beta1MigrationSpec';
 import { V1beta1MigrationStatus } from './V1beta1MigrationStatus';
 

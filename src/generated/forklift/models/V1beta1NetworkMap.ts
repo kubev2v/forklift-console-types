@@ -10,7 +10,7 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
-import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../kubernetes/models/IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import { V1beta1NetworkMapSpec } from './V1beta1NetworkMapSpec';
 import { V1beta1NetworkMapStatus } from './V1beta1NetworkMapStatus';
 

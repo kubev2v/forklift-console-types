@@ -1335,6 +1335,9 @@ components:
                 Preserve the CPU model and flags the VM runs with in its oVirt
                 cluster.
               type: boolean
+            preserveStaticIPs:
+              description: Preserve static IPs of VMs in vSphere (Windows only)
+              type: boolean
             provider:
               description: Providers.
               properties:
