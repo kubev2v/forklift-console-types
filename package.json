@@ -1,6 +1,6 @@
 {
   "name": "@kubev2v/types",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Typescript interfaces and types for forklift-console-plugin",
   "license": "Apache-2.0",
   "private": false,
