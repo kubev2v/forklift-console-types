@@ -16,8 +16,38 @@ npx crdtotypes -i $(pwd)/openapi.yaml -o $(pwd)/models
 # Create openshift console UI model constants:
 npx crdtomodel -i $(pwd)/crds/ -o ./constants
 
+# Define the model directory relative to the current working directory.
+MODEL_DIR="$(pwd)/models"
+
+# Define the path for the index file within the model directory.
+MODEL_INDEX_FILE="$MODEL_DIR/index.ts"
+
+# Start the index file with the header using single quotes to avoid parsing.
+echo "// @index(['./*', /IoK8sApimachineryPkgApisMetaV1ObjectMeta/g], f => \`export * from '\${f.path}';\`)" > "$MODEL_INDEX_FILE"
+
+# Initialize an array to hold export statements.
+declare -a EXPORTS
+EXPORTS=()  # Reset the array
+
+# Loop over all TypeScript files in the model directory.
+for FILE in "$MODEL_DIR"/*.ts; do
+  # Extract the filename from the path.
+  FILENAME=$(basename "$FILE")
+  
+  # Ensure the current file is not the index file itself.
+  if [ "$FILENAME" != "index.ts" ] && [ "$FILENAME" != "IoK8sApimachineryPkgApisMetaV1ObjectMeta.ts" ]; then
+    # Add an export statement for the current file to the array.
+    EXPORTS+=("export * from './${FILENAME%.*}';")
+  fi
+done
+
+# Sort the export statements alphabetically and append to the index file.
+printf "%s\n" "${EXPORTS[@]}" | sort >> "$MODEL_INDEX_FILE"
+
+# Append the index footer to the index file.
+echo '// @endindex' >> "$MODEL_INDEX_FILE"
+
 # Replace IoK8sApimachineryPkgApisMetaV1ObjectMeta.ts with the one from kubernetes:
-sed -i '/IoK8sApimachineryPkgApisMetaV1ObjectMeta/d' ./models/index.ts
 find ./models -type f -exec sed -i 's/\.\/IoK8sApimachineryPkgApisMetaV1ObjectMeta/\.\.\/\.\.\/kubernetes\/models\/IoK8sApimachineryPkgApisMetaV1ObjectMeta/g' {} +
 ```
 
