@@ -1,5 +1,21 @@
 ## Auto generate typescritp types
 
+Note I - Building and publishing
+
+``` bash
+# From pacjage root directory bump version
+vim package.json
+
+# Build the package
+npm run build
+npm run lint
+
+# Publish no npm.io
+npm publish
+```
+
+Note II - Updating models
+
 ``` bash
 npm i @openapitools/openapi-generator-cli
 
