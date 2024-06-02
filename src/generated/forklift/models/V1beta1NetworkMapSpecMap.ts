@@ -22,13 +22,13 @@ export interface V1beta1NetworkMapSpecMap {
   /** destination
    * Destination network.
    *
-   * @required {false}
+   * @required {true}
    */
-  destination?: V1beta1NetworkMapSpecMapDestination;
+  destination: V1beta1NetworkMapSpecMapDestination;
   /** source
    * Source network.
    *
-   * @required {false}
+   * @required {true}
    */
-  source?: V1beta1NetworkMapSpecMapSource;
+  source: V1beta1NetworkMapSpecMapSource;
 }

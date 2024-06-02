@@ -21,16 +21,16 @@ export interface V1beta1ProviderSpec {
   /** secret
    * References a secret containing credentials and other confidential information.
    *
-   * @required {false}
+   * @required {true}
    */
-  secret?: V1beta1ProviderSpecSecret;
+  secret: V1beta1ProviderSpecSecret;
   /** settings
    * Provider settings.
    *
    * @required {false}
-   * @originalType {not defined}
+   * @originalType {V1beta1ProviderSpecSettings}
    */
-  settings?: unknown | null;
+  settings?: {[key: string]: string};
   /** type
    * Provider type.
    *

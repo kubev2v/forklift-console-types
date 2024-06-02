@@ -21,9 +21,9 @@ export interface V1beta1PlanStatusMigrationVmsHooks {
   /** hook
    * Hook reference.
    *
-   * @required {false}
+   * @required {true}
    */
-  hook?: V1beta1PlanStatusMigrationVmsHooksHook;
+  hook: V1beta1PlanStatusMigrationVmsHooksHook;
   /** step
    * Pipeline step.
    *

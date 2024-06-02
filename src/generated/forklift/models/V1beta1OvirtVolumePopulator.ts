@@ -35,9 +35,9 @@ export interface V1beta1OvirtVolumePopulator {
   metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
   /** spec
    *
-   * @required {false}
+   * @required {true}
    */
-  spec?: V1beta1OvirtVolumePopulatorSpec;
+  spec: V1beta1OvirtVolumePopulatorSpec;
   /** status
    *
    * @required {false}

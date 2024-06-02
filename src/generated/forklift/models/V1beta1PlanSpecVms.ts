@@ -11,6 +11,7 @@
  */
 
 import { V1beta1PlanSpecVmsHooks } from './V1beta1PlanSpecVmsHooks';
+import { V1beta1PlanSpecVmsLuks } from './V1beta1PlanSpecVmsLuks';
 
 /**
  * A VM listed on the plan.
@@ -30,6 +31,12 @@ export interface V1beta1PlanSpecVms {
    * @required {false}
    */
   id?: string;
+  /** luks
+   * Disk decryption LUKS keys
+   *
+   * @required {false}
+   */
+  luks?: V1beta1PlanSpecVmsLuks;
   /** name
    * An object Name. vsphere: A qualified name.
    *

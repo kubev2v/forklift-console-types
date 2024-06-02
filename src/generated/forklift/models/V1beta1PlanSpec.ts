@@ -54,9 +54,9 @@ export interface V1beta1PlanSpec {
   /** provider
    * Providers.
    *
-   * @required {false}
+   * @required {true}
    */
-  provider?: V1beta1PlanSpecProvider;
+  provider: V1beta1PlanSpecProvider;
   /** targetNamespace
    * Target namespace.
    *
@@ -72,9 +72,9 @@ export interface V1beta1PlanSpec {
   /** vms
    * A VM listed on the plan.
    *
-   * @required {false}
+   * @required {true}
    */
-  vms?: V1beta1PlanSpecVms[];
+  vms: V1beta1PlanSpecVms[];
   /** warm
    * Whether this is a warm migration.
    *

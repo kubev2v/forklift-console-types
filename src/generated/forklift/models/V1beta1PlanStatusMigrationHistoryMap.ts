@@ -22,13 +22,13 @@ export interface V1beta1PlanStatusMigrationHistoryMap {
   /** network
    * Snapshot object reference.
    *
-   * @required {false}
+   * @required {true}
    */
-  network?: V1beta1PlanStatusMigrationHistoryMapNetwork;
+  network: V1beta1PlanStatusMigrationHistoryMapNetwork;
   /** storage
    * Snapshot object reference.
    *
-   * @required {false}
+   * @required {true}
    */
-  storage?: V1beta1PlanStatusMigrationHistoryMapStorage;
+  storage: V1beta1PlanStatusMigrationHistoryMapStorage;
 }

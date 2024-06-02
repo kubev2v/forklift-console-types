@@ -22,13 +22,13 @@ export interface V1beta1StorageMapSpecMap {
   /** destination
    * Destination storage.
    *
-   * @required {false}
+   * @required {true}
    */
-  destination?: V1beta1StorageMapSpecMapDestination;
+  destination: V1beta1StorageMapSpecMapDestination;
   /** source
    * Source storage.
    *
-   * @required {false}
+   * @required {true}
    */
-  source?: V1beta1StorageMapSpecMapSource;
+  source: V1beta1StorageMapSpecMapSource;
 }

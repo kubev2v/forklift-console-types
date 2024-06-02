@@ -28,7 +28,7 @@ export interface V1beta1StorageMapSpec {
   /** provider
    * Provider
    *
-   * @required {false}
+   * @required {true}
    */
-  provider?: V1beta1StorageMapSpecProvider;
+  provider: V1beta1StorageMapSpecProvider;
 }

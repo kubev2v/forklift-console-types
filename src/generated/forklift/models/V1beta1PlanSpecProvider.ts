@@ -22,13 +22,13 @@ export interface V1beta1PlanSpecProvider {
   /** destination
    * Destination.
    *
-   * @required {false}
+   * @required {true}
    */
-  destination?: V1beta1PlanSpecProviderDestination;
+  destination: V1beta1PlanSpecProviderDestination;
   /** source
    * Source.
    *
-   * @required {false}
+   * @required {true}
    */
-  source?: V1beta1PlanSpecProviderSource;
+  source: V1beta1PlanSpecProviderSource;
 }

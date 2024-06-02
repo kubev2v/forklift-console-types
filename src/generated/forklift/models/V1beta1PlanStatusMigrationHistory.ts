@@ -37,19 +37,19 @@ export interface V1beta1PlanStatusMigrationHistory {
   /** migration
    * Migration
    *
-   * @required {false}
+   * @required {true}
    */
-  migration?: V1beta1PlanStatusMigrationHistoryMigration;
+  migration: V1beta1PlanStatusMigrationHistoryMigration;
   /** plan
    * Plan
    *
-   * @required {false}
+   * @required {true}
    */
-  plan?: V1beta1PlanStatusMigrationHistoryPlan;
+  plan: V1beta1PlanStatusMigrationHistoryPlan;
   /** provider
    * Provider
    *
-   * @required {false}
+   * @required {true}
    */
-  provider?: V1beta1PlanStatusMigrationHistoryProvider;
+  provider: V1beta1PlanStatusMigrationHistoryProvider;
 }
