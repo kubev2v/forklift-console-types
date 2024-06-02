@@ -22,13 +22,13 @@ export interface V1beta1PlanStatusMigrationHistoryProvider {
   /** destination
    * Snapshot object reference.
    *
-   * @required {false}
+   * @required {true}
    */
-  destination?: V1beta1PlanStatusMigrationHistoryProviderDestination;
+  destination: V1beta1PlanStatusMigrationHistoryProviderDestination;
   /** source
    * Snapshot object reference.
    *
-   * @required {false}
+   * @required {true}
    */
-  source?: V1beta1PlanStatusMigrationHistoryProviderSource;
+  source: V1beta1PlanStatusMigrationHistoryProviderSource;
 }

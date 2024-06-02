@@ -46,15 +46,15 @@ export interface V1beta1HostSpec {
   /** provider
    * Provider
    *
-   * @required {false}
+   * @required {true}
    */
-  provider?: V1beta1HostSpecProvider;
+  provider: V1beta1HostSpecProvider;
   /** secret
    * Credentials.
    *
-   * @required {false}
+   * @required {true}
    */
-  secret?: V1beta1HostSpecSecret;
+  secret: V1beta1HostSpecSecret;
   /** thumbprint
    * Certificate SHA-1 fingerprint, called thumbprint by VMware.
    *

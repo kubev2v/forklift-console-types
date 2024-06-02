@@ -21,9 +21,9 @@ export interface V1beta1PlanSpecVmsHooks {
   /** hook
    * Hook reference.
    *
-   * @required {false}
+   * @required {true}
    */
-  hook?: V1beta1PlanSpecVmsHooksHook;
+  hook: V1beta1PlanSpecVmsHooksHook;
   /** step
    * Pipeline step.
    *

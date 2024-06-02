@@ -23,9 +23,9 @@ export interface V1beta1MigrationStatusVmsPipelineTasks {
    * Annotations.
    *
    * @required {false}
-   * @originalType {not defined}
+   * @originalType {V1beta1MigrationStatusVmsPipelineTasksAnnotations}
    */
-  annotations?: unknown | null;
+  annotations?: {[key: string]: string};
   /** completed
    * Completed timestamp.
    *
@@ -60,9 +60,9 @@ export interface V1beta1MigrationStatusVmsPipelineTasks {
   /** progress
    * Progress.
    *
-   * @required {false}
+   * @required {true}
    */
-  progress?: V1beta1MigrationStatusVmsPipelineTasksProgress;
+  progress: V1beta1MigrationStatusVmsPipelineTasksProgress;
   /** reason
    * Reason
    *

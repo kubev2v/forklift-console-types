@@ -13,6 +13,7 @@
 import { V1beta1PlanStatusMigrationVmsConditions } from './V1beta1PlanStatusMigrationVmsConditions';
 import { V1beta1PlanStatusMigrationVmsError } from './V1beta1PlanStatusMigrationVmsError';
 import { V1beta1PlanStatusMigrationVmsHooks } from './V1beta1PlanStatusMigrationVmsHooks';
+import { V1beta1PlanStatusMigrationVmsLuks } from './V1beta1PlanStatusMigrationVmsLuks';
 import { V1beta1PlanStatusMigrationVmsPipeline } from './V1beta1PlanStatusMigrationVmsPipeline';
 import { V1beta1PlanStatusMigrationVmsWarm } from './V1beta1PlanStatusMigrationVmsWarm';
 
@@ -41,6 +42,12 @@ export interface V1beta1PlanStatusMigrationVms {
    * @required {false}
    */
   error?: V1beta1PlanStatusMigrationVmsError;
+  /** firmware
+   * The firmware type detected from the OVF file produced by virt-v2v.
+   *
+   * @required {false}
+   */
+  firmware?: string;
   /** hooks
    * Plan hook.
    *
@@ -53,6 +60,12 @@ export interface V1beta1PlanStatusMigrationVms {
    * @required {false}
    */
   id?: string;
+  /** luks
+   * Disk decryption LUKS keys
+   *
+   * @required {false}
+   */
+  luks?: V1beta1PlanStatusMigrationVmsLuks;
   /** name
    * An object Name. vsphere: A qualified name.
    *
@@ -74,9 +87,9 @@ export interface V1beta1PlanStatusMigrationVms {
   /** pipeline
    * Pipeline step.
    *
-   * @required {false}
+   * @required {true}
    */
-  pipeline?: V1beta1PlanStatusMigrationVmsPipeline[];
+  pipeline: V1beta1PlanStatusMigrationVmsPipeline[];
   /** restorePowerState
    * Source VM power state before migration.
    *

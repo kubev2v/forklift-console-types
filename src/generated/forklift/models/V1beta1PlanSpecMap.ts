@@ -22,13 +22,13 @@ export interface V1beta1PlanSpecMap {
   /** network
    * Network.
    *
-   * @required {false}
+   * @required {true}
    */
-  network?: V1beta1PlanSpecMapNetwork;
+  network: V1beta1PlanSpecMapNetwork;
   /** storage
    * Storage.
    *
-   * @required {false}
+   * @required {true}
    */
-  storage?: V1beta1PlanSpecMapStorage;
+  storage: V1beta1PlanSpecMapStorage;
 }

@@ -35,7 +35,7 @@ export interface V1beta1MigrationSpec {
   /** plan
    * Reference to the associated Plan.
    *
-   * @required {false}
+   * @required {true}
    */
-  plan?: V1beta1MigrationSpecPlan;
+  plan: V1beta1MigrationSpecPlan;
 }

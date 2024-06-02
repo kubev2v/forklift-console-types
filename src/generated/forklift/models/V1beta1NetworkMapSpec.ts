@@ -28,7 +28,7 @@ export interface V1beta1NetworkMapSpec {
   /** provider
    * Provider
    *
-   * @required {false}
+   * @required {true}
    */
-  provider?: V1beta1NetworkMapSpecProvider;
+  provider: V1beta1NetworkMapSpecProvider;
 }
