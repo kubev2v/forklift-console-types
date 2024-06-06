@@ -49,6 +49,12 @@ export interface V1beta1PlanSpecVms {
    * @required {false}
    */
   namespace?: string;
+  /** rootDisk
+   * Choose the bootable disk number for praimery
+   *
+   * @required {false}
+   */
+  rootDisk?: string;
   /** type
    * Type used to qualify the name.
    *
