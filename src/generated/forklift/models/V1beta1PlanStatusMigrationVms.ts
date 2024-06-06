@@ -96,6 +96,12 @@ export interface V1beta1PlanStatusMigrationVms {
    * @required {false}
    */
   restorePowerState?: string;
+  /** rootDisk
+   * Choose the bootable disk number for praimery
+   *
+   * @required {false}
+   */
+  rootDisk?: string;
   /** started
    * Started timestamp.
    *
