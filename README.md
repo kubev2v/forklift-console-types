@@ -9,6 +9,7 @@ Auto generated [types](/src/generated):
   - [Forklift types](/src/generated/forklift)
   - [Kubernetes types](/src/generated/kubernetes)
   - [Kubevirt types](/src/generated/kubevirt)
+  - [Containerized Data Importer types](/src/generated/containerized-data-importer)
 
 ## Manual
 

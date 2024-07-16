@@ -7,6 +7,7 @@ Note I - Building and publishing
 vim package.json
 
 # Build the package
+npm install
 npm run build
 npm run lint
 
@@ -17,8 +18,7 @@ npm publish
 Note II - Updating models
 
 ``` bash
-npm i @openapitools/openapi-generator-cli
-
+# From this direcotry
 curl https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json -o swagger.json
 
 npx openapi-generator-cli generate -g typescript-fetch --skip-validate-spec -o $(pwd) -i $(pwd)/swagger.json
