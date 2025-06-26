@@ -38,15 +38,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -123,15 +137,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -140,16 +168,24 @@ components:
           description: HostSpec defines the desired state of Host
           properties:
             id:
-              description: 'The object ID. vsphere: The managed object ID.'
+              description: |-
+                The object ID.
+                vsphere:
+                  The managed object ID.
               type: string
             ipAddress:
               description: IP address used for disk transfer.
               type: string
             name:
-              description: 'An object Name. vsphere: A qualified name.'
+              description: |-
+                An object Name.
+                vsphere:
+                  A qualified name.
               type: string
             namespace:
-              description: The VM Namespace Only relevant for an openshift source.
+              description: |-
+                The VM Namespace
+                Only relevant for an openshift source.
               type: string
             provider:
               description: Provider
@@ -160,42 +196,59 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
@@ -209,49 +262,63 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
               x-kubernetes-map-type: atomic
-            thumbprint:
-              description: Certificate SHA-1 fingerprint, called thumbprint by VMware.
-              type: string
             type:
               description: Type used to qualify the name.
               type: string
@@ -313,15 +380,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -332,16 +413,26 @@ components:
             cancel:
               description: List of VMs which will have their imports canceled.
               items:
-                description: Source reference. Either the ID or Name must be specified.
+                description: |-
+                  Source reference.
+                  Either the ID or Name must be specified.
                 properties:
                   id:
-                    description: 'The object ID. vsphere: The managed object ID.'
+                    description: |-
+                      The object ID.
+                      vsphere:
+                        The managed object ID.
                     type: string
                   name:
-                    description: 'An object Name. vsphere: A qualified name.'
+                    description: |-
+                      An object Name.
+                      vsphere:
+                        A qualified name.
                     type: string
                   namespace:
-                    description: The VM Namespace Only relevant for an openshift source.
+                    description: |-
+                      The VM Namespace
+                      Only relevant for an openshift source.
                     type: string
                   type:
                     description: Type used to qualify the name.
@@ -349,9 +440,9 @@ components:
                 type: object
               type: array
             cutover:
-              description: >-
-                Date and time to finalize a warm migration. If present, this
-                will override the value set on the Plan.
+              description: |-
+                Date and time to finalize a warm migration.
+                If present, this will override the value set on the Plan.
               format: date-time
               type: string
             plan:
@@ -363,42 +454,59 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
@@ -540,45 +648,61 @@ components:
                             fieldPath:
                               description: >-
                                 If referring to a piece of an object instead of
-                                an entire object, this string should contain a
-                                valid JSON/Go field access statement, such as
-                                desiredState.manifest.containers[2]. For
-                                example, if the object reference is to a
+                                an entire object, this string
+
+                                should contain a valid JSON/Go field access
+                                statement, such as
+                                desiredState.manifest.containers[2].
+
+                                For example, if the object reference is to a
                                 container within a pod, this would take on a
-                                value like: "spec.containers{name}" (where
-                                "name" refers to the name of the container that
-                                triggered the event) or if no container name is
-                                specified "spec.containers[2]" (container with
+                                value like:
+
+                                "spec.containers{name}" (where "name" refers to
+                                the name of the container that triggered
+
+                                the event) or if no container name is specified
+                                "spec.containers[2]" (container with
+
                                 index 2 in this pod). This syntax is chosen only
-                                to have some well-defined way of referencing a
-                                part of an object. TODO: this design is not
-                                final and this field is subject to change in the
-                                future.
+                                to have some well-defined way of
+
+                                referencing a part of an object.
                               type: string
                             kind:
                               description: >-
-                                Kind of the referent. More info:
+                                Kind of the referent.
+
+                                More info:
                                 https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                               type: string
                             name:
                               description: >-
-                                Name of the referent. More info:
+                                Name of the referent.
+
+                                More info:
                                 https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                               type: string
                             namespace:
                               description: >-
-                                Namespace of the referent. More info:
+                                Namespace of the referent.
+
+                                More info:
                                 https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                               type: string
                             resourceVersion:
                               description: >-
                                 Specific resourceVersion to which this reference
-                                is made, if any. More info:
+                                is made, if any.
+
+                                More info:
                                 https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                               type: string
                             uid:
                               description: >-
-                                UID of the referent. More info:
+                                UID of the referent.
+
+                                More info:
                                 https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                               type: string
                           type: object
@@ -592,7 +716,15 @@ components:
                       type: object
                     type: array
                   id:
-                    description: 'The object ID. vsphere: The managed object ID.'
+                    description: |-
+                      The object ID.
+                      vsphere:
+                        The managed object ID.
+                    type: string
+                  instanceType:
+                    description: >-
+                      Selected InstanceType that will override the VM
+                      properties.
                     type: string
                   luks:
                     description: Disk decryption LUKS keys
@@ -603,53 +735,102 @@ components:
                       fieldPath:
                         description: >-
                           If referring to a piece of an object instead of an
-                          entire object, this string should contain a valid
-                          JSON/Go field access statement, such as
-                          desiredState.manifest.containers[2]. For example, if
-                          the object reference is to a container within a pod,
-                          this would take on a value like:
+                          entire object, this string
+
+                          should contain a valid JSON/Go field access statement,
+                          such as desiredState.manifest.containers[2].
+
+                          For example, if the object reference is to a container
+                          within a pod, this would take on a value like:
+
                           "spec.containers{name}" (where "name" refers to the
-                          name of the container that triggered the event) or if
-                          no container name is specified "spec.containers[2]"
-                          (container with index 2 in this pod). This syntax is
-                          chosen only to have some well-defined way of
-                          referencing a part of an object. TODO: this design is
-                          not final and this field is subject to change in the
-                          future.
+                          name of the container that triggered
+
+                          the event) or if no container name is specified
+                          "spec.containers[2]" (container with
+
+                          index 2 in this pod). This syntax is chosen only to
+                          have some well-defined way of
+
+                          referencing a part of an object.
                         type: string
                       kind:
                         description: >-
-                          Kind of the referent. More info:
+                          Kind of the referent.
+
+                          More info:
                           https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                         type: string
                       name:
                         description: >-
-                          Name of the referent. More info:
+                          Name of the referent.
+
+                          More info:
                           https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                         type: string
                       namespace:
                         description: >-
-                          Namespace of the referent. More info:
+                          Namespace of the referent.
+
+                          More info:
                           https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                         type: string
                       resourceVersion:
                         description: >-
                           Specific resourceVersion to which this reference is
-                          made, if any. More info:
+                          made, if any.
+
+                          More info:
                           https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                         type: string
                       uid:
                         description: >-
-                          UID of the referent. More info:
+                          UID of the referent.
+
+                          More info:
                           https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                         type: string
                     type: object
                     x-kubernetes-map-type: atomic
                   name:
-                    description: 'An object Name. vsphere: A qualified name.'
+                    description: |-
+                      An object Name.
+                      vsphere:
+                        A qualified name.
                     type: string
                   namespace:
-                    description: The VM Namespace Only relevant for an openshift source.
+                    description: |-
+                      The VM Namespace
+                      Only relevant for an openshift source.
+                    type: string
+                  networkNameTemplate:
+                    description: >-
+                      NetworkNameTemplate is a template for generating network
+                      interface names in the target virtual machine.
+
+                      It follows Go template syntax and has access to the
+                      following variables:
+                        - .NetworkName: If target network is multus, name of the Multus network attachment definition, empty otherwise.
+                        - .NetworkNamespace: If target network is multus, namespace where the network attachment definition is located.
+                        - .NetworkType: type of the network ("Multus" or "Pod")
+                        - .NetworkIndex: sequential index of the network interface (0-based)
+                      The template can be used to customize network interface
+                      names based on target network configuration.
+
+                      Note:
+                        - This template will override at the plan level template
+                        - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                      Examples:
+                        "net-{{.NetworkIndex}}"
+                        "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
+                    type: string
+                  newName:
+                    description: >-
+                      The new name of the VM after matching DNS1123
+                      requirements.
+                    type: string
+                  operatingSystem:
+                    description: The Operating System detected by virt-v2v.
                     type: string
                   phase:
                     description: Phase
@@ -780,18 +961,65 @@ components:
                         - progress
                       type: object
                     type: array
+                  pvcNameTemplate:
+                    description: >-
+                      PVCNameTemplate is a template for generating PVC names for
+                      VM disks.
+
+                      It follows Go template syntax and has access to the
+                      following variables:
+                        - .VmName: name of the VM
+                        - .PlanName: name of the migration plan
+                        - .DiskIndex: initial volume index of the disk
+                        - .RootDiskIndex: index of the root disk
+                        - .Shared: true if the volume is shared by multiple VMs, false otherwise
+                      Note:
+                        This template overrides the plan level template.
+                      Examples:
+                        "{{.VmName}}-disk-{{.DiskIndex}}"
+                        "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
+                        "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
+                    type: string
                   restorePowerState:
                     description: Source VM power state before migration.
                     type: string
                   rootDisk:
-                    description: Choose the bootable disk number for praimery
+                    description: Choose the primary disk the VM boots from
                     type: string
                   started:
                     description: Started timestamp.
                     format: date-time
                     type: string
+                  targetName:
+                    description: >-
+                      TargetName specifies a custom name for the VM in the
+                      target cluster.
+
+                      If not provided, the original VM name will be used and
+                      automatically adjusted to meet k8s DNS1123 requirements.
+
+                      If provided, this exact name will be used instead. The
+                      migration will fail if the name is not unique or already
+                      in use.
+                    type: string
                   type:
                     description: Type used to qualify the name.
+                    type: string
+                  volumeNameTemplate:
+                    description: >-
+                      VolumeNameTemplate is a template for generating volume
+                      interface names in the target virtual machine.
+
+                      It follows Go template syntax and has access to the
+                      following variables:
+                        - .PVCName: name of the PVC mounted to the VM using this volume
+                        - .VolumeIndex: sequential index of the volume interface (0-based)
+                      Note:
+                        - This template will override at the plan level template
+                        - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                      Examples:
+                        "disk-{{.VolumeIndex}}"
+                        "pvc-{{.PVCName}}"
                     type: string
                   warm:
                     description: Warm migration status
@@ -807,8 +1035,24 @@ components:
                         items:
                           description: Precopy durations
                           properties:
+                            createTaskId:
+                              type: string
+                            deltas:
+                              items:
+                                properties:
+                                  deltaId:
+                                    type: string
+                                  disk:
+                                    type: string
+                                required:
+                                  - deltaId
+                                  - disk
+                                type: object
+                              type: array
                             end:
                               format: date-time
+                              type: string
+                            removeTaskId:
                               type: string
                             snapshot:
                               type: string
@@ -836,15 +1080,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -867,10 +1125,16 @@ components:
                         description: The namespace (multus only).
                         type: string
                       type:
-                        description: The network type.
+                        description: |-
+                          Type of network to use for the destination.
+                          Valid values:
+                          - pod: Use the Kubernetes pod network
+                          - multus: Use a Multus additional network
+                          - ignored: Network is excluded from mapping
                         enum:
                           - pod
                           - multus
+                          - ignored
                         type: string
                     required:
                       - type
@@ -879,15 +1143,21 @@ components:
                     description: Source network.
                     properties:
                       id:
-                        description: 'The object ID. vsphere: The managed object ID.'
+                        description: |-
+                          The object ID.
+                          vsphere:
+                            The managed object ID.
                         type: string
                       name:
-                        description: 'An object Name. vsphere: A qualified name.'
+                        description: |-
+                          An object Name.
+                          vsphere:
+                            A qualified name.
                         type: string
                       namespace:
-                        description: >-
-                          The VM Namespace Only relevant for an openshift
-                          source.
+                        description: |-
+                          The VM Namespace
+                          Only relevant for an openshift source.
                         type: string
                       type:
                         description: Type used to qualify the name.
@@ -910,43 +1180,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -960,43 +1246,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -1057,16 +1359,26 @@ components:
               type: integer
             references:
               items:
-                description: Source reference. Either the ID or Name must be specified.
+                description: |-
+                  Source reference.
+                  Either the ID or Name must be specified.
                 properties:
                   id:
-                    description: 'The object ID. vsphere: The managed object ID.'
+                    description: |-
+                      The object ID.
+                      vsphere:
+                        The managed object ID.
                     type: string
                   name:
-                    description: 'An object Name. vsphere: A qualified name.'
+                    description: |-
+                      An object Name.
+                      vsphere:
+                        A qualified name.
                     type: string
                   namespace:
-                    description: The VM Namespace Only relevant for an openshift source.
+                    description: |-
+                      The VM Namespace
+                      Only relevant for an openshift source.
                     type: string
                   type:
                     description: Type used to qualify the name.
@@ -1080,15 +1392,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -1112,42 +1438,59 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
@@ -1170,15 +1513,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -1202,42 +1559,59 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
@@ -1260,15 +1634,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -1279,9 +1667,59 @@ components:
             archived:
               description: Whether this plan should be archived.
               type: boolean
+            deleteGuestConversionPod:
+              description: >-
+                DeleteGuestConversionPod determines if the guest conversion pod
+                should be deleted after successful migration.
+
+                Note:
+                  - If this option is enabled and migration succeeds then the pod will get deleted. However the VM could still not boot and the virt-v2v logs, with additional information, will be deleted alongside guest conversion pod.
+                  - If migration fails the conversion pod will remain present even if this option is enabled.
+              type: boolean
             description:
               description: Description
               type: string
+            diskBus:
+              description: 'Deprecated: this field will be deprecated in 2.8.'
+              type: string
+            installLegacyDrivers:
+              description: >-
+                InstallLegacyDrivers determines whether to install legacy
+                windows drivers in the VM.
+
+                The following Vm's are lack of SHA-2 support and need legacy
+                drivers:
+
+                Windows XP (all)
+
+                Windows Server 2003
+
+                Windows Vista (all)
+
+                Windows Server 2008
+
+                Windows 7 (pre-SP1)
+
+                Windows Server 2008 R2
+
+                Behavior:
+
+                - If set to nil (unset), the system will automatically detect
+                whether the VM requires legacy drivers
+                  based on its guest OS type (using IsLegacyWindows).
+                - If set to true, legacy drivers will be installed
+                unconditionally by setting the VIRTIO_WIN environment variable.
+
+                - If set to false, legacy drivers will be skipped, and the
+                system will fall back to using the standard (SHA-2 signed)
+                drivers.
+
+
+                When enabled, legacy drivers are exposed to the virt-v2v
+                conversion process via the VIRTIO_WIN environment variable,
+
+                which points to the legacy ISO at /usr/local/virtio-win.iso.
+              type: boolean
             map:
               description: Resource mapping.
               properties:
@@ -1294,43 +1732,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -1344,43 +1798,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -1389,13 +1859,38 @@ components:
                 - network
                 - storage
               type: object
+            migrateSharedDisks:
+              default: true
+              description: Determines if the plan should migrate shared disks.
+              type: boolean
+            networkNameTemplate:
+              description: >-
+                NetworkNameTemplate is a template for generating network
+                interface names in the target virtual machine.
+
+                It follows Go template syntax and has access to the following
+                variables:
+                  - .NetworkName: If target network is multus, name of the Multus network attachment definition, empty otherwise.
+                  - .NetworkNamespace: If target network is multus, namespace where the network attachment definition is located.
+                  - .NetworkType: type of the network ("Multus" or "Pod")
+                  - .NetworkIndex: sequential index of the network interface (0-based)
+                The template can be used to customize network interface names
+                based on target network configuration.
+
+                Note:
+                  - This template can be overridden at the individual VM level
+                  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                Examples:
+                  "net-{{.NetworkIndex}}"
+                  "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
+              type: string
             preserveClusterCpuModel:
               description: >-
                 Preserve the CPU model and flags the VM runs with in its oVirt
                 cluster.
               type: boolean
             preserveStaticIPs:
-              description: Preserve static IPs of VMs in vSphere (Windows only)
+              description: Preserve static IPs of VMs in vSphere
               type: boolean
             provider:
               description: Providers.
@@ -1409,43 +1904,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -1459,43 +1970,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -1504,6 +2031,55 @@ components:
                 - destination
                 - source
               type: object
+            pvcNameTemplate:
+              description: >-
+                PVCNameTemplate is a template for generating PVC names for VM
+                disks.
+
+                It follows Go template syntax and has access to the following
+                variables:
+                  - .VmName: name of the VM
+                  - .PlanName: name of the migration plan
+                  - .DiskIndex: initial volume index of the disk
+                  - .WinDriveLetter: Windows drive letter (lower case, if applicable, e.g. "c", require guest agent)
+                  - .RootDiskIndex: index of the root disk
+                  - .Shared: true if the volume is shared by multiple VMs, false otherwise
+                  - .FileName: name of the file in the source provider (vmWare only, require guest agent)
+                Note:
+                  This template can be overridden at the individual VM level.
+                Examples:
+                  "{{.VmName}}-disk-{{.DiskIndex}}"
+                  "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
+                  "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
+              type: string
+            pvcNameTemplateUseGenerateName:
+              default: true
+              description: >-
+                PVCNameTemplateUseGenerateName indicates if the PVC name
+                template should use generateName instead of name.
+
+                Setting this to false will use the name field of the
+                PVCNameTemplate.
+
+                This is useful when using a template that generates a name
+                without a suffix.
+
+                For example, if the template is
+                "{{.VmName}}-disk-{{.DiskIndex}}", setting this to false will
+                result in
+
+                the PVC name being "{{.VmName}}-disk-{{.DiskIndex}}", which may
+                not be unique.
+
+                but will be more predictable.
+
+                **DANGER** When set to false, the generated PVC name may not be
+                unique and may cause conflicts.
+              type: boolean
+            skipGuestConversion:
+              default: false
+              description: Determines if the plan should skip the guest conversion.
+              type: boolean
             targetNamespace:
               description: Target namespace.
               type: string
@@ -1518,46 +2094,72 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
               x-kubernetes-map-type: atomic
+            type:
+              description: >-
+                Migration type. e.g. "cold", "warm", "live". Supersedes the
+                `warm` boolean if set.
+              enum:
+                - cold
+                - warm
+                - live
+              type: string
             vms:
               description: List of VMs.
               items:
@@ -1577,45 +2179,61 @@ components:
                             fieldPath:
                               description: >-
                                 If referring to a piece of an object instead of
-                                an entire object, this string should contain a
-                                valid JSON/Go field access statement, such as
-                                desiredState.manifest.containers[2]. For
-                                example, if the object reference is to a
+                                an entire object, this string
+
+                                should contain a valid JSON/Go field access
+                                statement, such as
+                                desiredState.manifest.containers[2].
+
+                                For example, if the object reference is to a
                                 container within a pod, this would take on a
-                                value like: "spec.containers{name}" (where
-                                "name" refers to the name of the container that
-                                triggered the event) or if no container name is
-                                specified "spec.containers[2]" (container with
+                                value like:
+
+                                "spec.containers{name}" (where "name" refers to
+                                the name of the container that triggered
+
+                                the event) or if no container name is specified
+                                "spec.containers[2]" (container with
+
                                 index 2 in this pod). This syntax is chosen only
-                                to have some well-defined way of referencing a
-                                part of an object. TODO: this design is not
-                                final and this field is subject to change in the
-                                future.
+                                to have some well-defined way of
+
+                                referencing a part of an object.
                               type: string
                             kind:
                               description: >-
-                                Kind of the referent. More info:
+                                Kind of the referent.
+
+                                More info:
                                 https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                               type: string
                             name:
                               description: >-
-                                Name of the referent. More info:
+                                Name of the referent.
+
+                                More info:
                                 https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                               type: string
                             namespace:
                               description: >-
-                                Namespace of the referent. More info:
+                                Namespace of the referent.
+
+                                More info:
                                 https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                               type: string
                             resourceVersion:
                               description: >-
                                 Specific resourceVersion to which this reference
-                                is made, if any. More info:
+                                is made, if any.
+
+                                More info:
                                 https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                               type: string
                             uid:
                               description: >-
-                                UID of the referent. More info:
+                                UID of the referent.
+
+                                More info:
                                 https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                               type: string
                           type: object
@@ -1629,7 +2247,15 @@ components:
                       type: object
                     type: array
                   id:
-                    description: 'The object ID. vsphere: The managed object ID.'
+                    description: |-
+                      The object ID.
+                      vsphere:
+                        The managed object ID.
+                    type: string
+                  instanceType:
+                    description: >-
+                      Selected InstanceType that will override the VM
+                      properties.
                     type: string
                   luks:
                     description: Disk decryption LUKS keys
@@ -1640,62 +2266,166 @@ components:
                       fieldPath:
                         description: >-
                           If referring to a piece of an object instead of an
-                          entire object, this string should contain a valid
-                          JSON/Go field access statement, such as
-                          desiredState.manifest.containers[2]. For example, if
-                          the object reference is to a container within a pod,
-                          this would take on a value like:
+                          entire object, this string
+
+                          should contain a valid JSON/Go field access statement,
+                          such as desiredState.manifest.containers[2].
+
+                          For example, if the object reference is to a container
+                          within a pod, this would take on a value like:
+
                           "spec.containers{name}" (where "name" refers to the
-                          name of the container that triggered the event) or if
-                          no container name is specified "spec.containers[2]"
-                          (container with index 2 in this pod). This syntax is
-                          chosen only to have some well-defined way of
-                          referencing a part of an object. TODO: this design is
-                          not final and this field is subject to change in the
-                          future.
+                          name of the container that triggered
+
+                          the event) or if no container name is specified
+                          "spec.containers[2]" (container with
+
+                          index 2 in this pod). This syntax is chosen only to
+                          have some well-defined way of
+
+                          referencing a part of an object.
                         type: string
                       kind:
                         description: >-
-                          Kind of the referent. More info:
+                          Kind of the referent.
+
+                          More info:
                           https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                         type: string
                       name:
                         description: >-
-                          Name of the referent. More info:
+                          Name of the referent.
+
+                          More info:
                           https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                         type: string
                       namespace:
                         description: >-
-                          Namespace of the referent. More info:
+                          Namespace of the referent.
+
+                          More info:
                           https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                         type: string
                       resourceVersion:
                         description: >-
                           Specific resourceVersion to which this reference is
-                          made, if any. More info:
+                          made, if any.
+
+                          More info:
                           https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                         type: string
                       uid:
                         description: >-
-                          UID of the referent. More info:
+                          UID of the referent.
+
+                          More info:
                           https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                         type: string
                     type: object
                     x-kubernetes-map-type: atomic
                   name:
-                    description: 'An object Name. vsphere: A qualified name.'
+                    description: |-
+                      An object Name.
+                      vsphere:
+                        A qualified name.
                     type: string
                   namespace:
-                    description: The VM Namespace Only relevant for an openshift source.
+                    description: |-
+                      The VM Namespace
+                      Only relevant for an openshift source.
+                    type: string
+                  networkNameTemplate:
+                    description: >-
+                      NetworkNameTemplate is a template for generating network
+                      interface names in the target virtual machine.
+
+                      It follows Go template syntax and has access to the
+                      following variables:
+                        - .NetworkName: If target network is multus, name of the Multus network attachment definition, empty otherwise.
+                        - .NetworkNamespace: If target network is multus, namespace where the network attachment definition is located.
+                        - .NetworkType: type of the network ("Multus" or "Pod")
+                        - .NetworkIndex: sequential index of the network interface (0-based)
+                      The template can be used to customize network interface
+                      names based on target network configuration.
+
+                      Note:
+                        - This template will override at the plan level template
+                        - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                      Examples:
+                        "net-{{.NetworkIndex}}"
+                        "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
+                    type: string
+                  pvcNameTemplate:
+                    description: >-
+                      PVCNameTemplate is a template for generating PVC names for
+                      VM disks.
+
+                      It follows Go template syntax and has access to the
+                      following variables:
+                        - .VmName: name of the VM
+                        - .PlanName: name of the migration plan
+                        - .DiskIndex: initial volume index of the disk
+                        - .RootDiskIndex: index of the root disk
+                        - .Shared: true if the volume is shared by multiple VMs, false otherwise
+                      Note:
+                        This template overrides the plan level template.
+                      Examples:
+                        "{{.VmName}}-disk-{{.DiskIndex}}"
+                        "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
+                        "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
                     type: string
                   rootDisk:
-                    description: Choose the bootable disk number for praimery
+                    description: Choose the primary disk the VM boots from
+                    type: string
+                  targetName:
+                    description: >-
+                      TargetName specifies a custom name for the VM in the
+                      target cluster.
+
+                      If not provided, the original VM name will be used and
+                      automatically adjusted to meet k8s DNS1123 requirements.
+
+                      If provided, this exact name will be used instead. The
+                      migration will fail if the name is not unique or already
+                      in use.
                     type: string
                   type:
                     description: Type used to qualify the name.
                     type: string
+                  volumeNameTemplate:
+                    description: >-
+                      VolumeNameTemplate is a template for generating volume
+                      interface names in the target virtual machine.
+
+                      It follows Go template syntax and has access to the
+                      following variables:
+                        - .PVCName: name of the PVC mounted to the VM using this volume
+                        - .VolumeIndex: sequential index of the volume interface (0-based)
+                      Note:
+                        - This template will override at the plan level template
+                        - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                      Examples:
+                        "disk-{{.VolumeIndex}}"
+                        "pvc-{{.PVCName}}"
+                    type: string
                 type: object
               type: array
+            volumeNameTemplate:
+              description: >-
+                VolumeNameTemplate is a template for generating volume interface
+                names in the target virtual machine.
+
+                It follows Go template syntax and has access to the following
+                variables:
+                  - .PVCName: name of the PVC mounted to the VM using this volume
+                  - .VolumeIndex: sequential index of the volume interface (0-based)
+                Note:
+                  - This template can be overridden at the individual VM level
+                  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                Examples:
+                  "disk-{{.VolumeIndex}}"
+                  "pvc-{{.PVCName}}"
+              type: string
             warm:
               description: Whether this is a warm migration.
               type: boolean
@@ -1814,10 +2544,13 @@ components:
                               uid:
                                 description: >-
                                   UID is a type that holds unique ID values,
-                                  including UUIDs.  Because we don't ONLY use
-                                  UUIDs, this is an alias to string.  Being a
-                                  type captures intent and helps make sure that
-                                  UIDs and names do not get conflated.
+                                  including UUIDs.  Because we
+
+                                  don't ONLY use UUIDs, this is an alias to
+                                  string.  Being a type captures
+
+                                  intent and helps make sure that UIDs and names
+                                  do not get conflated.
                                 type: string
                             required:
                               - generation
@@ -1838,10 +2571,13 @@ components:
                               uid:
                                 description: >-
                                   UID is a type that holds unique ID values,
-                                  including UUIDs.  Because we don't ONLY use
-                                  UUIDs, this is an alias to string.  Being a
-                                  type captures intent and helps make sure that
-                                  UIDs and names do not get conflated.
+                                  including UUIDs.  Because we
+
+                                  don't ONLY use UUIDs, this is an alias to
+                                  string.  Being a type captures
+
+                                  intent and helps make sure that UIDs and names
+                                  do not get conflated.
                                 type: string
                             required:
                               - generation
@@ -1866,8 +2602,11 @@ components:
                           uid:
                             description: >-
                               UID is a type that holds unique ID values,
-                              including UUIDs.  Because we don't ONLY use UUIDs,
-                              this is an alias to string.  Being a type captures
+                              including UUIDs.  Because we
+
+                              don't ONLY use UUIDs, this is an alias to string. 
+                              Being a type captures
+
                               intent and helps make sure that UIDs and names do
                               not get conflated.
                             type: string
@@ -1890,8 +2629,11 @@ components:
                           uid:
                             description: >-
                               UID is a type that holds unique ID values,
-                              including UUIDs.  Because we don't ONLY use UUIDs,
-                              this is an alias to string.  Being a type captures
+                              including UUIDs.  Because we
+
+                              don't ONLY use UUIDs, this is an alias to string. 
+                              Being a type captures
+
                               intent and helps make sure that UIDs and names do
                               not get conflated.
                             type: string
@@ -1917,10 +2659,13 @@ components:
                               uid:
                                 description: >-
                                   UID is a type that holds unique ID values,
-                                  including UUIDs.  Because we don't ONLY use
-                                  UUIDs, this is an alias to string.  Being a
-                                  type captures intent and helps make sure that
-                                  UIDs and names do not get conflated.
+                                  including UUIDs.  Because we
+
+                                  don't ONLY use UUIDs, this is an alias to
+                                  string.  Being a type captures
+
+                                  intent and helps make sure that UIDs and names
+                                  do not get conflated.
                                 type: string
                             required:
                               - generation
@@ -1941,10 +2686,13 @@ components:
                               uid:
                                 description: >-
                                   UID is a type that holds unique ID values,
-                                  including UUIDs.  Because we don't ONLY use
-                                  UUIDs, this is an alias to string.  Being a
-                                  type captures intent and helps make sure that
-                                  UIDs and names do not get conflated.
+                                  including UUIDs.  Because we
+
+                                  don't ONLY use UUIDs, this is an alias to
+                                  string.  Being a type captures
+
+                                  intent and helps make sure that UIDs and names
+                                  do not get conflated.
                                 type: string
                             required:
                               - generation
@@ -2047,47 +2795,62 @@ components:
                                 fieldPath:
                                   description: >-
                                     If referring to a piece of an object instead
-                                    of an entire object, this string should
-                                    contain a valid JSON/Go field access
+                                    of an entire object, this string
+
+                                    should contain a valid JSON/Go field access
                                     statement, such as
-                                    desiredState.manifest.containers[2]. For
-                                    example, if the object reference is to a
+                                    desiredState.manifest.containers[2].
+
+                                    For example, if the object reference is to a
                                     container within a pod, this would take on a
-                                    value like: "spec.containers{name}" (where
-                                    "name" refers to the name of the container
-                                    that triggered the event) or if no container
-                                    name is specified "spec.containers[2]"
-                                    (container with index 2 in this pod). This
-                                    syntax is chosen only to have some
-                                    well-defined way of referencing a part of an
-                                    object. TODO: this design is not final and
-                                    this field is subject to change in the
-                                    future.
+                                    value like:
+
+                                    "spec.containers{name}" (where "name" refers
+                                    to the name of the container that triggered
+
+                                    the event) or if no container name is
+                                    specified "spec.containers[2]" (container
+                                    with
+
+                                    index 2 in this pod). This syntax is chosen
+                                    only to have some well-defined way of
+
+                                    referencing a part of an object.
                                   type: string
                                 kind:
                                   description: >-
-                                    Kind of the referent. More info:
+                                    Kind of the referent.
+
+                                    More info:
                                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                                   type: string
                                 name:
                                   description: >-
-                                    Name of the referent. More info:
+                                    Name of the referent.
+
+                                    More info:
                                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                                   type: string
                                 namespace:
                                   description: >-
-                                    Namespace of the referent. More info:
+                                    Namespace of the referent.
+
+                                    More info:
                                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                                   type: string
                                 resourceVersion:
                                   description: >-
                                     Specific resourceVersion to which this
-                                    reference is made, if any. More info:
+                                    reference is made, if any.
+
+                                    More info:
                                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                                   type: string
                                 uid:
                                   description: >-
-                                    UID of the referent. More info:
+                                    UID of the referent.
+
+                                    More info:
                                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                                   type: string
                               type: object
@@ -2101,7 +2864,15 @@ components:
                           type: object
                         type: array
                       id:
-                        description: 'The object ID. vsphere: The managed object ID.'
+                        description: |-
+                          The object ID.
+                          vsphere:
+                            The managed object ID.
+                        type: string
+                      instanceType:
+                        description: >-
+                          Selected InstanceType that will override the VM
+                          properties.
                         type: string
                       luks:
                         description: Disk decryption LUKS keys
@@ -2112,55 +2883,104 @@ components:
                           fieldPath:
                             description: >-
                               If referring to a piece of an object instead of an
-                              entire object, this string should contain a valid
-                              JSON/Go field access statement, such as
-                              desiredState.manifest.containers[2]. For example,
-                              if the object reference is to a container within a
-                              pod, this would take on a value like:
+                              entire object, this string
+
+                              should contain a valid JSON/Go field access
+                              statement, such as
+                              desiredState.manifest.containers[2].
+
+                              For example, if the object reference is to a
+                              container within a pod, this would take on a value
+                              like:
+
                               "spec.containers{name}" (where "name" refers to
-                              the name of the container that triggered the
-                              event) or if no container name is specified
-                              "spec.containers[2]" (container with index 2 in
-                              this pod). This syntax is chosen only to have some
-                              well-defined way of referencing a part of an
-                              object. TODO: this design is not final and this
-                              field is subject to change in the future.
+                              the name of the container that triggered
+
+                              the event) or if no container name is specified
+                              "spec.containers[2]" (container with
+
+                              index 2 in this pod). This syntax is chosen only
+                              to have some well-defined way of
+
+                              referencing a part of an object.
                             type: string
                           kind:
                             description: >-
-                              Kind of the referent. More info:
+                              Kind of the referent.
+
+                              More info:
                               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                             type: string
                           name:
                             description: >-
-                              Name of the referent. More info:
+                              Name of the referent.
+
+                              More info:
                               https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                             type: string
                           namespace:
                             description: >-
-                              Namespace of the referent. More info:
+                              Namespace of the referent.
+
+                              More info:
                               https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                             type: string
                           resourceVersion:
                             description: >-
                               Specific resourceVersion to which this reference
-                              is made, if any. More info:
+                              is made, if any.
+
+                              More info:
                               https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                             type: string
                           uid:
                             description: >-
-                              UID of the referent. More info:
+                              UID of the referent.
+
+                              More info:
                               https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                             type: string
                         type: object
                         x-kubernetes-map-type: atomic
                       name:
-                        description: 'An object Name. vsphere: A qualified name.'
+                        description: |-
+                          An object Name.
+                          vsphere:
+                            A qualified name.
                         type: string
                       namespace:
+                        description: |-
+                          The VM Namespace
+                          Only relevant for an openshift source.
+                        type: string
+                      networkNameTemplate:
                         description: >-
-                          The VM Namespace Only relevant for an openshift
-                          source.
+                          NetworkNameTemplate is a template for generating
+                          network interface names in the target virtual machine.
+
+                          It follows Go template syntax and has access to the
+                          following variables:
+                            - .NetworkName: If target network is multus, name of the Multus network attachment definition, empty otherwise.
+                            - .NetworkNamespace: If target network is multus, namespace where the network attachment definition is located.
+                            - .NetworkType: type of the network ("Multus" or "Pod")
+                            - .NetworkIndex: sequential index of the network interface (0-based)
+                          The template can be used to customize network
+                          interface names based on target network configuration.
+
+                          Note:
+                            - This template will override at the plan level template
+                            - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                          Examples:
+                            "net-{{.NetworkIndex}}"
+                            "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
+                        type: string
+                      newName:
+                        description: >-
+                          The new name of the VM after matching DNS1123
+                          requirements.
+                        type: string
+                      operatingSystem:
+                        description: The Operating System detected by virt-v2v.
                         type: string
                       phase:
                         description: Phase
@@ -2291,18 +3111,66 @@ components:
                             - progress
                           type: object
                         type: array
+                      pvcNameTemplate:
+                        description: >-
+                          PVCNameTemplate is a template for generating PVC names
+                          for VM disks.
+
+                          It follows Go template syntax and has access to the
+                          following variables:
+                            - .VmName: name of the VM
+                            - .PlanName: name of the migration plan
+                            - .DiskIndex: initial volume index of the disk
+                            - .RootDiskIndex: index of the root disk
+                            - .Shared: true if the volume is shared by multiple VMs, false otherwise
+                          Note:
+                            This template overrides the plan level template.
+                          Examples:
+                            "{{.VmName}}-disk-{{.DiskIndex}}"
+                            "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
+                            "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
+                        type: string
                       restorePowerState:
                         description: Source VM power state before migration.
                         type: string
                       rootDisk:
-                        description: Choose the bootable disk number for praimery
+                        description: Choose the primary disk the VM boots from
                         type: string
                       started:
                         description: Started timestamp.
                         format: date-time
                         type: string
+                      targetName:
+                        description: >-
+                          TargetName specifies a custom name for the VM in the
+                          target cluster.
+
+                          If not provided, the original VM name will be used and
+                          automatically adjusted to meet k8s DNS1123
+                          requirements.
+
+                          If provided, this exact name will be used instead. The
+                          migration will fail if the name is not unique or
+                          already in use.
+                        type: string
                       type:
                         description: Type used to qualify the name.
+                        type: string
+                      volumeNameTemplate:
+                        description: >-
+                          VolumeNameTemplate is a template for generating volume
+                          interface names in the target virtual machine.
+
+                          It follows Go template syntax and has access to the
+                          following variables:
+                            - .PVCName: name of the PVC mounted to the VM using this volume
+                            - .VolumeIndex: sequential index of the volume interface (0-based)
+                          Note:
+                            - This template will override at the plan level template
+                            - If not specified on VM level and on Plan leverl, default naming conventions will be used
+                          Examples:
+                            "disk-{{.VolumeIndex}}"
+                            "pvc-{{.PVCName}}"
                         type: string
                       warm:
                         description: Warm migration status
@@ -2318,8 +3186,24 @@ components:
                             items:
                               description: Precopy durations
                               properties:
+                                createTaskId:
+                                  type: string
+                                deltas:
+                                  items:
+                                    properties:
+                                      deltaId:
+                                        type: string
+                                      disk:
+                                        type: string
+                                    required:
+                                      - deltaId
+                                      - disk
+                                    type: object
+                                  type: array
                                 end:
                                   format: date-time
+                                  type: string
+                                removeTaskId:
                                   type: string
                                 snapshot:
                                   type: string
@@ -2352,15 +3236,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -2369,9 +3267,9 @@ components:
           description: Defines the desired state of Provider.
           properties:
             secret:
-              description: >-
-                References a secret containing credentials and other
-                confidential information.
+              description: |-
+                References a secret containing credentials and
+                other confidential information.
               properties:
                 apiVersion:
                   description: API version of the referent.
@@ -2379,42 +3277,59 @@ components:
                 fieldPath:
                   description: >-
                     If referring to a piece of an object instead of an entire
-                    object, this string should contain a valid JSON/Go field
-                    access statement, such as
-                    desiredState.manifest.containers[2]. For example, if the
-                    object reference is to a container within a pod, this would
-                    take on a value like: "spec.containers{name}" (where "name"
-                    refers to the name of the container that triggered the
-                    event) or if no container name is specified
-                    "spec.containers[2]" (container with index 2 in this pod).
-                    This syntax is chosen only to have some well-defined way of
-                    referencing a part of an object. TODO: this design is not
-                    final and this field is subject to change in the future.
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
                   type: string
                 kind:
                   description: >-
-                    Kind of the referent. More info:
+                    Kind of the referent.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                   type: string
                 name:
                   description: >-
-                    Name of the referent. More info:
+                    Name of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                   type: string
                 namespace:
                   description: >-
-                    Namespace of the referent. More info:
+                    Namespace of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                   type: string
                 resourceVersion:
                   description: >-
                     Specific resourceVersion to which this reference is made, if
-                    any. More info:
+                    any.
+
+                    More info:
                     https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                   type: string
                 uid:
                   description: >-
-                    UID of the referent. More info:
+                    UID of the referent.
+
+                    More info:
                     https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                   type: string
               type: object
@@ -2428,7 +3343,9 @@ components:
               description: Provider type.
               type: string
             url:
-              description: The provider URL. Empty may be used for the `host` provider.
+              description: |-
+                The provider URL.
+                Empty may be used for the `host` provider.
               type: string
           required:
             - secret
@@ -2493,15 +3410,29 @@ components:
         apiVersion:
           description: >-
             APIVersion defines the versioned schema of this representation of an
-            object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info:
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
           type: string
         kind:
           description: >-
             Kind is a string value representing the REST resource this object
-            represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info:
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
             https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
           type: string
         metadata:
@@ -2536,19 +3467,59 @@ components:
                     required:
                       - storageClass
                     type: object
+                  offloadPlugin:
+                    description: Offload Plugin
+                    properties:
+                      vsphereXcopyConfig:
+                        description: >-
+                          VSphereXcopyPluginConfig works with the Vsphere Xcopy
+                          Volume Populator
+
+                          to offload the copy to Vsphere and the storage array.
+                        properties:
+                          secretRef:
+                            description: >-
+                              SecretRef is the name of the secret with the
+                              storage credentials for the plugin.
+
+                              The secret should reside in the same namespace
+                              where the source provider is.
+                            type: string
+                          storageVendorProduct:
+                            description: >-
+                              StorageVendorProduct the string identifier of the
+                              storage vendor product
+                            enum:
+                              - vantara
+                              - ontap
+                              - primera3par
+                            type: string
+                        required:
+                          - secretRef
+                          - storageVendorProduct
+                        type: object
+                    required:
+                      - vsphereXcopyConfig
+                    type: object
                   source:
                     description: Source storage.
                     properties:
                       id:
-                        description: 'The object ID. vsphere: The managed object ID.'
+                        description: |-
+                          The object ID.
+                          vsphere:
+                            The managed object ID.
                         type: string
                       name:
-                        description: 'An object Name. vsphere: A qualified name.'
+                        description: |-
+                          An object Name.
+                          vsphere:
+                            A qualified name.
                         type: string
                       namespace:
-                        description: >-
-                          The VM Namespace Only relevant for an openshift
-                          source.
+                        description: |-
+                          The VM Namespace
+                          Only relevant for an openshift source.
                         type: string
                       type:
                         description: Type used to qualify the name.
@@ -2571,43 +3542,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -2621,43 +3608,59 @@ components:
                     fieldPath:
                       description: >-
                         If referring to a piece of an object instead of an
-                        entire object, this string should contain a valid
-                        JSON/Go field access statement, such as
-                        desiredState.manifest.containers[2]. For example, if the
-                        object reference is to a container within a pod, this
-                        would take on a value like: "spec.containers{name}"
-                        (where "name" refers to the name of the container that
-                        triggered the event) or if no container name is
-                        specified "spec.containers[2]" (container with index 2
-                        in this pod). This syntax is chosen only to have some
-                        well-defined way of referencing a part of an object.
-                        TODO: this design is not final and this field is subject
-                        to change in the future.
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
                       type: string
                     kind:
                       description: >-
-                        Kind of the referent. More info:
+                        Kind of the referent.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
                       type: string
                     name:
                       description: >-
-                        Name of the referent. More info:
+                        Name of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
                       type: string
                     namespace:
                       description: >-
-                        Namespace of the referent. More info:
+                        Namespace of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
                       type: string
                     resourceVersion:
                       description: >-
                         Specific resourceVersion to which this reference is
-                        made, if any. More info:
+                        made, if any.
+
+                        More info:
                         https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
                       type: string
                     uid:
                       description: >-
-                        UID of the referent. More info:
+                        UID of the referent.
+
+                        More info:
                         https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
                       type: string
                   type: object
@@ -2718,16 +3721,26 @@ components:
               type: integer
             references:
               items:
-                description: Source reference. Either the ID or Name must be specified.
+                description: |-
+                  Source reference.
+                  Either the ID or Name must be specified.
                 properties:
                   id:
-                    description: 'The object ID. vsphere: The managed object ID.'
+                    description: |-
+                      The object ID.
+                      vsphere:
+                        The managed object ID.
                     type: string
                   name:
-                    description: 'An object Name. vsphere: A qualified name.'
+                    description: |-
+                      An object Name.
+                      vsphere:
+                        A qualified name.
                     type: string
                   namespace:
-                    description: The VM Namespace Only relevant for an openshift source.
+                    description: |-
+                      The VM Namespace
+                      Only relevant for an openshift source.
                     type: string
                   type:
                     description: Type used to qualify the name.
@@ -2735,5 +3748,67 @@ components:
                 type: object
               type: array
           type: object
+      type: object
+    v1beta1VSphereXcopyVolumePopulator:
+      properties:
+        apiVersion:
+          description: >-
+            APIVersion defines the versioned schema of this representation of an
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
+            https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+          type: string
+        kind:
+          description: >-
+            Kind is a string value representing the REST resource this object
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
+            https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            secretName:
+              description: The secret name with vsphere and storage credentials
+              type: string
+            storageVendorProduct:
+              description: >-
+                StorageVendorProduct is the storage vendor the target disk and
+                PVC are connected to
+
+                Supported values [vantara, ontap, primera3par]
+              type: string
+            vmdkPath:
+              description: |-
+                VmdkPath is the full path the vmdk disk. A valid path format is
+                '[$DATASTORE_NAME] $VM_NAME/$DISK_NAME.vmdk'
+              type: string
+          required:
+            - secretName
+            - storageVendorProduct
+            - vmdkPath
+          type: object
+        status:
+          properties:
+            progress:
+              type: string
+          type: object
+      required:
+        - spec
       type: object
 

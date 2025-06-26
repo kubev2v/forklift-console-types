@@ -8,3 +8,4 @@ export * from './OvirtVolumePopulatorModel.v1beta1';
 export * from './PlanModel.v1beta1';
 export * from './ProviderModel.v1beta1';
 export * from './StorageMapModel.v1beta1';
+export * from './VSphereXcopyVolumePopulatorModel.v1beta1';

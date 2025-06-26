@@ -10,18 +10,35 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
+import { V1beta1PlanStatusMigrationVmsWarmPrecopiesDeltas } from './V1beta1PlanStatusMigrationVmsWarmPrecopiesDeltas';
+
 /**
  * Precopy durations
  *
  * @export
  */
 export interface V1beta1PlanStatusMigrationVmsWarmPrecopies {
+  /** createTaskId
+   *
+   * @required {false}
+   */
+  createTaskId?: string;
+  /** deltas
+   *
+   * @required {false}
+   */
+  deltas?: V1beta1PlanStatusMigrationVmsWarmPrecopiesDeltas[];
   /** end
    *
    * @required {false}
    * @format {date-time}
    */
   end?: string;
+  /** removeTaskId
+   *
+   * @required {false}
+   */
+  removeTaskId?: string;
   /** snapshot
    *
    * @required {false}

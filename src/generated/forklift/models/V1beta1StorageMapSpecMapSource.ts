@@ -17,19 +17,24 @@
  */
 export interface V1beta1StorageMapSpecMapSource {
   /** id
-   * The object ID. vsphere: The managed object ID.
+   * The object ID.
+vsphere:
+  The managed object ID.
    *
    * @required {false}
    */
   id?: string;
   /** name
-   * An object Name. vsphere: A qualified name.
+   * An object Name.
+vsphere:
+  A qualified name.
    *
    * @required {false}
    */
   name?: string;
   /** namespace
-   * The VM Namespace Only relevant for an openshift source.
+   * The VM Namespace
+Only relevant for an openshift source.
    *
    * @required {false}
    */
