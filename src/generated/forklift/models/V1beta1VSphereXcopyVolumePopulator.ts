@@ -11,10 +11,10 @@
  */
 
 import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../kubernetes/models/IoK8sApimachineryPkgApisMetaV1ObjectMeta';
-import { V1beta1MigrationSpec } from './V1beta1MigrationSpec';
-import { V1beta1MigrationStatus } from './V1beta1MigrationStatus';
+import { V1beta1VSphereXcopyVolumePopulatorSpec } from './V1beta1VSphereXcopyVolumePopulatorSpec';
+import { V1beta1VSphereXcopyVolumePopulatorStatus } from './V1beta1VSphereXcopyVolumePopulatorStatus';
 
-export interface V1beta1Migration {
+export interface V1beta1VSphereXcopyVolumePopulator {
   /** apiVersion
    * APIVersion defines the versioned schema of this representation of an object.
 Servers should convert recognized schemas to the latest internal value, and
@@ -37,19 +37,17 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
   /** metadata
    *
    * @required {false}
-   * @originalType {V1beta1MigrationMetadata}
+   * @originalType {V1beta1VSphereXcopyVolumePopulatorMetadata}
    */
   metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
   /** spec
-   * MigrationSpec defines the desired state of Migration
    *
-   * @required {false}
+   * @required {true}
    */
-  spec?: V1beta1MigrationSpec;
+  spec: V1beta1VSphereXcopyVolumePopulatorSpec;
   /** status
-   * MigrationStatus defines the observed state of Migration
    *
    * @required {false}
    */
-  status?: V1beta1MigrationStatus;
+  status?: V1beta1VSphereXcopyVolumePopulatorStatus;
 }

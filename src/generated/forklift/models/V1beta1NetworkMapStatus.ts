@@ -34,7 +34,8 @@ export interface V1beta1NetworkMapStatus {
    */
   observedGeneration?: number;
   /** references
-   * Source reference. Either the ID or Name must be specified.
+   * Source reference.
+Either the ID or Name must be specified.
    *
    * @required {false}
    */

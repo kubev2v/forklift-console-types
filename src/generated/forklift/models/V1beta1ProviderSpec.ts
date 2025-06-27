@@ -19,7 +19,8 @@ import { V1beta1ProviderSpecSecret } from './V1beta1ProviderSpecSecret';
  */
 export interface V1beta1ProviderSpec {
   /** secret
-   * References a secret containing credentials and other confidential information.
+   * References a secret containing credentials and
+other confidential information.
    *
    * @required {true}
    */
@@ -38,7 +39,8 @@ export interface V1beta1ProviderSpec {
    */
   type: string;
   /** url
-   * The provider URL. Empty may be used for the `host` provider.
+   * The provider URL.
+Empty may be used for the `host` provider.
    *
    * @required {false}
    */

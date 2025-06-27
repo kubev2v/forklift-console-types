@@ -27,18 +27,79 @@ export interface V1beta1PlanSpec {
    * @required {false}
    */
   archived?: boolean;
+  /** deleteGuestConversionPod
+   * DeleteGuestConversionPod determines if the guest conversion pod should be deleted after successful migration.
+Note:
+  - If this option is enabled and migration succeeds then the pod will get deleted. However the VM could still not boot and the virt-v2v logs, with additional information, will be deleted alongside guest conversion pod.
+  - If migration fails the conversion pod will remain present even if this option is enabled.
+   *
+   * @required {false}
+   */
+  deleteGuestConversionPod?: boolean;
   /** description
    * Description
    *
    * @required {false}
    */
   description?: string;
+  /** diskBus
+   * Deprecated: this field will be deprecated in 2.8.
+   *
+   * @required {false}
+   */
+  diskBus?: string;
+  /** installLegacyDrivers
+   * InstallLegacyDrivers determines whether to install legacy windows drivers in the VM.
+The following Vm's are lack of SHA-2 support and need legacy drivers:
+Windows XP (all)
+Windows Server 2003
+Windows Vista (all)
+Windows Server 2008
+Windows 7 (pre-SP1)
+Windows Server 2008 R2
+Behavior:
+- If set to nil (unset), the system will automatically detect whether the VM requires legacy drivers
+  based on its guest OS type (using IsLegacyWindows).
+- If set to true, legacy drivers will be installed unconditionally by setting the VIRTIO_WIN environment variable.
+- If set to false, legacy drivers will be skipped, and the system will fall back to using the standard (SHA-2 signed) drivers.
+
+When enabled, legacy drivers are exposed to the virt-v2v conversion process via the VIRTIO_WIN environment variable,
+which points to the legacy ISO at /usr/local/virtio-win.iso.
+   *
+   * @required {false}
+   */
+  installLegacyDrivers?: boolean;
   /** map
    * Resource mapping.
    *
    * @required {true}
    */
   map: V1beta1PlanSpecMap;
+  /** migrateSharedDisks
+   * Determines if the plan should migrate shared disks.
+   *
+   * @required {false}
+   * @required {true}
+   */
+  migrateSharedDisks?: boolean;
+  /** networkNameTemplate
+   * NetworkNameTemplate is a template for generating network interface names in the target virtual machine.
+It follows Go template syntax and has access to the following variables:
+  - .NetworkName: If target network is multus, name of the Multus network attachment definition, empty otherwise.
+  - .NetworkNamespace: If target network is multus, namespace where the network attachment definition is located.
+  - .NetworkType: type of the network ("Multus" or "Pod")
+  - .NetworkIndex: sequential index of the network interface (0-based)
+The template can be used to customize network interface names based on target network configuration.
+Note:
+  - This template can be overridden at the individual VM level
+  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+Examples:
+  "net-{{.NetworkIndex}}"
+  "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
+   *
+   * @required {false}
+   */
+  networkNameTemplate?: string;
   /** preserveClusterCpuModel
    * Preserve the CPU model and flags the VM runs with in its oVirt cluster.
    *
@@ -46,7 +107,7 @@ export interface V1beta1PlanSpec {
    */
   preserveClusterCpuModel?: boolean;
   /** preserveStaticIPs
-   * Preserve static IPs of VMs in vSphere (Windows only)
+   * Preserve static IPs of VMs in vSphere
    *
    * @required {false}
    */
@@ -57,6 +118,46 @@ export interface V1beta1PlanSpec {
    * @required {true}
    */
   provider: V1beta1PlanSpecProvider;
+  /** pvcNameTemplate
+   * PVCNameTemplate is a template for generating PVC names for VM disks.
+It follows Go template syntax and has access to the following variables:
+  - .VmName: name of the VM
+  - .PlanName: name of the migration plan
+  - .DiskIndex: initial volume index of the disk
+  - .WinDriveLetter: Windows drive letter (lower case, if applicable, e.g. "c", require guest agent)
+  - .RootDiskIndex: index of the root disk
+  - .Shared: true if the volume is shared by multiple VMs, false otherwise
+  - .FileName: name of the file in the source provider (vmWare only, require guest agent)
+Note:
+  This template can be overridden at the individual VM level.
+Examples:
+  "{{.VmName}}-disk-{{.DiskIndex}}"
+  "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
+  "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
+   *
+   * @required {false}
+   */
+  pvcNameTemplate?: string;
+  /** pvcNameTemplateUseGenerateName
+   * PVCNameTemplateUseGenerateName indicates if the PVC name template should use generateName instead of name.
+Setting this to false will use the name field of the PVCNameTemplate.
+This is useful when using a template that generates a name without a suffix.
+For example, if the template is "{{.VmName}}-disk-{{.DiskIndex}}", setting this to false will result in
+the PVC name being "{{.VmName}}-disk-{{.DiskIndex}}", which may not be unique.
+but will be more predictable.
+**DANGER** When set to false, the generated PVC name may not be unique and may cause conflicts.
+   *
+   * @required {false}
+   * @required {true}
+   */
+  pvcNameTemplateUseGenerateName?: boolean;
+  /** skipGuestConversion
+   * Determines if the plan should skip the guest conversion.
+   *
+   * @required {false}
+   * @required {false}
+   */
+  skipGuestConversion?: boolean;
   /** targetNamespace
    * Target namespace.
    *
@@ -69,12 +170,34 @@ export interface V1beta1PlanSpec {
    * @required {false}
    */
   transferNetwork?: V1beta1PlanSpecTransferNetwork;
+  /** type
+   * Migration type. e.g. "cold", "warm", "live". Supersedes the `warm` boolean if set.
+   *
+   * @required {false}
+   * @originalType {string}
+   */
+  type?: 'cold' | 'warm' | 'live';
   /** vms
    * A VM listed on the plan.
    *
    * @required {true}
    */
   vms: V1beta1PlanSpecVms[];
+  /** volumeNameTemplate
+   * VolumeNameTemplate is a template for generating volume interface names in the target virtual machine.
+It follows Go template syntax and has access to the following variables:
+  - .PVCName: name of the PVC mounted to the VM using this volume
+  - .VolumeIndex: sequential index of the volume interface (0-based)
+Note:
+  - This template can be overridden at the individual VM level
+  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+Examples:
+  "disk-{{.VolumeIndex}}"
+  "pvc-{{.PVCName}}"
+   *
+   * @required {false}
+   */
+  volumeNameTemplate?: string;
   /** warm
    * Whether this is a warm migration.
    *

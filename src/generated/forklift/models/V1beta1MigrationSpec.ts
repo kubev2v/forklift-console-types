@@ -20,13 +20,15 @@ import { V1beta1MigrationSpecPlan } from './V1beta1MigrationSpecPlan';
  */
 export interface V1beta1MigrationSpec {
   /** cancel
-   * Source reference. Either the ID or Name must be specified.
+   * Source reference.
+Either the ID or Name must be specified.
    *
    * @required {false}
    */
   cancel?: V1beta1MigrationSpecCancel[];
   /** cutover
-   * Date and time to finalize a warm migration. If present, this will override the value set on the Plan.
+   * Date and time to finalize a warm migration.
+If present, this will override the value set on the Plan.
    *
    * @required {false}
    * @format {date-time}

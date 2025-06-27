@@ -29,10 +29,14 @@ export interface V1beta1NetworkMapSpecMapDestination {
    */
   namespace?: string;
   /** type
-   * The network type.
+   * Type of network to use for the destination.
+Valid values:
+- pod: Use the Kubernetes pod network
+- multus: Use a Multus additional network
+- ignored: Network is excluded from mapping
    *
    * @required {true}
    * @originalType {string}
    */
-  type: 'pod' | 'multus';
+  type: 'pod' | 'multus' | 'ignored';
 }

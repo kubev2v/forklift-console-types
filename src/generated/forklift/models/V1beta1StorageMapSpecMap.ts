@@ -11,6 +11,7 @@
  */
 
 import { V1beta1StorageMapSpecMapDestination } from './V1beta1StorageMapSpecMapDestination';
+import { V1beta1StorageMapSpecMapOffloadPlugin } from './V1beta1StorageMapSpecMapOffloadPlugin';
 import { V1beta1StorageMapSpecMapSource } from './V1beta1StorageMapSpecMapSource';
 
 /**
@@ -25,6 +26,12 @@ export interface V1beta1StorageMapSpecMap {
    * @required {true}
    */
   destination: V1beta1StorageMapSpecMapDestination;
+  /** offloadPlugin
+   * Offload Plugin
+   *
+   * @required {false}
+   */
+  offloadPlugin?: V1beta1StorageMapSpecMapOffloadPlugin;
   /** source
    * Source storage.
    *
