@@ -24,9 +24,15 @@ Supported values [vantara, ontap, primera3par]
    * @required {true}
    */
   storageVendorProduct: string;
+  /** vmId
+   * VmId is the VM object id in vSphere
+   *
+   * @required {true}
+   */
+  vmId: string;
   /** vmdkPath
    * VmdkPath is the full path the vmdk disk. A valid path format is
-'[$DATASTORE_NAME] $VM_NAME/$DISK_NAME.vmdk'
+'[$DATASTORE_NAME] $VM_HOME/$DISK_NAME.vmdk'
    *
    * @required {true}
    */
