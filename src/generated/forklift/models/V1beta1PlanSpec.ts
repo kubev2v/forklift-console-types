@@ -12,6 +12,7 @@
 
 import { V1beta1PlanSpecMap } from './V1beta1PlanSpecMap';
 import { V1beta1PlanSpecProvider } from './V1beta1PlanSpecProvider';
+import { V1beta1PlanSpecTargetAffinity } from './V1beta1PlanSpecTargetAffinity';
 import { V1beta1PlanSpecTransferNetwork } from './V1beta1PlanSpecTransferNetwork';
 import { V1beta1PlanSpecVms } from './V1beta1PlanSpecVms';
 
@@ -158,12 +159,51 @@ but will be more predictable.
    * @required {false}
    */
   skipGuestConversion?: boolean;
+  /** targetAffinity
+   * TargetAffinity allows specifying hard- and soft-affinity for VMs.
+it is possible to write matching rules against workloads (VMs and Pods) and Nodes.
+Since VMs are a workload type based on Pods, Pod-affinity affects VMs as well.
+See virtual machine instance Affinity documentation for more details,
+https://kubevirt.io/user-guide/compute/node_assignment/#affinity-and-anti-affinity
+   *
+   * @required {false}
+   */
+  targetAffinity?: V1beta1PlanSpecTargetAffinity;
+  /** targetLabels
+   * TargetLabels are labels that should be applied to the target virtual machines.
+See Pod Labels documentation for more details,
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#labels
+   *
+   * @required {false}
+   * @originalType {V1beta1PlanSpecTargetLabels}
+   */
+  targetLabels?: {[key: string]: string};
   /** targetNamespace
    * Target namespace.
    *
    * @required {true}
    */
   targetNamespace: string;
+  /** targetNodeSelector
+   * TargetNodeSelector, constrains the scheduler to only schedule VMs on nodes,
+which contain the specified labels.
+See virtual machine instance NodeSelector documentation for more details,
+https://kubevirt.io/user-guide/compute/node_assignment/#nodeselector
+   *
+   * @required {false}
+   * @originalType {V1beta1PlanSpecTargetNodeSelector}
+   */
+  targetNodeSelector?: {[key: string]: string};
+  /** targetPowerState
+   * TargetPowerState specifies the desired power state of the target VM after migration.
+- "on": Target VM will be powered on after migration
+- "off": Target VM will be powered off after migration
+- "auto" or nil (default): Target VM will match the source VM's power state
+   *
+   * @required {false}
+   * @originalType {string}
+   */
+  targetPowerState?: 'on' | 'off' | 'auto';
   /** transferNetwork
    * The network attachment definition that should be used for disk transfer.
    *
@@ -177,6 +217,16 @@ but will be more predictable.
    * @originalType {string}
    */
   type?: 'cold' | 'warm' | 'live';
+  /** useCompatibilityMode
+   * useCompatibilityMode controls whether to use VirtIO devices when skipGuestConversion is true (Raw Copy mode).
+This setting has no effect when skipGuestConversion is false (V2V Conversion always uses VirtIO).
+- true (default): Use compatibility devices (SATA bus, E1000E NIC) to ensure bootability
+- false: Use high-performance VirtIO devices (requires VirtIO drivers already installed in source VM)
+   *
+   * @required {false}
+   * @required {true}
+   */
+  useCompatibilityMode?: boolean;
   /** vms
    * A VM listed on the plan.
    *
@@ -200,6 +250,7 @@ Examples:
   volumeNameTemplate?: string;
   /** warm
    * Whether this is a warm migration.
+Deprecated: this field will be deprecated in 2.10. Use Type instead.
    *
    * @required {false}
    */

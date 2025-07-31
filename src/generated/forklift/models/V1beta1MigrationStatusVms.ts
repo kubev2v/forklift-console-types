@@ -176,6 +176,16 @@ If provided, this exact name will be used instead. The migration will fail if th
    * @required {false}
    */
   targetName?: string;
+  /** targetPowerState
+   * TargetPowerState specifies the desired power state of the target VM after migration.
+- "on": Target VM will be powered on after migration
+- "off": Target VM will be powered off after migration
+- "auto" or nil (default): Target VM will match the source VM's power state
+   *
+   * @required {false}
+   * @originalType {string}
+   */
+  targetPowerState?: 'on' | 'off' | 'auto';
   /** type
    * Type used to qualify the name.
    *
