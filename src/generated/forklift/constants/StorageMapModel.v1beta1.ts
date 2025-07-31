@@ -13,8 +13,8 @@ export const StorageMapModel = {
   kind: 'StorageMap',
   plural: 'storagemaps',
 
-  abbr: 'ST',
-  color: undefined,
+  abbr: 'SM',
+  color: '#F6D173',
   id: 'storagemaps.forklift.konveyor.io',
   namespaced: true,
   crd: true,
