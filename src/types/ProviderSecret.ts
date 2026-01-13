@@ -1,6 +1,7 @@
 /** Unified file containing typed provider secrets */
 
 import {
+  HypervProviderSecret,
   OpenShiftProviderSecret,
   OpenstackProviderSecret,
   OvaProviderSecret,
@@ -8,7 +9,7 @@ import {
   VSphereProviderSecret,
 } from './secret';
 
-export type ProviderType = 'openshift' | 'vsphere' | 'ovirt' | 'openstack' | 'ova';
+export type ProviderType = 'openshift' | 'vsphere' | 'ovirt' | 'openstack' | 'ova' | 'hyperv';
 
 /**
  * Provider secret containing credentials and other confidential information
@@ -21,4 +22,5 @@ export type ProviderSecret =
   | VSphereProviderSecret
   | OVirtProviderSecret
   | OpenstackProviderSecret
-  | OvaProviderSecret;
+  | OvaProviderSecret
+  | HypervProviderSecret;
