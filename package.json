@@ -1,6 +1,6 @@
 {
   "name": "@kubev2v/types",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "Typescript interfaces and types for forklift-console-plugin",
   "license": "Apache-2.0",
   "private": false,
@@ -18,7 +18,12 @@
     "build:pack": "npm run build && npm pack",
     "build:publish": "npm run build && npm publish",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "update:forklift": "./scripts/update-forklift.sh",
+    "update:kubernetes": "./scripts/update-kubernetes.sh",
+    "update:kubevirt": "./scripts/update-kubevirt.sh",
+    "update:cdi": "./scripts/update-cdi.sh",
+    "check:conflicts": "./scripts/check-conflicts.sh"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
