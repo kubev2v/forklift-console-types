@@ -1,4 +1,4 @@
-# Maintenance Guide for @kubev2v/types
+# Maintenance Guide for @forklift-ui/types
 
 This document provides comprehensive instructions for maintaining and updating the types in this package.
 
@@ -218,7 +218,7 @@ npm run clean
 # Build and create tarball
 npm run build:pack
 
-# This creates a file like: kubev2v-types-0.0.24.tgz
+# This creates a file like: forklift-ui-types-1.0.0.tgz
 ```
 
 ### Step 2: Install in Your Test Project
@@ -228,7 +228,7 @@ npm run build:pack
 cd /path/to/your/project
 
 # Install the local package
-npm install /path/to/forklift-console-types/kubev2v-types-0.0.24.tgz
+npm install /path/to/forklift-console-types/forklift-ui-types-1.0.0.tgz
 ```
 
 ### Step 3: Test Your Code
@@ -243,7 +243,7 @@ After testing, reinstall the published version:
 
 ```bash
 # In your consuming project
-npm install @kubev2v/types
+npm install @forklift-ui/types
 ```
 
 ### Quick Test Command
@@ -266,7 +266,9 @@ head dist/index.d.ts
 
 ## Publishing
 
-### Pre-publish Checklist
+Publishing is **automated via GitHub Actions**. When you create a GitHub release, the package is automatically published to npm.
+
+### Pre-release Checklist
 
 - [ ] All update scripts ran successfully
 - [ ] `npm run build` completes without errors
@@ -274,23 +276,42 @@ head dist/index.d.ts
 - [ ] Local testing in a consuming project works
 - [ ] Version number bumped in `package.json`
 - [ ] [Version Tracking](#version-tracking) table updated
+- [ ] Changes committed and pushed to `main`
 
-### Publish Steps
+### Release Steps
+
+1. **Bump version in `package.json`** and commit:
+   ```bash
+   # Edit package.json: "version": "1.0.1"
+   git add package.json
+   git commit -m "chore: bump version to 1.0.1"
+   git push origin main
+   ```
+
+2. **Create a GitHub Release:**
+   - Go to https://github.com/kubev2v/forklift-console-types/releases
+   - Click **"Create new release"**
+   - Tag: `v1.0.1` (must match package.json version with `v` prefix)
+   - Title: `v1.0.1`
+   - Description: List the changes
+   - Click **"Publish release"**
+
+3. **GitHub Actions will automatically:**
+   - Build the package
+   - Publish to npm with provenance
+
+4. **Verify on npm:**
+   - Check https://www.npmjs.com/package/@forklift-ui/types
+
+### Manual Publishing (Fallback)
+
+If automated publishing fails, you can publish manually:
 
 ```bash
-# 1. Bump version in package.json
-# Edit package.json: "version": "0.0.25"
-
-# 2. Build and lint
 npm run clean
 npm run build
 npm run lint
-
-# 3. Publish to npm
-npm publish
-
-# Or use the combined command:
-npm run build:publish
+npm publish --access public
 ```
 
 ---
