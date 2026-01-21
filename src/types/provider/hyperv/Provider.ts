@@ -1,4 +1,4 @@
-import { V1beta1Provider } from '../../../generated';
+import { V1beta1Provider } from '../../../generated/forklift/models';
 
 import { HypervResource } from './Resource';
 

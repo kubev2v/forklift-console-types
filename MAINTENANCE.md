@@ -369,7 +369,7 @@ Track which upstream versions are currently included. **Update this table after 
 
 | Source | Current Version | Last Updated | Updated By |
 |--------|-----------------|--------------|------------|
-| Forklift | main | YYYY-MM-DD | |
+| Forklift | main | 2026-JAN-21 | |
 | Kubernetes | master | YYYY-MM-DD | |
 | KubeVirt | main | YYYY-MM-DD | |
 | CDI | main | YYYY-MM-DD | |

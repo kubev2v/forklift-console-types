@@ -11,6 +11,7 @@
  */
 
 import { V1beta1ProviderStatusConditions } from './V1beta1ProviderStatusConditions';
+import { V1beta1ProviderStatusService } from './V1beta1ProviderStatusService';
 
 /**
  * ProviderStatus defines the observed state of Provider
@@ -44,4 +45,10 @@ export interface V1beta1ProviderStatus {
    * @required {false}
    */
   phase?: string;
+  /** service
+   * Provider service reference
+   *
+   * @required {false}
+   */
+  service?: V1beta1ProviderStatusService;
 }

@@ -36,6 +36,18 @@ export interface V1beta1PlanStatusMigrationVms {
    * @required {false}
    */
   conditions?: V1beta1PlanStatusMigrationVmsConditions[];
+  /** deleteVmOnFailMigration
+   * DeleteVmOnFailMigration controls whether the target VM created by this Plan is deleted when a migration fails.
+When true and the migration fails after the target VM has been created, the controller
+will delete the target VM (and related target-side resources) during failed-migration cleanup
+and when the Plan is deleted. When false (default), the target VM is preserved to aid
+troubleshooting. The source VM is never modified.
+
+Note: If the Plan-level option is set to true, the VM-level option will be ignored.
+   *
+   * @required {false}
+   */
+  deleteVmOnFailMigration?: boolean;
   /** error
    * Errors
    *
@@ -89,6 +101,16 @@ Only relevant for an openshift source.
    * @required {false}
    */
   namespace?: string;
+  /** nbdeClevis
+   * Attempt passphrase-less unlocking for all devices with Clevis, over the network.
+Conversion pod running on target cluster will attempt to connect to a TANG server, make sure TANG
+server is available on target network.
+https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/security_hardening/configuring-automated-unlocking-of-encrypted-volumes-using-policy-based-decryption_security-hardening
+If both nbdeClevis and LUKS are configured, nbdeClevis takes precedence.
+   *
+   * @required {false}
+   */
+  nbdeClevis?: boolean;
   /** networkNameTemplate
    * NetworkNameTemplate is a template for generating network interface names in the target virtual machine.
 It follows Go template syntax and has access to the following variables:
@@ -97,9 +119,14 @@ It follows Go template syntax and has access to the following variables:
   - .NetworkType: type of the network ("Multus" or "Pod")
   - .NetworkIndex: sequential index of the network interface (0-based)
 The template can be used to customize network interface names based on target network configuration.
+
+Provider support:
+  - VMware (vSphere): Supported. Network interface names can be customized.
+  - OpenShift: Not supported. Network interface names are preserved from the source VM.
+
 Note:
   - This template will override at the plan level template
-  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+  - If not specified on VM level and on Plan level, default naming conventions will be used
 Examples:
   "net-{{.NetworkIndex}}"
   "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
@@ -133,18 +160,33 @@ Examples:
   pipeline: V1beta1PlanStatusMigrationVmsPipeline[];
   /** pvcNameTemplate
    * PVCNameTemplate is a template for generating PVC names for VM disks.
-It follows Go template syntax and has access to the following variables:
-  - .VmName: name of the VM
+Generated names must be valid DNS-1123 labels (lowercase alphanumerics, '-' allowed, max 63 chars).
+It follows Go template syntax and has access to provider-specific variables.
+
+Common variables (all providers):
+  - .VmName: name of the VM in the source cluster (original source name)
+  - .TargetVmName: final VM name in the target cluster (may equal .VmName if no rename/normalization)
   - .PlanName: name of the migration plan
   - .DiskIndex: initial volume index of the disk
+
+VMware (vSphere) specific variables:
+  - .WinDriveLetter: Windows drive letter (lowercase, if applicable, e.g. "c", requires guest agent)
   - .RootDiskIndex: index of the root disk
   - .Shared: true if the volume is shared by multiple VMs, false otherwise
+  - .FileName: name of the file in the source provider (filename includes the .vmdk suffix)
+
+OpenShift specific variables:
+  - .SourcePVCName: name of the PVC in the source cluster
+  - .SourcePVCNamespace: namespace of the PVC in the source cluster
+
 Note:
   This template overrides the plan level template.
 Examples:
-  "{{.VmName}}-disk-{{.DiskIndex}}"
-  "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
-  "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
+  "{{.TargetVmName}}-disk-{{.DiskIndex}}"
+  "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}" (VMware)
+  "{{.TargetVmName}}-{{.SourcePVCName}}" (OpenShift)
+See:
+	 https://github.com/kubev2v/forklift/tree/main/pkg/templateutil for template functions.
    *
    * @required {false}
    */
@@ -197,9 +239,14 @@ If provided, this exact name will be used instead. The migration will fail if th
 It follows Go template syntax and has access to the following variables:
   - .PVCName: name of the PVC mounted to the VM using this volume
   - .VolumeIndex: sequential index of the volume interface (0-based)
+
+Provider support:
+  - VMware (vSphere): Supported. Default naming is "vol-{index}".
+  - OpenShift: Not supported. Volume names are preserved from the source VM.
+
 Note:
   - This template will override at the plan level template
-  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+  - If not specified on VM level and on Plan level, default naming conventions will be used
 Examples:
   "disk-{{.VolumeIndex}}"
   "pvc-{{.PVCName}}"
