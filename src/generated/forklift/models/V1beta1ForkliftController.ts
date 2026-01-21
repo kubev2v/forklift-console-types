@@ -11,6 +11,7 @@
  */
 
 import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../kubernetes/models/IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import { V1beta1ForkliftControllerSpec } from './V1beta1ForkliftControllerSpec';
 
 /**
  * ForkliftController is the Schema for the forkliftcontrollers API
@@ -40,9 +41,9 @@ export interface V1beta1ForkliftController {
    * Spec defines the desired state of ForkliftController
    *
    * @required {false}
-   * @originalType {not defined}
+   * @originalType {V1beta1ForkliftControllerSpec}
    */
-  spec?: unknown | null;
+  spec?: V1beta1ForkliftControllerSpec;
   /** status
    * Status defines the observed state of ForkliftController
    *

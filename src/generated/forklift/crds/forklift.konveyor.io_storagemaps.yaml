@@ -89,11 +89,15 @@ spec:
                               description: StorageVendorProduct the string identifier
                                 of the storage vendor product
                               enum:
+                              - flashsystem
                               - vantara
                               - ontap
                               - primera3par
                               - pureFlashArray
                               - powerflex
+                              - powermax
+                              - powerstore
+                              - infinibox
                               type: string
                           required:
                           - secretRef
@@ -259,6 +263,9 @@ spec:
                       type: string
                     status:
                       description: The condition status [true,false].
+                      type: string
+                    suggestion:
+                      description: A suggested action or resolution for the condition.
                       type: string
                     type:
                       description: The condition type.

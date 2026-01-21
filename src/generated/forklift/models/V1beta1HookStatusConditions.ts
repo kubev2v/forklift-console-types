@@ -58,6 +58,12 @@ export interface V1beta1HookStatusConditions {
    * @required {true}
    */
   status: string;
+  /** suggestion
+   * A suggested action or resolution for the condition.
+   *
+   * @required {false}
+   */
+  suggestion?: string;
   /** type
    * The condition type.
    *

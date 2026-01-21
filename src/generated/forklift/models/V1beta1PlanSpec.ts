@@ -10,6 +10,8 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
+import { V1beta1PlanSpecConvertorAffinity } from './V1beta1PlanSpecConvertorAffinity';
+import { V1beta1PlanSpecCustomizationScripts } from './V1beta1PlanSpecCustomizationScripts';
 import { V1beta1PlanSpecMap } from './V1beta1PlanSpecMap';
 import { V1beta1PlanSpecProvider } from './V1beta1PlanSpecProvider';
 import { V1beta1PlanSpecTargetAffinity } from './V1beta1PlanSpecTargetAffinity';
@@ -28,6 +30,79 @@ export interface V1beta1PlanSpec {
    * @required {false}
    */
   archived?: boolean;
+  /** conversionTempStorageClass
+   * ConversionTempStorageClass specifies the storage class to use for temporary conversion storage.
+When specified, virt-v2v conversion pods will use a temporary PVC from this storage class
+instead of using the node's ephemeral storage for the conversion scratch space.
+This is useful for:
+  - Large VM migrations (10+ TB disks) where fstrim operations create large overlays
+  - OVA imports that require full uncompressed disk copies in temporary storage
+  - Nodes with limited ephemeral storage that may cause pod eviction due to storage pressure
+The temporary PVC is automatically created and deleted with the conversion pod.
+   *
+   * @required {false}
+   */
+  conversionTempStorageClass?: string;
+  /** conversionTempStorageSize
+   * ConversionTempStorageSize specifies the size of the temporary conversion storage PVC.
+Only used when ConversionTempStorageClass is specified.
+User specification allows for buffer space beyond the largest disk size to accommodate:
+  - Temporary files during conversion
+  - Multiple concurrent conversions
+  - OVA imports requiring full uncompressed copies
+Recommended minimum: size of the largest VM disk being migrated.
+Format: standard Kubernetes resource quantity (e.g., "30Gi", "1Ti")
+   *
+   * @required {false}
+   */
+  conversionTempStorageSize?: string;
+  /** convertorAffinity
+   * ConvertorAffinity allows specifying hard- and soft-affinity for virt-v2v convertor pods.
+This can be used to optimize placement for disk conversion performance, such as co-locating
+with storage or ensuring network proximity to VMware infrastructure for cold migration data transfers.
+See Pod Affinity documentation for more details,
+https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
+   *
+   * @required {false}
+   */
+  convertorAffinity?: V1beta1PlanSpecConvertorAffinity;
+  /** convertorLabels
+   * ConvertorLabels are labels that should be applied to the virt-v2v convertor pods.
+The convertor pods run virt-v2v to convert VMware disks, install KVM guest agents and drivers,
+and handle disk data migration for cold migrations from VMware to KubeVirt.
+Note: System-managed labels (migration, plan, vmID, forklift.app) will override any user-defined
+labels with the same keys to ensure proper system functionality.
+See Pod Labels documentation for more details,
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#labels
+   *
+   * @required {false}
+   * @originalType {V1beta1PlanSpecConvertorLabels}
+   */
+  convertorLabels?: {[key: string]: string};
+  /** convertorNodeSelector
+   * ConvertorNodeSelector constrains the scheduler to only schedule virt-v2v convertor pods on nodes
+which contain the specified labels. This is useful for dedicating specific nodes for disk conversion
+workloads that require high I/O performance or network access to source VMware infrastructure.
+See Pod NodeSelector documentation for more details,
+https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
+   *
+   * @required {false}
+   * @originalType {V1beta1PlanSpecConvertorNodeSelector}
+   */
+  convertorNodeSelector?: {[key: string]: string};
+  /** customizationScripts
+   * CustomizationScripts references a ConfigMap containing customization scripts
+to run during guest conversion. The ConfigMap must exist in the specified
+namespace and contain script files with keys following these patterns:
+  - Windows: [0-9]+_win_firstboot_[description_text].ps1
+  - Linux: [0-9]+_linux_(run|firstboot)_[description_text].sh
+Scripts are mounted at /mnt/dynamic_scripts in the conversion pod and
+executed by virt-customize. The number at the start of the key determines the
+execution order. If not specified, no custom scripts are injected.
+   *
+   * @required {false}
+   */
+  customizationScripts?: V1beta1PlanSpecCustomizationScripts;
   /** deleteGuestConversionPod
    * DeleteGuestConversionPod determines if the guest conversion pod should be deleted after successful migration.
 Note:
@@ -37,6 +112,18 @@ Note:
    * @required {false}
    */
   deleteGuestConversionPod?: boolean;
+  /** deleteVmOnFailMigration
+   * DeleteVmOnFailMigration controls whether the target VM created by this Plan is deleted when a migration fails.
+When true and the migration fails after the target VM has been created, the controller
+will delete the target VM (and related target-side resources) during failed-migration cleanup
+and when the Plan is deleted. When false (default), the target VM is preserved to aid
+troubleshooting. The source VM is never modified.
+
+Note: If the Plan-level option is set to true, the VM-level option will be ignored.
+   *
+   * @required {false}
+   */
+  deleteVmOnFailMigration?: boolean;
   /** description
    * Description
    *
@@ -65,7 +152,7 @@ Behavior:
 - If set to false, legacy drivers will be skipped, and the system will fall back to using the standard (SHA-2 signed) drivers.
 
 When enabled, legacy drivers are exposed to the virt-v2v conversion process via the VIRTIO_WIN environment variable,
-which points to the legacy ISO at /usr/local/virtio-win.iso.
+which points to the legacy ISO at /usr/local/virtio-win-legacy.iso.
    *
    * @required {false}
    */
@@ -91,9 +178,14 @@ It follows Go template syntax and has access to the following variables:
   - .NetworkType: type of the network ("Multus" or "Pod")
   - .NetworkIndex: sequential index of the network interface (0-based)
 The template can be used to customize network interface names based on target network configuration.
+
+Provider support:
+  - VMware (vSphere): Supported. Network interface names can be customized.
+  - OpenShift: Not supported. Network interface names are preserved from the source VM.
+
 Note:
   - This template can be overridden at the individual VM level
-  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+  - If not specified on VM level and on Plan level, default naming conventions will be used
 Examples:
   "net-{{.NetworkIndex}}"
   "{{if eq .NetworkType "Pod"}}pod{{else}}multus-{{.NetworkIndex}}{{end}}"
@@ -111,6 +203,7 @@ Examples:
    * Preserve static IPs of VMs in vSphere
    *
    * @required {false}
+   * @required {true}
    */
   preserveStaticIPs?: boolean;
   /** provider
@@ -121,37 +214,70 @@ Examples:
   provider: V1beta1PlanSpecProvider;
   /** pvcNameTemplate
    * PVCNameTemplate is a template for generating PVC names for VM disks.
-It follows Go template syntax and has access to the following variables:
-  - .VmName: name of the VM
+Generated names must be valid DNS-1123 labels (lowercase alphanumerics, '-' allowed, max 63 chars).
+It follows Go template syntax and has access to provider-specific variables.
+
+Common variables (all providers):
+  - .VmName: name of the VM in the source cluster (original source name)
+  - .TargetVmName: final VM name in the target cluster (may equal .VmName if no rename/normalization)
   - .PlanName: name of the migration plan
   - .DiskIndex: initial volume index of the disk
-  - .WinDriveLetter: Windows drive letter (lower case, if applicable, e.g. "c", require guest agent)
+
+VMware (vSphere) specific variables:
+  - .WinDriveLetter: Windows drive letter (lowercase, if applicable, e.g. "c", requires guest agent)
   - .RootDiskIndex: index of the root disk
   - .Shared: true if the volume is shared by multiple VMs, false otherwise
-  - .FileName: name of the file in the source provider (vmWare only, require guest agent)
+  - .FileName: name of the file in the source provider (filename includes the .vmdk suffix)
+
+OpenShift specific variables:
+  - .SourcePVCName: name of the PVC in the source cluster
+  - .SourcePVCNamespace: namespace of the PVC in the source cluster
+
+Default behavior when not set:
+  - VMware: generates names like "{{trunc 4 .PlanName}}-{{trunc 4 .VmName}}-disk-{{.DiskIndex}}"
+  - OpenShift: uses the original source PVC name ("{{.SourcePVCName}}")
+
 Note:
   This template can be overridden at the individual VM level.
 Examples:
-  "{{.VmName}}-disk-{{.DiskIndex}}"
-  "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}"
-  "{{if .Shared}}shared-{{end}}{{.VmName}}-{{.DiskIndex}}"
+  "{{.TargetVmName}}-disk-{{.DiskIndex}}"
+  "{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}" (VMware)
+  "{{.TargetVmName}}-{{.SourcePVCName}}" (OpenShift)
+See:
+	 https://github.com/kubev2v/forklift/tree/main/pkg/templateutil for template functions.
    *
    * @required {false}
    */
   pvcNameTemplate?: string;
   /** pvcNameTemplateUseGenerateName
    * PVCNameTemplateUseGenerateName indicates if the PVC name template should use generateName instead of name.
-Setting this to false will use the name field of the PVCNameTemplate.
-This is useful when using a template that generates a name without a suffix.
-For example, if the template is "{{.VmName}}-disk-{{.DiskIndex}}", setting this to false will result in
-the PVC name being "{{.VmName}}-disk-{{.DiskIndex}}", which may not be unique.
-but will be more predictable.
-**DANGER** When set to false, the generated PVC name may not be unique and may cause conflicts.
+This field controls whether the template output is used as an exact name or as a prefix for generated names.
+
+Provider-specific behavior:
+
+VMware (vSphere):
+  - true (default): Template output is used as generateName prefix, Kubernetes adds a random suffix
+    (e.g., "my-vm-disk-0-" becomes "my-vm-disk-0-abc12")
+  - false: Template output is used as the exact PVC name
+    **DANGER**: May cause conflicts if the generated name is not unique
+
+OpenShift:
+  - This field is ignored. The template output is always used as the exact PVC name.
+  - Default template "{{.SourcePVCName}}" preserves source PVC names which are typically unique.
    *
    * @required {false}
    * @required {true}
    */
   pvcNameTemplateUseGenerateName?: boolean;
+  /** runPreflightInspection
+   * RunPreflightInspection controls whether an inspection step on VM base disks is performed before starting the first disk transfer. Applies only to warm migrations from VMWare.
+- true (default): Inspection step runs before transferring any disks and may fail if it detects the migration would fail.
+- false: No inspection is performed before disk transfer.
+   *
+   * @required {false}
+   * @required {true}
+   */
+  runPreflightInspection?: boolean;
   /** skipGuestConversion
    * Determines if the plan should skip the guest conversion.
    *
@@ -159,6 +285,20 @@ but will be more predictable.
    * @required {false}
    */
   skipGuestConversion?: boolean;
+  /** skipZoneNodeSelector
+   * SkipZoneNodeSelector controls whether to skip adding a zone-based node selector to
+migrated VMs. By default, the migration automatically reads the availability zone from
+the source provider's spec.settings.target-az configuration and adds a node selector
+(topology.kubernetes.io/zone=<target-az>) to the target VM. This ensures VMs are
+scheduled on nodes in the same zone as their EBS volumes, which is required for
+volume attachment by the CSI driver.
+Currently supported for EC2 provider only.
+- false (default): Add zone-based node selector using value from provider's spec.settings.target-az
+- true: Skip adding zone-based node selector
+   *
+   * @required {false}
+   */
+  skipZoneNodeSelector?: boolean;
   /** targetAffinity
    * TargetAffinity allows specifying hard- and soft-affinity for VMs.
 it is possible to write matching rules against workloads (VMs and Pods) and Nodes.
@@ -171,6 +311,8 @@ https://kubevirt.io/user-guide/compute/node_assignment/#affinity-and-anti-affini
   targetAffinity?: V1beta1PlanSpecTargetAffinity;
   /** targetLabels
    * TargetLabels are labels that should be applied to the target virtual machines.
+Note: System-managed labels (migration, plan, vmID, app) will override any user-defined
+labels with the same keys to ensure proper system functionality.
 See Pod Labels documentation for more details,
 https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#labels
    *
@@ -211,12 +353,12 @@ https://kubevirt.io/user-guide/compute/node_assignment/#nodeselector
    */
   transferNetwork?: V1beta1PlanSpecTransferNetwork;
   /** type
-   * Migration type. e.g. "cold", "warm", "live". Supersedes the `warm` boolean if set.
+   * Migration type. e.g. "cold", "warm", "live", "conversion". Supersedes the `warm` boolean if set.
    *
    * @required {false}
    * @originalType {string}
    */
-  type?: 'cold' | 'warm' | 'live';
+  type?: 'cold' | 'warm' | 'live' | 'conversion';
   /** useCompatibilityMode
    * useCompatibilityMode controls whether to use VirtIO devices when skipGuestConversion is true (Raw Copy mode).
 This setting has no effect when skipGuestConversion is false (V2V Conversion always uses VirtIO).
@@ -238,9 +380,14 @@ This setting has no effect when skipGuestConversion is false (V2V Conversion alw
 It follows Go template syntax and has access to the following variables:
   - .PVCName: name of the PVC mounted to the VM using this volume
   - .VolumeIndex: sequential index of the volume interface (0-based)
+
+Provider support:
+  - VMware (vSphere): Supported. Default naming is "vol-{index}".
+  - OpenShift: Not supported. Volume names are preserved from the source VM.
+
 Note:
   - This template can be overridden at the individual VM level
-  - If not specified on VM level and on Plan leverl, default naming conventions will be used
+  - If not specified on VM level and on Plan level, default naming conventions will be used
 Examples:
   "disk-{{.VolumeIndex}}"
   "pvc-{{.PVCName}}"

@@ -30,5 +30,5 @@ The secret should reside in the same namespace where the source provider is.
    * @required {true}
    * @originalType {string}
    */
-  storageVendorProduct: 'vantara' | 'ontap' | 'primera3par' | 'pureFlashArray' | 'powerflex';
+  storageVendorProduct: 'flashsystem' | 'vantara' | 'ontap' | 'primera3par' | 'pureFlashArray' | 'powerflex' | 'powermax' | 'powerstore' | 'infinibox';
 }
