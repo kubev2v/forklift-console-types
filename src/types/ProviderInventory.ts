@@ -1,4 +1,5 @@
 import {
+  HypervProvider,
   OpenshiftProvider,
   OpenstackProvider,
   OvaProvider,
@@ -14,4 +15,5 @@ export type ProviderInventory =
   | OpenstackProvider
   | OVirtProvider
   | VSphereProvider
-  | OvaProvider;
+  | OvaProvider
+  | HypervProvider;
