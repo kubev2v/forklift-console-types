@@ -1,5 +1,6 @@
 // @index('./*', f => `export * from '${f.path}';`)
 export * from './base';
+export * from './hyperv';
 export * from './openshift';
 export * from './openstack';
 export * from './ova';

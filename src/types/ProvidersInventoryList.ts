@@ -1,4 +1,5 @@
 import {
+  HypervProvider,
   OpenshiftProvider,
   OpenstackProvider,
   OvaProvider,
@@ -15,4 +16,5 @@ export interface ProvidersInventoryList {
   ovirt?: OVirtProvider[] | null;
   vsphere?: VSphereProvider[] | null;
   ova?: OvaProvider[] | null;
+  hyperv?: HypervProvider[] | null;
 }
