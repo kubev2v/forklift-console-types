@@ -10,4 +10,6 @@ export interface VSphereDataStore extends TypedVSphereResource {
   free: number;
   // MaintenanceMode string `json:"maintenance"`
   maintenance: string;
+  // BackingDevicesNames []string `json:"backingDevicesNames"`
+  backingDevicesNames: string[];
 }
