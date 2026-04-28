@@ -43,7 +43,7 @@ export interface V1ObjectMeta {
      * @type {Date}
      * @memberof V1ObjectMeta
      */
-    creationTimestamp?: Date;
+    creationTimestamp?: string;
     /**
      * Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.
      * @type {number}
@@ -55,7 +55,7 @@ export interface V1ObjectMeta {
      * @type {Date}
      * @memberof V1ObjectMeta
      */
-    deletionTimestamp?: Date;
+    deletionTimestamp?: string;
     /**
      * Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed. Finalizers may be processed and removed in any order.  Order is NOT enforced because it introduces significant risk of stuck finalizers. finalizers is a shared field, any actor with permission can reorder it. If the finalizer list is processed in order, then this can lead to a situation in which the component responsible for the first finalizer in the list is waiting for a signal (field value, external system, or other) produced by a component responsible for a finalizer later in the list, resulting in a deadlock. Without enforced ordering finalizers are free to order amongst themselves and are not vulnerable to ordering changes in the list.
      * @type {Array<string>}
@@ -152,9 +152,9 @@ export function V1ObjectMetaFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'annotations': json['annotations'] == null ? undefined : json['annotations'],
-        'creationTimestamp': json['creationTimestamp'] == null ? undefined : (new Date(json['creationTimestamp'])),
+        'creationTimestamp': json['creationTimestamp'] == null ? undefined : json['creationTimestamp'],
         'deletionGracePeriodSeconds': json['deletionGracePeriodSeconds'] == null ? undefined : json['deletionGracePeriodSeconds'],
-        'deletionTimestamp': json['deletionTimestamp'] == null ? undefined : (new Date(json['deletionTimestamp'])),
+        'deletionTimestamp': json['deletionTimestamp'] == null ? undefined : json['deletionTimestamp'],
         'finalizers': json['finalizers'] == null ? undefined : json['finalizers'],
         'generateName': json['generateName'] == null ? undefined : json['generateName'],
         'generation': json['generation'] == null ? undefined : json['generation'],
@@ -176,9 +176,9 @@ export function V1ObjectMetaToJSON(value?: V1ObjectMeta | null): any {
     return {
         
         'annotations': value['annotations'],
-        'creationTimestamp': value['creationTimestamp'] == null ? undefined : ((value['creationTimestamp']).toISOString()),
+        'creationTimestamp': value['creationTimestamp'] == null ? undefined : value['creationTimestamp'],
         'deletionGracePeriodSeconds': value['deletionGracePeriodSeconds'],
-        'deletionTimestamp': value['deletionTimestamp'] == null ? undefined : ((value['deletionTimestamp']).toISOString()),
+        'deletionTimestamp': value['deletionTimestamp'] == null ? undefined : value['deletionTimestamp'],
         'finalizers': value['finalizers'],
         'generateName': value['generateName'],
         'generation': value['generation'],
