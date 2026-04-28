@@ -14,8 +14,9 @@ This document provides comprehensive instructions for maintaining and updating t
 4. [Resolving Export Conflicts](#resolving-export-conflicts)
 5. [Local Testing](#local-testing)
 6. [Publishing](#publishing)
-7. [Troubleshooting](#troubleshooting)
-8. [Version Tracking](#version-tracking)
+7. [Post-Generation Fixes](#post-generation-fixes)
+8. [Troubleshooting](#troubleshooting)
+9. [Version Tracking](#version-tracking)
 
 ---
 
@@ -385,6 +386,25 @@ Track which upstream versions are currently included. **Update this table after 
 | `./scripts/update-kubevirt.sh [version]` | Update KubeVirt VM types |
 | `./scripts/update-cdi.sh [version]` | Update CDI DataVolume types |
 | `./scripts/check-conflicts.sh` | Detect export conflicts between KubeVirt and CDI |
+| `./scripts/fix-timestamp-types.sh` | Fix ObjectMeta timestamp types (Date → string) |
 
 All scripts accept an optional version argument (branch name or tag). Default is `main` or `master`.
 
+
+---
+
+## Post-Generation Fixes
+
+After running any update script, run the post-generation fix script:
+
+```bash
+npm run fix:timestamps
+```
+
+### ObjectMeta Timestamp Types
+
+The `openapi-generator` maps OpenAPI `date-time` format fields to TypeScript `Date`. However, the Kubernetes API returns ISO 8601 strings for timestamp fields, and `@openshift-console/dynamic-plugin-sdk` types `creationTimestamp` and `deletionTimestamp` as `string`.
+
+The `fix:timestamps` script patches all generated `ObjectMeta` types (Kubernetes, KubeVirt, CDI) to use `string` instead of `Date` for these fields, maintaining compatibility with the Console SDK.
+
+This fix was introduced after the Kubernetes v1.36.0 update exposed the incompatibility (see PR #26).

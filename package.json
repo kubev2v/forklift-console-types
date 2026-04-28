@@ -23,7 +23,8 @@
     "update:kubernetes": "./scripts/update-kubernetes.sh",
     "update:kubevirt": "./scripts/update-kubevirt.sh",
     "update:cdi": "./scripts/update-cdi.sh",
-    "check:conflicts": "./scripts/check-conflicts.sh"
+    "check:conflicts": "./scripts/check-conflicts.sh",
+    "fix:timestamps": "./scripts/fix-timestamp-types.sh"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",
