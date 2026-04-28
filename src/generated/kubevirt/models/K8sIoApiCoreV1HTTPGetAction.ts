@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1HTTPHeader } from './K8sIoApiCoreV1HTTPHeader';
 import {
     K8sIoApiCoreV1HTTPHeaderFromJSON,
     K8sIoApiCoreV1HTTPHeaderFromJSONTyped,
     K8sIoApiCoreV1HTTPHeaderToJSON,
+    K8sIoApiCoreV1HTTPHeaderToJSONTyped,
 } from './K8sIoApiCoreV1HTTPHeader';
 
 /**
@@ -70,10 +71,8 @@ export type K8sIoApiCoreV1HTTPGetActionSchemeEnum = typeof K8sIoApiCoreV1HTTPGet
 /**
  * Check if a given object implements the K8sIoApiCoreV1HTTPGetAction interface.
  */
-export function instanceOfK8sIoApiCoreV1HTTPGetAction(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1HTTPGetAction(value: object): value is K8sIoApiCoreV1HTTPGetAction {
+    return true;
 }
 
 export function K8sIoApiCoreV1HTTPGetActionFromJSON(json: any): K8sIoApiCoreV1HTTPGetAction {
@@ -81,31 +80,33 @@ export function K8sIoApiCoreV1HTTPGetActionFromJSON(json: any): K8sIoApiCoreV1HT
 }
 
 export function K8sIoApiCoreV1HTTPGetActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1HTTPGetAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'host': !exists(json, 'host') ? undefined : json['host'],
-        'httpHeaders': !exists(json, 'httpHeaders') ? undefined : ((json['httpHeaders'] as Array<any>).map(K8sIoApiCoreV1HTTPHeaderFromJSON)),
-        'path': !exists(json, 'path') ? undefined : json['path'],
-        'scheme': !exists(json, 'scheme') ? undefined : json['scheme'],
+        'host': json['host'] == null ? undefined : json['host'],
+        'httpHeaders': json['httpHeaders'] == null ? undefined : ((json['httpHeaders'] as Array<any>).map(K8sIoApiCoreV1HTTPHeaderFromJSON)),
+        'path': json['path'] == null ? undefined : json['path'],
+        'scheme': json['scheme'] == null ? undefined : json['scheme'],
     };
 }
 
-export function K8sIoApiCoreV1HTTPGetActionToJSON(value?: K8sIoApiCoreV1HTTPGetAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1HTTPGetActionToJSON(json: any): K8sIoApiCoreV1HTTPGetAction {
+    return K8sIoApiCoreV1HTTPGetActionToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1HTTPGetActionToJSONTyped(value?: K8sIoApiCoreV1HTTPGetAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'host': value.host,
-        'httpHeaders': value.httpHeaders === undefined ? undefined : ((value.httpHeaders as Array<any>).map(K8sIoApiCoreV1HTTPHeaderToJSON)),
-        'path': value.path,
-        'scheme': value.scheme,
+        'host': value['host'],
+        'httpHeaders': value['httpHeaders'] == null ? undefined : ((value['httpHeaders'] as Array<any>).map(K8sIoApiCoreV1HTTPHeaderToJSON)),
+        'path': value['path'],
+        'scheme': value['scheme'],
     };
 }
 

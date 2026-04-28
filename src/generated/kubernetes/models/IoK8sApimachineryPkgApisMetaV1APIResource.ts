@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * APIResource specifies the name of a resource and whether it is namespaced.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApimachineryPkgApisMetaV1APIResource {
      * @type {Array<string>}
      * @memberof IoK8sApimachineryPkgApisMetaV1APIResource
      */
-    categories?: string[];
+    categories?: Array<string>;
     /**
      * group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale".
      * @type {string}
@@ -54,7 +54,7 @@ export interface IoK8sApimachineryPkgApisMetaV1APIResource {
      * @type {Array<string>}
      * @memberof IoK8sApimachineryPkgApisMetaV1APIResource
      */
-    shortNames?: string[];
+    shortNames?: Array<string>;
     /**
      * singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.
      * @type {string}
@@ -72,7 +72,7 @@ export interface IoK8sApimachineryPkgApisMetaV1APIResource {
      * @type {Array<string>}
      * @memberof IoK8sApimachineryPkgApisMetaV1APIResource
      */
-    verbs: string[];
+    verbs: Array<string>;
     /**
      * version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource's group)".
      * @type {string}
@@ -84,15 +84,13 @@ export interface IoK8sApimachineryPkgApisMetaV1APIResource {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1APIResource interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1APIResource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "namespaced" in value;
-    isInstance = isInstance && "singularName" in value;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1APIResource(value: object): value is IoK8sApimachineryPkgApisMetaV1APIResource {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('namespaced' in value) || value['namespaced'] === undefined) return false;
+    if (!('singularName' in value) || value['singularName'] === undefined) return false;
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1APIResourceFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1APIResource {
@@ -100,43 +98,45 @@ export function IoK8sApimachineryPkgApisMetaV1APIResourceFromJSON(json: any): Io
 }
 
 export function IoK8sApimachineryPkgApisMetaV1APIResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1APIResource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'categories': !exists(json, 'categories') ? undefined : json['categories'],
-        'group': !exists(json, 'group') ? undefined : json['group'],
+        'categories': json['categories'] == null ? undefined : json['categories'],
+        'group': json['group'] == null ? undefined : json['group'],
         'kind': json['kind'],
         'name': json['name'],
         'namespaced': json['namespaced'],
-        'shortNames': !exists(json, 'shortNames') ? undefined : json['shortNames'],
+        'shortNames': json['shortNames'] == null ? undefined : json['shortNames'],
         'singularName': json['singularName'],
-        'storageVersionHash': !exists(json, 'storageVersionHash') ? undefined : json['storageVersionHash'],
+        'storageVersionHash': json['storageVersionHash'] == null ? undefined : json['storageVersionHash'],
         'verbs': json['verbs'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
+        'version': json['version'] == null ? undefined : json['version'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1APIResourceToJSON(value?: IoK8sApimachineryPkgApisMetaV1APIResource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1APIResourceToJSON(json: any): IoK8sApimachineryPkgApisMetaV1APIResource {
+    return IoK8sApimachineryPkgApisMetaV1APIResourceToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1APIResourceToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1APIResource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'categories': value.categories,
-        'group': value.group,
-        'kind': value.kind,
-        'name': value.name,
-        'namespaced': value.namespaced,
-        'shortNames': value.shortNames,
-        'singularName': value.singularName,
-        'storageVersionHash': value.storageVersionHash,
-        'verbs': value.verbs,
-        'version': value.version,
+        'categories': value['categories'],
+        'group': value['group'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'namespaced': value['namespaced'],
+        'shortNames': value['shortNames'],
+        'singularName': value['singularName'],
+        'storageVersionHash': value['storageVersionHash'],
+        'verbs': value['verbs'],
+        'version': value['version'],
     };
 }
 

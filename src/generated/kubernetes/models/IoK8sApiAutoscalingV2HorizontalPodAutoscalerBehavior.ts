@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2HPAScalingRules } from './IoK8sApiAutoscalingV2HPAScalingRules';
 import {
     IoK8sApiAutoscalingV2HPAScalingRulesFromJSON,
     IoK8sApiAutoscalingV2HPAScalingRulesFromJSONTyped,
     IoK8sApiAutoscalingV2HPAScalingRulesToJSON,
+    IoK8sApiAutoscalingV2HPAScalingRulesToJSONTyped,
 } from './IoK8sApiAutoscalingV2HPAScalingRules';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior(value: object): value is IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior {
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior {
@@ -54,27 +53,29 @@ export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSON(jso
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'scaleDown': !exists(json, 'scaleDown') ? undefined : IoK8sApiAutoscalingV2HPAScalingRulesFromJSON(json['scaleDown']),
-        'scaleUp': !exists(json, 'scaleUp') ? undefined : IoK8sApiAutoscalingV2HPAScalingRulesFromJSON(json['scaleUp']),
+        'scaleDown': json['scaleDown'] == null ? undefined : IoK8sApiAutoscalingV2HPAScalingRulesFromJSON(json['scaleDown']),
+        'scaleUp': json['scaleUp'] == null ? undefined : IoK8sApiAutoscalingV2HPAScalingRulesFromJSON(json['scaleUp']),
     };
 }
 
-export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSON(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior {
+    return IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSONTyped(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'scaleDown': IoK8sApiAutoscalingV2HPAScalingRulesToJSON(value.scaleDown),
-        'scaleUp': IoK8sApiAutoscalingV2HPAScalingRulesToJSON(value.scaleUp),
+        'scaleDown': IoK8sApiAutoscalingV2HPAScalingRulesToJSON(value['scaleDown']),
+        'scaleUp': IoK8sApiAutoscalingV2HPAScalingRulesToJSON(value['scaleUp']),
     };
 }
 

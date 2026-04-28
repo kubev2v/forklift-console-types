@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineStartFailure tracks VMIs which failed to transition successfully to running using the VM status
  * @export
@@ -36,16 +36,14 @@ export interface V1VirtualMachineStartFailure {
      * @type {Date}
      * @memberof V1VirtualMachineStartFailure
      */
-    retryAfterTimestamp?: string;
+    retryAfterTimestamp?: Date;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineStartFailure interface.
  */
-export function instanceOfV1VirtualMachineStartFailure(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineStartFailure(value: object): value is V1VirtualMachineStartFailure {
+    return true;
 }
 
 export function V1VirtualMachineStartFailureFromJSON(json: any): V1VirtualMachineStartFailure {
@@ -53,29 +51,31 @@ export function V1VirtualMachineStartFailureFromJSON(json: any): V1VirtualMachin
 }
 
 export function V1VirtualMachineStartFailureFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineStartFailure {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'consecutiveFailCount': !exists(json, 'consecutiveFailCount') ? undefined : json['consecutiveFailCount'],
-        'lastFailedVMIUID': !exists(json, 'lastFailedVMIUID') ? undefined : json['lastFailedVMIUID'],
-        'retryAfterTimestamp': !exists(json, 'retryAfterTimestamp') ? undefined : json['retryAfterTimestamp'],
+        'consecutiveFailCount': json['consecutiveFailCount'] == null ? undefined : json['consecutiveFailCount'],
+        'lastFailedVMIUID': json['lastFailedVMIUID'] == null ? undefined : json['lastFailedVMIUID'],
+        'retryAfterTimestamp': json['retryAfterTimestamp'] == null ? undefined : (new Date(json['retryAfterTimestamp'])),
     };
 }
 
-export function V1VirtualMachineStartFailureToJSON(value?: V1VirtualMachineStartFailure | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineStartFailureToJSON(json: any): V1VirtualMachineStartFailure {
+    return V1VirtualMachineStartFailureToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineStartFailureToJSONTyped(value?: V1VirtualMachineStartFailure | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'consecutiveFailCount': value.consecutiveFailCount,
-        'lastFailedVMIUID': value.lastFailedVMIUID,
-        'retryAfterTimestamp': value.retryAfterTimestamp === undefined ? undefined : (value.retryAfterTimestamp),
+        'consecutiveFailCount': value['consecutiveFailCount'],
+        'lastFailedVMIUID': value['lastFailedVMIUID'],
+        'retryAfterTimestamp': value['retryAfterTimestamp'] == null ? undefined : ((value['retryAfterTimestamp']).toISOString()),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * KubeVirtCondition represents a condition of a KubeVirt deployment
  * @export
@@ -48,12 +48,10 @@ export interface V1KubeVirtCondition {
 /**
  * Check if a given object implements the V1KubeVirtCondition interface.
  */
-export function instanceOfV1KubeVirtCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1KubeVirtCondition(value: object): value is V1KubeVirtCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1KubeVirtConditionFromJSON(json: any): V1KubeVirtCondition {
@@ -61,31 +59,33 @@ export function V1KubeVirtConditionFromJSON(json: any): V1KubeVirtCondition {
 }
 
 export function V1KubeVirtConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function V1KubeVirtConditionToJSON(value?: V1KubeVirtCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtConditionToJSON(json: any): V1KubeVirtCondition {
+    return V1KubeVirtConditionToJSONTyped(json, false);
+}
+
+export function V1KubeVirtConditionToJSONTyped(value?: V1KubeVirtCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 import {
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -37,10 +38,8 @@ export interface V1KSMConfiguration {
 /**
  * Check if a given object implements the V1KSMConfiguration interface.
  */
-export function instanceOfV1KSMConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KSMConfiguration(value: object): value is V1KSMConfiguration {
+    return true;
 }
 
 export function V1KSMConfigurationFromJSON(json: any): V1KSMConfiguration {
@@ -48,25 +47,27 @@ export function V1KSMConfigurationFromJSON(json: any): V1KSMConfiguration {
 }
 
 export function V1KSMConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KSMConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nodeLabelSelector': !exists(json, 'nodeLabelSelector') ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['nodeLabelSelector']),
+        'nodeLabelSelector': json['nodeLabelSelector'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['nodeLabelSelector']),
     };
 }
 
-export function V1KSMConfigurationToJSON(value?: V1KSMConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KSMConfigurationToJSON(json: any): V1KSMConfiguration {
+    return V1KSMConfigurationToJSONTyped(json, false);
+}
+
+export function V1KSMConfigurationToJSONTyped(value?: V1KSMConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nodeLabelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.nodeLabelSelector),
+        'nodeLabelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['nodeLabelSelector']),
     };
 }
 

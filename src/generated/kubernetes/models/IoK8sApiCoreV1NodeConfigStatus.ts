@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NodeConfigSource } from './IoK8sApiCoreV1NodeConfigSource';
 import {
     IoK8sApiCoreV1NodeConfigSourceFromJSON,
     IoK8sApiCoreV1NodeConfigSourceFromJSONTyped,
     IoK8sApiCoreV1NodeConfigSourceToJSON,
+    IoK8sApiCoreV1NodeConfigSourceToJSONTyped,
 } from './IoK8sApiCoreV1NodeConfigSource';
 
 /**
@@ -55,10 +56,8 @@ export interface IoK8sApiCoreV1NodeConfigStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeConfigStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeConfigStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeConfigStatus(value: object): value is IoK8sApiCoreV1NodeConfigStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeConfigStatusFromJSON(json: any): IoK8sApiCoreV1NodeConfigStatus {
@@ -66,31 +65,33 @@ export function IoK8sApiCoreV1NodeConfigStatusFromJSON(json: any): IoK8sApiCoreV
 }
 
 export function IoK8sApiCoreV1NodeConfigStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeConfigStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'active': !exists(json, 'active') ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['active']),
-        'assigned': !exists(json, 'assigned') ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['assigned']),
-        'error': !exists(json, 'error') ? undefined : json['error'],
-        'lastKnownGood': !exists(json, 'lastKnownGood') ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['lastKnownGood']),
+        'active': json['active'] == null ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['active']),
+        'assigned': json['assigned'] == null ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['assigned']),
+        'error': json['error'] == null ? undefined : json['error'],
+        'lastKnownGood': json['lastKnownGood'] == null ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['lastKnownGood']),
     };
 }
 
-export function IoK8sApiCoreV1NodeConfigStatusToJSON(value?: IoK8sApiCoreV1NodeConfigStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeConfigStatusToJSON(json: any): IoK8sApiCoreV1NodeConfigStatus {
+    return IoK8sApiCoreV1NodeConfigStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeConfigStatusToJSONTyped(value?: IoK8sApiCoreV1NodeConfigStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'active': IoK8sApiCoreV1NodeConfigSourceToJSON(value.active),
-        'assigned': IoK8sApiCoreV1NodeConfigSourceToJSON(value.assigned),
-        'error': value.error,
-        'lastKnownGood': IoK8sApiCoreV1NodeConfigSourceToJSON(value.lastKnownGood),
+        'active': IoK8sApiCoreV1NodeConfigSourceToJSON(value['active']),
+        'assigned': IoK8sApiCoreV1NodeConfigSourceToJSON(value['assigned']),
+        'error': value['error'],
+        'lastKnownGood': IoK8sApiCoreV1NodeConfigSourceToJSON(value['lastKnownGood']),
     };
 }
 

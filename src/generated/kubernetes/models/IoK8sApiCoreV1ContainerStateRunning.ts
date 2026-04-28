@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ContainerStateRunning is a running state of a container.
  * @export
@@ -24,16 +24,14 @@ export interface IoK8sApiCoreV1ContainerStateRunning {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ContainerStateRunning
      */
-    startedAt?: string;
+    startedAt?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerStateRunning interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerStateRunning(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerStateRunning(value: object): value is IoK8sApiCoreV1ContainerStateRunning {
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerStateRunningFromJSON(json: any): IoK8sApiCoreV1ContainerStateRunning {
@@ -41,25 +39,27 @@ export function IoK8sApiCoreV1ContainerStateRunningFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ContainerStateRunningFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerStateRunning {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'startedAt': !exists(json, 'startedAt') ? undefined : json['startedAt'],
+        'startedAt': json['startedAt'] == null ? undefined : (new Date(json['startedAt'])),
     };
 }
 
-export function IoK8sApiCoreV1ContainerStateRunningToJSON(value?: IoK8sApiCoreV1ContainerStateRunning | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerStateRunningToJSON(json: any): IoK8sApiCoreV1ContainerStateRunning {
+    return IoK8sApiCoreV1ContainerStateRunningToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerStateRunningToJSONTyped(value?: IoK8sApiCoreV1ContainerStateRunning | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'startedAt': value.startedAt === undefined ? undefined : (value.startedAt),
+        'startedAt': value['startedAt'] == null ? undefined : ((value['startedAt']).toISOString()),
     };
 }
 

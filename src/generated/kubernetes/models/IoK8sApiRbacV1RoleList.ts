@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiRbacV1Role } from './IoK8sApiRbacV1Role';
 import {
     IoK8sApiRbacV1RoleFromJSON,
     IoK8sApiRbacV1RoleFromJSONTyped,
     IoK8sApiRbacV1RoleToJSON,
+    IoK8sApiRbacV1RoleToJSONTyped,
 } from './IoK8sApiRbacV1Role';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiRbacV1RoleList {
 /**
  * Check if a given object implements the IoK8sApiRbacV1RoleList interface.
  */
-export function instanceOfIoK8sApiRbacV1RoleList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1RoleList(value: object): value is IoK8sApiRbacV1RoleList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiRbacV1RoleListFromJSON(json: any): IoK8sApiRbacV1RoleList {
@@ -73,31 +73,33 @@ export function IoK8sApiRbacV1RoleListFromJSON(json: any): IoK8sApiRbacV1RoleLis
 }
 
 export function IoK8sApiRbacV1RoleListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1RoleList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiRbacV1RoleFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiRbacV1RoleListToJSON(value?: IoK8sApiRbacV1RoleList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1RoleListToJSON(json: any): IoK8sApiRbacV1RoleList {
+    return IoK8sApiRbacV1RoleListToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1RoleListToJSONTyped(value?: IoK8sApiRbacV1RoleList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiRbacV1RoleToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiRbacV1RoleToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

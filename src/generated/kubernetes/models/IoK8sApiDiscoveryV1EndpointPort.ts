@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * EndpointPort represents a Port used by an EndpointSlice
  * @export
@@ -41,7 +41,7 @@ export interface IoK8sApiDiscoveryV1EndpointPort {
      */
     name?: string;
     /**
-     * port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+     * port represents the port number of the endpoint. If the EndpointSlice is derived from a Kubernetes service, this must be set to the service's target port. EndpointSlices used for other purposes may have a nil port.
      * @type {number}
      * @memberof IoK8sApiDiscoveryV1EndpointPort
      */
@@ -57,10 +57,8 @@ export interface IoK8sApiDiscoveryV1EndpointPort {
 /**
  * Check if a given object implements the IoK8sApiDiscoveryV1EndpointPort interface.
  */
-export function instanceOfIoK8sApiDiscoveryV1EndpointPort(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiDiscoveryV1EndpointPort(value: object): value is IoK8sApiDiscoveryV1EndpointPort {
+    return true;
 }
 
 export function IoK8sApiDiscoveryV1EndpointPortFromJSON(json: any): IoK8sApiDiscoveryV1EndpointPort {
@@ -68,31 +66,33 @@ export function IoK8sApiDiscoveryV1EndpointPortFromJSON(json: any): IoK8sApiDisc
 }
 
 export function IoK8sApiDiscoveryV1EndpointPortFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiDiscoveryV1EndpointPort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'appProtocol': !exists(json, 'appProtocol') ? undefined : json['appProtocol'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'port': !exists(json, 'port') ? undefined : json['port'],
-        'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
+        'appProtocol': json['appProtocol'] == null ? undefined : json['appProtocol'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'port': json['port'] == null ? undefined : json['port'],
+        'protocol': json['protocol'] == null ? undefined : json['protocol'],
     };
 }
 
-export function IoK8sApiDiscoveryV1EndpointPortToJSON(value?: IoK8sApiDiscoveryV1EndpointPort | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiDiscoveryV1EndpointPortToJSON(json: any): IoK8sApiDiscoveryV1EndpointPort {
+    return IoK8sApiDiscoveryV1EndpointPortToJSONTyped(json, false);
+}
+
+export function IoK8sApiDiscoveryV1EndpointPortToJSONTyped(value?: IoK8sApiDiscoveryV1EndpointPort | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'appProtocol': value.appProtocol,
-        'name': value.name,
-        'port': value.port,
-        'protocol': value.protocol,
+        'appProtocol': value['appProtocol'],
+        'name': value['name'],
+        'port': value['port'],
+        'protocol': value['protocol'],
     };
 }
 

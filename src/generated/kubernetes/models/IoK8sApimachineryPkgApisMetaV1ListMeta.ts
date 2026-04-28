@@ -12,7 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApimachineryPkgApisMetaV1ShardInfo } from './IoK8sApimachineryPkgApisMetaV1ShardInfo';
+import {
+    IoK8sApimachineryPkgApisMetaV1ShardInfoFromJSON,
+    IoK8sApimachineryPkgApisMetaV1ShardInfoFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1ShardInfoToJSON,
+    IoK8sApimachineryPkgApisMetaV1ShardInfoToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1ShardInfo';
+
 /**
  * ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
  * @export
@@ -43,15 +51,19 @@ export interface IoK8sApimachineryPkgApisMetaV1ListMeta {
      * @memberof IoK8sApimachineryPkgApisMetaV1ListMeta
      */
     selfLink?: string;
+    /**
+     * 
+     * @type {IoK8sApimachineryPkgApisMetaV1ShardInfo}
+     * @memberof IoK8sApimachineryPkgApisMetaV1ListMeta
+     */
+    shardInfo?: IoK8sApimachineryPkgApisMetaV1ShardInfo;
 }
 
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1ListMeta interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1ListMeta(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1ListMeta(value: object): value is IoK8sApimachineryPkgApisMetaV1ListMeta {
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1ListMeta {
@@ -59,31 +71,35 @@ export function IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json: any): IoK8s
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1ListMeta {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        '_continue': !exists(json, 'continue') ? undefined : json['continue'],
-        'remainingItemCount': !exists(json, 'remainingItemCount') ? undefined : json['remainingItemCount'],
-        'resourceVersion': !exists(json, 'resourceVersion') ? undefined : json['resourceVersion'],
-        'selfLink': !exists(json, 'selfLink') ? undefined : json['selfLink'],
+        '_continue': json['continue'] == null ? undefined : json['continue'],
+        'remainingItemCount': json['remainingItemCount'] == null ? undefined : json['remainingItemCount'],
+        'resourceVersion': json['resourceVersion'] == null ? undefined : json['resourceVersion'],
+        'selfLink': json['selfLink'] == null ? undefined : json['selfLink'],
+        'shardInfo': json['shardInfo'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ShardInfoFromJSON(json['shardInfo']),
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value?: IoK8sApimachineryPkgApisMetaV1ListMeta | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(json: any): IoK8sApimachineryPkgApisMetaV1ListMeta {
+    return IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1ListMeta | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'continue': value._continue,
-        'remainingItemCount': value.remainingItemCount,
-        'resourceVersion': value.resourceVersion,
-        'selfLink': value.selfLink,
+        'continue': value['_continue'],
+        'remainingItemCount': value['remainingItemCount'],
+        'resourceVersion': value['resourceVersion'],
+        'selfLink': value['selfLink'],
+        'shardInfo': IoK8sApimachineryPkgApisMetaV1ShardInfoToJSON(value['shardInfo']),
     };
 }
 

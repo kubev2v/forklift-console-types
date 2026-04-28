@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
  * @export
@@ -30,18 +30,16 @@ export interface IoK8sApiEventsV1EventSeries {
      * @type {Date}
      * @memberof IoK8sApiEventsV1EventSeries
      */
-    lastObservedTime: string;
+    lastObservedTime: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiEventsV1EventSeries interface.
  */
-export function instanceOfIoK8sApiEventsV1EventSeries(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "count" in value;
-    isInstance = isInstance && "lastObservedTime" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiEventsV1EventSeries(value: object): value is IoK8sApiEventsV1EventSeries {
+    if (!('count' in value) || value['count'] === undefined) return false;
+    if (!('lastObservedTime' in value) || value['lastObservedTime'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiEventsV1EventSeriesFromJSON(json: any): IoK8sApiEventsV1EventSeries {
@@ -49,27 +47,29 @@ export function IoK8sApiEventsV1EventSeriesFromJSON(json: any): IoK8sApiEventsV1
 }
 
 export function IoK8sApiEventsV1EventSeriesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiEventsV1EventSeries {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'count': json['count'],
-        'lastObservedTime': json['lastObservedTime'],
+        'lastObservedTime': (new Date(json['lastObservedTime'])),
     };
 }
 
-export function IoK8sApiEventsV1EventSeriesToJSON(value?: IoK8sApiEventsV1EventSeries | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiEventsV1EventSeriesToJSON(json: any): IoK8sApiEventsV1EventSeries {
+    return IoK8sApiEventsV1EventSeriesToJSONTyped(json, false);
+}
+
+export function IoK8sApiEventsV1EventSeriesToJSONTyped(value?: IoK8sApiEventsV1EventSeries | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'count': value.count,
-        'lastObservedTime': (value.lastObservedTime),
+        'count': value['count'],
+        'lastObservedTime': ((value['lastObservedTime']).toISOString()),
     };
 }
 

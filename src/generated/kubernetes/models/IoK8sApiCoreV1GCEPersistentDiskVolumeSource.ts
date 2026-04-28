@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Persistent Disk resource in Google Compute Engine.
  * 
@@ -50,11 +50,9 @@ export interface IoK8sApiCoreV1GCEPersistentDiskVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1GCEPersistentDiskVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1GCEPersistentDiskVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "pdName" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1GCEPersistentDiskVolumeSource(value: object): value is IoK8sApiCoreV1GCEPersistentDiskVolumeSource {
+    if (!('pdName' in value) || value['pdName'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSON(json: any): IoK8sApiCoreV1GCEPersistentDiskVolumeSource {
@@ -62,31 +60,33 @@ export function IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSON(json: any): 
 }
 
 export function IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1GCEPersistentDiskVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'partition': !exists(json, 'partition') ? undefined : json['partition'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'partition': json['partition'] == null ? undefined : json['partition'],
         'pdName': json['pdName'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
     };
 }
 
-export function IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSON(value?: IoK8sApiCoreV1GCEPersistentDiskVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSON(json: any): IoK8sApiCoreV1GCEPersistentDiskVolumeSource {
+    return IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1GCEPersistentDiskVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'partition': value.partition,
-        'pdName': value.pdName,
-        'readOnly': value.readOnly,
+        'fsType': value['fsType'],
+        'partition': value['partition'],
+        'pdName': value['pdName'],
+        'readOnly': value['readOnly'],
     };
 }
 

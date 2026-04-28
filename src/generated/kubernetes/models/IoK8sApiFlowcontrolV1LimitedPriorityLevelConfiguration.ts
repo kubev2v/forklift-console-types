@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1LimitResponse } from './IoK8sApiFlowcontrolV1LimitResponse';
 import {
     IoK8sApiFlowcontrolV1LimitResponseFromJSON,
     IoK8sApiFlowcontrolV1LimitResponseFromJSONTyped,
     IoK8sApiFlowcontrolV1LimitResponseToJSON,
+    IoK8sApiFlowcontrolV1LimitResponseToJSONTyped,
 } from './IoK8sApiFlowcontrolV1LimitResponse';
 
 /**
@@ -71,10 +72,8 @@ export interface IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration(value: object): value is IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSON(json: any): IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration {
@@ -82,31 +81,33 @@ export function IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSON(j
 }
 
 export function IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'borrowingLimitPercent': !exists(json, 'borrowingLimitPercent') ? undefined : json['borrowingLimitPercent'],
-        'lendablePercent': !exists(json, 'lendablePercent') ? undefined : json['lendablePercent'],
-        'limitResponse': !exists(json, 'limitResponse') ? undefined : IoK8sApiFlowcontrolV1LimitResponseFromJSON(json['limitResponse']),
-        'nominalConcurrencyShares': !exists(json, 'nominalConcurrencyShares') ? undefined : json['nominalConcurrencyShares'],
+        'borrowingLimitPercent': json['borrowingLimitPercent'] == null ? undefined : json['borrowingLimitPercent'],
+        'lendablePercent': json['lendablePercent'] == null ? undefined : json['lendablePercent'],
+        'limitResponse': json['limitResponse'] == null ? undefined : IoK8sApiFlowcontrolV1LimitResponseFromJSON(json['limitResponse']),
+        'nominalConcurrencyShares': json['nominalConcurrencyShares'] == null ? undefined : json['nominalConcurrencyShares'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSON(value?: IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSON(json: any): IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration {
+    return IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSONTyped(value?: IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'borrowingLimitPercent': value.borrowingLimitPercent,
-        'lendablePercent': value.lendablePercent,
-        'limitResponse': IoK8sApiFlowcontrolV1LimitResponseToJSON(value.limitResponse),
-        'nominalConcurrencyShares': value.nominalConcurrencyShares,
+        'borrowingLimitPercent': value['borrowingLimitPercent'],
+        'lendablePercent': value['lendablePercent'],
+        'limitResponse': IoK8sApiFlowcontrolV1LimitResponseToJSON(value['limitResponse']),
+        'nominalConcurrencyShares': value['nominalConcurrencyShares'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiCoreV1LocalObjectReference {
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof IoK8sApiCoreV1LocalObjectReference
      */
@@ -30,10 +30,8 @@ export interface IoK8sApiCoreV1LocalObjectReference {
 /**
  * Check if a given object implements the IoK8sApiCoreV1LocalObjectReference interface.
  */
-export function instanceOfIoK8sApiCoreV1LocalObjectReference(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1LocalObjectReference(value: object): value is IoK8sApiCoreV1LocalObjectReference {
+    return true;
 }
 
 export function IoK8sApiCoreV1LocalObjectReferenceFromJSON(json: any): IoK8sApiCoreV1LocalObjectReference {
@@ -41,25 +39,27 @@ export function IoK8sApiCoreV1LocalObjectReferenceFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1LocalObjectReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'] == null ? undefined : json['name'],
     };
 }
 
-export function IoK8sApiCoreV1LocalObjectReferenceToJSON(value?: IoK8sApiCoreV1LocalObjectReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1LocalObjectReferenceToJSON(json: any): IoK8sApiCoreV1LocalObjectReference {
+    return IoK8sApiCoreV1LocalObjectReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1LocalObjectReferenceToJSONTyped(value?: IoK8sApiCoreV1LocalObjectReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
+        'name': value['name'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -27,7 +28,7 @@ import {
  */
 export interface IoK8sApiAdmissionregistrationV1alpha1ParamRef {
     /**
-     * `name` is the name of the resource being referenced.
+     * name is the name of the resource being referenced.
      * 
      * `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
      * @type {string}
@@ -47,7 +48,7 @@ export interface IoK8sApiAdmissionregistrationV1alpha1ParamRef {
      */
     namespace?: string;
     /**
-     * `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+     * parameterNotFoundAction controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
      * 
      * Allowed values are `Allow` or `Deny` Default to `Deny`
      * @type {string}
@@ -65,10 +66,8 @@ export interface IoK8sApiAdmissionregistrationV1alpha1ParamRef {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1alpha1ParamRef interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1alpha1ParamRef(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1alpha1ParamRef(value: object): value is IoK8sApiAdmissionregistrationV1alpha1ParamRef {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1alpha1ParamRefFromJSON(json: any): IoK8sApiAdmissionregistrationV1alpha1ParamRef {
@@ -76,31 +75,33 @@ export function IoK8sApiAdmissionregistrationV1alpha1ParamRefFromJSON(json: any)
 }
 
 export function IoK8sApiAdmissionregistrationV1alpha1ParamRefFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1alpha1ParamRef {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
-        'parameterNotFoundAction': !exists(json, 'parameterNotFoundAction') ? undefined : json['parameterNotFoundAction'],
-        'selector': !exists(json, 'selector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
+        'parameterNotFoundAction': json['parameterNotFoundAction'] == null ? undefined : json['parameterNotFoundAction'],
+        'selector': json['selector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1alpha1ParamRefToJSON(value?: IoK8sApiAdmissionregistrationV1alpha1ParamRef | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1alpha1ParamRefToJSON(json: any): IoK8sApiAdmissionregistrationV1alpha1ParamRef {
+    return IoK8sApiAdmissionregistrationV1alpha1ParamRefToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1alpha1ParamRefToJSONTyped(value?: IoK8sApiAdmissionregistrationV1alpha1ParamRef | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'namespace': value.namespace,
-        'parameterNotFoundAction': value.parameterNotFoundAction,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'parameterNotFoundAction': value['parameterNotFoundAction'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressClassSpec } from './IoK8sApiNetworkingV1IngressClassSpec';
 import {
     IoK8sApiNetworkingV1IngressClassSpecFromJSON,
     IoK8sApiNetworkingV1IngressClassSpecFromJSONTyped,
     IoK8sApiNetworkingV1IngressClassSpecToJSON,
+    IoK8sApiNetworkingV1IngressClassSpecToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressClassSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -61,10 +63,8 @@ export interface IoK8sApiNetworkingV1IngressClass {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressClass interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressClass(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressClass(value: object): value is IoK8sApiNetworkingV1IngressClass {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressClassFromJSON(json: any): IoK8sApiNetworkingV1IngressClass {
@@ -72,31 +72,33 @@ export function IoK8sApiNetworkingV1IngressClassFromJSON(json: any): IoK8sApiNet
 }
 
 export function IoK8sApiNetworkingV1IngressClassFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressClass {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiNetworkingV1IngressClassSpecFromJSON(json['spec']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiNetworkingV1IngressClassSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressClassToJSON(value?: IoK8sApiNetworkingV1IngressClass | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressClassToJSON(json: any): IoK8sApiNetworkingV1IngressClass {
+    return IoK8sApiNetworkingV1IngressClassToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressClassToJSONTyped(value?: IoK8sApiNetworkingV1IngressClass | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiNetworkingV1IngressClassSpecToJSON(value.spec),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiNetworkingV1IngressClassSpecToJSON(value['spec']),
     };
 }
 

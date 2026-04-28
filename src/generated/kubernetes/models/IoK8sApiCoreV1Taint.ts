@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
  * @export
@@ -36,7 +36,7 @@ export interface IoK8sApiCoreV1Taint {
      * @type {Date}
      * @memberof IoK8sApiCoreV1Taint
      */
-    timeAdded?: string;
+    timeAdded?: Date;
     /**
      * The taint value corresponding to the taint key.
      * @type {string}
@@ -48,12 +48,10 @@ export interface IoK8sApiCoreV1Taint {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Taint interface.
  */
-export function instanceOfIoK8sApiCoreV1Taint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "effect" in value;
-    isInstance = isInstance && "key" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Taint(value: object): value is IoK8sApiCoreV1Taint {
+    if (!('effect' in value) || value['effect'] === undefined) return false;
+    if (!('key' in value) || value['key'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1TaintFromJSON(json: any): IoK8sApiCoreV1Taint {
@@ -61,31 +59,33 @@ export function IoK8sApiCoreV1TaintFromJSON(json: any): IoK8sApiCoreV1Taint {
 }
 
 export function IoK8sApiCoreV1TaintFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Taint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'effect': json['effect'],
         'key': json['key'],
-        'timeAdded': !exists(json, 'timeAdded') ? undefined : json['timeAdded'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'timeAdded': json['timeAdded'] == null ? undefined : (new Date(json['timeAdded'])),
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function IoK8sApiCoreV1TaintToJSON(value?: IoK8sApiCoreV1Taint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1TaintToJSON(json: any): IoK8sApiCoreV1Taint {
+    return IoK8sApiCoreV1TaintToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1TaintToJSONTyped(value?: IoK8sApiCoreV1Taint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'effect': value.effect,
-        'key': value.key,
-        'timeAdded': value.timeAdded === undefined ? undefined : (value.timeAdded),
-        'value': value.value,
+        'effect': value['effect'],
+        'key': value['key'],
+        'timeAdded': value['timeAdded'] == null ? undefined : ((value['timeAdded']).toISOString()),
+        'value': value['value'],
     };
 }
 

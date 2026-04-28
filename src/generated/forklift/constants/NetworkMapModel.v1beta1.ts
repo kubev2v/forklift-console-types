@@ -13,8 +13,8 @@ export const NetworkMapModel = {
   kind: 'NetworkMap',
   plural: 'networkmaps',
 
-  abbr: 'NM',
-  color: '#F6D173',
+  abbr: 'NE',
+  color: undefined,
   id: 'networkmaps.forklift.konveyor.io',
   namespaced: true,
   crd: true,

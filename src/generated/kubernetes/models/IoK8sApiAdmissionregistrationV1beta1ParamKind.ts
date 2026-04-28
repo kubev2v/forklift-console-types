@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ParamKind is a tuple of Group Kind and Version.
  * @export
@@ -20,13 +20,13 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAdmissionregistrationV1beta1ParamKind {
     /**
-     * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+     * apiVersion is the API group version the resources belong to. In format of "group/version". Required.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1beta1ParamKind
      */
     apiVersion?: string;
     /**
-     * Kind is the API kind the resources belong to. Required.
+     * kind is the API kind the resources belong to. Required.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1beta1ParamKind
      */
@@ -36,10 +36,8 @@ export interface IoK8sApiAdmissionregistrationV1beta1ParamKind {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1beta1ParamKind interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1beta1ParamKind(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1beta1ParamKind(value: object): value is IoK8sApiAdmissionregistrationV1beta1ParamKind {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1beta1ParamKindFromJSON(json: any): IoK8sApiAdmissionregistrationV1beta1ParamKind {
@@ -47,27 +45,29 @@ export function IoK8sApiAdmissionregistrationV1beta1ParamKindFromJSON(json: any)
 }
 
 export function IoK8sApiAdmissionregistrationV1beta1ParamKindFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1beta1ParamKind {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1beta1ParamKindToJSON(value?: IoK8sApiAdmissionregistrationV1beta1ParamKind | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1beta1ParamKindToJSON(json: any): IoK8sApiAdmissionregistrationV1beta1ParamKind {
+    return IoK8sApiAdmissionregistrationV1beta1ParamKindToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1beta1ParamKindToJSONTyped(value?: IoK8sApiAdmissionregistrationV1beta1ParamKind | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
     };
 }
 

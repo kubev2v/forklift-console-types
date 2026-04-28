@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1FlowSchema } from './IoK8sApiFlowcontrolV1FlowSchema';
 import {
     IoK8sApiFlowcontrolV1FlowSchemaFromJSON,
     IoK8sApiFlowcontrolV1FlowSchemaFromJSONTyped,
     IoK8sApiFlowcontrolV1FlowSchemaToJSON,
+    IoK8sApiFlowcontrolV1FlowSchemaToJSONTyped,
 } from './IoK8sApiFlowcontrolV1FlowSchema';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiFlowcontrolV1FlowSchemaList {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1FlowSchemaList interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaList(value: object): value is IoK8sApiFlowcontrolV1FlowSchemaList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaListFromJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaList {
@@ -73,31 +73,33 @@ export function IoK8sApiFlowcontrolV1FlowSchemaListFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1FlowSchemaList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiFlowcontrolV1FlowSchemaListToJSON(value?: IoK8sApiFlowcontrolV1FlowSchemaList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1FlowSchemaListToJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaList {
+    return IoK8sApiFlowcontrolV1FlowSchemaListToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1FlowSchemaListToJSONTyped(value?: IoK8sApiFlowcontrolV1FlowSchemaList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

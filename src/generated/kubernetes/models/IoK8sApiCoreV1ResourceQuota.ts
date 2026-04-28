@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ResourceQuotaSpec } from './IoK8sApiCoreV1ResourceQuotaSpec';
 import {
     IoK8sApiCoreV1ResourceQuotaSpecFromJSON,
     IoK8sApiCoreV1ResourceQuotaSpecFromJSONTyped,
     IoK8sApiCoreV1ResourceQuotaSpecToJSON,
+    IoK8sApiCoreV1ResourceQuotaSpecToJSONTyped,
 } from './IoK8sApiCoreV1ResourceQuotaSpec';
 import type { IoK8sApiCoreV1ResourceQuotaStatus } from './IoK8sApiCoreV1ResourceQuotaStatus';
 import {
     IoK8sApiCoreV1ResourceQuotaStatusFromJSON,
     IoK8sApiCoreV1ResourceQuotaStatusFromJSONTyped,
     IoK8sApiCoreV1ResourceQuotaStatusToJSON,
+    IoK8sApiCoreV1ResourceQuotaStatusToJSONTyped,
 } from './IoK8sApiCoreV1ResourceQuotaStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sApiCoreV1ResourceQuota {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ResourceQuota interface.
  */
-export function instanceOfIoK8sApiCoreV1ResourceQuota(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ResourceQuota(value: object): value is IoK8sApiCoreV1ResourceQuota {
+    return true;
 }
 
 export function IoK8sApiCoreV1ResourceQuotaFromJSON(json: any): IoK8sApiCoreV1ResourceQuota {
@@ -84,33 +85,35 @@ export function IoK8sApiCoreV1ResourceQuotaFromJSON(json: any): IoK8sApiCoreV1Re
 }
 
 export function IoK8sApiCoreV1ResourceQuotaFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ResourceQuota {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoreV1ResourceQuotaSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiCoreV1ResourceQuotaStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoreV1ResourceQuotaSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiCoreV1ResourceQuotaStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiCoreV1ResourceQuotaToJSON(value?: IoK8sApiCoreV1ResourceQuota | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ResourceQuotaToJSON(json: any): IoK8sApiCoreV1ResourceQuota {
+    return IoK8sApiCoreV1ResourceQuotaToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ResourceQuotaToJSONTyped(value?: IoK8sApiCoreV1ResourceQuota | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1ResourceQuotaSpecToJSON(value.spec),
-        'status': IoK8sApiCoreV1ResourceQuotaStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1ResourceQuotaSpecToJSON(value['spec']),
+        'status': IoK8sApiCoreV1ResourceQuotaStatusToJSON(value['status']),
     };
 }
 

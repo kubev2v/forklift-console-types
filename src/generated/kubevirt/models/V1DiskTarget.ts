@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,10 +42,8 @@ export interface V1DiskTarget {
 /**
  * Check if a given object implements the V1DiskTarget interface.
  */
-export function instanceOfV1DiskTarget(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1DiskTarget(value: object): value is V1DiskTarget {
+    return true;
 }
 
 export function V1DiskTargetFromJSON(json: any): V1DiskTarget {
@@ -53,29 +51,31 @@ export function V1DiskTargetFromJSON(json: any): V1DiskTarget {
 }
 
 export function V1DiskTargetFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1DiskTarget {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'bus': !exists(json, 'bus') ? undefined : json['bus'],
-        'pciAddress': !exists(json, 'pciAddress') ? undefined : json['pciAddress'],
-        'readonly': !exists(json, 'readonly') ? undefined : json['readonly'],
+        'bus': json['bus'] == null ? undefined : json['bus'],
+        'pciAddress': json['pciAddress'] == null ? undefined : json['pciAddress'],
+        'readonly': json['readonly'] == null ? undefined : json['readonly'],
     };
 }
 
-export function V1DiskTargetToJSON(value?: V1DiskTarget | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DiskTargetToJSON(json: any): V1DiskTarget {
+    return V1DiskTargetToJSONTyped(json, false);
+}
+
+export function V1DiskTargetToJSONTyped(value?: V1DiskTarget | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'bus': value.bus,
-        'pciAddress': value.pciAddress,
-        'readonly': value.readonly,
+        'bus': value['bus'],
+        'pciAddress': value['pciAddress'],
+        'readonly': value['readonly'],
     };
 }
 

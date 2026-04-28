@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ExecAction describes a "run in container" action.
  * @export
@@ -30,10 +30,8 @@ export interface K8sIoApiCoreV1ExecAction {
 /**
  * Check if a given object implements the K8sIoApiCoreV1ExecAction interface.
  */
-export function instanceOfK8sIoApiCoreV1ExecAction(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1ExecAction(value: object): value is K8sIoApiCoreV1ExecAction {
+    return true;
 }
 
 export function K8sIoApiCoreV1ExecActionFromJSON(json: any): K8sIoApiCoreV1ExecAction {
@@ -41,25 +39,27 @@ export function K8sIoApiCoreV1ExecActionFromJSON(json: any): K8sIoApiCoreV1ExecA
 }
 
 export function K8sIoApiCoreV1ExecActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1ExecAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'command': !exists(json, 'command') ? undefined : json['command'],
+        'command': json['command'] == null ? undefined : json['command'],
     };
 }
 
-export function K8sIoApiCoreV1ExecActionToJSON(value?: K8sIoApiCoreV1ExecAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1ExecActionToJSON(json: any): K8sIoApiCoreV1ExecAction {
+    return K8sIoApiCoreV1ExecActionToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1ExecActionToJSONTyped(value?: K8sIoApiCoreV1ExecAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'command': value.command,
+        'command': value['command'],
     };
 }
 

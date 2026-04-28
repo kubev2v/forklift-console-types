@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAppsV1DaemonSetUpdateStrategy } from './IoK8sApiAppsV1DaemonSetUpdateStrategy';
-import {
-    IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSON,
-    IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSONTyped,
-    IoK8sApiAppsV1DaemonSetUpdateStrategyToJSON,
-} from './IoK8sApiAppsV1DaemonSetUpdateStrategy';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodTemplateSpec } from './IoK8sApiCoreV1PodTemplateSpec';
 import {
     IoK8sApiCoreV1PodTemplateSpecFromJSON,
     IoK8sApiCoreV1PodTemplateSpecFromJSONTyped,
     IoK8sApiCoreV1PodTemplateSpecToJSON,
+    IoK8sApiCoreV1PodTemplateSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodTemplateSpec';
+import type { IoK8sApiAppsV1DaemonSetUpdateStrategy } from './IoK8sApiAppsV1DaemonSetUpdateStrategy';
+import {
+    IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSON,
+    IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSONTyped,
+    IoK8sApiAppsV1DaemonSetUpdateStrategyToJSON,
+    IoK8sApiAppsV1DaemonSetUpdateStrategyToJSONTyped,
+} from './IoK8sApiAppsV1DaemonSetUpdateStrategy';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -73,12 +76,10 @@ export interface IoK8sApiAppsV1DaemonSetSpec {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DaemonSetSpec interface.
  */
-export function instanceOfIoK8sApiAppsV1DaemonSetSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selector" in value;
-    isInstance = isInstance && "template" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DaemonSetSpec(value: object): value is IoK8sApiAppsV1DaemonSetSpec {
+    if (!('selector' in value) || value['selector'] === undefined) return false;
+    if (!('template' in value) || value['template'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1DaemonSetSpecFromJSON(json: any): IoK8sApiAppsV1DaemonSetSpec {
@@ -86,33 +87,35 @@ export function IoK8sApiAppsV1DaemonSetSpecFromJSON(json: any): IoK8sApiAppsV1Da
 }
 
 export function IoK8sApiAppsV1DaemonSetSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DaemonSetSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'minReadySeconds': !exists(json, 'minReadySeconds') ? undefined : json['minReadySeconds'],
-        'revisionHistoryLimit': !exists(json, 'revisionHistoryLimit') ? undefined : json['revisionHistoryLimit'],
+        'minReadySeconds': json['minReadySeconds'] == null ? undefined : json['minReadySeconds'],
+        'revisionHistoryLimit': json['revisionHistoryLimit'] == null ? undefined : json['revisionHistoryLimit'],
         'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
         'template': IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
-        'updateStrategy': !exists(json, 'updateStrategy') ? undefined : IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSON(json['updateStrategy']),
+        'updateStrategy': json['updateStrategy'] == null ? undefined : IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSON(json['updateStrategy']),
     };
 }
 
-export function IoK8sApiAppsV1DaemonSetSpecToJSON(value?: IoK8sApiAppsV1DaemonSetSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DaemonSetSpecToJSON(json: any): IoK8sApiAppsV1DaemonSetSpec {
+    return IoK8sApiAppsV1DaemonSetSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DaemonSetSpecToJSONTyped(value?: IoK8sApiAppsV1DaemonSetSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'minReadySeconds': value.minReadySeconds,
-        'revisionHistoryLimit': value.revisionHistoryLimit,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value.template),
-        'updateStrategy': IoK8sApiAppsV1DaemonSetUpdateStrategyToJSON(value.updateStrategy),
+        'minReadySeconds': value['minReadySeconds'],
+        'revisionHistoryLimit': value['revisionHistoryLimit'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value['template']),
+        'updateStrategy': IoK8sApiAppsV1DaemonSetUpdateStrategyToJSON(value['updateStrategy']),
     };
 }
 

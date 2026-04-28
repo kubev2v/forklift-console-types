@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1FlowDistinguisherMethod } from './IoK8sApiFlowcontrolV1FlowDistinguisherMethod';
 import {
     IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSON,
     IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSONTyped,
     IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSON,
+    IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSONTyped,
 } from './IoK8sApiFlowcontrolV1FlowDistinguisherMethod';
-import type { IoK8sApiFlowcontrolV1PolicyRulesWithSubjects } from './IoK8sApiFlowcontrolV1PolicyRulesWithSubjects';
-import {
-    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSON,
-    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSONTyped,
-    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSON,
-} from './IoK8sApiFlowcontrolV1PolicyRulesWithSubjects';
 import type { IoK8sApiFlowcontrolV1PriorityLevelConfigurationReference } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationReference';
 import {
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceFromJSON,
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceFromJSONTyped,
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceToJSON,
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceToJSONTyped,
 } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationReference';
+import type { IoK8sApiFlowcontrolV1PolicyRulesWithSubjects } from './IoK8sApiFlowcontrolV1PolicyRulesWithSubjects';
+import {
+    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSON,
+    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSONTyped,
+    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSON,
+    IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSONTyped,
+} from './IoK8sApiFlowcontrolV1PolicyRulesWithSubjects';
 
 /**
  * FlowSchemaSpec describes how the FlowSchema's specification looks like.
@@ -67,11 +70,9 @@ export interface IoK8sApiFlowcontrolV1FlowSchemaSpec {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1FlowSchemaSpec interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "priorityLevelConfiguration" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaSpec(value: object): value is IoK8sApiFlowcontrolV1FlowSchemaSpec {
+    if (!('priorityLevelConfiguration' in value) || value['priorityLevelConfiguration'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaSpecFromJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaSpec {
@@ -79,31 +80,33 @@ export function IoK8sApiFlowcontrolV1FlowSchemaSpecFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1FlowSchemaSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'distinguisherMethod': !exists(json, 'distinguisherMethod') ? undefined : IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSON(json['distinguisherMethod']),
-        'matchingPrecedence': !exists(json, 'matchingPrecedence') ? undefined : json['matchingPrecedence'],
+        'distinguisherMethod': json['distinguisherMethod'] == null ? undefined : IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSON(json['distinguisherMethod']),
+        'matchingPrecedence': json['matchingPrecedence'] == null ? undefined : json['matchingPrecedence'],
         'priorityLevelConfiguration': IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceFromJSON(json['priorityLevelConfiguration']),
-        'rules': !exists(json, 'rules') ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSON)),
+        'rules': json['rules'] == null ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSON)),
     };
 }
 
-export function IoK8sApiFlowcontrolV1FlowSchemaSpecToJSON(value?: IoK8sApiFlowcontrolV1FlowSchemaSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1FlowSchemaSpecToJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaSpec {
+    return IoK8sApiFlowcontrolV1FlowSchemaSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1FlowSchemaSpecToJSONTyped(value?: IoK8sApiFlowcontrolV1FlowSchemaSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'distinguisherMethod': IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSON(value.distinguisherMethod),
-        'matchingPrecedence': value.matchingPrecedence,
-        'priorityLevelConfiguration': IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceToJSON(value.priorityLevelConfiguration),
-        'rules': value.rules === undefined ? undefined : ((value.rules as Array<any>).map(IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSON)),
+        'distinguisherMethod': IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSON(value['distinguisherMethod']),
+        'matchingPrecedence': value['matchingPrecedence'],
+        'priorityLevelConfiguration': IoK8sApiFlowcontrolV1PriorityLevelConfigurationReferenceToJSON(value['priorityLevelConfiguration']),
+        'rules': value['rules'] == null ? undefined : ((value['rules'] as Array<any>).map(IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSON)),
     };
 }
 

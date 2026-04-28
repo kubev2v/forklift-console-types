@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 /**
  * PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
  * @export

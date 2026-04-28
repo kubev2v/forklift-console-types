@@ -12,13 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1Hugepages } from './V1Hugepages';
 import {
     V1HugepagesFromJSON,
     V1HugepagesFromJSONTyped,
     V1HugepagesToJSON,
+    V1HugepagesToJSONTyped,
 } from './V1Hugepages';
+import type { V1ReservedOverhead } from './V1ReservedOverhead';
+import {
+    V1ReservedOverheadFromJSON,
+    V1ReservedOverheadFromJSONTyped,
+    V1ReservedOverheadToJSON,
+    V1ReservedOverheadToJSONTyped,
+} from './V1ReservedOverhead';
 
 /**
  * Memory allows specifying the VirtualMachineInstance memory features.
@@ -64,10 +72,10 @@ export interface V1Memory {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1Memory
      */
-    guest?: string;
+    guest?: object;
     /**
      * 
      * @type {V1Hugepages}
@@ -112,19 +120,23 @@ export interface V1Memory {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1Memory
      */
-    maxGuest?: string;
+    maxGuest?: object;
+    /**
+     * 
+     * @type {V1ReservedOverhead}
+     * @memberof V1Memory
+     */
+    reservedOverhead?: V1ReservedOverhead;
 }
 
 /**
  * Check if a given object implements the V1Memory interface.
  */
-export function instanceOfV1Memory(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Memory(value: object): value is V1Memory {
+    return true;
 }
 
 export function V1MemoryFromJSON(json: any): V1Memory {
@@ -132,29 +144,33 @@ export function V1MemoryFromJSON(json: any): V1Memory {
 }
 
 export function V1MemoryFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Memory {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'guest': !exists(json, 'guest') ? undefined : json['guest'],
-        'hugepages': !exists(json, 'hugepages') ? undefined : V1HugepagesFromJSON(json['hugepages']),
-        'maxGuest': !exists(json, 'maxGuest') ? undefined : json['maxGuest'],
+        'guest': json['guest'] == null ? undefined : json['guest'],
+        'hugepages': json['hugepages'] == null ? undefined : V1HugepagesFromJSON(json['hugepages']),
+        'maxGuest': json['maxGuest'] == null ? undefined : json['maxGuest'],
+        'reservedOverhead': json['reservedOverhead'] == null ? undefined : V1ReservedOverheadFromJSON(json['reservedOverhead']),
     };
 }
 
-export function V1MemoryToJSON(value?: V1Memory | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MemoryToJSON(json: any): V1Memory {
+    return V1MemoryToJSONTyped(json, false);
+}
+
+export function V1MemoryToJSONTyped(value?: V1Memory | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'guest': value.guest,
-        'hugepages': V1HugepagesToJSON(value.hugepages),
-        'maxGuest': value.maxGuest,
+        'guest': value['guest'],
+        'hugepages': V1HugepagesToJSON(value['hugepages']),
+        'maxGuest': value['maxGuest'],
+        'reservedOverhead': V1ReservedOverheadToJSON(value['reservedOverhead']),
     };
 }
 

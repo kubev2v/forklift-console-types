@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiRbacV1AggregationRule {
 /**
  * Check if a given object implements the IoK8sApiRbacV1AggregationRule interface.
  */
-export function instanceOfIoK8sApiRbacV1AggregationRule(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1AggregationRule(value: object): value is IoK8sApiRbacV1AggregationRule {
+    return true;
 }
 
 export function IoK8sApiRbacV1AggregationRuleFromJSON(json: any): IoK8sApiRbacV1AggregationRule {
@@ -48,25 +47,27 @@ export function IoK8sApiRbacV1AggregationRuleFromJSON(json: any): IoK8sApiRbacV1
 }
 
 export function IoK8sApiRbacV1AggregationRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1AggregationRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'clusterRoleSelectors': !exists(json, 'clusterRoleSelectors') ? undefined : ((json['clusterRoleSelectors'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON)),
+        'clusterRoleSelectors': json['clusterRoleSelectors'] == null ? undefined : ((json['clusterRoleSelectors'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON)),
     };
 }
 
-export function IoK8sApiRbacV1AggregationRuleToJSON(value?: IoK8sApiRbacV1AggregationRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1AggregationRuleToJSON(json: any): IoK8sApiRbacV1AggregationRule {
+    return IoK8sApiRbacV1AggregationRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1AggregationRuleToJSONTyped(value?: IoK8sApiRbacV1AggregationRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'clusterRoleSelectors': value.clusterRoleSelectors === undefined ? undefined : ((value.clusterRoleSelectors as Array<any>).map(IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON)),
+        'clusterRoleSelectors': value['clusterRoleSelectors'] == null ? undefined : ((value['clusterRoleSelectors'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON)),
     };
 }
 

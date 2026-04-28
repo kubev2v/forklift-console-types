@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAppsV1DeploymentStrategy } from './IoK8sApiAppsV1DeploymentStrategy';
-import {
-    IoK8sApiAppsV1DeploymentStrategyFromJSON,
-    IoK8sApiAppsV1DeploymentStrategyFromJSONTyped,
-    IoK8sApiAppsV1DeploymentStrategyToJSON,
-} from './IoK8sApiAppsV1DeploymentStrategy';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodTemplateSpec } from './IoK8sApiCoreV1PodTemplateSpec';
 import {
     IoK8sApiCoreV1PodTemplateSpecFromJSON,
     IoK8sApiCoreV1PodTemplateSpecFromJSONTyped,
     IoK8sApiCoreV1PodTemplateSpecToJSON,
+    IoK8sApiCoreV1PodTemplateSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodTemplateSpec';
+import type { IoK8sApiAppsV1DeploymentStrategy } from './IoK8sApiAppsV1DeploymentStrategy';
+import {
+    IoK8sApiAppsV1DeploymentStrategyFromJSON,
+    IoK8sApiAppsV1DeploymentStrategyFromJSONTyped,
+    IoK8sApiAppsV1DeploymentStrategyToJSON,
+    IoK8sApiAppsV1DeploymentStrategyToJSONTyped,
+} from './IoK8sApiAppsV1DeploymentStrategy';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -91,12 +94,10 @@ export interface IoK8sApiAppsV1DeploymentSpec {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DeploymentSpec interface.
  */
-export function instanceOfIoK8sApiAppsV1DeploymentSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selector" in value;
-    isInstance = isInstance && "template" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DeploymentSpec(value: object): value is IoK8sApiAppsV1DeploymentSpec {
+    if (!('selector' in value) || value['selector'] === undefined) return false;
+    if (!('template' in value) || value['template'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1DeploymentSpecFromJSON(json: any): IoK8sApiAppsV1DeploymentSpec {
@@ -104,39 +105,41 @@ export function IoK8sApiAppsV1DeploymentSpecFromJSON(json: any): IoK8sApiAppsV1D
 }
 
 export function IoK8sApiAppsV1DeploymentSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DeploymentSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'minReadySeconds': !exists(json, 'minReadySeconds') ? undefined : json['minReadySeconds'],
-        'paused': !exists(json, 'paused') ? undefined : json['paused'],
-        'progressDeadlineSeconds': !exists(json, 'progressDeadlineSeconds') ? undefined : json['progressDeadlineSeconds'],
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
-        'revisionHistoryLimit': !exists(json, 'revisionHistoryLimit') ? undefined : json['revisionHistoryLimit'],
+        'minReadySeconds': json['minReadySeconds'] == null ? undefined : json['minReadySeconds'],
+        'paused': json['paused'] == null ? undefined : json['paused'],
+        'progressDeadlineSeconds': json['progressDeadlineSeconds'] == null ? undefined : json['progressDeadlineSeconds'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
+        'revisionHistoryLimit': json['revisionHistoryLimit'] == null ? undefined : json['revisionHistoryLimit'],
         'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'strategy': !exists(json, 'strategy') ? undefined : IoK8sApiAppsV1DeploymentStrategyFromJSON(json['strategy']),
+        'strategy': json['strategy'] == null ? undefined : IoK8sApiAppsV1DeploymentStrategyFromJSON(json['strategy']),
         'template': IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
     };
 }
 
-export function IoK8sApiAppsV1DeploymentSpecToJSON(value?: IoK8sApiAppsV1DeploymentSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DeploymentSpecToJSON(json: any): IoK8sApiAppsV1DeploymentSpec {
+    return IoK8sApiAppsV1DeploymentSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DeploymentSpecToJSONTyped(value?: IoK8sApiAppsV1DeploymentSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'minReadySeconds': value.minReadySeconds,
-        'paused': value.paused,
-        'progressDeadlineSeconds': value.progressDeadlineSeconds,
-        'replicas': value.replicas,
-        'revisionHistoryLimit': value.revisionHistoryLimit,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'strategy': IoK8sApiAppsV1DeploymentStrategyToJSON(value.strategy),
-        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value.template),
+        'minReadySeconds': value['minReadySeconds'],
+        'paused': value['paused'],
+        'progressDeadlineSeconds': value['progressDeadlineSeconds'],
+        'replicas': value['replicas'],
+        'revisionHistoryLimit': value['revisionHistoryLimit'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'strategy': IoK8sApiAppsV1DeploymentStrategyToJSON(value['strategy']),
+        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value['template']),
     };
 }
 

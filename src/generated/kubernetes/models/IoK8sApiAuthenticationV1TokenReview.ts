@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAuthenticationV1TokenReviewSpec } from './IoK8sApiAuthenticationV1TokenReviewSpec';
-import {
-    IoK8sApiAuthenticationV1TokenReviewSpecFromJSON,
-    IoK8sApiAuthenticationV1TokenReviewSpecFromJSONTyped,
-    IoK8sApiAuthenticationV1TokenReviewSpecToJSON,
-} from './IoK8sApiAuthenticationV1TokenReviewSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthenticationV1TokenReviewStatus } from './IoK8sApiAuthenticationV1TokenReviewStatus';
 import {
     IoK8sApiAuthenticationV1TokenReviewStatusFromJSON,
     IoK8sApiAuthenticationV1TokenReviewStatusFromJSONTyped,
     IoK8sApiAuthenticationV1TokenReviewStatusToJSON,
+    IoK8sApiAuthenticationV1TokenReviewStatusToJSONTyped,
 } from './IoK8sApiAuthenticationV1TokenReviewStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiAuthenticationV1TokenReviewSpec } from './IoK8sApiAuthenticationV1TokenReviewSpec';
+import {
+    IoK8sApiAuthenticationV1TokenReviewSpecFromJSON,
+    IoK8sApiAuthenticationV1TokenReviewSpecFromJSONTyped,
+    IoK8sApiAuthenticationV1TokenReviewSpecToJSON,
+    IoK8sApiAuthenticationV1TokenReviewSpecToJSONTyped,
+} from './IoK8sApiAuthenticationV1TokenReviewSpec';
 
 /**
  * TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
@@ -73,11 +76,9 @@ export interface IoK8sApiAuthenticationV1TokenReview {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1TokenReview interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1TokenReview(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1TokenReview(value: object): value is IoK8sApiAuthenticationV1TokenReview {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1TokenReviewFromJSON(json: any): IoK8sApiAuthenticationV1TokenReview {
@@ -85,33 +86,35 @@ export function IoK8sApiAuthenticationV1TokenReviewFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiAuthenticationV1TokenReviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1TokenReview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiAuthenticationV1TokenReviewSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAuthenticationV1TokenReviewStatusFromJSON(json['status']),
+        'status': json['status'] == null ? undefined : IoK8sApiAuthenticationV1TokenReviewStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAuthenticationV1TokenReviewToJSON(value?: IoK8sApiAuthenticationV1TokenReview | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1TokenReviewToJSON(json: any): IoK8sApiAuthenticationV1TokenReview {
+    return IoK8sApiAuthenticationV1TokenReviewToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1TokenReviewToJSONTyped(value?: IoK8sApiAuthenticationV1TokenReview | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAuthenticationV1TokenReviewSpecToJSON(value.spec),
-        'status': IoK8sApiAuthenticationV1TokenReviewStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAuthenticationV1TokenReviewSpecToJSON(value['spec']),
+        'status': IoK8sApiAuthenticationV1TokenReviewStatusToJSON(value['status']),
     };
 }
 

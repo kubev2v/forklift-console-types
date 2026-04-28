@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * MetricValueStatus holds the current value for a metric
  * @export
@@ -114,10 +114,8 @@ export interface IoK8sApiAutoscalingV2MetricValueStatus {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2MetricValueStatus interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2MetricValueStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2MetricValueStatus(value: object): value is IoK8sApiAutoscalingV2MetricValueStatus {
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2MetricValueStatusFromJSON(json: any): IoK8sApiAutoscalingV2MetricValueStatus {
@@ -125,29 +123,31 @@ export function IoK8sApiAutoscalingV2MetricValueStatusFromJSON(json: any): IoK8s
 }
 
 export function IoK8sApiAutoscalingV2MetricValueStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2MetricValueStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'averageUtilization': !exists(json, 'averageUtilization') ? undefined : json['averageUtilization'],
-        'averageValue': !exists(json, 'averageValue') ? undefined : json['averageValue'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'averageUtilization': json['averageUtilization'] == null ? undefined : json['averageUtilization'],
+        'averageValue': json['averageValue'] == null ? undefined : json['averageValue'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function IoK8sApiAutoscalingV2MetricValueStatusToJSON(value?: IoK8sApiAutoscalingV2MetricValueStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2MetricValueStatusToJSON(json: any): IoK8sApiAutoscalingV2MetricValueStatus {
+    return IoK8sApiAutoscalingV2MetricValueStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2MetricValueStatusToJSONTyped(value?: IoK8sApiAutoscalingV2MetricValueStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'averageUtilization': value.averageUtilization,
-        'averageValue': value.averageValue,
-        'value': value.value,
+        'averageUtilization': value['averageUtilization'],
+        'averageValue': value['averageValue'],
+        'value': value['value'],
     };
 }
 

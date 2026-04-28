@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LimitRangeItem } from './IoK8sApiCoreV1LimitRangeItem';
 import {
     IoK8sApiCoreV1LimitRangeItemFromJSON,
     IoK8sApiCoreV1LimitRangeItemFromJSONTyped,
     IoK8sApiCoreV1LimitRangeItemToJSON,
+    IoK8sApiCoreV1LimitRangeItemToJSONTyped,
 } from './IoK8sApiCoreV1LimitRangeItem';
 
 /**
@@ -37,11 +38,9 @@ export interface IoK8sApiCoreV1LimitRangeSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1LimitRangeSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1LimitRangeSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "limits" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1LimitRangeSpec(value: object): value is IoK8sApiCoreV1LimitRangeSpec {
+    if (!('limits' in value) || value['limits'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1LimitRangeSpecFromJSON(json: any): IoK8sApiCoreV1LimitRangeSpec {
@@ -49,7 +48,7 @@ export function IoK8sApiCoreV1LimitRangeSpecFromJSON(json: any): IoK8sApiCoreV1L
 }
 
 export function IoK8sApiCoreV1LimitRangeSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1LimitRangeSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function IoK8sApiCoreV1LimitRangeSpecFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function IoK8sApiCoreV1LimitRangeSpecToJSON(value?: IoK8sApiCoreV1LimitRangeSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1LimitRangeSpecToJSON(json: any): IoK8sApiCoreV1LimitRangeSpec {
+    return IoK8sApiCoreV1LimitRangeSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1LimitRangeSpecToJSONTyped(value?: IoK8sApiCoreV1LimitRangeSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'limits': ((value.limits as Array<any>).map(IoK8sApiCoreV1LimitRangeItemToJSON)),
+        'limits': ((value['limits'] as Array<any>).map(IoK8sApiCoreV1LimitRangeItemToJSON)),
     };
 }
 

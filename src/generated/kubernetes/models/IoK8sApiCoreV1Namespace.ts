@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1NamespaceSpec } from './IoK8sApiCoreV1NamespaceSpec';
-import {
-    IoK8sApiCoreV1NamespaceSpecFromJSON,
-    IoK8sApiCoreV1NamespaceSpecFromJSONTyped,
-    IoK8sApiCoreV1NamespaceSpecToJSON,
-} from './IoK8sApiCoreV1NamespaceSpec';
-import type { IoK8sApiCoreV1NamespaceStatus } from './IoK8sApiCoreV1NamespaceStatus';
-import {
-    IoK8sApiCoreV1NamespaceStatusFromJSON,
-    IoK8sApiCoreV1NamespaceStatusFromJSONTyped,
-    IoK8sApiCoreV1NamespaceStatusToJSON,
-} from './IoK8sApiCoreV1NamespaceStatus';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiCoreV1NamespaceStatus } from './IoK8sApiCoreV1NamespaceStatus';
+import {
+    IoK8sApiCoreV1NamespaceStatusFromJSON,
+    IoK8sApiCoreV1NamespaceStatusFromJSONTyped,
+    IoK8sApiCoreV1NamespaceStatusToJSON,
+    IoK8sApiCoreV1NamespaceStatusToJSONTyped,
+} from './IoK8sApiCoreV1NamespaceStatus';
+import type { IoK8sApiCoreV1NamespaceSpec } from './IoK8sApiCoreV1NamespaceSpec';
+import {
+    IoK8sApiCoreV1NamespaceSpecFromJSON,
+    IoK8sApiCoreV1NamespaceSpecFromJSONTyped,
+    IoK8sApiCoreV1NamespaceSpecToJSON,
+    IoK8sApiCoreV1NamespaceSpecToJSONTyped,
+} from './IoK8sApiCoreV1NamespaceSpec';
 
 /**
  * Namespace provides a scope for Names. Use of multiple namespaces is optional.
@@ -73,10 +76,8 @@ export interface IoK8sApiCoreV1Namespace {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Namespace interface.
  */
-export function instanceOfIoK8sApiCoreV1Namespace(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Namespace(value: object): value is IoK8sApiCoreV1Namespace {
+    return true;
 }
 
 export function IoK8sApiCoreV1NamespaceFromJSON(json: any): IoK8sApiCoreV1Namespace {
@@ -84,33 +85,35 @@ export function IoK8sApiCoreV1NamespaceFromJSON(json: any): IoK8sApiCoreV1Namesp
 }
 
 export function IoK8sApiCoreV1NamespaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Namespace {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoreV1NamespaceSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiCoreV1NamespaceStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoreV1NamespaceSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiCoreV1NamespaceStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiCoreV1NamespaceToJSON(value?: IoK8sApiCoreV1Namespace | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NamespaceToJSON(json: any): IoK8sApiCoreV1Namespace {
+    return IoK8sApiCoreV1NamespaceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NamespaceToJSONTyped(value?: IoK8sApiCoreV1Namespace | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1NamespaceSpecToJSON(value.spec),
-        'status': IoK8sApiCoreV1NamespaceStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1NamespaceSpecToJSON(value['spec']),
+        'status': IoK8sApiCoreV1NamespaceStatusToJSON(value['status']),
     };
 }
 

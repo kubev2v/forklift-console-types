@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VolumeMount describes a mounting of a Volume within a container.
  * @export
@@ -26,7 +26,7 @@ export interface IoK8sApiCoreV1VolumeMount {
      */
     mountPath: string;
     /**
-     * mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+     * mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10. When RecursiveReadOnly is set to IfPossible or to Enabled, MountPropagation must be None or unspecified (which defaults to None).
      * @type {string}
      * @memberof IoK8sApiCoreV1VolumeMount
      */
@@ -44,6 +44,20 @@ export interface IoK8sApiCoreV1VolumeMount {
      */
     readOnly?: boolean;
     /**
+     * RecursiveReadOnly specifies whether read-only mounts should be handled recursively.
+     * 
+     * If ReadOnly is false, this field has no meaning and must be unspecified.
+     * 
+     * If ReadOnly is true, and this field is set to Disabled, the mount is not made recursively read-only.  If this field is set to IfPossible, the mount is made recursively read-only, if it is supported by the container runtime.  If this field is set to Enabled, the mount is made recursively read-only if it is supported by the container runtime, otherwise the pod will not be started and an error will be generated to indicate the reason.
+     * 
+     * If this field is set to IfPossible or Enabled, MountPropagation must be set to None (or be unspecified, which defaults to None).
+     * 
+     * If this field is not specified, it is treated as an equivalent of Disabled.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1VolumeMount
+     */
+    recursiveReadOnly?: string;
+    /**
      * Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
      * @type {string}
      * @memberof IoK8sApiCoreV1VolumeMount
@@ -60,12 +74,10 @@ export interface IoK8sApiCoreV1VolumeMount {
 /**
  * Check if a given object implements the IoK8sApiCoreV1VolumeMount interface.
  */
-export function instanceOfIoK8sApiCoreV1VolumeMount(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "mountPath" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1VolumeMount(value: object): value is IoK8sApiCoreV1VolumeMount {
+    if (!('mountPath' in value) || value['mountPath'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1VolumeMountFromJSON(json: any): IoK8sApiCoreV1VolumeMount {
@@ -73,35 +85,39 @@ export function IoK8sApiCoreV1VolumeMountFromJSON(json: any): IoK8sApiCoreV1Volu
 }
 
 export function IoK8sApiCoreV1VolumeMountFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1VolumeMount {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'mountPath': json['mountPath'],
-        'mountPropagation': !exists(json, 'mountPropagation') ? undefined : json['mountPropagation'],
+        'mountPropagation': json['mountPropagation'] == null ? undefined : json['mountPropagation'],
         'name': json['name'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'subPath': !exists(json, 'subPath') ? undefined : json['subPath'],
-        'subPathExpr': !exists(json, 'subPathExpr') ? undefined : json['subPathExpr'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'recursiveReadOnly': json['recursiveReadOnly'] == null ? undefined : json['recursiveReadOnly'],
+        'subPath': json['subPath'] == null ? undefined : json['subPath'],
+        'subPathExpr': json['subPathExpr'] == null ? undefined : json['subPathExpr'],
     };
 }
 
-export function IoK8sApiCoreV1VolumeMountToJSON(value?: IoK8sApiCoreV1VolumeMount | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VolumeMountToJSON(json: any): IoK8sApiCoreV1VolumeMount {
+    return IoK8sApiCoreV1VolumeMountToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VolumeMountToJSONTyped(value?: IoK8sApiCoreV1VolumeMount | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'mountPath': value.mountPath,
-        'mountPropagation': value.mountPropagation,
-        'name': value.name,
-        'readOnly': value.readOnly,
-        'subPath': value.subPath,
-        'subPathExpr': value.subPathExpr,
+        'mountPath': value['mountPath'],
+        'mountPropagation': value['mountPropagation'],
+        'name': value['name'],
+        'readOnly': value['readOnly'],
+        'recursiveReadOnly': value['recursiveReadOnly'],
+        'subPath': value['subPath'],
+        'subPathExpr': value['subPathExpr'],
     };
 }
 

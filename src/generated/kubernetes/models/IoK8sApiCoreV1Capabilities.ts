@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Adds and removes POSIX capabilities from running containers.
  * @export
@@ -24,22 +24,20 @@ export interface IoK8sApiCoreV1Capabilities {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1Capabilities
      */
-    add?: string[];
+    add?: Array<string>;
     /**
      * Removed capabilities
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1Capabilities
      */
-    drop?: string[];
+    drop?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1Capabilities interface.
  */
-export function instanceOfIoK8sApiCoreV1Capabilities(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Capabilities(value: object): value is IoK8sApiCoreV1Capabilities {
+    return true;
 }
 
 export function IoK8sApiCoreV1CapabilitiesFromJSON(json: any): IoK8sApiCoreV1Capabilities {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1CapabilitiesFromJSON(json: any): IoK8sApiCoreV1Cap
 }
 
 export function IoK8sApiCoreV1CapabilitiesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Capabilities {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'add': !exists(json, 'add') ? undefined : json['add'],
-        'drop': !exists(json, 'drop') ? undefined : json['drop'],
+        'add': json['add'] == null ? undefined : json['add'],
+        'drop': json['drop'] == null ? undefined : json['drop'],
     };
 }
 
-export function IoK8sApiCoreV1CapabilitiesToJSON(value?: IoK8sApiCoreV1Capabilities | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1CapabilitiesToJSON(json: any): IoK8sApiCoreV1Capabilities {
+    return IoK8sApiCoreV1CapabilitiesToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1CapabilitiesToJSONTyped(value?: IoK8sApiCoreV1Capabilities | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'add': value.add,
-        'drop': value.drop,
+        'add': value['add'],
+        'drop': value['drop'],
     };
 }
 

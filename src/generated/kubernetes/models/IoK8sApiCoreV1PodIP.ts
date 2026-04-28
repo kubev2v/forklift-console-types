@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodIP represents a single IP address allocated to the pod.
  * @export
@@ -24,16 +24,15 @@ export interface IoK8sApiCoreV1PodIP {
      * @type {string}
      * @memberof IoK8sApiCoreV1PodIP
      */
-    ip?: string;
+    ip: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodIP interface.
  */
-export function instanceOfIoK8sApiCoreV1PodIP(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodIP(value: object): value is IoK8sApiCoreV1PodIP {
+    if (!('ip' in value) || value['ip'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodIPFromJSON(json: any): IoK8sApiCoreV1PodIP {
@@ -41,25 +40,27 @@ export function IoK8sApiCoreV1PodIPFromJSON(json: any): IoK8sApiCoreV1PodIP {
 }
 
 export function IoK8sApiCoreV1PodIPFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodIP {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ip': !exists(json, 'ip') ? undefined : json['ip'],
+        'ip': json['ip'],
     };
 }
 
-export function IoK8sApiCoreV1PodIPToJSON(value?: IoK8sApiCoreV1PodIP | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodIPToJSON(json: any): IoK8sApiCoreV1PodIP {
+    return IoK8sApiCoreV1PodIPToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodIPToJSONTyped(value?: IoK8sApiCoreV1PodIP | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ip': value.ip,
+        'ip': value['ip'],
     };
 }
 

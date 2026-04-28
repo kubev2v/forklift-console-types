@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1EndpointSubset } from './IoK8sApiCoreV1EndpointSubset';
 import {
     IoK8sApiCoreV1EndpointSubsetFromJSON,
     IoK8sApiCoreV1EndpointSubsetFromJSONTyped,
     IoK8sApiCoreV1EndpointSubsetToJSON,
+    IoK8sApiCoreV1EndpointSubsetToJSONTyped,
 } from './IoK8sApiCoreV1EndpointSubset';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -40,6 +42,10 @@ import {
  * 	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
  * 	   },
  * 	]
+ * 
+ * Endpoints is a legacy API and does not contain information about all Service features. Use discoveryv1.EndpointSlice for complete information about Service endpoints.
+ * 
+ * Deprecated: This API is deprecated in v1.33+. Use discoveryv1.EndpointSlice.
  * @export
  * @interface IoK8sApiCoreV1Endpoints
  */
@@ -73,10 +79,8 @@ export interface IoK8sApiCoreV1Endpoints {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Endpoints interface.
  */
-export function instanceOfIoK8sApiCoreV1Endpoints(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Endpoints(value: object): value is IoK8sApiCoreV1Endpoints {
+    return true;
 }
 
 export function IoK8sApiCoreV1EndpointsFromJSON(json: any): IoK8sApiCoreV1Endpoints {
@@ -84,31 +88,33 @@ export function IoK8sApiCoreV1EndpointsFromJSON(json: any): IoK8sApiCoreV1Endpoi
 }
 
 export function IoK8sApiCoreV1EndpointsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Endpoints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'subsets': !exists(json, 'subsets') ? undefined : ((json['subsets'] as Array<any>).map(IoK8sApiCoreV1EndpointSubsetFromJSON)),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'subsets': json['subsets'] == null ? undefined : ((json['subsets'] as Array<any>).map(IoK8sApiCoreV1EndpointSubsetFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1EndpointsToJSON(value?: IoK8sApiCoreV1Endpoints | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EndpointsToJSON(json: any): IoK8sApiCoreV1Endpoints {
+    return IoK8sApiCoreV1EndpointsToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EndpointsToJSONTyped(value?: IoK8sApiCoreV1Endpoints | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'subsets': value.subsets === undefined ? undefined : ((value.subsets as Array<any>).map(IoK8sApiCoreV1EndpointSubsetToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'subsets': value['subsets'] == null ? undefined : ((value['subsets'] as Array<any>).map(IoK8sApiCoreV1EndpointSubsetToJSON)),
     };
 }
 

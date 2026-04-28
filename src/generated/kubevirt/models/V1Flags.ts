@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Flags will create a patch that will replace all flags for the container's command field. The only flags that will be used are those define. There are no guarantees around forward/backward compatibility.  If set incorrectly this will cause the resource when rolled out to error until flags are updated.
  * @export
@@ -42,10 +42,8 @@ export interface V1Flags {
 /**
  * Check if a given object implements the V1Flags interface.
  */
-export function instanceOfV1Flags(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Flags(value: object): value is V1Flags {
+    return true;
 }
 
 export function V1FlagsFromJSON(json: any): V1Flags {
@@ -53,29 +51,31 @@ export function V1FlagsFromJSON(json: any): V1Flags {
 }
 
 export function V1FlagsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Flags {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'api': !exists(json, 'api') ? undefined : json['api'],
-        'controller': !exists(json, 'controller') ? undefined : json['controller'],
-        'handler': !exists(json, 'handler') ? undefined : json['handler'],
+        'api': json['api'] == null ? undefined : json['api'],
+        'controller': json['controller'] == null ? undefined : json['controller'],
+        'handler': json['handler'] == null ? undefined : json['handler'],
     };
 }
 
-export function V1FlagsToJSON(value?: V1Flags | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FlagsToJSON(json: any): V1Flags {
+    return V1FlagsToJSONTyped(json, false);
+}
+
+export function V1FlagsToJSONTyped(value?: V1Flags | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'api': value.api,
-        'controller': value.controller,
-        'handler': value.handler,
+        'api': value['api'],
+        'controller': value['controller'],
+        'handler': value['handler'],
     };
 }
 

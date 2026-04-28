@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * BoundObjectReference is a reference to an object that a token is bound to.
  * @export
@@ -20,25 +20,25 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthenticationV1BoundObjectReference {
     /**
-     * API version of the referent.
+     * apiVersion is API version of the referent.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1BoundObjectReference
      */
     apiVersion?: string;
     /**
-     * Kind of the referent. Valid kinds are 'Pod' and 'Secret'.
+     * kind of the referent. Valid kinds are 'Pod' and 'Secret'.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1BoundObjectReference
      */
     kind?: string;
     /**
-     * Name of the referent.
+     * name of the referent.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1BoundObjectReference
      */
     name?: string;
     /**
-     * UID of the referent.
+     * uid of the referent.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1BoundObjectReference
      */
@@ -48,10 +48,8 @@ export interface IoK8sApiAuthenticationV1BoundObjectReference {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1BoundObjectReference interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1BoundObjectReference(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1BoundObjectReference(value: object): value is IoK8sApiAuthenticationV1BoundObjectReference {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1BoundObjectReferenceFromJSON(json: any): IoK8sApiAuthenticationV1BoundObjectReference {
@@ -59,31 +57,33 @@ export function IoK8sApiAuthenticationV1BoundObjectReferenceFromJSON(json: any):
 }
 
 export function IoK8sApiAuthenticationV1BoundObjectReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1BoundObjectReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'uid': json['uid'] == null ? undefined : json['uid'],
     };
 }
 
-export function IoK8sApiAuthenticationV1BoundObjectReferenceToJSON(value?: IoK8sApiAuthenticationV1BoundObjectReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1BoundObjectReferenceToJSON(json: any): IoK8sApiAuthenticationV1BoundObjectReference {
+    return IoK8sApiAuthenticationV1BoundObjectReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1BoundObjectReferenceToJSONTyped(value?: IoK8sApiAuthenticationV1BoundObjectReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'name': value.name,
-        'uid': value.uid,
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'uid': value['uid'],
     };
 }
 

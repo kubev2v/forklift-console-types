@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -54,10 +54,8 @@ export interface V1SMBiosConfiguration {
 /**
  * Check if a given object implements the V1SMBiosConfiguration interface.
  */
-export function instanceOfV1SMBiosConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SMBiosConfiguration(value: object): value is V1SMBiosConfiguration {
+    return true;
 }
 
 export function V1SMBiosConfigurationFromJSON(json: any): V1SMBiosConfiguration {
@@ -65,33 +63,35 @@ export function V1SMBiosConfigurationFromJSON(json: any): V1SMBiosConfiguration 
 }
 
 export function V1SMBiosConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SMBiosConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'family': !exists(json, 'family') ? undefined : json['family'],
-        'manufacturer': !exists(json, 'manufacturer') ? undefined : json['manufacturer'],
-        'product': !exists(json, 'product') ? undefined : json['product'],
-        'sku': !exists(json, 'sku') ? undefined : json['sku'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
+        'family': json['family'] == null ? undefined : json['family'],
+        'manufacturer': json['manufacturer'] == null ? undefined : json['manufacturer'],
+        'product': json['product'] == null ? undefined : json['product'],
+        'sku': json['sku'] == null ? undefined : json['sku'],
+        'version': json['version'] == null ? undefined : json['version'],
     };
 }
 
-export function V1SMBiosConfigurationToJSON(value?: V1SMBiosConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SMBiosConfigurationToJSON(json: any): V1SMBiosConfiguration {
+    return V1SMBiosConfigurationToJSONTyped(json, false);
+}
+
+export function V1SMBiosConfigurationToJSONTyped(value?: V1SMBiosConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'family': value.family,
-        'manufacturer': value.manufacturer,
-        'product': value.product,
-        'sku': value.sku,
-        'version': value.version,
+        'family': value['family'],
+        'manufacturer': value['manufacturer'],
+        'product': value['product'],
+        'sku': value['sku'],
+        'version': value['version'],
     };
 }
 

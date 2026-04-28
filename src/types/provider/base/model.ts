@@ -12,6 +12,8 @@ export interface Ref {
 
 // VM concerns.
 export interface Concern {
+  // Id         string `json:"id"`
+  id: string;
   // Label      string `json:"label"`
   label: string;
   // 'Warning' | 'Critical' | 'Information' | 'Advisory'

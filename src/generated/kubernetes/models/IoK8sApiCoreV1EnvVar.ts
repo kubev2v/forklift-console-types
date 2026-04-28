@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1EnvVarSource } from './IoK8sApiCoreV1EnvVarSource';
 import {
     IoK8sApiCoreV1EnvVarSourceFromJSON,
     IoK8sApiCoreV1EnvVarSourceFromJSONTyped,
     IoK8sApiCoreV1EnvVarSourceToJSON,
+    IoK8sApiCoreV1EnvVarSourceToJSONTyped,
 } from './IoK8sApiCoreV1EnvVarSource';
 
 /**
@@ -27,7 +28,7 @@ import {
  */
 export interface IoK8sApiCoreV1EnvVar {
     /**
-     * Name of the environment variable. Must be a C_IDENTIFIER.
+     * Name of the environment variable. May consist of any printable ASCII characters except '='.
      * @type {string}
      * @memberof IoK8sApiCoreV1EnvVar
      */
@@ -49,11 +50,9 @@ export interface IoK8sApiCoreV1EnvVar {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EnvVar interface.
  */
-export function instanceOfIoK8sApiCoreV1EnvVar(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EnvVar(value: object): value is IoK8sApiCoreV1EnvVar {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1EnvVarFromJSON(json: any): IoK8sApiCoreV1EnvVar {
@@ -61,29 +60,31 @@ export function IoK8sApiCoreV1EnvVarFromJSON(json: any): IoK8sApiCoreV1EnvVar {
 }
 
 export function IoK8sApiCoreV1EnvVarFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EnvVar {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
-        'valueFrom': !exists(json, 'valueFrom') ? undefined : IoK8sApiCoreV1EnvVarSourceFromJSON(json['valueFrom']),
+        'value': json['value'] == null ? undefined : json['value'],
+        'valueFrom': json['valueFrom'] == null ? undefined : IoK8sApiCoreV1EnvVarSourceFromJSON(json['valueFrom']),
     };
 }
 
-export function IoK8sApiCoreV1EnvVarToJSON(value?: IoK8sApiCoreV1EnvVar | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EnvVarToJSON(json: any): IoK8sApiCoreV1EnvVar {
+    return IoK8sApiCoreV1EnvVarToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EnvVarToJSONTyped(value?: IoK8sApiCoreV1EnvVar | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'value': value.value,
-        'valueFrom': IoK8sApiCoreV1EnvVarSourceToJSON(value.valueFrom),
+        'name': value['name'],
+        'value': value['value'],
+        'valueFrom': IoK8sApiCoreV1EnvVarSourceToJSON(value['valueFrom']),
     };
 }
 

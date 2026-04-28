@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ResourceFieldSelector represents container resources (cpu, memory) and their output format
  * @export
@@ -78,11 +78,9 @@ export interface IoK8sApiCoreV1ResourceFieldSelector {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ResourceFieldSelector interface.
  */
-export function instanceOfIoK8sApiCoreV1ResourceFieldSelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "resource" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ResourceFieldSelector(value: object): value is IoK8sApiCoreV1ResourceFieldSelector {
+    if (!('resource' in value) || value['resource'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ResourceFieldSelectorFromJSON(json: any): IoK8sApiCoreV1ResourceFieldSelector {
@@ -90,29 +88,31 @@ export function IoK8sApiCoreV1ResourceFieldSelectorFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ResourceFieldSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ResourceFieldSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'containerName': !exists(json, 'containerName') ? undefined : json['containerName'],
-        'divisor': !exists(json, 'divisor') ? undefined : json['divisor'],
+        'containerName': json['containerName'] == null ? undefined : json['containerName'],
+        'divisor': json['divisor'] == null ? undefined : json['divisor'],
         'resource': json['resource'],
     };
 }
 
-export function IoK8sApiCoreV1ResourceFieldSelectorToJSON(value?: IoK8sApiCoreV1ResourceFieldSelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ResourceFieldSelectorToJSON(json: any): IoK8sApiCoreV1ResourceFieldSelector {
+    return IoK8sApiCoreV1ResourceFieldSelectorToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ResourceFieldSelectorToJSONTyped(value?: IoK8sApiCoreV1ResourceFieldSelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'containerName': value.containerName,
-        'divisor': value.divisor,
-        'resource': value.resource,
+        'containerName': value['containerName'],
+        'divisor': value['divisor'],
+        'resource': value['resource'],
     };
 }
 

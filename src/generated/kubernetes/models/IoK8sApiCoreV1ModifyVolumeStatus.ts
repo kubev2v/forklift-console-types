@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ModifyVolumeStatus represents the status object of ControllerModifyVolume operation
  * @export
@@ -45,11 +45,9 @@ export interface IoK8sApiCoreV1ModifyVolumeStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ModifyVolumeStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1ModifyVolumeStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ModifyVolumeStatus(value: object): value is IoK8sApiCoreV1ModifyVolumeStatus {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ModifyVolumeStatusFromJSON(json: any): IoK8sApiCoreV1ModifyVolumeStatus {
@@ -57,27 +55,29 @@ export function IoK8sApiCoreV1ModifyVolumeStatusFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1ModifyVolumeStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ModifyVolumeStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'status': json['status'],
-        'targetVolumeAttributesClassName': !exists(json, 'targetVolumeAttributesClassName') ? undefined : json['targetVolumeAttributesClassName'],
+        'targetVolumeAttributesClassName': json['targetVolumeAttributesClassName'] == null ? undefined : json['targetVolumeAttributesClassName'],
     };
 }
 
-export function IoK8sApiCoreV1ModifyVolumeStatusToJSON(value?: IoK8sApiCoreV1ModifyVolumeStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ModifyVolumeStatusToJSON(json: any): IoK8sApiCoreV1ModifyVolumeStatus {
+    return IoK8sApiCoreV1ModifyVolumeStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ModifyVolumeStatusToJSONTyped(value?: IoK8sApiCoreV1ModifyVolumeStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'status': value.status,
-        'targetVolumeAttributesClassName': value.targetVolumeAttributesClassName,
+        'status': value['status'],
+        'targetVolumeAttributesClassName': value['targetVolumeAttributesClassName'],
     };
 }
 

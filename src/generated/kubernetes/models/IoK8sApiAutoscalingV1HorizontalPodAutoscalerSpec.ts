@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV1CrossVersionObjectReference } from './IoK8sApiAutoscalingV1CrossVersionObjectReference';
 import {
     IoK8sApiAutoscalingV1CrossVersionObjectReferenceFromJSON,
     IoK8sApiAutoscalingV1CrossVersionObjectReferenceFromJSONTyped,
     IoK8sApiAutoscalingV1CrossVersionObjectReferenceToJSON,
+    IoK8sApiAutoscalingV1CrossVersionObjectReferenceToJSONTyped,
 } from './IoK8sApiAutoscalingV1CrossVersionObjectReference';
 
 /**
@@ -55,12 +56,10 @@ export interface IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec interface.
  */
-export function instanceOfIoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "maxReplicas" in value;
-    isInstance = isInstance && "scaleTargetRef" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec(value: object): value is IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec {
+    if (!('maxReplicas' in value) || value['maxReplicas'] === undefined) return false;
+    if (!('scaleTargetRef' in value) || value['scaleTargetRef'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecFromJSON(json: any): IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec {
@@ -68,31 +67,33 @@ export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecFromJSON(json: a
 }
 
 export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'maxReplicas': json['maxReplicas'],
-        'minReplicas': !exists(json, 'minReplicas') ? undefined : json['minReplicas'],
+        'minReplicas': json['minReplicas'] == null ? undefined : json['minReplicas'],
         'scaleTargetRef': IoK8sApiAutoscalingV1CrossVersionObjectReferenceFromJSON(json['scaleTargetRef']),
-        'targetCPUUtilizationPercentage': !exists(json, 'targetCPUUtilizationPercentage') ? undefined : json['targetCPUUtilizationPercentage'],
+        'targetCPUUtilizationPercentage': json['targetCPUUtilizationPercentage'] == null ? undefined : json['targetCPUUtilizationPercentage'],
     };
 }
 
-export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecToJSON(value?: IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecToJSON(json: any): IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec {
+    return IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpecToJSONTyped(value?: IoK8sApiAutoscalingV1HorizontalPodAutoscalerSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'maxReplicas': value.maxReplicas,
-        'minReplicas': value.minReplicas,
-        'scaleTargetRef': IoK8sApiAutoscalingV1CrossVersionObjectReferenceToJSON(value.scaleTargetRef),
-        'targetCPUUtilizationPercentage': value.targetCPUUtilizationPercentage,
+        'maxReplicas': value['maxReplicas'],
+        'minReplicas': value['minReplicas'],
+        'scaleTargetRef': IoK8sApiAutoscalingV1CrossVersionObjectReferenceToJSON(value['scaleTargetRef']),
+        'targetCPUUtilizationPercentage': value['targetCPUUtilizationPercentage'],
     };
 }
 

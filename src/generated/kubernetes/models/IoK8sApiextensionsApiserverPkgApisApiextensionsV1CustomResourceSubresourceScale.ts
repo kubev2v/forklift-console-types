@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
  * @export
@@ -42,12 +42,10 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "specReplicasPath" in value;
-    isInstance = isInstance && "statusReplicasPath" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale {
+    if (!('specReplicasPath' in value) || value['specReplicasPath'] === undefined) return false;
+    if (!('statusReplicasPath' in value) || value['statusReplicasPath'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale {
@@ -55,29 +53,31 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceS
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'labelSelectorPath': !exists(json, 'labelSelectorPath') ? undefined : json['labelSelectorPath'],
+        'labelSelectorPath': json['labelSelectorPath'] == null ? undefined : json['labelSelectorPath'],
         'specReplicasPath': json['specReplicasPath'],
         'statusReplicasPath': json['statusReplicasPath'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'labelSelectorPath': value.labelSelectorPath,
-        'specReplicasPath': value.specReplicasPath,
-        'statusReplicasPath': value.statusReplicasPath,
+        'labelSelectorPath': value['labelSelectorPath'],
+        'specReplicasPath': value['specReplicasPath'],
+        'statusReplicasPath': value['statusReplicasPath'],
     };
 }
 

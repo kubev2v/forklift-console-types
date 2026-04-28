@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1PITTimer {
 /**
  * Check if a given object implements the V1PITTimer interface.
  */
-export function instanceOfV1PITTimer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1PITTimer(value: object): value is V1PITTimer {
+    return true;
 }
 
 export function V1PITTimerFromJSON(json: any): V1PITTimer {
@@ -47,27 +45,29 @@ export function V1PITTimerFromJSON(json: any): V1PITTimer {
 }
 
 export function V1PITTimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PITTimer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'present': !exists(json, 'present') ? undefined : json['present'],
-        'tickPolicy': !exists(json, 'tickPolicy') ? undefined : json['tickPolicy'],
+        'present': json['present'] == null ? undefined : json['present'],
+        'tickPolicy': json['tickPolicy'] == null ? undefined : json['tickPolicy'],
     };
 }
 
-export function V1PITTimerToJSON(value?: V1PITTimer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PITTimerToJSON(json: any): V1PITTimer {
+    return V1PITTimerToJSONTyped(json, false);
+}
+
+export function V1PITTimerToJSONTyped(value?: V1PITTimer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'present': value.present,
-        'tickPolicy': value.tickPolicy,
+        'present': value['present'],
+        'tickPolicy': value['tickPolicy'],
     };
 }
 

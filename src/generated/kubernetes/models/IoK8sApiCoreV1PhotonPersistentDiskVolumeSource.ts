@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Photon Controller persistent disk resource.
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiCoreV1PhotonPersistentDiskVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PhotonPersistentDiskVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1PhotonPersistentDiskVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "pdID" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PhotonPersistentDiskVolumeSource(value: object): value is IoK8sApiCoreV1PhotonPersistentDiskVolumeSource {
+    if (!('pdID' in value) || value['pdID'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSON(json: any): IoK8sApiCoreV1PhotonPersistentDiskVolumeSource {
@@ -48,27 +46,29 @@ export function IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSON(json: any
 }
 
 export function IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PhotonPersistentDiskVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
         'pdID': json['pdID'],
     };
 }
 
-export function IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSON(value?: IoK8sApiCoreV1PhotonPersistentDiskVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSON(json: any): IoK8sApiCoreV1PhotonPersistentDiskVolumeSource {
+    return IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1PhotonPersistentDiskVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'pdID': value.pdID,
+        'fsType': value['fsType'],
+        'pdID': value['pdID'],
     };
 }
 

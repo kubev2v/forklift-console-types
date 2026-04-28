@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Information about the condition of a component.
  * @export
@@ -48,12 +48,10 @@ export interface IoK8sApiCoreV1ComponentCondition {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ComponentCondition interface.
  */
-export function instanceOfIoK8sApiCoreV1ComponentCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ComponentCondition(value: object): value is IoK8sApiCoreV1ComponentCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ComponentConditionFromJSON(json: any): IoK8sApiCoreV1ComponentCondition {
@@ -61,31 +59,33 @@ export function IoK8sApiCoreV1ComponentConditionFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1ComponentConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ComponentCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'error': !exists(json, 'error') ? undefined : json['error'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
+        'error': json['error'] == null ? undefined : json['error'],
+        'message': json['message'] == null ? undefined : json['message'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1ComponentConditionToJSON(value?: IoK8sApiCoreV1ComponentCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ComponentConditionToJSON(json: any): IoK8sApiCoreV1ComponentCondition {
+    return IoK8sApiCoreV1ComponentConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ComponentConditionToJSONTyped(value?: IoK8sApiCoreV1ComponentCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'error': value.error,
-        'message': value.message,
-        'status': value.status,
-        'type': value.type,
+        'error': value['error'],
+        'message': value['message'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

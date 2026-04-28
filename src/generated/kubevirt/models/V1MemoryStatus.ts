@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -57,10 +57,10 @@ export interface V1MemoryStatus {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1MemoryStatus
      */
-    guestAtBoot?: string;
+    guestAtBoot?: object;
     /**
      * Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
      * 
@@ -99,10 +99,10 @@ export interface V1MemoryStatus {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1MemoryStatus
      */
-    guestCurrent?: string;
+    guestCurrent?: object;
     /**
      * Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
      * 
@@ -141,19 +141,59 @@ export interface V1MemoryStatus {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1MemoryStatus
      */
-    guestRequested?: string;
+    guestRequested?: object;
+    /**
+     * Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
+     * 
+     * The serialization format is:
+     * 
+     * ``` <quantity>        ::= <signedNumber><suffix>
+     * 
+     * 	(Note that <suffix> may be empty, from the "" case in <decimalSI>.)
+     * 
+     * <digit>           ::= 0 | 1 | ... | 9 <digits>          ::= <digit> | <digit><digits> <number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> <sign>            ::= "+" | "-" <signedNumber>    ::= <number> | <sign><number> <suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> <binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
+     * 
+     * 	(International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)
+     * 
+     * <decimalSI>       ::= m | "" | k | M | G | T | P | E
+     * 
+     * 	(Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)
+     * 
+     * <decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber> ```
+     * 
+     * No matter which of the three exponent forms is used, no quantity may represent a number greater than 2^63-1 in magnitude, nor may it have more than 3 decimal places. Numbers larger or more precise will be capped or rounded up. (E.g.: 0.1m will rounded up to 1m.) This may be extended in the future if we require larger or smaller quantities.
+     * 
+     * When a Quantity is parsed from a string, it will remember the type of suffix it had, and will use the same type again when it is serialized.
+     * 
+     * Before serializing, Quantity will be put in "canonical form". This means that Exponent/suffix will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:
+     * 
+     * - No precision is lost - No fractional digits will be emitted - The exponent (or suffix) is as large as possible.
+     * 
+     * The sign will be omitted unless the number is negative.
+     * 
+     * Examples:
+     * 
+     * - 1.5 will be serialized as "1500m" - 1.5Gi will be serialized as "1536Mi"
+     * 
+     * Note that the quantity will NEVER be internally represented by a floating point number. That is the whole point of this exercise.
+     * 
+     * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
+     * 
+     * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
+     * @type {object}
+     * @memberof V1MemoryStatus
+     */
+    memoryOverhead?: object;
 }
 
 /**
  * Check if a given object implements the V1MemoryStatus interface.
  */
-export function instanceOfV1MemoryStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1MemoryStatus(value: object): value is V1MemoryStatus {
+    return true;
 }
 
 export function V1MemoryStatusFromJSON(json: any): V1MemoryStatus {
@@ -161,29 +201,33 @@ export function V1MemoryStatusFromJSON(json: any): V1MemoryStatus {
 }
 
 export function V1MemoryStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1MemoryStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'guestAtBoot': !exists(json, 'guestAtBoot') ? undefined : json['guestAtBoot'],
-        'guestCurrent': !exists(json, 'guestCurrent') ? undefined : json['guestCurrent'],
-        'guestRequested': !exists(json, 'guestRequested') ? undefined : json['guestRequested'],
+        'guestAtBoot': json['guestAtBoot'] == null ? undefined : json['guestAtBoot'],
+        'guestCurrent': json['guestCurrent'] == null ? undefined : json['guestCurrent'],
+        'guestRequested': json['guestRequested'] == null ? undefined : json['guestRequested'],
+        'memoryOverhead': json['memoryOverhead'] == null ? undefined : json['memoryOverhead'],
     };
 }
 
-export function V1MemoryStatusToJSON(value?: V1MemoryStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MemoryStatusToJSON(json: any): V1MemoryStatus {
+    return V1MemoryStatusToJSONTyped(json, false);
+}
+
+export function V1MemoryStatusToJSONTyped(value?: V1MemoryStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'guestAtBoot': value.guestAtBoot,
-        'guestCurrent': value.guestCurrent,
-        'guestRequested': value.guestRequested,
+        'guestAtBoot': value['guestAtBoot'],
+        'guestCurrent': value['guestCurrent'],
+        'guestRequested': value['guestRequested'],
+        'memoryOverhead': value['memoryOverhead'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressPortStatus } from './IoK8sApiNetworkingV1IngressPortStatus';
 import {
     IoK8sApiNetworkingV1IngressPortStatusFromJSON,
     IoK8sApiNetworkingV1IngressPortStatusFromJSONTyped,
     IoK8sApiNetworkingV1IngressPortStatusToJSON,
+    IoK8sApiNetworkingV1IngressPortStatusToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressPortStatus';
 
 /**
@@ -49,10 +50,8 @@ export interface IoK8sApiNetworkingV1IngressLoadBalancerIngress {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressLoadBalancerIngress interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressLoadBalancerIngress(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressLoadBalancerIngress(value: object): value is IoK8sApiNetworkingV1IngressLoadBalancerIngress {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSON(json: any): IoK8sApiNetworkingV1IngressLoadBalancerIngress {
@@ -60,29 +59,31 @@ export function IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSON(json: any
 }
 
 export function IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressLoadBalancerIngress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hostname': !exists(json, 'hostname') ? undefined : json['hostname'],
-        'ip': !exists(json, 'ip') ? undefined : json['ip'],
-        'ports': !exists(json, 'ports') ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiNetworkingV1IngressPortStatusFromJSON)),
+        'hostname': json['hostname'] == null ? undefined : json['hostname'],
+        'ip': json['ip'] == null ? undefined : json['ip'],
+        'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiNetworkingV1IngressPortStatusFromJSON)),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSON(value?: IoK8sApiNetworkingV1IngressLoadBalancerIngress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSON(json: any): IoK8sApiNetworkingV1IngressLoadBalancerIngress {
+    return IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSONTyped(value?: IoK8sApiNetworkingV1IngressLoadBalancerIngress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hostname': value.hostname,
-        'ip': value.ip,
-        'ports': value.ports === undefined ? undefined : ((value.ports as Array<any>).map(IoK8sApiNetworkingV1IngressPortStatusToJSON)),
+        'hostname': value['hostname'],
+        'ip': value['ip'],
+        'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(IoK8sApiNetworkingV1IngressPortStatusToJSON)),
     };
 }
 

@@ -34,9 +34,9 @@ export interface OVirtHostNIC {
   // Name      string `json:"name"`
   name: string;
   // LinkSpeed int64  `json:"linkSpeed"`
-  linkSpeed: string;
+  linkSpeed: number;
   // MTU       int64  `json:"mtu"`
-  mtu: string;
+  mtu: number;
   // VLan      string `json:"vlan"`
   vlan: string;
 }
@@ -75,4 +75,29 @@ export interface OVirtDiskAttachment {
   scsiReservation: boolean;
   // Disk            string `json:"disk"`
   disk: string;
+  // Bootable        bool   `json:"bootable"`
+  bootable: boolean;
+}
+
+// https://github.com/kubev2v/forklift/tree/main/pkg/controller/provider/model/ovirt/model.go
+export interface OVirtLogicalUnit {
+  // LunID      string `json:"lunId"`
+  lunId: string;
+  // Address    string `json:"address"`
+  address: string;
+  // Port       string `json:"port"`
+  port: string;
+  // Target     string `json:"target"`
+  target: string;
+  // LunMapping int32  `json:"lunMapping"`
+  lunMapping: number;
+  // Size       int64  `json:"size"`
+  size: number;
+}
+
+// https://github.com/kubev2v/forklift/tree/main/pkg/controller/provider/model/ovirt/model.go
+export interface OVirtLun {
+  logicalUnits: {
+    logicalUnit: OVirtLogicalUnit[];
+  };
 }

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1NodePlacement } from './V1NodePlacement';
 import {
     V1NodePlacementFromJSON,
     V1NodePlacementFromJSONTyped,
     V1NodePlacementToJSON,
+    V1NodePlacementToJSONTyped,
 } from './V1NodePlacement';
 
 /**
@@ -43,10 +44,8 @@ export interface V1ComponentConfig {
 /**
  * Check if a given object implements the V1ComponentConfig interface.
  */
-export function instanceOfV1ComponentConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ComponentConfig(value: object): value is V1ComponentConfig {
+    return true;
 }
 
 export function V1ComponentConfigFromJSON(json: any): V1ComponentConfig {
@@ -54,27 +53,29 @@ export function V1ComponentConfigFromJSON(json: any): V1ComponentConfig {
 }
 
 export function V1ComponentConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ComponentConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nodePlacement': !exists(json, 'nodePlacement') ? undefined : V1NodePlacementFromJSON(json['nodePlacement']),
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
+        'nodePlacement': json['nodePlacement'] == null ? undefined : V1NodePlacementFromJSON(json['nodePlacement']),
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
     };
 }
 
-export function V1ComponentConfigToJSON(value?: V1ComponentConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ComponentConfigToJSON(json: any): V1ComponentConfig {
+    return V1ComponentConfigToJSONTyped(json, false);
+}
+
+export function V1ComponentConfigToJSONTyped(value?: V1ComponentConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nodePlacement': V1NodePlacementToJSON(value.nodePlacement),
-        'replicas': value.replicas,
+        'nodePlacement': V1NodePlacementToJSON(value['nodePlacement']),
+        'replicas': value['replicas'],
     };
 }
 

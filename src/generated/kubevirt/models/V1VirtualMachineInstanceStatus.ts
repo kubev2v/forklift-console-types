@@ -12,73 +12,98 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1CPUTopology } from './V1CPUTopology';
+import { mapValues } from '../../runtime';
+import type { V1VirtualMachineInstancePhaseTransitionTimestamp } from './V1VirtualMachineInstancePhaseTransitionTimestamp';
 import {
-    V1CPUTopologyFromJSON,
-    V1CPUTopologyFromJSONTyped,
-    V1CPUTopologyToJSON,
-} from './V1CPUTopology';
+    V1VirtualMachineInstancePhaseTransitionTimestampFromJSON,
+    V1VirtualMachineInstancePhaseTransitionTimestampFromJSONTyped,
+    V1VirtualMachineInstancePhaseTransitionTimestampToJSON,
+    V1VirtualMachineInstancePhaseTransitionTimestampToJSONTyped,
+} from './V1VirtualMachineInstancePhaseTransitionTimestamp';
+import type { V1ChangedBlockTrackingStatus } from './V1ChangedBlockTrackingStatus';
+import {
+    V1ChangedBlockTrackingStatusFromJSON,
+    V1ChangedBlockTrackingStatusFromJSONTyped,
+    V1ChangedBlockTrackingStatusToJSON,
+    V1ChangedBlockTrackingStatusToJSONTyped,
+} from './V1ChangedBlockTrackingStatus';
+import type { V1VirtualMachineInstanceNetworkInterface } from './V1VirtualMachineInstanceNetworkInterface';
+import {
+    V1VirtualMachineInstanceNetworkInterfaceFromJSON,
+    V1VirtualMachineInstanceNetworkInterfaceFromJSONTyped,
+    V1VirtualMachineInstanceNetworkInterfaceToJSON,
+    V1VirtualMachineInstanceNetworkInterfaceToJSONTyped,
+} from './V1VirtualMachineInstanceNetworkInterface';
 import type { V1KernelBootStatus } from './V1KernelBootStatus';
 import {
     V1KernelBootStatusFromJSON,
     V1KernelBootStatusFromJSONTyped,
     V1KernelBootStatusToJSON,
+    V1KernelBootStatusToJSONTyped,
 } from './V1KernelBootStatus';
 import type { V1Machine } from './V1Machine';
 import {
     V1MachineFromJSON,
     V1MachineFromJSONTyped,
     V1MachineToJSON,
+    V1MachineToJSONTyped,
 } from './V1Machine';
-import type { V1MemoryStatus } from './V1MemoryStatus';
+import type { V1VolumeStatus } from './V1VolumeStatus';
 import {
-    V1MemoryStatusFromJSON,
-    V1MemoryStatusFromJSONTyped,
-    V1MemoryStatusToJSON,
-} from './V1MemoryStatus';
-import type { V1TopologyHints } from './V1TopologyHints';
-import {
-    V1TopologyHintsFromJSON,
-    V1TopologyHintsFromJSONTyped,
-    V1TopologyHintsToJSON,
-} from './V1TopologyHints';
+    V1VolumeStatusFromJSON,
+    V1VolumeStatusFromJSONTyped,
+    V1VolumeStatusToJSON,
+    V1VolumeStatusToJSONTyped,
+} from './V1VolumeStatus';
 import type { V1VirtualMachineInstanceCondition } from './V1VirtualMachineInstanceCondition';
 import {
     V1VirtualMachineInstanceConditionFromJSON,
     V1VirtualMachineInstanceConditionFromJSONTyped,
     V1VirtualMachineInstanceConditionToJSON,
+    V1VirtualMachineInstanceConditionToJSONTyped,
 } from './V1VirtualMachineInstanceCondition';
+import type { V1CPUTopology } from './V1CPUTopology';
+import {
+    V1CPUTopologyFromJSON,
+    V1CPUTopologyFromJSONTyped,
+    V1CPUTopologyToJSON,
+    V1CPUTopologyToJSONTyped,
+} from './V1CPUTopology';
+import type { V1StorageMigratedVolumeInfo } from './V1StorageMigratedVolumeInfo';
+import {
+    V1StorageMigratedVolumeInfoFromJSON,
+    V1StorageMigratedVolumeInfoFromJSONTyped,
+    V1StorageMigratedVolumeInfoToJSON,
+    V1StorageMigratedVolumeInfoToJSONTyped,
+} from './V1StorageMigratedVolumeInfo';
+import type { V1MemoryStatus } from './V1MemoryStatus';
+import {
+    V1MemoryStatusFromJSON,
+    V1MemoryStatusFromJSONTyped,
+    V1MemoryStatusToJSON,
+    V1MemoryStatusToJSONTyped,
+} from './V1MemoryStatus';
 import type { V1VirtualMachineInstanceGuestOSInfo } from './V1VirtualMachineInstanceGuestOSInfo';
 import {
     V1VirtualMachineInstanceGuestOSInfoFromJSON,
     V1VirtualMachineInstanceGuestOSInfoFromJSONTyped,
     V1VirtualMachineInstanceGuestOSInfoToJSON,
+    V1VirtualMachineInstanceGuestOSInfoToJSONTyped,
 } from './V1VirtualMachineInstanceGuestOSInfo';
 import type { V1VirtualMachineInstanceMigrationState } from './V1VirtualMachineInstanceMigrationState';
 import {
     V1VirtualMachineInstanceMigrationStateFromJSON,
     V1VirtualMachineInstanceMigrationStateFromJSONTyped,
     V1VirtualMachineInstanceMigrationStateToJSON,
+    V1VirtualMachineInstanceMigrationStateToJSONTyped,
 } from './V1VirtualMachineInstanceMigrationState';
-import type { V1VirtualMachineInstanceNetworkInterface } from './V1VirtualMachineInstanceNetworkInterface';
+import type { V1TopologyHints } from './V1TopologyHints';
 import {
-    V1VirtualMachineInstanceNetworkInterfaceFromJSON,
-    V1VirtualMachineInstanceNetworkInterfaceFromJSONTyped,
-    V1VirtualMachineInstanceNetworkInterfaceToJSON,
-} from './V1VirtualMachineInstanceNetworkInterface';
-import type { V1VirtualMachineInstancePhaseTransitionTimestamp } from './V1VirtualMachineInstancePhaseTransitionTimestamp';
-import {
-    V1VirtualMachineInstancePhaseTransitionTimestampFromJSON,
-    V1VirtualMachineInstancePhaseTransitionTimestampFromJSONTyped,
-    V1VirtualMachineInstancePhaseTransitionTimestampToJSON,
-} from './V1VirtualMachineInstancePhaseTransitionTimestamp';
-import type { V1VolumeStatus } from './V1VolumeStatus';
-import {
-    V1VolumeStatusFromJSON,
-    V1VolumeStatusFromJSONTyped,
-    V1VolumeStatusToJSON,
-} from './V1VolumeStatus';
+    V1TopologyHintsFromJSON,
+    V1TopologyHintsFromJSONTyped,
+    V1TopologyHintsToJSON,
+    V1TopologyHintsToJSONTyped,
+} from './V1TopologyHints';
 
 /**
  * VirtualMachineInstanceStatus represents information about the status of a VirtualMachineInstance. Status may trail the actual state of a system.
@@ -99,6 +124,12 @@ export interface V1VirtualMachineInstanceStatus {
      */
     activePods?: { [key: string]: string; };
     /**
+     * 
+     * @type {V1ChangedBlockTrackingStatus}
+     * @memberof V1VirtualMachineInstanceStatus
+     */
+    changedBlockTracking?: V1ChangedBlockTrackingStatus;
+    /**
      * Conditions are specific points in VirtualMachineInstance's pod runtime.
      * @type {Array<V1VirtualMachineInstanceCondition>}
      * @memberof V1VirtualMachineInstanceStatus
@@ -117,7 +148,7 @@ export interface V1VirtualMachineInstanceStatus {
      */
     evacuationNodeName?: string;
     /**
-     * FSFreezeStatus is the state of the fs of the guest it can be either frozen or thawed
+     * FSFreezeStatus indicates whether a freeze operation was requested for the guest filesystem. It will be set to "frozen" if the request was made, or unset otherwise. This does not reflect the actual state of the guest filesystem.
      * @type {string}
      * @memberof V1VirtualMachineInstanceStatus
      */
@@ -158,6 +189,12 @@ export interface V1VirtualMachineInstanceStatus {
      * @memberof V1VirtualMachineInstanceStatus
      */
     memory?: V1MemoryStatus;
+    /**
+     * MigratedVolumes lists the source and destination volumes during the volume migration
+     * @type {Array<V1StorageMigratedVolumeInfo>}
+     * @memberof V1VirtualMachineInstanceStatus
+     */
+    migratedVolumes?: Array<V1StorageMigratedVolumeInfo>;
     /**
      * Represents the method using which the vmi can be migrated: live migration or block migration
      * @type {string}
@@ -258,10 +295,8 @@ export type V1VirtualMachineInstanceStatusQosClassEnum = typeof V1VirtualMachine
 /**
  * Check if a given object implements the V1VirtualMachineInstanceStatus interface.
  */
-export function instanceOfV1VirtualMachineInstanceStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceStatus(value: object): value is V1VirtualMachineInstanceStatus {
+    return true;
 }
 
 export function V1VirtualMachineInstanceStatusFromJSON(json: any): V1VirtualMachineInstanceStatus {
@@ -269,73 +304,79 @@ export function V1VirtualMachineInstanceStatusFromJSON(json: any): V1VirtualMach
 }
 
 export function V1VirtualMachineInstanceStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'vSOCKCID': !exists(json, 'VSOCKCID') ? undefined : json['VSOCKCID'],
-        'activePods': !exists(json, 'activePods') ? undefined : json['activePods'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(V1VirtualMachineInstanceConditionFromJSON)),
-        'currentCPUTopology': !exists(json, 'currentCPUTopology') ? undefined : V1CPUTopologyFromJSON(json['currentCPUTopology']),
-        'evacuationNodeName': !exists(json, 'evacuationNodeName') ? undefined : json['evacuationNodeName'],
-        'fsFreezeStatus': !exists(json, 'fsFreezeStatus') ? undefined : json['fsFreezeStatus'],
-        'guestOSInfo': !exists(json, 'guestOSInfo') ? undefined : V1VirtualMachineInstanceGuestOSInfoFromJSON(json['guestOSInfo']),
-        'interfaces': !exists(json, 'interfaces') ? undefined : ((json['interfaces'] as Array<any>).map(V1VirtualMachineInstanceNetworkInterfaceFromJSON)),
-        'kernelBootStatus': !exists(json, 'kernelBootStatus') ? undefined : V1KernelBootStatusFromJSON(json['kernelBootStatus']),
-        'launcherContainerImageVersion': !exists(json, 'launcherContainerImageVersion') ? undefined : json['launcherContainerImageVersion'],
-        'machine': !exists(json, 'machine') ? undefined : V1MachineFromJSON(json['machine']),
-        'memory': !exists(json, 'memory') ? undefined : V1MemoryStatusFromJSON(json['memory']),
-        'migrationMethod': !exists(json, 'migrationMethod') ? undefined : json['migrationMethod'],
-        'migrationState': !exists(json, 'migrationState') ? undefined : V1VirtualMachineInstanceMigrationStateFromJSON(json['migrationState']),
-        'migrationTransport': !exists(json, 'migrationTransport') ? undefined : json['migrationTransport'],
-        'nodeName': !exists(json, 'nodeName') ? undefined : json['nodeName'],
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'phaseTransitionTimestamps': !exists(json, 'phaseTransitionTimestamps') ? undefined : ((json['phaseTransitionTimestamps'] as Array<any>).map(V1VirtualMachineInstancePhaseTransitionTimestampFromJSON)),
-        'qosClass': !exists(json, 'qosClass') ? undefined : json['qosClass'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'runtimeUser': !exists(json, 'runtimeUser') ? undefined : json['runtimeUser'],
-        'selinuxContext': !exists(json, 'selinuxContext') ? undefined : json['selinuxContext'],
-        'topologyHints': !exists(json, 'topologyHints') ? undefined : V1TopologyHintsFromJSON(json['topologyHints']),
-        'virtualMachineRevisionName': !exists(json, 'virtualMachineRevisionName') ? undefined : json['virtualMachineRevisionName'],
-        'volumeStatus': !exists(json, 'volumeStatus') ? undefined : ((json['volumeStatus'] as Array<any>).map(V1VolumeStatusFromJSON)),
+        'vSOCKCID': json['VSOCKCID'] == null ? undefined : json['VSOCKCID'],
+        'activePods': json['activePods'] == null ? undefined : json['activePods'],
+        'changedBlockTracking': json['changedBlockTracking'] == null ? undefined : V1ChangedBlockTrackingStatusFromJSON(json['changedBlockTracking']),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1VirtualMachineInstanceConditionFromJSON)),
+        'currentCPUTopology': json['currentCPUTopology'] == null ? undefined : V1CPUTopologyFromJSON(json['currentCPUTopology']),
+        'evacuationNodeName': json['evacuationNodeName'] == null ? undefined : json['evacuationNodeName'],
+        'fsFreezeStatus': json['fsFreezeStatus'] == null ? undefined : json['fsFreezeStatus'],
+        'guestOSInfo': json['guestOSInfo'] == null ? undefined : V1VirtualMachineInstanceGuestOSInfoFromJSON(json['guestOSInfo']),
+        'interfaces': json['interfaces'] == null ? undefined : ((json['interfaces'] as Array<any>).map(V1VirtualMachineInstanceNetworkInterfaceFromJSON)),
+        'kernelBootStatus': json['kernelBootStatus'] == null ? undefined : V1KernelBootStatusFromJSON(json['kernelBootStatus']),
+        'launcherContainerImageVersion': json['launcherContainerImageVersion'] == null ? undefined : json['launcherContainerImageVersion'],
+        'machine': json['machine'] == null ? undefined : V1MachineFromJSON(json['machine']),
+        'memory': json['memory'] == null ? undefined : V1MemoryStatusFromJSON(json['memory']),
+        'migratedVolumes': json['migratedVolumes'] == null ? undefined : ((json['migratedVolumes'] as Array<any>).map(V1StorageMigratedVolumeInfoFromJSON)),
+        'migrationMethod': json['migrationMethod'] == null ? undefined : json['migrationMethod'],
+        'migrationState': json['migrationState'] == null ? undefined : V1VirtualMachineInstanceMigrationStateFromJSON(json['migrationState']),
+        'migrationTransport': json['migrationTransport'] == null ? undefined : json['migrationTransport'],
+        'nodeName': json['nodeName'] == null ? undefined : json['nodeName'],
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'phaseTransitionTimestamps': json['phaseTransitionTimestamps'] == null ? undefined : ((json['phaseTransitionTimestamps'] as Array<any>).map(V1VirtualMachineInstancePhaseTransitionTimestampFromJSON)),
+        'qosClass': json['qosClass'] == null ? undefined : json['qosClass'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'runtimeUser': json['runtimeUser'] == null ? undefined : json['runtimeUser'],
+        'selinuxContext': json['selinuxContext'] == null ? undefined : json['selinuxContext'],
+        'topologyHints': json['topologyHints'] == null ? undefined : V1TopologyHintsFromJSON(json['topologyHints']),
+        'virtualMachineRevisionName': json['virtualMachineRevisionName'] == null ? undefined : json['virtualMachineRevisionName'],
+        'volumeStatus': json['volumeStatus'] == null ? undefined : ((json['volumeStatus'] as Array<any>).map(V1VolumeStatusFromJSON)),
     };
 }
 
-export function V1VirtualMachineInstanceStatusToJSON(value?: V1VirtualMachineInstanceStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceStatusToJSON(json: any): V1VirtualMachineInstanceStatus {
+    return V1VirtualMachineInstanceStatusToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceStatusToJSONTyped(value?: V1VirtualMachineInstanceStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'VSOCKCID': value.vSOCKCID,
-        'activePods': value.activePods,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(V1VirtualMachineInstanceConditionToJSON)),
-        'currentCPUTopology': V1CPUTopologyToJSON(value.currentCPUTopology),
-        'evacuationNodeName': value.evacuationNodeName,
-        'fsFreezeStatus': value.fsFreezeStatus,
-        'guestOSInfo': V1VirtualMachineInstanceGuestOSInfoToJSON(value.guestOSInfo),
-        'interfaces': value.interfaces === undefined ? undefined : ((value.interfaces as Array<any>).map(V1VirtualMachineInstanceNetworkInterfaceToJSON)),
-        'kernelBootStatus': V1KernelBootStatusToJSON(value.kernelBootStatus),
-        'launcherContainerImageVersion': value.launcherContainerImageVersion,
-        'machine': V1MachineToJSON(value.machine),
-        'memory': V1MemoryStatusToJSON(value.memory),
-        'migrationMethod': value.migrationMethod,
-        'migrationState': V1VirtualMachineInstanceMigrationStateToJSON(value.migrationState),
-        'migrationTransport': value.migrationTransport,
-        'nodeName': value.nodeName,
-        'phase': value.phase,
-        'phaseTransitionTimestamps': value.phaseTransitionTimestamps === undefined ? undefined : ((value.phaseTransitionTimestamps as Array<any>).map(V1VirtualMachineInstancePhaseTransitionTimestampToJSON)),
-        'qosClass': value.qosClass,
-        'reason': value.reason,
-        'runtimeUser': value.runtimeUser,
-        'selinuxContext': value.selinuxContext,
-        'topologyHints': V1TopologyHintsToJSON(value.topologyHints),
-        'virtualMachineRevisionName': value.virtualMachineRevisionName,
-        'volumeStatus': value.volumeStatus === undefined ? undefined : ((value.volumeStatus as Array<any>).map(V1VolumeStatusToJSON)),
+        'VSOCKCID': value['vSOCKCID'],
+        'activePods': value['activePods'],
+        'changedBlockTracking': V1ChangedBlockTrackingStatusToJSON(value['changedBlockTracking']),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1VirtualMachineInstanceConditionToJSON)),
+        'currentCPUTopology': V1CPUTopologyToJSON(value['currentCPUTopology']),
+        'evacuationNodeName': value['evacuationNodeName'],
+        'fsFreezeStatus': value['fsFreezeStatus'],
+        'guestOSInfo': V1VirtualMachineInstanceGuestOSInfoToJSON(value['guestOSInfo']),
+        'interfaces': value['interfaces'] == null ? undefined : ((value['interfaces'] as Array<any>).map(V1VirtualMachineInstanceNetworkInterfaceToJSON)),
+        'kernelBootStatus': V1KernelBootStatusToJSON(value['kernelBootStatus']),
+        'launcherContainerImageVersion': value['launcherContainerImageVersion'],
+        'machine': V1MachineToJSON(value['machine']),
+        'memory': V1MemoryStatusToJSON(value['memory']),
+        'migratedVolumes': value['migratedVolumes'] == null ? undefined : ((value['migratedVolumes'] as Array<any>).map(V1StorageMigratedVolumeInfoToJSON)),
+        'migrationMethod': value['migrationMethod'],
+        'migrationState': V1VirtualMachineInstanceMigrationStateToJSON(value['migrationState']),
+        'migrationTransport': value['migrationTransport'],
+        'nodeName': value['nodeName'],
+        'phase': value['phase'],
+        'phaseTransitionTimestamps': value['phaseTransitionTimestamps'] == null ? undefined : ((value['phaseTransitionTimestamps'] as Array<any>).map(V1VirtualMachineInstancePhaseTransitionTimestampToJSON)),
+        'qosClass': value['qosClass'],
+        'reason': value['reason'],
+        'runtimeUser': value['runtimeUser'],
+        'selinuxContext': value['selinuxContext'],
+        'topologyHints': V1TopologyHintsToJSON(value['topologyHints']),
+        'virtualMachineRevisionName': value['virtualMachineRevisionName'],
+        'volumeStatus': value['volumeStatus'] == null ? undefined : ((value['volumeStatus'] as Array<any>).map(V1VolumeStatusToJSON)),
     };
 }
 

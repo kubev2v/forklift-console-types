@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,10 +42,8 @@ export interface V1ArchSpecificConfiguration {
 /**
  * Check if a given object implements the V1ArchSpecificConfiguration interface.
  */
-export function instanceOfV1ArchSpecificConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ArchSpecificConfiguration(value: object): value is V1ArchSpecificConfiguration {
+    return true;
 }
 
 export function V1ArchSpecificConfigurationFromJSON(json: any): V1ArchSpecificConfiguration {
@@ -53,29 +51,31 @@ export function V1ArchSpecificConfigurationFromJSON(json: any): V1ArchSpecificCo
 }
 
 export function V1ArchSpecificConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ArchSpecificConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'emulatedMachines': !exists(json, 'emulatedMachines') ? undefined : json['emulatedMachines'],
-        'machineType': !exists(json, 'machineType') ? undefined : json['machineType'],
-        'ovmfPath': !exists(json, 'ovmfPath') ? undefined : json['ovmfPath'],
+        'emulatedMachines': json['emulatedMachines'] == null ? undefined : json['emulatedMachines'],
+        'machineType': json['machineType'] == null ? undefined : json['machineType'],
+        'ovmfPath': json['ovmfPath'] == null ? undefined : json['ovmfPath'],
     };
 }
 
-export function V1ArchSpecificConfigurationToJSON(value?: V1ArchSpecificConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ArchSpecificConfigurationToJSON(json: any): V1ArchSpecificConfiguration {
+    return V1ArchSpecificConfigurationToJSONTyped(json, false);
+}
+
+export function V1ArchSpecificConfigurationToJSONTyped(value?: V1ArchSpecificConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'emulatedMachines': value.emulatedMachines,
-        'machineType': value.machineType,
-        'ovmfPath': value.ovmfPath,
+        'emulatedMachines': value['emulatedMachines'],
+        'machineType': value['machineType'],
+        'ovmfPath': value['ovmfPath'],
     };
 }
 

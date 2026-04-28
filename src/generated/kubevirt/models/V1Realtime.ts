@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Realtime holds the tuning knobs specific for realtime workloads.
  * @export
@@ -30,10 +30,8 @@ export interface V1Realtime {
 /**
  * Check if a given object implements the V1Realtime interface.
  */
-export function instanceOfV1Realtime(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Realtime(value: object): value is V1Realtime {
+    return true;
 }
 
 export function V1RealtimeFromJSON(json: any): V1Realtime {
@@ -41,25 +39,27 @@ export function V1RealtimeFromJSON(json: any): V1Realtime {
 }
 
 export function V1RealtimeFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Realtime {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'mask': !exists(json, 'mask') ? undefined : json['mask'],
+        'mask': json['mask'] == null ? undefined : json['mask'],
     };
 }
 
-export function V1RealtimeToJSON(value?: V1Realtime | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1RealtimeToJSON(json: any): V1Realtime {
+    return V1RealtimeToJSONTyped(json, false);
+}
+
+export function V1RealtimeToJSONTyped(value?: V1Realtime | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'mask': value.mask,
+        'mask': value['mask'],
     };
 }
 

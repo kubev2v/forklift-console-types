@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
  * @export
@@ -24,13 +24,13 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestCondition {
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestCondition
      */
-    lastUpdateTime?: string;
+    lastUpdateTime?: Date;
     /**
      * message contains a human readable message with details about the request state
      * @type {string}
@@ -70,12 +70,10 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestCondition {
 /**
  * Check if a given object implements the IoK8sApiCertificatesV1CertificateSigningRequestCondition interface.
  */
-export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequestCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequestCondition(value: object): value is IoK8sApiCertificatesV1CertificateSigningRequestCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequestCondition {
@@ -83,35 +81,37 @@ export function IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSON
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCertificatesV1CertificateSigningRequestCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'lastUpdateTime': !exists(json, 'lastUpdateTime') ? undefined : json['lastUpdateTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastUpdateTime': json['lastUpdateTime'] == null ? undefined : (new Date(json['lastUpdateTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSON(value?: IoK8sApiCertificatesV1CertificateSigningRequestCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequestCondition {
+    return IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSONTyped(value?: IoK8sApiCertificatesV1CertificateSigningRequestCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'lastUpdateTime': value.lastUpdateTime === undefined ? undefined : (value.lastUpdateTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastUpdateTime': value['lastUpdateTime'] == null ? undefined : ((value['lastUpdateTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

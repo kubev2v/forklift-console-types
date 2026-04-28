@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1DaemonEndpoint } from './IoK8sApiCoreV1DaemonEndpoint';
 import {
     IoK8sApiCoreV1DaemonEndpointFromJSON,
     IoK8sApiCoreV1DaemonEndpointFromJSONTyped,
     IoK8sApiCoreV1DaemonEndpointToJSON,
+    IoK8sApiCoreV1DaemonEndpointToJSONTyped,
 } from './IoK8sApiCoreV1DaemonEndpoint';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1NodeDaemonEndpoints {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeDaemonEndpoints interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeDaemonEndpoints(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeDaemonEndpoints(value: object): value is IoK8sApiCoreV1NodeDaemonEndpoints {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeDaemonEndpointsFromJSON(json: any): IoK8sApiCoreV1NodeDaemonEndpoints {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1NodeDaemonEndpointsFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1NodeDaemonEndpointsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeDaemonEndpoints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'kubeletEndpoint': !exists(json, 'kubeletEndpoint') ? undefined : IoK8sApiCoreV1DaemonEndpointFromJSON(json['kubeletEndpoint']),
+        'kubeletEndpoint': json['kubeletEndpoint'] == null ? undefined : IoK8sApiCoreV1DaemonEndpointFromJSON(json['kubeletEndpoint']),
     };
 }
 
-export function IoK8sApiCoreV1NodeDaemonEndpointsToJSON(value?: IoK8sApiCoreV1NodeDaemonEndpoints | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeDaemonEndpointsToJSON(json: any): IoK8sApiCoreV1NodeDaemonEndpoints {
+    return IoK8sApiCoreV1NodeDaemonEndpointsToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeDaemonEndpointsToJSONTyped(value?: IoK8sApiCoreV1NodeDaemonEndpoints | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'kubeletEndpoint': IoK8sApiCoreV1DaemonEndpointToJSON(value.kubeletEndpoint),
+        'kubeletEndpoint': IoK8sApiCoreV1DaemonEndpointToJSON(value['kubeletEndpoint']),
     };
 }
 

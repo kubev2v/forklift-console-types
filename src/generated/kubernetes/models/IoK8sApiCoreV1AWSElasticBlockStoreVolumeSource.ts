@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Persistent Disk resource in AWS.
  * 
@@ -50,11 +50,9 @@ export interface IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1AWSElasticBlockStoreVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "volumeID" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1AWSElasticBlockStoreVolumeSource(value: object): value is IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource {
+    if (!('volumeID' in value) || value['volumeID'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSON(json: any): IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource {
@@ -62,31 +60,33 @@ export function IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSON(json: any
 }
 
 export function IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'partition': !exists(json, 'partition') ? undefined : json['partition'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'partition': json['partition'] == null ? undefined : json['partition'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
         'volumeID': json['volumeID'],
     };
 }
 
-export function IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSON(value?: IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSON(json: any): IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource {
+    return IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'partition': value.partition,
-        'readOnly': value.readOnly,
-        'volumeID': value.volumeID,
+        'fsType': value['fsType'],
+        'partition': value['partition'],
+        'readOnly': value['readOnly'],
+        'volumeID': value['volumeID'],
     };
 }
 

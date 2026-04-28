@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1ContainerDiskInfo } from './V1ContainerDiskInfo';
 import {
     V1ContainerDiskInfoFromJSON,
     V1ContainerDiskInfoFromJSONTyped,
     V1ContainerDiskInfoToJSON,
+    V1ContainerDiskInfoToJSONTyped,
 } from './V1ContainerDiskInfo';
-import type { V1DomainMemoryDumpInfo } from './V1DomainMemoryDumpInfo';
-import {
-    V1DomainMemoryDumpInfoFromJSON,
-    V1DomainMemoryDumpInfoFromJSONTyped,
-    V1DomainMemoryDumpInfoToJSON,
-} from './V1DomainMemoryDumpInfo';
 import type { V1HotplugVolumeStatus } from './V1HotplugVolumeStatus';
 import {
     V1HotplugVolumeStatusFromJSON,
     V1HotplugVolumeStatusFromJSONTyped,
     V1HotplugVolumeStatusToJSON,
+    V1HotplugVolumeStatusToJSONTyped,
 } from './V1HotplugVolumeStatus';
+import type { V1DomainMemoryDumpInfo } from './V1DomainMemoryDumpInfo';
+import {
+    V1DomainMemoryDumpInfoFromJSON,
+    V1DomainMemoryDumpInfoFromJSONTyped,
+    V1DomainMemoryDumpInfoToJSON,
+    V1DomainMemoryDumpInfoToJSONTyped,
+} from './V1DomainMemoryDumpInfo';
 import type { V1PersistentVolumeClaimInfo } from './V1PersistentVolumeClaimInfo';
 import {
     V1PersistentVolumeClaimInfoFromJSON,
     V1PersistentVolumeClaimInfoFromJSONTyped,
     V1PersistentVolumeClaimInfoToJSON,
+    V1PersistentVolumeClaimInfoToJSONTyped,
 } from './V1PersistentVolumeClaimInfo';
 
 /**
@@ -109,12 +113,10 @@ export interface V1VolumeStatus {
 /**
  * Check if a given object implements the V1VolumeStatus interface.
  */
-export function instanceOfV1VolumeStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "target" in value;
-
-    return isInstance;
+export function instanceOfV1VolumeStatus(value: object): value is V1VolumeStatus {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('target' in value) || value['target'] === undefined) return false;
+    return true;
 }
 
 export function V1VolumeStatusFromJSON(json: any): V1VolumeStatus {
@@ -122,43 +124,45 @@ export function V1VolumeStatusFromJSON(json: any): V1VolumeStatus {
 }
 
 export function V1VolumeStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VolumeStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'containerDiskVolume': !exists(json, 'containerDiskVolume') ? undefined : V1ContainerDiskInfoFromJSON(json['containerDiskVolume']),
-        'hotplugVolume': !exists(json, 'hotplugVolume') ? undefined : V1HotplugVolumeStatusFromJSON(json['hotplugVolume']),
-        'memoryDumpVolume': !exists(json, 'memoryDumpVolume') ? undefined : V1DomainMemoryDumpInfoFromJSON(json['memoryDumpVolume']),
-        'message': !exists(json, 'message') ? undefined : json['message'],
+        'containerDiskVolume': json['containerDiskVolume'] == null ? undefined : V1ContainerDiskInfoFromJSON(json['containerDiskVolume']),
+        'hotplugVolume': json['hotplugVolume'] == null ? undefined : V1HotplugVolumeStatusFromJSON(json['hotplugVolume']),
+        'memoryDumpVolume': json['memoryDumpVolume'] == null ? undefined : V1DomainMemoryDumpInfoFromJSON(json['memoryDumpVolume']),
+        'message': json['message'] == null ? undefined : json['message'],
         'name': json['name'],
-        'persistentVolumeClaimInfo': !exists(json, 'persistentVolumeClaimInfo') ? undefined : V1PersistentVolumeClaimInfoFromJSON(json['persistentVolumeClaimInfo']),
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'size': !exists(json, 'size') ? undefined : json['size'],
+        'persistentVolumeClaimInfo': json['persistentVolumeClaimInfo'] == null ? undefined : V1PersistentVolumeClaimInfoFromJSON(json['persistentVolumeClaimInfo']),
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'size': json['size'] == null ? undefined : json['size'],
         'target': json['target'],
     };
 }
 
-export function V1VolumeStatusToJSON(value?: V1VolumeStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VolumeStatusToJSON(json: any): V1VolumeStatus {
+    return V1VolumeStatusToJSONTyped(json, false);
+}
+
+export function V1VolumeStatusToJSONTyped(value?: V1VolumeStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'containerDiskVolume': V1ContainerDiskInfoToJSON(value.containerDiskVolume),
-        'hotplugVolume': V1HotplugVolumeStatusToJSON(value.hotplugVolume),
-        'memoryDumpVolume': V1DomainMemoryDumpInfoToJSON(value.memoryDumpVolume),
-        'message': value.message,
-        'name': value.name,
-        'persistentVolumeClaimInfo': V1PersistentVolumeClaimInfoToJSON(value.persistentVolumeClaimInfo),
-        'phase': value.phase,
-        'reason': value.reason,
-        'size': value.size,
-        'target': value.target,
+        'containerDiskVolume': V1ContainerDiskInfoToJSON(value['containerDiskVolume']),
+        'hotplugVolume': V1HotplugVolumeStatusToJSON(value['hotplugVolume']),
+        'memoryDumpVolume': V1DomainMemoryDumpInfoToJSON(value['memoryDumpVolume']),
+        'message': value['message'],
+        'name': value['name'],
+        'persistentVolumeClaimInfo': V1PersistentVolumeClaimInfoToJSON(value['persistentVolumeClaimInfo']),
+        'phase': value['phase'],
+        'reason': value['reason'],
+        'size': value['size'],
+        'target': value['target'],
     };
 }
 

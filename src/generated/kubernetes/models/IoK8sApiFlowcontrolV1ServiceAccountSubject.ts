@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServiceAccountSubject holds detailed information for service-account-kind subject.
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApiFlowcontrolV1ServiceAccountSubject {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1ServiceAccountSubject interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1ServiceAccountSubject(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "namespace" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1ServiceAccountSubject(value: object): value is IoK8sApiFlowcontrolV1ServiceAccountSubject {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('namespace' in value) || value['namespace'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSON(json: any): IoK8sApiFlowcontrolV1ServiceAccountSubject {
@@ -49,7 +47,7 @@ export function IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSON(json: any): I
 }
 
 export function IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1ServiceAccountSubject {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSONTyped(json: an
     };
 }
 
-export function IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSON(value?: IoK8sApiFlowcontrolV1ServiceAccountSubject | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSON(json: any): IoK8sApiFlowcontrolV1ServiceAccountSubject {
+    return IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSONTyped(value?: IoK8sApiFlowcontrolV1ServiceAccountSubject | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'namespace': value.namespace,
+        'name': value['name'],
+        'namespace': value['namespace'],
     };
 }
 

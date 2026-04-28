@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,11 +30,9 @@ export interface V1AccessCredentialSecretSource {
 /**
  * Check if a given object implements the V1AccessCredentialSecretSource interface.
  */
-export function instanceOfV1AccessCredentialSecretSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "secretName" in value;
-
-    return isInstance;
+export function instanceOfV1AccessCredentialSecretSource(value: object): value is V1AccessCredentialSecretSource {
+    if (!('secretName' in value) || value['secretName'] === undefined) return false;
+    return true;
 }
 
 export function V1AccessCredentialSecretSourceFromJSON(json: any): V1AccessCredentialSecretSource {
@@ -42,7 +40,7 @@ export function V1AccessCredentialSecretSourceFromJSON(json: any): V1AccessCrede
 }
 
 export function V1AccessCredentialSecretSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1AccessCredentialSecretSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function V1AccessCredentialSecretSourceFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function V1AccessCredentialSecretSourceToJSON(value?: V1AccessCredentialSecretSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1AccessCredentialSecretSourceToJSON(json: any): V1AccessCredentialSecretSource {
+    return V1AccessCredentialSecretSourceToJSONTyped(json, false);
+}
+
+export function V1AccessCredentialSecretSourceToJSONTyped(value?: V1AccessCredentialSecretSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'secretName': value.secretName,
+        'secretName': value['secretName'],
     };
 }
 

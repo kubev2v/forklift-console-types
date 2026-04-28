@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1ReplicaSetCondition } from './IoK8sApiAppsV1ReplicaSetCondition';
 import {
     IoK8sApiAppsV1ReplicaSetConditionFromJSON,
     IoK8sApiAppsV1ReplicaSetConditionFromJSONTyped,
     IoK8sApiAppsV1ReplicaSetConditionToJSON,
+    IoK8sApiAppsV1ReplicaSetConditionToJSONTyped,
 } from './IoK8sApiAppsV1ReplicaSetCondition';
 
 /**
@@ -27,7 +28,7 @@ import {
  */
 export interface IoK8sApiAppsV1ReplicaSetStatus {
     /**
-     * The number of available replicas (ready for at least minReadySeconds) for this replica set.
+     * The number of available non-terminating pods (ready for at least minReadySeconds) for this replica set.
      * @type {number}
      * @memberof IoK8sApiAppsV1ReplicaSetStatus
      */
@@ -39,7 +40,7 @@ export interface IoK8sApiAppsV1ReplicaSetStatus {
      */
     conditions?: Array<IoK8sApiAppsV1ReplicaSetCondition>;
     /**
-     * The number of pods that have labels matching the labels of the pod template of the replicaset.
+     * The number of non-terminating pods that have labels matching the labels of the pod template of the replicaset.
      * @type {number}
      * @memberof IoK8sApiAppsV1ReplicaSetStatus
      */
@@ -51,27 +52,33 @@ export interface IoK8sApiAppsV1ReplicaSetStatus {
      */
     observedGeneration?: number;
     /**
-     * readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
+     * The number of non-terminating pods targeted by this ReplicaSet with a Ready Condition.
      * @type {number}
      * @memberof IoK8sApiAppsV1ReplicaSetStatus
      */
     readyReplicas?: number;
     /**
-     * Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * Replicas is the most recently observed number of non-terminating pods. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * @type {number}
      * @memberof IoK8sApiAppsV1ReplicaSetStatus
      */
     replicas: number;
+    /**
+     * The number of terminating pods for this replica set. Terminating pods have a non-null .metadata.deletionTimestamp and have not yet reached the Failed or Succeeded .status.phase.
+     * 
+     * This is a beta field and requires enabling DeploymentReplicaSetTerminatingReplicas feature (enabled by default).
+     * @type {number}
+     * @memberof IoK8sApiAppsV1ReplicaSetStatus
+     */
+    terminatingReplicas?: number;
 }
 
 /**
  * Check if a given object implements the IoK8sApiAppsV1ReplicaSetStatus interface.
  */
-export function instanceOfIoK8sApiAppsV1ReplicaSetStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "replicas" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1ReplicaSetStatus(value: object): value is IoK8sApiAppsV1ReplicaSetStatus {
+    if (!('replicas' in value) || value['replicas'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1ReplicaSetStatusFromJSON(json: any): IoK8sApiAppsV1ReplicaSetStatus {
@@ -79,35 +86,39 @@ export function IoK8sApiAppsV1ReplicaSetStatusFromJSON(json: any): IoK8sApiAppsV
 }
 
 export function IoK8sApiAppsV1ReplicaSetStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1ReplicaSetStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'availableReplicas': !exists(json, 'availableReplicas') ? undefined : json['availableReplicas'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAppsV1ReplicaSetConditionFromJSON)),
-        'fullyLabeledReplicas': !exists(json, 'fullyLabeledReplicas') ? undefined : json['fullyLabeledReplicas'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
-        'readyReplicas': !exists(json, 'readyReplicas') ? undefined : json['readyReplicas'],
+        'availableReplicas': json['availableReplicas'] == null ? undefined : json['availableReplicas'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAppsV1ReplicaSetConditionFromJSON)),
+        'fullyLabeledReplicas': json['fullyLabeledReplicas'] == null ? undefined : json['fullyLabeledReplicas'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'readyReplicas': json['readyReplicas'] == null ? undefined : json['readyReplicas'],
         'replicas': json['replicas'],
+        'terminatingReplicas': json['terminatingReplicas'] == null ? undefined : json['terminatingReplicas'],
     };
 }
 
-export function IoK8sApiAppsV1ReplicaSetStatusToJSON(value?: IoK8sApiAppsV1ReplicaSetStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1ReplicaSetStatusToJSON(json: any): IoK8sApiAppsV1ReplicaSetStatus {
+    return IoK8sApiAppsV1ReplicaSetStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1ReplicaSetStatusToJSONTyped(value?: IoK8sApiAppsV1ReplicaSetStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'availableReplicas': value.availableReplicas,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiAppsV1ReplicaSetConditionToJSON)),
-        'fullyLabeledReplicas': value.fullyLabeledReplicas,
-        'observedGeneration': value.observedGeneration,
-        'readyReplicas': value.readyReplicas,
-        'replicas': value.replicas,
+        'availableReplicas': value['availableReplicas'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiAppsV1ReplicaSetConditionToJSON)),
+        'fullyLabeledReplicas': value['fullyLabeledReplicas'],
+        'observedGeneration': value['observedGeneration'],
+        'readyReplicas': value['readyReplicas'],
+        'replicas': value['replicas'],
+        'terminatingReplicas': value['terminatingReplicas'],
     };
 }
 

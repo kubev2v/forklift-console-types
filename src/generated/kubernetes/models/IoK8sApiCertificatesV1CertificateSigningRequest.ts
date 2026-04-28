@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCertificatesV1CertificateSigningRequestSpec } from './IoK8sApiCertificatesV1CertificateSigningRequestSpec';
-import {
-    IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSON,
-    IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSONTyped,
-    IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSON,
-} from './IoK8sApiCertificatesV1CertificateSigningRequestSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCertificatesV1CertificateSigningRequestStatus } from './IoK8sApiCertificatesV1CertificateSigningRequestStatus';
 import {
     IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSON,
     IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSONTyped,
     IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSON,
+    IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSONTyped,
 } from './IoK8sApiCertificatesV1CertificateSigningRequestStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiCertificatesV1CertificateSigningRequestSpec } from './IoK8sApiCertificatesV1CertificateSigningRequestSpec';
+import {
+    IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSON,
+    IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSONTyped,
+    IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSON,
+    IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSONTyped,
+} from './IoK8sApiCertificatesV1CertificateSigningRequestSpec';
 
 /**
  * CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
@@ -79,11 +82,9 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequest {
 /**
  * Check if a given object implements the IoK8sApiCertificatesV1CertificateSigningRequest interface.
  */
-export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequest(value: object): value is IoK8sApiCertificatesV1CertificateSigningRequest {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestFromJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequest {
@@ -91,33 +92,35 @@ export function IoK8sApiCertificatesV1CertificateSigningRequestFromJSON(json: an
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCertificatesV1CertificateSigningRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSON(json['status']),
+        'status': json['status'] == null ? undefined : IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiCertificatesV1CertificateSigningRequestToJSON(value?: IoK8sApiCertificatesV1CertificateSigningRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCertificatesV1CertificateSigningRequestToJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequest {
+    return IoK8sApiCertificatesV1CertificateSigningRequestToJSONTyped(json, false);
+}
+
+export function IoK8sApiCertificatesV1CertificateSigningRequestToJSONTyped(value?: IoK8sApiCertificatesV1CertificateSigningRequest | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSON(value.spec),
-        'status': IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSON(value['spec']),
+        'status': IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSON(value['status']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodSchedulingGate is associated to a Pod to guard its scheduling.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiCoreV1PodSchedulingGate {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodSchedulingGate interface.
  */
-export function instanceOfIoK8sApiCoreV1PodSchedulingGate(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodSchedulingGate(value: object): value is IoK8sApiCoreV1PodSchedulingGate {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodSchedulingGateFromJSON(json: any): IoK8sApiCoreV1PodSchedulingGate {
@@ -42,7 +40,7 @@ export function IoK8sApiCoreV1PodSchedulingGateFromJSON(json: any): IoK8sApiCore
 }
 
 export function IoK8sApiCoreV1PodSchedulingGateFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodSchedulingGate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiCoreV1PodSchedulingGateFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function IoK8sApiCoreV1PodSchedulingGateToJSON(value?: IoK8sApiCoreV1PodSchedulingGate | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodSchedulingGateToJSON(json: any): IoK8sApiCoreV1PodSchedulingGate {
+    return IoK8sApiCoreV1PodSchedulingGateToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodSchedulingGateToJSONTyped(value?: IoK8sApiCoreV1PodSchedulingGate | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
+        'name': value['name'],
     };
 }
 

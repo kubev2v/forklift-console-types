@@ -25,6 +25,12 @@ export interface V1ResourceClaim {
      * @memberof V1ResourceClaim
      */
     name: string;
+    /**
+     * Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * @type {string}
+     * @memberof V1ResourceClaim
+     */
+    request?: string;
 }
 
 /**
@@ -46,6 +52,7 @@ export function V1ResourceClaimFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'name': json['name'],
+        'request': json['request'] == null ? undefined : json['request'],
     };
 }
 
@@ -56,6 +63,7 @@ export function V1ResourceClaimToJSON(value?: V1ResourceClaim | null): any {
     return {
         
         'name': value['name'],
+        'request': value['request'],
     };
 }
 

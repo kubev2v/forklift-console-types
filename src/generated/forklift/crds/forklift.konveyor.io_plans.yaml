@@ -1086,6 +1086,7 @@ spec:
                     - If migration fails the conversion pod will remain present even if this option is enabled.
                 type: boolean
               deleteVmOnFailMigration:
+                default: true
                 description: |-
                   DeleteVmOnFailMigration controls whether the target VM created by this Plan is deleted when a migration fails.
                   When true and the migration fails after the target VM has been created, the controller
@@ -1101,6 +1102,24 @@ spec:
               diskBus:
                 description: 'Deprecated: this field will be deprecated in 2.8.'
                 type: string
+              enableNestedVirtualization:
+                description: |-
+                  EnableNestedVirtualization controls whether nested virtualization CPU features (vmx for Intel,
+                  svm for AMD) are requested on the target VM.
+
+                  - nil (default): Auto-detect from the source VM settings. If the source had nested
+                    virtualization enabled, the target will request it; otherwise no CPU feature is added.
+                  - true: Request nested virtualization on the target VM (overrides source settings).
+                    Both vmx and svm CPU features are added with policy "optional", meaning the VM will
+                    have nested virtualization only if the underlying host hardware supports it.
+                    This does NOT guarantee nested virtualization; it is a best-effort hint to the hypervisor.
+                  - false: Explicitly disable nested virtualization on the target VM (overrides source settings).
+                    Both vmx and svm CPU features are added with policy "disable", unconditionally preventing
+                    nested virtualization regardless of host capability.
+
+                  Both vmx and svm are added together so the VM is portable across Intel and AMD hosts.
+                  The "optional" policy activates only the feature the host CPU supports; the other is ignored.
+                type: boolean
               installLegacyDrivers:
                 description: |-
                   InstallLegacyDrivers determines whether to install legacy windows drivers in the VM.
@@ -1381,8 +1400,20 @@ spec:
                       **DANGER**: May cause conflicts if the generated name is not unique
 
                   OpenShift:
-                    - This field is ignored. The template output is always used as the exact PVC name.
-                    - Default template "{{.SourcePVCName}}" preserves source PVC names which are typically unique.
+                    - Supported when a custom pvcNameTemplate is set (plan-level or VM-level).
+                    - When no custom template is set, the default "{{.SourcePVCName}}" always uses exact names
+                      regardless of this field.
+                    - true: Template output is used as generateName prefix, Kubernetes adds a random suffix
+                    - false: Template output is used as the exact PVC name
+                type: boolean
+              rdmAsLun:
+                description: |-
+                  RDMAsLun controls whether RDM (Raw Device Mapping) disks from VMware should be
+                  mapped as LUN devices in the target KubeVirt VM instead of regular disk devices.
+                  When true, RDM disks are attached using lun: {} which allows the guest to execute
+                  arbitrary SCSI command passthrough (SGIO).
+                  This is useful when the source VM uses RDM disks for applications that require
+                  direct SCSI access, such as shared storage clusters or database applications.
                 type: boolean
               runPreflightInspection:
                 default: true
@@ -1391,6 +1422,15 @@ spec:
                   - true (default): Inspection step runs before transferring any disks and may fail if it detects the migration would fail.
                   - false: No inspection is performed before disk transfer.
                 type: boolean
+              serviceAccount:
+                description: |-
+                  ServiceAccount is the name of the ServiceAccount to use for migration
+                  pods in the target namespace. Overrides the global setting.
+                  If empty, falls back to ForkliftController's controller_migration_service_account,
+                  then to the namespace default.
+                maxLength: 253
+                pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                type: string
               skipGuestConversion:
                 default: false
                 description: Determines if the plan should skip the guest conversion.
@@ -2427,6 +2467,13 @@ spec:
                   - true (default): Use compatibility devices (SATA bus, E1000E NIC) to ensure bootability
                   - false: Use high-performance VirtIO devices (requires VirtIO drivers already installed in source VM)
                 type: boolean
+              virtV2vImage:
+                description: |-
+                  VirtV2vImage overrides the global virt-v2v container image for this plan.
+                  When set, virt-v2v pods created by this plan will use this image instead
+                  of the cluster-wide VIRT_V2V_IMAGE setting.
+                  Use this to run different virt-v2v builds for specific migration scenarios
+                type: string
               vms:
                 description: List of VMs.
                 items:
@@ -2441,6 +2488,23 @@ spec:
                         troubleshooting. The source VM is never modified.
 
                         Note: If the Plan-level option is set to true, the VM-level option will be ignored.
+                      type: boolean
+                    enableNestedVirtualization:
+                      description: |-
+                        EnableNestedVirtualization controls whether nested virtualization CPU features (vmx/svm)
+                        are requested on the target VM. This overrides both the plan-level setting and the
+                        source VM's configuration.
+
+                        - nil (default): Falls back to the plan-level enableNestedVirtualization value.
+                        - true: Request nested virtualization for this VM. CPU features vmx and svm are added
+                          with policy "optional" -- the VM will have nested virtualization only if the host
+                          hardware supports it. This is a best-effort hint, not a guarantee.
+                        - false: Explicitly disable nested virtualization for this VM. CPU features vmx and svm
+                          are added with policy "disable", preventing nested virtualization regardless of host
+                          capability.
+
+                        Both vmx and svm are added together so the VM is portable across Intel and AMD hosts.
+                        The "optional" policy activates only the feature the host CPU supports; the other is ignored.
                       type: boolean
                     hooks:
                       description: Enable hooks.
@@ -2551,6 +2615,13 @@ spec:
                           type: string
                       type: object
                       x-kubernetes-map-type: atomic
+                    migrateSharedDisks:
+                      description: |-
+                        MigrateSharedDisks controls whether shared disks are included in the migration for this VM.
+                        When nil (default), the plan-level migrateSharedDisks value is used.
+                        When explicitly set to true, shared disks are migrated for this VM.
+                        When explicitly set to false, shared disks are skipped for this VM.
+                      type: boolean
                     name:
                       description: |-
                         An object Name.
@@ -2616,6 +2687,14 @@ spec:
                         https://github.com/kubev2v/forklift/tree/main/pkg/templateutil
                         for template functions."
                       type: string
+                    rdmAsLun:
+                      description: |-
+                        RDMAsLun controls whether RDM (Raw Device Mapping) disks from VMware should be
+                        mapped as LUN devices in the target KubeVirt VM instead of regular disk devices.
+                        When nil (default), the plan-level rdmAsLun value is used.
+                        When explicitly set to true, RDM disks are attached using lun: {} for this VM.
+                        When explicitly set to false, RDM disks are attached as regular disks for this VM.
+                      type: boolean
                     rootDisk:
                       description: Choose the primary disk the VM boots from
                       type: string
@@ -2681,6 +2760,15 @@ spec:
                 description: |-
                   Whether this is a warm migration.
                   Deprecated: this field will be deprecated in 2.10. Use Type instead.
+                type: boolean
+              xfsCompatibility:
+                default: false
+                description: |-
+                  XfsCompatibility overrides the global virt-v2v container image for this plan.
+                  When set, virt-v2v pods created by this plan will use the XFS compatible image
+                  VIRT_V2V_IMAGE_XFS instead of the cluster-wide VIRT_V2V_IMAGE setting.
+                  Use this to enable XFSv4 compatibility mode for specific plan.
+                  Warning: Enabling XFSv4 support will drop support for BTRFS for the specific plan. Ensure that the plan only selects VMs with supported filesystem.
                 type: boolean
             required:
             - map
@@ -3009,6 +3097,27 @@ spec:
 
                             Note: If the Plan-level option is set to true, the VM-level option will be ignored.
                           type: boolean
+                        detectedBootDisk:
+                          description: Boot disk index (0-based) detected by virt-v2v.
+                            nil means undetected.
+                          type: integer
+                        enableNestedVirtualization:
+                          description: |-
+                            EnableNestedVirtualization controls whether nested virtualization CPU features (vmx/svm)
+                            are requested on the target VM. This overrides both the plan-level setting and the
+                            source VM's configuration.
+
+                            - nil (default): Falls back to the plan-level enableNestedVirtualization value.
+                            - true: Request nested virtualization for this VM. CPU features vmx and svm are added
+                              with policy "optional" -- the VM will have nested virtualization only if the host
+                              hardware supports it. This is a best-effort hint, not a guarantee.
+                            - false: Explicitly disable nested virtualization for this VM. CPU features vmx and svm
+                              are added with policy "disable", preventing nested virtualization regardless of host
+                              capability.
+
+                            Both vmx and svm are added together so the VM is portable across Intel and AMD hosts.
+                            The "optional" policy activates only the feature the host CPU supports; the other is ignored.
+                          type: boolean
                         error:
                           description: Errors
                           properties:
@@ -3135,6 +3244,13 @@ spec:
                               type: string
                           type: object
                           x-kubernetes-map-type: atomic
+                        migrateSharedDisks:
+                          description: |-
+                            MigrateSharedDisks controls whether shared disks are included in the migration for this VM.
+                            When nil (default), the plan-level migrateSharedDisks value is used.
+                            When explicitly set to true, shared disks are migrated for this VM.
+                            When explicitly set to false, shared disks are skipped for this VM.
+                          type: boolean
                         name:
                           description: |-
                             An object Name.
@@ -3337,6 +3453,14 @@ spec:
                             https://github.com/kubev2v/forklift/tree/main/pkg/templateutil
                             for template functions."
                           type: string
+                        rdmAsLun:
+                          description: |-
+                            RDMAsLun controls whether RDM (Raw Device Mapping) disks from VMware should be
+                            mapped as LUN devices in the target KubeVirt VM instead of regular disk devices.
+                            When nil (default), the plan-level rdmAsLun value is used.
+                            When explicitly set to true, RDM disks are attached using lun: {} for this VM.
+                            When explicitly set to false, RDM disks are attached as regular disks for this VM.
+                          type: boolean
                         restorePowerState:
                           description: Source VM power state before migration.
                           type: string

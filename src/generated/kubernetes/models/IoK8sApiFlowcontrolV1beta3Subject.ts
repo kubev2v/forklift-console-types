@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiFlowcontrolV1beta3GroupSubject } from './IoK8sApiFlowcontrolV1beta3GroupSubject';
 import {
     IoK8sApiFlowcontrolV1beta3GroupSubjectFromJSON,

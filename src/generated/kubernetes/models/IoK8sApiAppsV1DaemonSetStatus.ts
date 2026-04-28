@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1DaemonSetCondition } from './IoK8sApiAppsV1DaemonSetCondition';
 import {
     IoK8sApiAppsV1DaemonSetConditionFromJSON,
     IoK8sApiAppsV1DaemonSetConditionFromJSONTyped,
     IoK8sApiAppsV1DaemonSetConditionToJSON,
+    IoK8sApiAppsV1DaemonSetConditionToJSONTyped,
 } from './IoK8sApiAppsV1DaemonSetCondition';
 
 /**
@@ -91,14 +92,12 @@ export interface IoK8sApiAppsV1DaemonSetStatus {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DaemonSetStatus interface.
  */
-export function instanceOfIoK8sApiAppsV1DaemonSetStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "currentNumberScheduled" in value;
-    isInstance = isInstance && "desiredNumberScheduled" in value;
-    isInstance = isInstance && "numberMisscheduled" in value;
-    isInstance = isInstance && "numberReady" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DaemonSetStatus(value: object): value is IoK8sApiAppsV1DaemonSetStatus {
+    if (!('currentNumberScheduled' in value) || value['currentNumberScheduled'] === undefined) return false;
+    if (!('desiredNumberScheduled' in value) || value['desiredNumberScheduled'] === undefined) return false;
+    if (!('numberMisscheduled' in value) || value['numberMisscheduled'] === undefined) return false;
+    if (!('numberReady' in value) || value['numberReady'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1DaemonSetStatusFromJSON(json: any): IoK8sApiAppsV1DaemonSetStatus {
@@ -106,43 +105,45 @@ export function IoK8sApiAppsV1DaemonSetStatusFromJSON(json: any): IoK8sApiAppsV1
 }
 
 export function IoK8sApiAppsV1DaemonSetStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DaemonSetStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'collisionCount': !exists(json, 'collisionCount') ? undefined : json['collisionCount'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAppsV1DaemonSetConditionFromJSON)),
+        'collisionCount': json['collisionCount'] == null ? undefined : json['collisionCount'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAppsV1DaemonSetConditionFromJSON)),
         'currentNumberScheduled': json['currentNumberScheduled'],
         'desiredNumberScheduled': json['desiredNumberScheduled'],
-        'numberAvailable': !exists(json, 'numberAvailable') ? undefined : json['numberAvailable'],
+        'numberAvailable': json['numberAvailable'] == null ? undefined : json['numberAvailable'],
         'numberMisscheduled': json['numberMisscheduled'],
         'numberReady': json['numberReady'],
-        'numberUnavailable': !exists(json, 'numberUnavailable') ? undefined : json['numberUnavailable'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
-        'updatedNumberScheduled': !exists(json, 'updatedNumberScheduled') ? undefined : json['updatedNumberScheduled'],
+        'numberUnavailable': json['numberUnavailable'] == null ? undefined : json['numberUnavailable'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'updatedNumberScheduled': json['updatedNumberScheduled'] == null ? undefined : json['updatedNumberScheduled'],
     };
 }
 
-export function IoK8sApiAppsV1DaemonSetStatusToJSON(value?: IoK8sApiAppsV1DaemonSetStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DaemonSetStatusToJSON(json: any): IoK8sApiAppsV1DaemonSetStatus {
+    return IoK8sApiAppsV1DaemonSetStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DaemonSetStatusToJSONTyped(value?: IoK8sApiAppsV1DaemonSetStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'collisionCount': value.collisionCount,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiAppsV1DaemonSetConditionToJSON)),
-        'currentNumberScheduled': value.currentNumberScheduled,
-        'desiredNumberScheduled': value.desiredNumberScheduled,
-        'numberAvailable': value.numberAvailable,
-        'numberMisscheduled': value.numberMisscheduled,
-        'numberReady': value.numberReady,
-        'numberUnavailable': value.numberUnavailable,
-        'observedGeneration': value.observedGeneration,
-        'updatedNumberScheduled': value.updatedNumberScheduled,
+        'collisionCount': value['collisionCount'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiAppsV1DaemonSetConditionToJSON)),
+        'currentNumberScheduled': value['currentNumberScheduled'],
+        'desiredNumberScheduled': value['desiredNumberScheduled'],
+        'numberAvailable': value['numberAvailable'],
+        'numberMisscheduled': value['numberMisscheduled'],
+        'numberReady': value['numberReady'],
+        'numberUnavailable': value['numberUnavailable'],
+        'observedGeneration': value['observedGeneration'],
+        'updatedNumberScheduled': value['updatedNumberScheduled'],
     };
 }
 

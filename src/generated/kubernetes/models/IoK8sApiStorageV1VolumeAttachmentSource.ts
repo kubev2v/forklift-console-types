@@ -12,16 +12,17 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PersistentVolumeSpec } from './IoK8sApiCoreV1PersistentVolumeSpec';
 import {
     IoK8sApiCoreV1PersistentVolumeSpecFromJSON,
     IoK8sApiCoreV1PersistentVolumeSpecFromJSONTyped,
     IoK8sApiCoreV1PersistentVolumeSpecToJSON,
+    IoK8sApiCoreV1PersistentVolumeSpecToJSONTyped,
 } from './IoK8sApiCoreV1PersistentVolumeSpec';
 
 /**
- * VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+ * VolumeAttachmentSource represents a volume that should be attached. Right now only PersistentVolumes can be attached via external attacher, in the future we may allow also inline volumes in pods. Exactly one member can be set.
  * @export
  * @interface IoK8sApiStorageV1VolumeAttachmentSource
  */
@@ -43,10 +44,8 @@ export interface IoK8sApiStorageV1VolumeAttachmentSource {
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeAttachmentSource interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeAttachmentSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeAttachmentSource(value: object): value is IoK8sApiStorageV1VolumeAttachmentSource {
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentSourceFromJSON(json: any): IoK8sApiStorageV1VolumeAttachmentSource {
@@ -54,27 +53,29 @@ export function IoK8sApiStorageV1VolumeAttachmentSourceFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeAttachmentSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'inlineVolumeSpec': !exists(json, 'inlineVolumeSpec') ? undefined : IoK8sApiCoreV1PersistentVolumeSpecFromJSON(json['inlineVolumeSpec']),
-        'persistentVolumeName': !exists(json, 'persistentVolumeName') ? undefined : json['persistentVolumeName'],
+        'inlineVolumeSpec': json['inlineVolumeSpec'] == null ? undefined : IoK8sApiCoreV1PersistentVolumeSpecFromJSON(json['inlineVolumeSpec']),
+        'persistentVolumeName': json['persistentVolumeName'] == null ? undefined : json['persistentVolumeName'],
     };
 }
 
-export function IoK8sApiStorageV1VolumeAttachmentSourceToJSON(value?: IoK8sApiStorageV1VolumeAttachmentSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeAttachmentSourceToJSON(json: any): IoK8sApiStorageV1VolumeAttachmentSource {
+    return IoK8sApiStorageV1VolumeAttachmentSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeAttachmentSourceToJSONTyped(value?: IoK8sApiStorageV1VolumeAttachmentSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'inlineVolumeSpec': IoK8sApiCoreV1PersistentVolumeSpecToJSON(value.inlineVolumeSpec),
-        'persistentVolumeName': value.persistentVolumeName,
+        'inlineVolumeSpec': IoK8sApiCoreV1PersistentVolumeSpecToJSON(value['inlineVolumeSpec']),
+        'persistentVolumeName': value['persistentVolumeName'],
     };
 }
 

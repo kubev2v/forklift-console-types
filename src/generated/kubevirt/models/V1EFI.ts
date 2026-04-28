@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * If set, EFI will be used instead of BIOS.
  * @export
@@ -36,10 +36,8 @@ export interface V1EFI {
 /**
  * Check if a given object implements the V1EFI interface.
  */
-export function instanceOfV1EFI(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1EFI(value: object): value is V1EFI {
+    return true;
 }
 
 export function V1EFIFromJSON(json: any): V1EFI {
@@ -47,27 +45,29 @@ export function V1EFIFromJSON(json: any): V1EFI {
 }
 
 export function V1EFIFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1EFI {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'persistent': !exists(json, 'persistent') ? undefined : json['persistent'],
-        'secureBoot': !exists(json, 'secureBoot') ? undefined : json['secureBoot'],
+        'persistent': json['persistent'] == null ? undefined : json['persistent'],
+        'secureBoot': json['secureBoot'] == null ? undefined : json['secureBoot'],
     };
 }
 
-export function V1EFIToJSON(value?: V1EFI | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1EFIToJSON(json: any): V1EFI {
+    return V1EFIToJSONTyped(json, false);
+}
+
+export function V1EFIToJSONTyped(value?: V1EFI | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'persistent': value.persistent,
-        'secureBoot': value.secureBoot,
+        'persistent': value['persistent'],
+        'secureBoot': value['secureBoot'],
     };
 }
 

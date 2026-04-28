@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodSpec } from './IoK8sApiCoreV1PodSpec';
 import {
     IoK8sApiCoreV1PodSpecFromJSON,
     IoK8sApiCoreV1PodSpecFromJSONTyped,
     IoK8sApiCoreV1PodSpecToJSON,
+    IoK8sApiCoreV1PodSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -49,10 +51,8 @@ export interface IoK8sApiCoreV1PodTemplateSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodTemplateSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1PodTemplateSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodTemplateSpec(value: object): value is IoK8sApiCoreV1PodTemplateSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1PodTemplateSpecFromJSON(json: any): IoK8sApiCoreV1PodTemplateSpec {
@@ -60,27 +60,29 @@ export function IoK8sApiCoreV1PodTemplateSpecFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1PodTemplateSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodTemplateSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoreV1PodSpecFromJSON(json['spec']),
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoreV1PodSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiCoreV1PodTemplateSpecToJSON(value?: IoK8sApiCoreV1PodTemplateSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodTemplateSpecToJSON(json: any): IoK8sApiCoreV1PodTemplateSpec {
+    return IoK8sApiCoreV1PodTemplateSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodTemplateSpecToJSONTyped(value?: IoK8sApiCoreV1PodTemplateSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1PodSpecToJSON(value.spec),
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1PodSpecToJSON(value['spec']),
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAdmissionregistrationV1MutatingWebhook } from './IoK8sApiAdmissionregistrationV1MutatingWebhook';
-import {
-    IoK8sApiAdmissionregistrationV1MutatingWebhookFromJSON,
-    IoK8sApiAdmissionregistrationV1MutatingWebhookFromJSONTyped,
-    IoK8sApiAdmissionregistrationV1MutatingWebhookToJSON,
-} from './IoK8sApiAdmissionregistrationV1MutatingWebhook';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiAdmissionregistrationV1MutatingWebhook } from './IoK8sApiAdmissionregistrationV1MutatingWebhook';
+import {
+    IoK8sApiAdmissionregistrationV1MutatingWebhookFromJSON,
+    IoK8sApiAdmissionregistrationV1MutatingWebhookFromJSONTyped,
+    IoK8sApiAdmissionregistrationV1MutatingWebhookToJSON,
+    IoK8sApiAdmissionregistrationV1MutatingWebhookToJSONTyped,
+} from './IoK8sApiAdmissionregistrationV1MutatingWebhook';
 
 /**
  * MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
@@ -51,7 +53,7 @@ export interface IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration {
      */
     metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
     /**
-     * Webhooks is a list of webhooks and the affected resources and operations.
+     * webhooks is a list of webhooks and the affected resources and operations.
      * @type {Array<IoK8sApiAdmissionregistrationV1MutatingWebhook>}
      * @memberof IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration
      */
@@ -61,10 +63,8 @@ export interface IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration(value: object): value is IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationFromJSON(json: any): IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration {
@@ -72,31 +72,33 @@ export function IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationFromJ
 }
 
 export function IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'webhooks': !exists(json, 'webhooks') ? undefined : ((json['webhooks'] as Array<any>).map(IoK8sApiAdmissionregistrationV1MutatingWebhookFromJSON)),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'webhooks': json['webhooks'] == null ? undefined : ((json['webhooks'] as Array<any>).map(IoK8sApiAdmissionregistrationV1MutatingWebhookFromJSON)),
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationToJSON(value?: IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationToJSON(json: any): IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration {
+    return IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1MutatingWebhookConfigurationToJSONTyped(value?: IoK8sApiAdmissionregistrationV1MutatingWebhookConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'webhooks': value.webhooks === undefined ? undefined : ((value.webhooks as Array<any>).map(IoK8sApiAdmissionregistrationV1MutatingWebhookToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'webhooks': value['webhooks'] == null ? undefined : ((value['webhooks'] as Array<any>).map(IoK8sApiAdmissionregistrationV1MutatingWebhookToJSON)),
     };
 }
 

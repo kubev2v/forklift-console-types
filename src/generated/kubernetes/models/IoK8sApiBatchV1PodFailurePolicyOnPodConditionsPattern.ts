@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern {
      * @type {string}
      * @memberof IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern
      */
-    status: string;
+    status?: string;
     /**
      * Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
      * @type {string}
@@ -36,12 +36,9 @@ export interface IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern {
 /**
  * Check if a given object implements the IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern interface.
  */
-export function instanceOfIoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern(value: object): value is IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSON(json: any): IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern {
@@ -49,27 +46,29 @@ export function IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSON(js
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'status': json['status'],
+        'status': json['status'] == null ? undefined : json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSON(value?: IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSON(json: any): IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern {
+    return IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSONTyped(value?: IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'status': value.status,
-        'type': value.type,
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

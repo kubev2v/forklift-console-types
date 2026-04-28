@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiSchedulingV1PriorityClass } from './IoK8sApiSchedulingV1PriorityClass';
 import {
     IoK8sApiSchedulingV1PriorityClassFromJSON,
     IoK8sApiSchedulingV1PriorityClassFromJSONTyped,
     IoK8sApiSchedulingV1PriorityClassToJSON,
+    IoK8sApiSchedulingV1PriorityClassToJSONTyped,
 } from './IoK8sApiSchedulingV1PriorityClass';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiSchedulingV1PriorityClassList {
 /**
  * Check if a given object implements the IoK8sApiSchedulingV1PriorityClassList interface.
  */
-export function instanceOfIoK8sApiSchedulingV1PriorityClassList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiSchedulingV1PriorityClassList(value: object): value is IoK8sApiSchedulingV1PriorityClassList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiSchedulingV1PriorityClassListFromJSON(json: any): IoK8sApiSchedulingV1PriorityClassList {
@@ -73,31 +73,33 @@ export function IoK8sApiSchedulingV1PriorityClassListFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiSchedulingV1PriorityClassListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiSchedulingV1PriorityClassList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiSchedulingV1PriorityClassFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiSchedulingV1PriorityClassListToJSON(value?: IoK8sApiSchedulingV1PriorityClassList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiSchedulingV1PriorityClassListToJSON(json: any): IoK8sApiSchedulingV1PriorityClassList {
+    return IoK8sApiSchedulingV1PriorityClassListToJSONTyped(json, false);
+}
+
+export function IoK8sApiSchedulingV1PriorityClassListToJSONTyped(value?: IoK8sApiSchedulingV1PriorityClassList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiSchedulingV1PriorityClassToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiSchedulingV1PriorityClassToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

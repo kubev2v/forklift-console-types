@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
  * @export
@@ -54,13 +54,11 @@ export interface IoK8sApiCoreV1ConfigMapNodeConfigSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ConfigMapNodeConfigSource interface.
  */
-export function instanceOfIoK8sApiCoreV1ConfigMapNodeConfigSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kubeletConfigKey" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "namespace" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ConfigMapNodeConfigSource(value: object): value is IoK8sApiCoreV1ConfigMapNodeConfigSource {
+    if (!('kubeletConfigKey' in value) || value['kubeletConfigKey'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('namespace' in value) || value['namespace'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSON(json: any): IoK8sApiCoreV1ConfigMapNodeConfigSource {
@@ -68,7 +66,7 @@ export function IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ConfigMapNodeConfigSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -76,25 +74,27 @@ export function IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSONTyped(json: any, 
         'kubeletConfigKey': json['kubeletConfigKey'],
         'name': json['name'],
         'namespace': json['namespace'],
-        'resourceVersion': !exists(json, 'resourceVersion') ? undefined : json['resourceVersion'],
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
+        'resourceVersion': json['resourceVersion'] == null ? undefined : json['resourceVersion'],
+        'uid': json['uid'] == null ? undefined : json['uid'],
     };
 }
 
-export function IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSON(value?: IoK8sApiCoreV1ConfigMapNodeConfigSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSON(json: any): IoK8sApiCoreV1ConfigMapNodeConfigSource {
+    return IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSONTyped(value?: IoK8sApiCoreV1ConfigMapNodeConfigSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'kubeletConfigKey': value.kubeletConfigKey,
-        'name': value.name,
-        'namespace': value.namespace,
-        'resourceVersion': value.resourceVersion,
-        'uid': value.uid,
+        'kubeletConfigKey': value['kubeletConfigKey'],
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'resourceVersion': value['resourceVersion'],
+        'uid': value['uid'],
     };
 }
 

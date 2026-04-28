@@ -122,6 +122,7 @@ troubleshooting. The source VM is never modified.
 Note: If the Plan-level option is set to true, the VM-level option will be ignored.
    *
    * @required {false}
+   * @required {true}
    */
   deleteVmOnFailMigration?: boolean;
   /** description
@@ -136,6 +137,26 @@ Note: If the Plan-level option is set to true, the VM-level option will be ignor
    * @required {false}
    */
   diskBus?: string;
+  /** enableNestedVirtualization
+   * EnableNestedVirtualization controls whether nested virtualization CPU features (vmx for Intel,
+svm for AMD) are requested on the target VM.
+
+- nil (default): Auto-detect from the source VM settings. If the source had nested
+  virtualization enabled, the target will request it; otherwise no CPU feature is added.
+- true: Request nested virtualization on the target VM (overrides source settings).
+  Both vmx and svm CPU features are added with policy "optional", meaning the VM will
+  have nested virtualization only if the underlying host hardware supports it.
+  This does NOT guarantee nested virtualization; it is a best-effort hint to the hypervisor.
+- false: Explicitly disable nested virtualization on the target VM (overrides source settings).
+  Both vmx and svm CPU features are added with policy "disable", unconditionally preventing
+  nested virtualization regardless of host capability.
+
+Both vmx and svm are added together so the VM is portable across Intel and AMD hosts.
+The "optional" policy activates only the feature the host CPU supports; the other is ignored.
+   *
+   * @required {false}
+   */
+  enableNestedVirtualization?: boolean;
   /** installLegacyDrivers
    * InstallLegacyDrivers determines whether to install legacy windows drivers in the VM.
 The following Vm's are lack of SHA-2 support and need legacy drivers:
@@ -262,13 +283,27 @@ VMware (vSphere):
     **DANGER**: May cause conflicts if the generated name is not unique
 
 OpenShift:
-  - This field is ignored. The template output is always used as the exact PVC name.
-  - Default template "{{.SourcePVCName}}" preserves source PVC names which are typically unique.
+  - Supported when a custom pvcNameTemplate is set (plan-level or VM-level).
+  - When no custom template is set, the default "{{.SourcePVCName}}" always uses exact names
+    regardless of this field.
+  - true: Template output is used as generateName prefix, Kubernetes adds a random suffix
+  - false: Template output is used as the exact PVC name
    *
    * @required {false}
    * @required {true}
    */
   pvcNameTemplateUseGenerateName?: boolean;
+  /** rdmAsLun
+   * RDMAsLun controls whether RDM (Raw Device Mapping) disks from VMware should be
+mapped as LUN devices in the target KubeVirt VM instead of regular disk devices.
+When true, RDM disks are attached using lun: {} which allows the guest to execute
+arbitrary SCSI command passthrough (SGIO).
+This is useful when the source VM uses RDM disks for applications that require
+direct SCSI access, such as shared storage clusters or database applications.
+   *
+   * @required {false}
+   */
+  rdmAsLun?: boolean;
   /** runPreflightInspection
    * RunPreflightInspection controls whether an inspection step on VM base disks is performed before starting the first disk transfer. Applies only to warm migrations from VMWare.
 - true (default): Inspection step runs before transferring any disks and may fail if it detects the migration would fail.
@@ -278,6 +313,16 @@ OpenShift:
    * @required {true}
    */
   runPreflightInspection?: boolean;
+  /** serviceAccount
+   * ServiceAccount is the name of the ServiceAccount to use for migration
+pods in the target namespace. Overrides the global setting.
+If empty, falls back to ForkliftController's controller_migration_service_account,
+then to the namespace default.
+   *
+   * @required {false}
+   * @pattern {^[a-z0-9]([-a-z0-9]*[a-z0-9])?$}
+   */
+  serviceAccount?: string;
   /** skipGuestConversion
    * Determines if the plan should skip the guest conversion.
    *
@@ -369,6 +414,15 @@ This setting has no effect when skipGuestConversion is false (V2V Conversion alw
    * @required {true}
    */
   useCompatibilityMode?: boolean;
+  /** virtV2vImage
+   * VirtV2vImage overrides the global virt-v2v container image for this plan.
+When set, virt-v2v pods created by this plan will use this image instead
+of the cluster-wide VIRT_V2V_IMAGE setting.
+Use this to run different virt-v2v builds for specific migration scenarios
+   *
+   * @required {false}
+   */
+  virtV2vImage?: string;
   /** vms
    * A VM listed on the plan.
    *
@@ -402,4 +456,15 @@ Deprecated: this field will be deprecated in 2.10. Use Type instead.
    * @required {false}
    */
   warm?: boolean;
+  /** xfsCompatibility
+   * XfsCompatibility overrides the global virt-v2v container image for this plan.
+When set, virt-v2v pods created by this plan will use the XFS compatible image
+VIRT_V2V_IMAGE_XFS instead of the cluster-wide VIRT_V2V_IMAGE setting.
+Use this to enable XFSv4 compatibility mode for specific plan.
+Warning: Enabling XFSv4 support will drop support for BTRFS for the specific plan. Ensure that the plan only selects VMs with supported filesystem.
+   *
+   * @required {false}
+   * @required {false}
+   */
+  xfsCompatibility?: boolean;
 }

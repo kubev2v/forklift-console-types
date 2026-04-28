@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DataVolumeSourceVDDK provides the parameters to create a Data Volume from a Vmware source
  * @export
@@ -25,6 +25,12 @@ export interface V1beta1DataVolumeSourceVDDK {
      * @memberof V1beta1DataVolumeSourceVDDK
      */
     backingFile?: string;
+    /**
+     * ExtraArgs is a reference to a ConfigMap containing extra arguments to pass directly to the VDDK library
+     * @type {string}
+     * @memberof V1beta1DataVolumeSourceVDDK
+     */
+    extraArgs?: string;
     /**
      * InitImageURL is an optional URL to an image containing an extracted VDDK library, overrides v2v-vmware config map
      * @type {string}
@@ -60,10 +66,8 @@ export interface V1beta1DataVolumeSourceVDDK {
 /**
  * Check if a given object implements the V1beta1DataVolumeSourceVDDK interface.
  */
-export function instanceOfV1beta1DataVolumeSourceVDDK(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeSourceVDDK(value: object): value is V1beta1DataVolumeSourceVDDK {
+    return true;
 }
 
 export function V1beta1DataVolumeSourceVDDKFromJSON(json: any): V1beta1DataVolumeSourceVDDK {
@@ -71,35 +75,39 @@ export function V1beta1DataVolumeSourceVDDKFromJSON(json: any): V1beta1DataVolum
 }
 
 export function V1beta1DataVolumeSourceVDDKFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeSourceVDDK {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'backingFile': !exists(json, 'backingFile') ? undefined : json['backingFile'],
-        'initImageURL': !exists(json, 'initImageURL') ? undefined : json['initImageURL'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : json['secretRef'],
-        'thumbprint': !exists(json, 'thumbprint') ? undefined : json['thumbprint'],
-        'url': !exists(json, 'url') ? undefined : json['url'],
-        'uuid': !exists(json, 'uuid') ? undefined : json['uuid'],
+        'backingFile': json['backingFile'] == null ? undefined : json['backingFile'],
+        'extraArgs': json['extraArgs'] == null ? undefined : json['extraArgs'],
+        'initImageURL': json['initImageURL'] == null ? undefined : json['initImageURL'],
+        'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
+        'thumbprint': json['thumbprint'] == null ? undefined : json['thumbprint'],
+        'url': json['url'] == null ? undefined : json['url'],
+        'uuid': json['uuid'] == null ? undefined : json['uuid'],
     };
 }
 
-export function V1beta1DataVolumeSourceVDDKToJSON(value?: V1beta1DataVolumeSourceVDDK | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeSourceVDDKToJSON(json: any): V1beta1DataVolumeSourceVDDK {
+    return V1beta1DataVolumeSourceVDDKToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeSourceVDDKToJSONTyped(value?: V1beta1DataVolumeSourceVDDK | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'backingFile': value.backingFile,
-        'initImageURL': value.initImageURL,
-        'secretRef': value.secretRef,
-        'thumbprint': value.thumbprint,
-        'url': value.url,
-        'uuid': value.uuid,
+        'backingFile': value['backingFile'],
+        'extraArgs': value['extraArgs'],
+        'initImageURL': value['initImageURL'],
+        'secretRef': value['secretRef'],
+        'thumbprint': value['thumbprint'],
+        'url': value['url'],
+        'uuid': value['uuid'],
     };
 }
 

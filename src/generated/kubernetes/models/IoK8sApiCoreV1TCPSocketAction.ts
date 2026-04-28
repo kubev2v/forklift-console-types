@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * TCPSocketAction describes an action based on opening a socket
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiCoreV1TCPSocketAction {
 /**
  * Check if a given object implements the IoK8sApiCoreV1TCPSocketAction interface.
  */
-export function instanceOfIoK8sApiCoreV1TCPSocketAction(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1TCPSocketAction(value: object): value is IoK8sApiCoreV1TCPSocketAction {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1TCPSocketActionFromJSON(json: any): IoK8sApiCoreV1TCPSocketAction {
@@ -48,27 +46,29 @@ export function IoK8sApiCoreV1TCPSocketActionFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1TCPSocketActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1TCPSocketAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'host': !exists(json, 'host') ? undefined : json['host'],
+        'host': json['host'] == null ? undefined : json['host'],
         'port': json['port'],
     };
 }
 
-export function IoK8sApiCoreV1TCPSocketActionToJSON(value?: IoK8sApiCoreV1TCPSocketAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1TCPSocketActionToJSON(json: any): IoK8sApiCoreV1TCPSocketAction {
+    return IoK8sApiCoreV1TCPSocketActionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1TCPSocketActionToJSONTyped(value?: IoK8sApiCoreV1TCPSocketAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'host': value.host,
-        'port': value.port,
+        'host': value['host'],
+        'port': value['port'],
     };
 }
 

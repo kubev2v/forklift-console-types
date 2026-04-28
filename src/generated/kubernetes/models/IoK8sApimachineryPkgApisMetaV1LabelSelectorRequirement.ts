@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
  * @export
@@ -36,18 +36,16 @@ export interface IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement {
      * @type {Array<string>}
      * @memberof IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement
      */
-    values?: string[];
+    values?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-    isInstance = isInstance && "operator" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement(value: object): value is IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    if (!('operator' in value) || value['operator'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement {
@@ -55,29 +53,31 @@ export function IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementFromJSON(j
 }
 
 export function IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'key': json['key'],
         'operator': json['operator'],
-        'values': !exists(json, 'values') ? undefined : json['values'],
+        'values': json['values'] == null ? undefined : json['values'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementToJSON(value?: IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementToJSON(json: any): IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement {
+    return IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirementToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1LabelSelectorRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'operator': value.operator,
-        'values': value.values,
+        'key': value['key'],
+        'operator': value['operator'],
+        'values': value['values'],
     };
 }
 

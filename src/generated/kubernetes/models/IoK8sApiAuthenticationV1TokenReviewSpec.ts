@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * TokenReviewSpec is a description of the token authentication request.
  * @export
@@ -20,26 +20,25 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthenticationV1TokenReviewSpec {
     /**
-     * Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
+     * audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthenticationV1TokenReviewSpec
      */
-    audiences?: string[];
+    audiences?: Array<string>;
     /**
-     * Token is the opaque bearer token.
+     * token is the opaque bearer token.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1TokenReviewSpec
      */
-    token?: string;
+    token: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1TokenReviewSpec interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1TokenReviewSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1TokenReviewSpec(value: object): value is IoK8sApiAuthenticationV1TokenReviewSpec {
+    if (!('token' in value) || value['token'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1TokenReviewSpecFromJSON(json: any): IoK8sApiAuthenticationV1TokenReviewSpec {
@@ -47,27 +46,29 @@ export function IoK8sApiAuthenticationV1TokenReviewSpecFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiAuthenticationV1TokenReviewSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1TokenReviewSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'audiences': !exists(json, 'audiences') ? undefined : json['audiences'],
-        'token': !exists(json, 'token') ? undefined : json['token'],
+        'audiences': json['audiences'] == null ? undefined : json['audiences'],
+        'token': json['token'],
     };
 }
 
-export function IoK8sApiAuthenticationV1TokenReviewSpecToJSON(value?: IoK8sApiAuthenticationV1TokenReviewSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1TokenReviewSpecToJSON(json: any): IoK8sApiAuthenticationV1TokenReviewSpec {
+    return IoK8sApiAuthenticationV1TokenReviewSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1TokenReviewSpecToJSONTyped(value?: IoK8sApiAuthenticationV1TokenReviewSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'audiences': value.audiences,
-        'token': value.token,
+        'audiences': value['audiences'],
+        'token': value['token'],
     };
 }
 

@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAdmissionregistrationV1MatchCondition } from './IoK8sApiAdmissionregistrationV1MatchCondition';
-import {
-    IoK8sApiAdmissionregistrationV1MatchConditionFromJSON,
-    IoK8sApiAdmissionregistrationV1MatchConditionFromJSONTyped,
-    IoK8sApiAdmissionregistrationV1MatchConditionToJSON,
-} from './IoK8sApiAdmissionregistrationV1MatchCondition';
-import type { IoK8sApiAdmissionregistrationV1RuleWithOperations } from './IoK8sApiAdmissionregistrationV1RuleWithOperations';
-import {
-    IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSON,
-    IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSONTyped,
-    IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSON,
-} from './IoK8sApiAdmissionregistrationV1RuleWithOperations';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAdmissionregistrationV1WebhookClientConfig } from './IoK8sApiAdmissionregistrationV1WebhookClientConfig';
 import {
     IoK8sApiAdmissionregistrationV1WebhookClientConfigFromJSON,
     IoK8sApiAdmissionregistrationV1WebhookClientConfigFromJSONTyped,
     IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSON,
+    IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSONTyped,
 } from './IoK8sApiAdmissionregistrationV1WebhookClientConfig';
+import type { IoK8sApiAdmissionregistrationV1MatchCondition } from './IoK8sApiAdmissionregistrationV1MatchCondition';
+import {
+    IoK8sApiAdmissionregistrationV1MatchConditionFromJSON,
+    IoK8sApiAdmissionregistrationV1MatchConditionFromJSONTyped,
+    IoK8sApiAdmissionregistrationV1MatchConditionToJSON,
+    IoK8sApiAdmissionregistrationV1MatchConditionToJSONTyped,
+} from './IoK8sApiAdmissionregistrationV1MatchCondition';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
+import type { IoK8sApiAdmissionregistrationV1RuleWithOperations } from './IoK8sApiAdmissionregistrationV1RuleWithOperations';
+import {
+    IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSON,
+    IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSONTyped,
+    IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSON,
+    IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSONTyped,
+} from './IoK8sApiAdmissionregistrationV1RuleWithOperations';
 
 /**
  * ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -45,11 +49,11 @@ import {
  */
 export interface IoK8sApiAdmissionregistrationV1ValidatingWebhook {
     /**
-     * AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
+     * admissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
-    admissionReviewVersions: string[];
+    admissionReviewVersions: Array<string>;
     /**
      * 
      * @type {IoK8sApiAdmissionregistrationV1WebhookClientConfig}
@@ -57,13 +61,13 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhook {
      */
     clientConfig: IoK8sApiAdmissionregistrationV1WebhookClientConfig;
     /**
-     * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+     * failurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
     failurePolicy?: string;
     /**
-     * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * matchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
      * 
      * The exact matching logic is (in order):
      *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
@@ -71,8 +75,6 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhook {
      *   3. If any matchCondition evaluates to an error (but none are FALSE):
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
-     * 
-     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * @type {Array<IoK8sApiAdmissionregistrationV1MatchCondition>}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
@@ -90,7 +92,7 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhook {
      */
     matchPolicy?: string;
     /**
-     * The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
+     * name is the name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
@@ -108,19 +110,19 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhook {
      */
     objectSelector?: IoK8sApimachineryPkgApisMetaV1LabelSelector;
     /**
-     * Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
+     * rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
      * @type {Array<IoK8sApiAdmissionregistrationV1RuleWithOperations>}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
     rules?: Array<IoK8sApiAdmissionregistrationV1RuleWithOperations>;
     /**
-     * SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
+     * sideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
     sideEffects: string;
     /**
-     * TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
+     * timeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
      * @type {number}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhook
      */
@@ -130,14 +132,12 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhook {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1ValidatingWebhook interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1ValidatingWebhook(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "admissionReviewVersions" in value;
-    isInstance = isInstance && "clientConfig" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "sideEffects" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1ValidatingWebhook(value: object): value is IoK8sApiAdmissionregistrationV1ValidatingWebhook {
+    if (!('admissionReviewVersions' in value) || value['admissionReviewVersions'] === undefined) return false;
+    if (!('clientConfig' in value) || value['clientConfig'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('sideEffects' in value) || value['sideEffects'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSON(json: any): IoK8sApiAdmissionregistrationV1ValidatingWebhook {
@@ -145,45 +145,47 @@ export function IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSON(json: a
 }
 
 export function IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1ValidatingWebhook {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'admissionReviewVersions': json['admissionReviewVersions'],
         'clientConfig': IoK8sApiAdmissionregistrationV1WebhookClientConfigFromJSON(json['clientConfig']),
-        'failurePolicy': !exists(json, 'failurePolicy') ? undefined : json['failurePolicy'],
-        'matchConditions': !exists(json, 'matchConditions') ? undefined : ((json['matchConditions'] as Array<any>).map(IoK8sApiAdmissionregistrationV1MatchConditionFromJSON)),
-        'matchPolicy': !exists(json, 'matchPolicy') ? undefined : json['matchPolicy'],
+        'failurePolicy': json['failurePolicy'] == null ? undefined : json['failurePolicy'],
+        'matchConditions': json['matchConditions'] == null ? undefined : ((json['matchConditions'] as Array<any>).map(IoK8sApiAdmissionregistrationV1MatchConditionFromJSON)),
+        'matchPolicy': json['matchPolicy'] == null ? undefined : json['matchPolicy'],
         'name': json['name'],
-        'namespaceSelector': !exists(json, 'namespaceSelector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['namespaceSelector']),
-        'objectSelector': !exists(json, 'objectSelector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['objectSelector']),
-        'rules': !exists(json, 'rules') ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSON)),
+        'namespaceSelector': json['namespaceSelector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['namespaceSelector']),
+        'objectSelector': json['objectSelector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['objectSelector']),
+        'rules': json['rules'] == null ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSON)),
         'sideEffects': json['sideEffects'],
-        'timeoutSeconds': !exists(json, 'timeoutSeconds') ? undefined : json['timeoutSeconds'],
+        'timeoutSeconds': json['timeoutSeconds'] == null ? undefined : json['timeoutSeconds'],
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSON(value?: IoK8sApiAdmissionregistrationV1ValidatingWebhook | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSON(json: any): IoK8sApiAdmissionregistrationV1ValidatingWebhook {
+    return IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSONTyped(value?: IoK8sApiAdmissionregistrationV1ValidatingWebhook | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'admissionReviewVersions': value.admissionReviewVersions,
-        'clientConfig': IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSON(value.clientConfig),
-        'failurePolicy': value.failurePolicy,
-        'matchConditions': value.matchConditions === undefined ? undefined : ((value.matchConditions as Array<any>).map(IoK8sApiAdmissionregistrationV1MatchConditionToJSON)),
-        'matchPolicy': value.matchPolicy,
-        'name': value.name,
-        'namespaceSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.namespaceSelector),
-        'objectSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.objectSelector),
-        'rules': value.rules === undefined ? undefined : ((value.rules as Array<any>).map(IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSON)),
-        'sideEffects': value.sideEffects,
-        'timeoutSeconds': value.timeoutSeconds,
+        'admissionReviewVersions': value['admissionReviewVersions'],
+        'clientConfig': IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSON(value['clientConfig']),
+        'failurePolicy': value['failurePolicy'],
+        'matchConditions': value['matchConditions'] == null ? undefined : ((value['matchConditions'] as Array<any>).map(IoK8sApiAdmissionregistrationV1MatchConditionToJSON)),
+        'matchPolicy': value['matchPolicy'],
+        'name': value['name'],
+        'namespaceSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['namespaceSelector']),
+        'objectSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['objectSelector']),
+        'rules': value['rules'] == null ? undefined : ((value['rules'] as Array<any>).map(IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSON)),
+        'sideEffects': value['sideEffects'],
+        'timeoutSeconds': value['timeoutSeconds'],
     };
 }
 

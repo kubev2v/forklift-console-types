@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiFlowcontrolV1beta3FlowSchemaSpec } from './IoK8sApiFlowcontrolV1beta3FlowSchemaSpec';
 import {
     IoK8sApiFlowcontrolV1beta3FlowSchemaSpecFromJSON,

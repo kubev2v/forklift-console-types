@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineOptions holds the cluster level information regarding the virtual machine.
  * @export
@@ -36,10 +36,8 @@ export interface V1VirtualMachineOptions {
 /**
  * Check if a given object implements the V1VirtualMachineOptions interface.
  */
-export function instanceOfV1VirtualMachineOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineOptions(value: object): value is V1VirtualMachineOptions {
+    return true;
 }
 
 export function V1VirtualMachineOptionsFromJSON(json: any): V1VirtualMachineOptions {
@@ -47,27 +45,29 @@ export function V1VirtualMachineOptionsFromJSON(json: any): V1VirtualMachineOpti
 }
 
 export function V1VirtualMachineOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'disableFreePageReporting': !exists(json, 'disableFreePageReporting') ? undefined : json['disableFreePageReporting'],
-        'disableSerialConsoleLog': !exists(json, 'disableSerialConsoleLog') ? undefined : json['disableSerialConsoleLog'],
+        'disableFreePageReporting': json['disableFreePageReporting'] == null ? undefined : json['disableFreePageReporting'],
+        'disableSerialConsoleLog': json['disableSerialConsoleLog'] == null ? undefined : json['disableSerialConsoleLog'],
     };
 }
 
-export function V1VirtualMachineOptionsToJSON(value?: V1VirtualMachineOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineOptionsToJSON(json: any): V1VirtualMachineOptions {
+    return V1VirtualMachineOptionsToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineOptionsToJSONTyped(value?: V1VirtualMachineOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'disableFreePageReporting': value.disableFreePageReporting,
-        'disableSerialConsoleLog': value.disableSerialConsoleLog,
+        'disableFreePageReporting': value['disableFreePageReporting'],
+        'disableSerialConsoleLog': value['disableSerialConsoleLog'],
     };
 }
 

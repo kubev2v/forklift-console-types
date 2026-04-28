@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ResourceFieldSelector represents container resources (cpu, memory) and their output format
  * @export
@@ -63,10 +63,10 @@ export interface K8sIoApiCoreV1ResourceFieldSelector {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof K8sIoApiCoreV1ResourceFieldSelector
      */
-    divisor?: string;
+    divisor?: object;
     /**
      * Required: resource to select
      * @type {string}
@@ -78,11 +78,9 @@ export interface K8sIoApiCoreV1ResourceFieldSelector {
 /**
  * Check if a given object implements the K8sIoApiCoreV1ResourceFieldSelector interface.
  */
-export function instanceOfK8sIoApiCoreV1ResourceFieldSelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "resource" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1ResourceFieldSelector(value: object): value is K8sIoApiCoreV1ResourceFieldSelector {
+    if (!('resource' in value) || value['resource'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1ResourceFieldSelectorFromJSON(json: any): K8sIoApiCoreV1ResourceFieldSelector {
@@ -90,29 +88,31 @@ export function K8sIoApiCoreV1ResourceFieldSelectorFromJSON(json: any): K8sIoApi
 }
 
 export function K8sIoApiCoreV1ResourceFieldSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1ResourceFieldSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'containerName': !exists(json, 'containerName') ? undefined : json['containerName'],
-        'divisor': !exists(json, 'divisor') ? undefined : json['divisor'],
+        'containerName': json['containerName'] == null ? undefined : json['containerName'],
+        'divisor': json['divisor'] == null ? undefined : json['divisor'],
         'resource': json['resource'],
     };
 }
 
-export function K8sIoApiCoreV1ResourceFieldSelectorToJSON(value?: K8sIoApiCoreV1ResourceFieldSelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1ResourceFieldSelectorToJSON(json: any): K8sIoApiCoreV1ResourceFieldSelector {
+    return K8sIoApiCoreV1ResourceFieldSelectorToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1ResourceFieldSelectorToJSONTyped(value?: K8sIoApiCoreV1ResourceFieldSelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'containerName': value.containerName,
-        'divisor': value.divisor,
-        'resource': value.resource,
+        'containerName': value['containerName'],
+        'divisor': value['divisor'],
+        'resource': value['resource'],
     };
 }
 

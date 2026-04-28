@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -20,17 +20,29 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface V1HostDevice {
     /**
-     * DeviceName is the resource name of the host device exposed by a device plugin
+     * ClaimName needs to be provided from the list vmi.spec.resourceClaims[].name where this device is allocated
      * @type {string}
      * @memberof V1HostDevice
      */
-    deviceName: string;
+    claimName?: string;
+    /**
+     * DeviceName is the name of the device provisioned by device-plugins
+     * @type {string}
+     * @memberof V1HostDevice
+     */
+    deviceName?: string;
     /**
      * 
      * @type {string}
      * @memberof V1HostDevice
      */
     name: string;
+    /**
+     * RequestName needs to be provided from resourceClaim.spec.devices.requests[].name where this device is requested
+     * @type {string}
+     * @memberof V1HostDevice
+     */
+    requestName?: string;
     /**
      * If specified, the virtual network interface address and its tag will be provided to the guest via config drive
      * @type {string}
@@ -42,12 +54,9 @@ export interface V1HostDevice {
 /**
  * Check if a given object implements the V1HostDevice interface.
  */
-export function instanceOfV1HostDevice(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "deviceName" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfV1HostDevice(value: object): value is V1HostDevice {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function V1HostDeviceFromJSON(json: any): V1HostDevice {
@@ -55,29 +64,35 @@ export function V1HostDeviceFromJSON(json: any): V1HostDevice {
 }
 
 export function V1HostDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1HostDevice {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'deviceName': json['deviceName'],
+        'claimName': json['claimName'] == null ? undefined : json['claimName'],
+        'deviceName': json['deviceName'] == null ? undefined : json['deviceName'],
         'name': json['name'],
-        'tag': !exists(json, 'tag') ? undefined : json['tag'],
+        'requestName': json['requestName'] == null ? undefined : json['requestName'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
     };
 }
 
-export function V1HostDeviceToJSON(value?: V1HostDevice | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HostDeviceToJSON(json: any): V1HostDevice {
+    return V1HostDeviceToJSONTyped(json, false);
+}
+
+export function V1HostDeviceToJSONTyped(value?: V1HostDevice | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'deviceName': value.deviceName,
-        'name': value.name,
-        'tag': value.tag,
+        'claimName': value['claimName'],
+        'deviceName': value['deviceName'],
+        'name': value['name'],
+        'requestName': value['requestName'],
+        'tag': value['tag'],
     };
 }
 

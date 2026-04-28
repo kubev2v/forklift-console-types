@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
  * @export
@@ -60,11 +60,9 @@ export interface IoK8sApiCoreV1LimitRangeItem {
 /**
  * Check if a given object implements the IoK8sApiCoreV1LimitRangeItem interface.
  */
-export function instanceOfIoK8sApiCoreV1LimitRangeItem(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1LimitRangeItem(value: object): value is IoK8sApiCoreV1LimitRangeItem {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1LimitRangeItemFromJSON(json: any): IoK8sApiCoreV1LimitRangeItem {
@@ -72,35 +70,37 @@ export function IoK8sApiCoreV1LimitRangeItemFromJSON(json: any): IoK8sApiCoreV1L
 }
 
 export function IoK8sApiCoreV1LimitRangeItemFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1LimitRangeItem {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        '_default': !exists(json, 'default') ? undefined : json['default'],
-        'defaultRequest': !exists(json, 'defaultRequest') ? undefined : json['defaultRequest'],
-        'max': !exists(json, 'max') ? undefined : json['max'],
-        'maxLimitRequestRatio': !exists(json, 'maxLimitRequestRatio') ? undefined : json['maxLimitRequestRatio'],
-        'min': !exists(json, 'min') ? undefined : json['min'],
+        '_default': json['default'] == null ? undefined : json['default'],
+        'defaultRequest': json['defaultRequest'] == null ? undefined : json['defaultRequest'],
+        'max': json['max'] == null ? undefined : json['max'],
+        'maxLimitRequestRatio': json['maxLimitRequestRatio'] == null ? undefined : json['maxLimitRequestRatio'],
+        'min': json['min'] == null ? undefined : json['min'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1LimitRangeItemToJSON(value?: IoK8sApiCoreV1LimitRangeItem | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1LimitRangeItemToJSON(json: any): IoK8sApiCoreV1LimitRangeItem {
+    return IoK8sApiCoreV1LimitRangeItemToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1LimitRangeItemToJSONTyped(value?: IoK8sApiCoreV1LimitRangeItem | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'default': value._default,
-        'defaultRequest': value.defaultRequest,
-        'max': value.max,
-        'maxLimitRequestRatio': value.maxLimitRequestRatio,
-        'min': value.min,
-        'type': value.type,
+        'default': value['_default'],
+        'defaultRequest': value['defaultRequest'],
+        'max': value['max'],
+        'maxLimitRequestRatio': value['maxLimitRequestRatio'],
+        'min': value['min'],
+        'type': value['type'],
     };
 }
 

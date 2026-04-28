@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1ReplicaSet } from './IoK8sApiAppsV1ReplicaSet';
 import {
     IoK8sApiAppsV1ReplicaSetFromJSON,
     IoK8sApiAppsV1ReplicaSetFromJSONTyped,
     IoK8sApiAppsV1ReplicaSetToJSON,
+    IoK8sApiAppsV1ReplicaSetToJSONTyped,
 } from './IoK8sApiAppsV1ReplicaSet';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -39,7 +41,7 @@ export interface IoK8sApiAppsV1ReplicaSetList {
      */
     apiVersion?: string;
     /**
-     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
+     * List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * @type {Array<IoK8sApiAppsV1ReplicaSet>}
      * @memberof IoK8sApiAppsV1ReplicaSetList
      */
@@ -61,11 +63,9 @@ export interface IoK8sApiAppsV1ReplicaSetList {
 /**
  * Check if a given object implements the IoK8sApiAppsV1ReplicaSetList interface.
  */
-export function instanceOfIoK8sApiAppsV1ReplicaSetList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1ReplicaSetList(value: object): value is IoK8sApiAppsV1ReplicaSetList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1ReplicaSetListFromJSON(json: any): IoK8sApiAppsV1ReplicaSetList {
@@ -73,31 +73,33 @@ export function IoK8sApiAppsV1ReplicaSetListFromJSON(json: any): IoK8sApiAppsV1R
 }
 
 export function IoK8sApiAppsV1ReplicaSetListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1ReplicaSetList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiAppsV1ReplicaSetFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiAppsV1ReplicaSetListToJSON(value?: IoK8sApiAppsV1ReplicaSetList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1ReplicaSetListToJSON(json: any): IoK8sApiAppsV1ReplicaSetList {
+    return IoK8sApiAppsV1ReplicaSetListToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1ReplicaSetListToJSONTyped(value?: IoK8sApiAppsV1ReplicaSetList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiAppsV1ReplicaSetToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiAppsV1ReplicaSetToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ScopedResourceSelectorRequirement } from './IoK8sApiCoreV1ScopedResourceSelectorRequirement';
 import {
     IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSON,
     IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSONTyped,
     IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSON,
+    IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSONTyped,
 } from './IoK8sApiCoreV1ScopedResourceSelectorRequirement';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1ScopeSelector {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ScopeSelector interface.
  */
-export function instanceOfIoK8sApiCoreV1ScopeSelector(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ScopeSelector(value: object): value is IoK8sApiCoreV1ScopeSelector {
+    return true;
 }
 
 export function IoK8sApiCoreV1ScopeSelectorFromJSON(json: any): IoK8sApiCoreV1ScopeSelector {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1ScopeSelectorFromJSON(json: any): IoK8sApiCoreV1Sc
 }
 
 export function IoK8sApiCoreV1ScopeSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ScopeSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'matchExpressions': !exists(json, 'matchExpressions') ? undefined : ((json['matchExpressions'] as Array<any>).map(IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSON)),
+        'matchExpressions': json['matchExpressions'] == null ? undefined : ((json['matchExpressions'] as Array<any>).map(IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1ScopeSelectorToJSON(value?: IoK8sApiCoreV1ScopeSelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ScopeSelectorToJSON(json: any): IoK8sApiCoreV1ScopeSelector {
+    return IoK8sApiCoreV1ScopeSelectorToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ScopeSelectorToJSONTyped(value?: IoK8sApiCoreV1ScopeSelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'matchExpressions': value.matchExpressions === undefined ? undefined : ((value.matchExpressions as Array<any>).map(IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSON)),
+        'matchExpressions': value['matchExpressions'] == null ? undefined : ((value['matchExpressions'] as Array<any>).map(IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSON)),
     };
 }
 

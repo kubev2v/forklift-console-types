@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ReplicationControllerSpec } from './IoK8sApiCoreV1ReplicationControllerSpec';
-import {
-    IoK8sApiCoreV1ReplicationControllerSpecFromJSON,
-    IoK8sApiCoreV1ReplicationControllerSpecFromJSONTyped,
-    IoK8sApiCoreV1ReplicationControllerSpecToJSON,
-} from './IoK8sApiCoreV1ReplicationControllerSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ReplicationControllerStatus } from './IoK8sApiCoreV1ReplicationControllerStatus';
 import {
     IoK8sApiCoreV1ReplicationControllerStatusFromJSON,
     IoK8sApiCoreV1ReplicationControllerStatusFromJSONTyped,
     IoK8sApiCoreV1ReplicationControllerStatusToJSON,
+    IoK8sApiCoreV1ReplicationControllerStatusToJSONTyped,
 } from './IoK8sApiCoreV1ReplicationControllerStatus';
+import type { IoK8sApiCoreV1ReplicationControllerSpec } from './IoK8sApiCoreV1ReplicationControllerSpec';
+import {
+    IoK8sApiCoreV1ReplicationControllerSpecFromJSON,
+    IoK8sApiCoreV1ReplicationControllerSpecFromJSONTyped,
+    IoK8sApiCoreV1ReplicationControllerSpecToJSON,
+    IoK8sApiCoreV1ReplicationControllerSpecToJSONTyped,
+} from './IoK8sApiCoreV1ReplicationControllerSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sApiCoreV1ReplicationController {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ReplicationController interface.
  */
-export function instanceOfIoK8sApiCoreV1ReplicationController(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ReplicationController(value: object): value is IoK8sApiCoreV1ReplicationController {
+    return true;
 }
 
 export function IoK8sApiCoreV1ReplicationControllerFromJSON(json: any): IoK8sApiCoreV1ReplicationController {
@@ -84,33 +85,35 @@ export function IoK8sApiCoreV1ReplicationControllerFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ReplicationControllerFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ReplicationController {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoreV1ReplicationControllerSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiCoreV1ReplicationControllerStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoreV1ReplicationControllerSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiCoreV1ReplicationControllerStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiCoreV1ReplicationControllerToJSON(value?: IoK8sApiCoreV1ReplicationController | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ReplicationControllerToJSON(json: any): IoK8sApiCoreV1ReplicationController {
+    return IoK8sApiCoreV1ReplicationControllerToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ReplicationControllerToJSONTyped(value?: IoK8sApiCoreV1ReplicationController | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1ReplicationControllerSpecToJSON(value.spec),
-        'status': IoK8sApiCoreV1ReplicationControllerStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1ReplicationControllerSpecToJSON(value['spec']),
+        'status': IoK8sApiCoreV1ReplicationControllerStatusToJSON(value['status']),
     };
 }
 

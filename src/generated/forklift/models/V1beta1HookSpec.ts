@@ -10,12 +10,24 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
+import { V1beta1HookSpecAap } from './V1beta1HookSpecAap';
+
 /**
  * Hook specification.
+Local hooks require spec.image (playbook is optional if the image runs without an injected playbook).
+AAP hooks require spec.aap (image&#x2F;playbook omitted for execution).
+Whether the spec is valid for execution is enforced by the hook and plan controllers (not by CRD admission rules).
  *
  * @export
  */
 export interface V1beta1HookSpec {
+  /** aap
+   * AAP (Ansible Automation Platform) configuration for remote job execution.
+When specified, the hook will trigger an AAP job template instead of running a local playbook.
+   *
+   * @required {false}
+   */
+  aap?: V1beta1HookSpecAap;
   /** deadline
    * Hook deadline in seconds.
    *
@@ -25,13 +37,13 @@ export interface V1beta1HookSpec {
    */
   deadline?: number;
   /** image
-   * Image to run.
+   * Image to run the hook workload (required for local hooks; omit for AAP hooks).
    *
-   * @required {true}
+   * @required {false}
    */
-  image: string;
+  image?: string;
   /** playbook
-   * A base64 encoded Ansible playbook.
+   * A base64 encoded Ansible playbook (optional for local hooks; when set, ansible-runner is used).
    *
    * @required {false}
    */

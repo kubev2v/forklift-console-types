@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
  * @interface V1TPMDevice
  */
 export interface V1TPMDevice {
+    /**
+     * Enabled allows a user to explicitly disable the vTPM even when one is enabled by a preference referenced by the VirtualMachine Defaults to True
+     * @type {boolean}
+     * @memberof V1TPMDevice
+     */
+    enabled?: boolean;
     /**
      * Persistent indicates the state of the TPM device should be kept accross reboots Defaults to false
      * @type {boolean}
@@ -30,10 +36,8 @@ export interface V1TPMDevice {
 /**
  * Check if a given object implements the V1TPMDevice interface.
  */
-export function instanceOfV1TPMDevice(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1TPMDevice(value: object): value is V1TPMDevice {
+    return true;
 }
 
 export function V1TPMDeviceFromJSON(json: any): V1TPMDevice {
@@ -41,25 +45,29 @@ export function V1TPMDeviceFromJSON(json: any): V1TPMDevice {
 }
 
 export function V1TPMDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1TPMDevice {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'persistent': !exists(json, 'persistent') ? undefined : json['persistent'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'persistent': json['persistent'] == null ? undefined : json['persistent'],
     };
 }
 
-export function V1TPMDeviceToJSON(value?: V1TPMDevice | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1TPMDeviceToJSON(json: any): V1TPMDevice {
+    return V1TPMDeviceToJSONTyped(json, false);
+}
+
+export function V1TPMDeviceToJSONTyped(value?: V1TPMDevice | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'persistent': value.persistent,
+        'enabled': value['enabled'],
+        'persistent': value['persistent'],
     };
 }
 

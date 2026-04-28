@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DaemonEndpoint contains information about a single Daemon endpoint.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiCoreV1DaemonEndpoint {
 /**
  * Check if a given object implements the IoK8sApiCoreV1DaemonEndpoint interface.
  */
-export function instanceOfIoK8sApiCoreV1DaemonEndpoint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1DaemonEndpoint(value: object): value is IoK8sApiCoreV1DaemonEndpoint {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1DaemonEndpointFromJSON(json: any): IoK8sApiCoreV1DaemonEndpoint {
@@ -42,7 +40,7 @@ export function IoK8sApiCoreV1DaemonEndpointFromJSON(json: any): IoK8sApiCoreV1D
 }
 
 export function IoK8sApiCoreV1DaemonEndpointFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1DaemonEndpoint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiCoreV1DaemonEndpointFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function IoK8sApiCoreV1DaemonEndpointToJSON(value?: IoK8sApiCoreV1DaemonEndpoint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1DaemonEndpointToJSON(json: any): IoK8sApiCoreV1DaemonEndpoint {
+    return IoK8sApiCoreV1DaemonEndpointToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1DaemonEndpointToJSONTyped(value?: IoK8sApiCoreV1DaemonEndpoint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'Port': value.port,
+        'Port': value['port'],
     };
 }
 

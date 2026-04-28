@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Spec to control the desired behavior of rolling update.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiAppsV1RollingUpdateDeployment {
 /**
  * Check if a given object implements the IoK8sApiAppsV1RollingUpdateDeployment interface.
  */
-export function instanceOfIoK8sApiAppsV1RollingUpdateDeployment(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1RollingUpdateDeployment(value: object): value is IoK8sApiAppsV1RollingUpdateDeployment {
+    return true;
 }
 
 export function IoK8sApiAppsV1RollingUpdateDeploymentFromJSON(json: any): IoK8sApiAppsV1RollingUpdateDeployment {
@@ -47,27 +45,29 @@ export function IoK8sApiAppsV1RollingUpdateDeploymentFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiAppsV1RollingUpdateDeploymentFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1RollingUpdateDeployment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'maxSurge': !exists(json, 'maxSurge') ? undefined : json['maxSurge'],
-        'maxUnavailable': !exists(json, 'maxUnavailable') ? undefined : json['maxUnavailable'],
+        'maxSurge': json['maxSurge'] == null ? undefined : json['maxSurge'],
+        'maxUnavailable': json['maxUnavailable'] == null ? undefined : json['maxUnavailable'],
     };
 }
 
-export function IoK8sApiAppsV1RollingUpdateDeploymentToJSON(value?: IoK8sApiAppsV1RollingUpdateDeployment | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1RollingUpdateDeploymentToJSON(json: any): IoK8sApiAppsV1RollingUpdateDeployment {
+    return IoK8sApiAppsV1RollingUpdateDeploymentToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1RollingUpdateDeploymentToJSONTyped(value?: IoK8sApiAppsV1RollingUpdateDeployment | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'maxSurge': value.maxSurge,
-        'maxUnavailable': value.maxUnavailable,
+        'maxSurge': value['maxSurge'],
+        'maxUnavailable': value['maxUnavailable'],
     };
 }
 

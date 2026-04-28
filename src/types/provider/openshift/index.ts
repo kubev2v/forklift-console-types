@@ -4,5 +4,6 @@ export * from './NetworkAttachmentDefinition';
 export * from './Provider';
 export * from './Resource';
 export * from './StorageClass';
+export * from './TypedResource';
 export * from './VM';
 // @endindex

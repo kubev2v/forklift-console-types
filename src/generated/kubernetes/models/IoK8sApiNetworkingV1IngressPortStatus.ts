@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * IngressPortStatus represents the error condition of a service port
  * @export
@@ -45,12 +45,10 @@ export interface IoK8sApiNetworkingV1IngressPortStatus {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressPortStatus interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressPortStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-    isInstance = isInstance && "protocol" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressPortStatus(value: object): value is IoK8sApiNetworkingV1IngressPortStatus {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    if (!('protocol' in value) || value['protocol'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressPortStatusFromJSON(json: any): IoK8sApiNetworkingV1IngressPortStatus {
@@ -58,29 +56,31 @@ export function IoK8sApiNetworkingV1IngressPortStatusFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiNetworkingV1IngressPortStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressPortStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'error': !exists(json, 'error') ? undefined : json['error'],
+        'error': json['error'] == null ? undefined : json['error'],
         'port': json['port'],
         'protocol': json['protocol'],
     };
 }
 
-export function IoK8sApiNetworkingV1IngressPortStatusToJSON(value?: IoK8sApiNetworkingV1IngressPortStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressPortStatusToJSON(json: any): IoK8sApiNetworkingV1IngressPortStatus {
+    return IoK8sApiNetworkingV1IngressPortStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressPortStatusToJSONTyped(value?: IoK8sApiNetworkingV1IngressPortStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'error': value.error,
-        'port': value.port,
-        'protocol': value.protocol,
+        'error': value['error'],
+        'port': value['port'],
+        'protocol': value['protocol'],
     };
 }
 

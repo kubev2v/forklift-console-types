@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthenticationV1UserInfo } from './IoK8sApiAuthenticationV1UserInfo';
 import {
     IoK8sApiAuthenticationV1UserInfoFromJSON,
     IoK8sApiAuthenticationV1UserInfoFromJSONTyped,
     IoK8sApiAuthenticationV1UserInfoToJSON,
+    IoK8sApiAuthenticationV1UserInfoToJSONTyped,
 } from './IoK8sApiAuthenticationV1UserInfo';
 
 /**
@@ -27,19 +28,19 @@ import {
  */
 export interface IoK8sApiAuthenticationV1TokenReviewStatus {
     /**
-     * Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
+     * audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthenticationV1TokenReviewStatus
      */
-    audiences?: string[];
+    audiences?: Array<string>;
     /**
-     * Authenticated indicates that the token was associated with a known user.
+     * authenticated indicates that the token was associated with a known user.
      * @type {boolean}
      * @memberof IoK8sApiAuthenticationV1TokenReviewStatus
      */
     authenticated?: boolean;
     /**
-     * Error indicates that the token couldn't be checked
+     * error indicates that the token couldn't be checked
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1TokenReviewStatus
      */
@@ -55,10 +56,8 @@ export interface IoK8sApiAuthenticationV1TokenReviewStatus {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1TokenReviewStatus interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1TokenReviewStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1TokenReviewStatus(value: object): value is IoK8sApiAuthenticationV1TokenReviewStatus {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1TokenReviewStatusFromJSON(json: any): IoK8sApiAuthenticationV1TokenReviewStatus {
@@ -66,31 +65,33 @@ export function IoK8sApiAuthenticationV1TokenReviewStatusFromJSON(json: any): Io
 }
 
 export function IoK8sApiAuthenticationV1TokenReviewStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1TokenReviewStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'audiences': !exists(json, 'audiences') ? undefined : json['audiences'],
-        'authenticated': !exists(json, 'authenticated') ? undefined : json['authenticated'],
-        'error': !exists(json, 'error') ? undefined : json['error'],
-        'user': !exists(json, 'user') ? undefined : IoK8sApiAuthenticationV1UserInfoFromJSON(json['user']),
+        'audiences': json['audiences'] == null ? undefined : json['audiences'],
+        'authenticated': json['authenticated'] == null ? undefined : json['authenticated'],
+        'error': json['error'] == null ? undefined : json['error'],
+        'user': json['user'] == null ? undefined : IoK8sApiAuthenticationV1UserInfoFromJSON(json['user']),
     };
 }
 
-export function IoK8sApiAuthenticationV1TokenReviewStatusToJSON(value?: IoK8sApiAuthenticationV1TokenReviewStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1TokenReviewStatusToJSON(json: any): IoK8sApiAuthenticationV1TokenReviewStatus {
+    return IoK8sApiAuthenticationV1TokenReviewStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1TokenReviewStatusToJSONTyped(value?: IoK8sApiAuthenticationV1TokenReviewStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'audiences': value.audiences,
-        'authenticated': value.authenticated,
-        'error': value.error,
-        'user': IoK8sApiAuthenticationV1UserInfoToJSON(value.user),
+        'audiences': value['audiences'],
+        'authenticated': value['authenticated'],
+        'error': value['error'],
+        'user': IoK8sApiAuthenticationV1UserInfoToJSON(value['user']),
     };
 }
 

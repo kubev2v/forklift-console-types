@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SecretEnvSource selects a Secret to populate the environment variables with.
  * 
@@ -22,7 +22,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiCoreV1SecretEnvSource {
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof IoK8sApiCoreV1SecretEnvSource
      */
@@ -38,10 +38,8 @@ export interface IoK8sApiCoreV1SecretEnvSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SecretEnvSource interface.
  */
-export function instanceOfIoK8sApiCoreV1SecretEnvSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SecretEnvSource(value: object): value is IoK8sApiCoreV1SecretEnvSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1SecretEnvSourceFromJSON(json: any): IoK8sApiCoreV1SecretEnvSource {
@@ -49,27 +47,29 @@ export function IoK8sApiCoreV1SecretEnvSourceFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1SecretEnvSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SecretEnvSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
     };
 }
 
-export function IoK8sApiCoreV1SecretEnvSourceToJSON(value?: IoK8sApiCoreV1SecretEnvSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecretEnvSourceToJSON(json: any): IoK8sApiCoreV1SecretEnvSource {
+    return IoK8sApiCoreV1SecretEnvSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecretEnvSourceToJSONTyped(value?: IoK8sApiCoreV1SecretEnvSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'optional': value.optional,
+        'name': value['name'],
+        'optional': value['optional'],
     };
 }
 

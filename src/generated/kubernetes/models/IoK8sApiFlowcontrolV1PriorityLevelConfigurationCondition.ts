@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PriorityLevelConfigurationCondition defines the condition of priority level.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition {
      * @type {Date}
      * @memberof IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * `message` is a human-readable message indicating details about last transition.
      * @type {string}
@@ -54,10 +54,8 @@ export interface IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition(value: object): value is IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition {
@@ -65,33 +63,35 @@ export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSON
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'status': !exists(json, 'status') ? undefined : json['status'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'status': json['status'] == null ? undefined : json['status'],
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSON(value?: IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition {
+    return IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSONTyped(value?: IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

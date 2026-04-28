@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ContainerStateWaiting is a waiting state of a container.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiCoreV1ContainerStateWaiting {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerStateWaiting interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerStateWaiting(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerStateWaiting(value: object): value is IoK8sApiCoreV1ContainerStateWaiting {
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerStateWaitingFromJSON(json: any): IoK8sApiCoreV1ContainerStateWaiting {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1ContainerStateWaitingFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ContainerStateWaitingFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerStateWaiting {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
     };
 }
 
-export function IoK8sApiCoreV1ContainerStateWaitingToJSON(value?: IoK8sApiCoreV1ContainerStateWaiting | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerStateWaitingToJSON(json: any): IoK8sApiCoreV1ContainerStateWaiting {
+    return IoK8sApiCoreV1ContainerStateWaitingToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerStateWaitingToJSONTyped(value?: IoK8sApiCoreV1ContainerStateWaiting | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'message': value.message,
-        'reason': value.reason,
+        'message': value['message'],
+        'reason': value['reason'],
     };
 }
 

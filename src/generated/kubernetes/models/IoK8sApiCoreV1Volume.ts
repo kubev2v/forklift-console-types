@@ -12,181 +12,217 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource } from './IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource';
 import {
     IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSON,
     IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSON,
+    IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1AWSElasticBlockStoreVolumeSource';
-import type { IoK8sApiCoreV1AzureDiskVolumeSource } from './IoK8sApiCoreV1AzureDiskVolumeSource';
-import {
-    IoK8sApiCoreV1AzureDiskVolumeSourceFromJSON,
-    IoK8sApiCoreV1AzureDiskVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1AzureDiskVolumeSourceToJSON,
-} from './IoK8sApiCoreV1AzureDiskVolumeSource';
-import type { IoK8sApiCoreV1AzureFileVolumeSource } from './IoK8sApiCoreV1AzureFileVolumeSource';
-import {
-    IoK8sApiCoreV1AzureFileVolumeSourceFromJSON,
-    IoK8sApiCoreV1AzureFileVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1AzureFileVolumeSourceToJSON,
-} from './IoK8sApiCoreV1AzureFileVolumeSource';
-import type { IoK8sApiCoreV1CSIVolumeSource } from './IoK8sApiCoreV1CSIVolumeSource';
-import {
-    IoK8sApiCoreV1CSIVolumeSourceFromJSON,
-    IoK8sApiCoreV1CSIVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1CSIVolumeSourceToJSON,
-} from './IoK8sApiCoreV1CSIVolumeSource';
-import type { IoK8sApiCoreV1CephFSVolumeSource } from './IoK8sApiCoreV1CephFSVolumeSource';
-import {
-    IoK8sApiCoreV1CephFSVolumeSourceFromJSON,
-    IoK8sApiCoreV1CephFSVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1CephFSVolumeSourceToJSON,
-} from './IoK8sApiCoreV1CephFSVolumeSource';
-import type { IoK8sApiCoreV1CinderVolumeSource } from './IoK8sApiCoreV1CinderVolumeSource';
-import {
-    IoK8sApiCoreV1CinderVolumeSourceFromJSON,
-    IoK8sApiCoreV1CinderVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1CinderVolumeSourceToJSON,
-} from './IoK8sApiCoreV1CinderVolumeSource';
-import type { IoK8sApiCoreV1ConfigMapVolumeSource } from './IoK8sApiCoreV1ConfigMapVolumeSource';
-import {
-    IoK8sApiCoreV1ConfigMapVolumeSourceFromJSON,
-    IoK8sApiCoreV1ConfigMapVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1ConfigMapVolumeSourceToJSON,
-} from './IoK8sApiCoreV1ConfigMapVolumeSource';
-import type { IoK8sApiCoreV1DownwardAPIVolumeSource } from './IoK8sApiCoreV1DownwardAPIVolumeSource';
-import {
-    IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSON,
-    IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1DownwardAPIVolumeSourceToJSON,
-} from './IoK8sApiCoreV1DownwardAPIVolumeSource';
-import type { IoK8sApiCoreV1EmptyDirVolumeSource } from './IoK8sApiCoreV1EmptyDirVolumeSource';
-import {
-    IoK8sApiCoreV1EmptyDirVolumeSourceFromJSON,
-    IoK8sApiCoreV1EmptyDirVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1EmptyDirVolumeSourceToJSON,
-} from './IoK8sApiCoreV1EmptyDirVolumeSource';
-import type { IoK8sApiCoreV1EphemeralVolumeSource } from './IoK8sApiCoreV1EphemeralVolumeSource';
-import {
-    IoK8sApiCoreV1EphemeralVolumeSourceFromJSON,
-    IoK8sApiCoreV1EphemeralVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1EphemeralVolumeSourceToJSON,
-} from './IoK8sApiCoreV1EphemeralVolumeSource';
-import type { IoK8sApiCoreV1FCVolumeSource } from './IoK8sApiCoreV1FCVolumeSource';
-import {
-    IoK8sApiCoreV1FCVolumeSourceFromJSON,
-    IoK8sApiCoreV1FCVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1FCVolumeSourceToJSON,
-} from './IoK8sApiCoreV1FCVolumeSource';
-import type { IoK8sApiCoreV1FlexVolumeSource } from './IoK8sApiCoreV1FlexVolumeSource';
-import {
-    IoK8sApiCoreV1FlexVolumeSourceFromJSON,
-    IoK8sApiCoreV1FlexVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1FlexVolumeSourceToJSON,
-} from './IoK8sApiCoreV1FlexVolumeSource';
-import type { IoK8sApiCoreV1FlockerVolumeSource } from './IoK8sApiCoreV1FlockerVolumeSource';
-import {
-    IoK8sApiCoreV1FlockerVolumeSourceFromJSON,
-    IoK8sApiCoreV1FlockerVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1FlockerVolumeSourceToJSON,
-} from './IoK8sApiCoreV1FlockerVolumeSource';
-import type { IoK8sApiCoreV1GCEPersistentDiskVolumeSource } from './IoK8sApiCoreV1GCEPersistentDiskVolumeSource';
-import {
-    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSON,
-    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSON,
-} from './IoK8sApiCoreV1GCEPersistentDiskVolumeSource';
-import type { IoK8sApiCoreV1GitRepoVolumeSource } from './IoK8sApiCoreV1GitRepoVolumeSource';
-import {
-    IoK8sApiCoreV1GitRepoVolumeSourceFromJSON,
-    IoK8sApiCoreV1GitRepoVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1GitRepoVolumeSourceToJSON,
-} from './IoK8sApiCoreV1GitRepoVolumeSource';
-import type { IoK8sApiCoreV1GlusterfsVolumeSource } from './IoK8sApiCoreV1GlusterfsVolumeSource';
-import {
-    IoK8sApiCoreV1GlusterfsVolumeSourceFromJSON,
-    IoK8sApiCoreV1GlusterfsVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1GlusterfsVolumeSourceToJSON,
-} from './IoK8sApiCoreV1GlusterfsVolumeSource';
-import type { IoK8sApiCoreV1HostPathVolumeSource } from './IoK8sApiCoreV1HostPathVolumeSource';
-import {
-    IoK8sApiCoreV1HostPathVolumeSourceFromJSON,
-    IoK8sApiCoreV1HostPathVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1HostPathVolumeSourceToJSON,
-} from './IoK8sApiCoreV1HostPathVolumeSource';
-import type { IoK8sApiCoreV1ISCSIVolumeSource } from './IoK8sApiCoreV1ISCSIVolumeSource';
-import {
-    IoK8sApiCoreV1ISCSIVolumeSourceFromJSON,
-    IoK8sApiCoreV1ISCSIVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1ISCSIVolumeSourceToJSON,
-} from './IoK8sApiCoreV1ISCSIVolumeSource';
-import type { IoK8sApiCoreV1NFSVolumeSource } from './IoK8sApiCoreV1NFSVolumeSource';
-import {
-    IoK8sApiCoreV1NFSVolumeSourceFromJSON,
-    IoK8sApiCoreV1NFSVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1NFSVolumeSourceToJSON,
-} from './IoK8sApiCoreV1NFSVolumeSource';
-import type { IoK8sApiCoreV1PersistentVolumeClaimVolumeSource } from './IoK8sApiCoreV1PersistentVolumeClaimVolumeSource';
-import {
-    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSON,
-    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSON,
-} from './IoK8sApiCoreV1PersistentVolumeClaimVolumeSource';
 import type { IoK8sApiCoreV1PhotonPersistentDiskVolumeSource } from './IoK8sApiCoreV1PhotonPersistentDiskVolumeSource';
 import {
     IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSON,
     IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSON,
+    IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1PhotonPersistentDiskVolumeSource';
+import type { IoK8sApiCoreV1GCEPersistentDiskVolumeSource } from './IoK8sApiCoreV1GCEPersistentDiskVolumeSource';
+import {
+    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSON,
+    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSON,
+    IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1GCEPersistentDiskVolumeSource';
+import type { IoK8sApiCoreV1NFSVolumeSource } from './IoK8sApiCoreV1NFSVolumeSource';
+import {
+    IoK8sApiCoreV1NFSVolumeSourceFromJSON,
+    IoK8sApiCoreV1NFSVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1NFSVolumeSourceToJSON,
+    IoK8sApiCoreV1NFSVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1NFSVolumeSource';
+import type { IoK8sApiCoreV1RBDVolumeSource } from './IoK8sApiCoreV1RBDVolumeSource';
+import {
+    IoK8sApiCoreV1RBDVolumeSourceFromJSON,
+    IoK8sApiCoreV1RBDVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1RBDVolumeSourceToJSON,
+    IoK8sApiCoreV1RBDVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1RBDVolumeSource';
+import type { IoK8sApiCoreV1HostPathVolumeSource } from './IoK8sApiCoreV1HostPathVolumeSource';
+import {
+    IoK8sApiCoreV1HostPathVolumeSourceFromJSON,
+    IoK8sApiCoreV1HostPathVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1HostPathVolumeSourceToJSON,
+    IoK8sApiCoreV1HostPathVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1HostPathVolumeSource';
 import type { IoK8sApiCoreV1PortworxVolumeSource } from './IoK8sApiCoreV1PortworxVolumeSource';
 import {
     IoK8sApiCoreV1PortworxVolumeSourceFromJSON,
     IoK8sApiCoreV1PortworxVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1PortworxVolumeSourceToJSON,
+    IoK8sApiCoreV1PortworxVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1PortworxVolumeSource';
 import type { IoK8sApiCoreV1ProjectedVolumeSource } from './IoK8sApiCoreV1ProjectedVolumeSource';
 import {
     IoK8sApiCoreV1ProjectedVolumeSourceFromJSON,
     IoK8sApiCoreV1ProjectedVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1ProjectedVolumeSourceToJSON,
+    IoK8sApiCoreV1ProjectedVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1ProjectedVolumeSource';
-import type { IoK8sApiCoreV1QuobyteVolumeSource } from './IoK8sApiCoreV1QuobyteVolumeSource';
+import type { IoK8sApiCoreV1GitRepoVolumeSource } from './IoK8sApiCoreV1GitRepoVolumeSource';
 import {
-    IoK8sApiCoreV1QuobyteVolumeSourceFromJSON,
-    IoK8sApiCoreV1QuobyteVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1QuobyteVolumeSourceToJSON,
-} from './IoK8sApiCoreV1QuobyteVolumeSource';
-import type { IoK8sApiCoreV1RBDVolumeSource } from './IoK8sApiCoreV1RBDVolumeSource';
+    IoK8sApiCoreV1GitRepoVolumeSourceFromJSON,
+    IoK8sApiCoreV1GitRepoVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1GitRepoVolumeSourceToJSON,
+    IoK8sApiCoreV1GitRepoVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1GitRepoVolumeSource';
+import type { IoK8sApiCoreV1AzureFileVolumeSource } from './IoK8sApiCoreV1AzureFileVolumeSource';
 import {
-    IoK8sApiCoreV1RBDVolumeSourceFromJSON,
-    IoK8sApiCoreV1RBDVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1RBDVolumeSourceToJSON,
-} from './IoK8sApiCoreV1RBDVolumeSource';
+    IoK8sApiCoreV1AzureFileVolumeSourceFromJSON,
+    IoK8sApiCoreV1AzureFileVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1AzureFileVolumeSourceToJSON,
+    IoK8sApiCoreV1AzureFileVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1AzureFileVolumeSource';
+import type { IoK8sApiCoreV1CSIVolumeSource } from './IoK8sApiCoreV1CSIVolumeSource';
+import {
+    IoK8sApiCoreV1CSIVolumeSourceFromJSON,
+    IoK8sApiCoreV1CSIVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1CSIVolumeSourceToJSON,
+    IoK8sApiCoreV1CSIVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1CSIVolumeSource';
+import type { IoK8sApiCoreV1ISCSIVolumeSource } from './IoK8sApiCoreV1ISCSIVolumeSource';
+import {
+    IoK8sApiCoreV1ISCSIVolumeSourceFromJSON,
+    IoK8sApiCoreV1ISCSIVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1ISCSIVolumeSourceToJSON,
+    IoK8sApiCoreV1ISCSIVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1ISCSIVolumeSource';
+import type { IoK8sApiCoreV1GlusterfsVolumeSource } from './IoK8sApiCoreV1GlusterfsVolumeSource';
+import {
+    IoK8sApiCoreV1GlusterfsVolumeSourceFromJSON,
+    IoK8sApiCoreV1GlusterfsVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1GlusterfsVolumeSourceToJSON,
+    IoK8sApiCoreV1GlusterfsVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1GlusterfsVolumeSource';
+import type { IoK8sApiCoreV1DownwardAPIVolumeSource } from './IoK8sApiCoreV1DownwardAPIVolumeSource';
+import {
+    IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSON,
+    IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1DownwardAPIVolumeSourceToJSON,
+    IoK8sApiCoreV1DownwardAPIVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1DownwardAPIVolumeSource';
 import type { IoK8sApiCoreV1ScaleIOVolumeSource } from './IoK8sApiCoreV1ScaleIOVolumeSource';
 import {
     IoK8sApiCoreV1ScaleIOVolumeSourceFromJSON,
     IoK8sApiCoreV1ScaleIOVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1ScaleIOVolumeSourceToJSON,
+    IoK8sApiCoreV1ScaleIOVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1ScaleIOVolumeSource';
+import type { IoK8sApiCoreV1EphemeralVolumeSource } from './IoK8sApiCoreV1EphemeralVolumeSource';
+import {
+    IoK8sApiCoreV1EphemeralVolumeSourceFromJSON,
+    IoK8sApiCoreV1EphemeralVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1EphemeralVolumeSourceToJSON,
+    IoK8sApiCoreV1EphemeralVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1EphemeralVolumeSource';
+import type { IoK8sApiCoreV1CephFSVolumeSource } from './IoK8sApiCoreV1CephFSVolumeSource';
+import {
+    IoK8sApiCoreV1CephFSVolumeSourceFromJSON,
+    IoK8sApiCoreV1CephFSVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1CephFSVolumeSourceToJSON,
+    IoK8sApiCoreV1CephFSVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1CephFSVolumeSource';
 import type { IoK8sApiCoreV1SecretVolumeSource } from './IoK8sApiCoreV1SecretVolumeSource';
 import {
     IoK8sApiCoreV1SecretVolumeSourceFromJSON,
     IoK8sApiCoreV1SecretVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1SecretVolumeSourceToJSON,
+    IoK8sApiCoreV1SecretVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1SecretVolumeSource';
-import type { IoK8sApiCoreV1StorageOSVolumeSource } from './IoK8sApiCoreV1StorageOSVolumeSource';
+import type { IoK8sApiCoreV1QuobyteVolumeSource } from './IoK8sApiCoreV1QuobyteVolumeSource';
 import {
-    IoK8sApiCoreV1StorageOSVolumeSourceFromJSON,
-    IoK8sApiCoreV1StorageOSVolumeSourceFromJSONTyped,
-    IoK8sApiCoreV1StorageOSVolumeSourceToJSON,
-} from './IoK8sApiCoreV1StorageOSVolumeSource';
+    IoK8sApiCoreV1QuobyteVolumeSourceFromJSON,
+    IoK8sApiCoreV1QuobyteVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1QuobyteVolumeSourceToJSON,
+    IoK8sApiCoreV1QuobyteVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1QuobyteVolumeSource';
+import type { IoK8sApiCoreV1EmptyDirVolumeSource } from './IoK8sApiCoreV1EmptyDirVolumeSource';
+import {
+    IoK8sApiCoreV1EmptyDirVolumeSourceFromJSON,
+    IoK8sApiCoreV1EmptyDirVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1EmptyDirVolumeSourceToJSON,
+    IoK8sApiCoreV1EmptyDirVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1EmptyDirVolumeSource';
+import type { IoK8sApiCoreV1FlexVolumeSource } from './IoK8sApiCoreV1FlexVolumeSource';
+import {
+    IoK8sApiCoreV1FlexVolumeSourceFromJSON,
+    IoK8sApiCoreV1FlexVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1FlexVolumeSourceToJSON,
+    IoK8sApiCoreV1FlexVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1FlexVolumeSource';
+import type { IoK8sApiCoreV1ImageVolumeSource } from './IoK8sApiCoreV1ImageVolumeSource';
+import {
+    IoK8sApiCoreV1ImageVolumeSourceFromJSON,
+    IoK8sApiCoreV1ImageVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1ImageVolumeSourceToJSON,
+    IoK8sApiCoreV1ImageVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1ImageVolumeSource';
+import type { IoK8sApiCoreV1PersistentVolumeClaimVolumeSource } from './IoK8sApiCoreV1PersistentVolumeClaimVolumeSource';
+import {
+    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1PersistentVolumeClaimVolumeSource';
 import type { IoK8sApiCoreV1VsphereVirtualDiskVolumeSource } from './IoK8sApiCoreV1VsphereVirtualDiskVolumeSource';
 import {
     IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSON,
     IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSONTyped,
     IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSON,
+    IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSONTyped,
 } from './IoK8sApiCoreV1VsphereVirtualDiskVolumeSource';
+import type { IoK8sApiCoreV1AzureDiskVolumeSource } from './IoK8sApiCoreV1AzureDiskVolumeSource';
+import {
+    IoK8sApiCoreV1AzureDiskVolumeSourceFromJSON,
+    IoK8sApiCoreV1AzureDiskVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1AzureDiskVolumeSourceToJSON,
+    IoK8sApiCoreV1AzureDiskVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1AzureDiskVolumeSource';
+import type { IoK8sApiCoreV1ConfigMapVolumeSource } from './IoK8sApiCoreV1ConfigMapVolumeSource';
+import {
+    IoK8sApiCoreV1ConfigMapVolumeSourceFromJSON,
+    IoK8sApiCoreV1ConfigMapVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1ConfigMapVolumeSourceToJSON,
+    IoK8sApiCoreV1ConfigMapVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1ConfigMapVolumeSource';
+import type { IoK8sApiCoreV1CinderVolumeSource } from './IoK8sApiCoreV1CinderVolumeSource';
+import {
+    IoK8sApiCoreV1CinderVolumeSourceFromJSON,
+    IoK8sApiCoreV1CinderVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1CinderVolumeSourceToJSON,
+    IoK8sApiCoreV1CinderVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1CinderVolumeSource';
+import type { IoK8sApiCoreV1FCVolumeSource } from './IoK8sApiCoreV1FCVolumeSource';
+import {
+    IoK8sApiCoreV1FCVolumeSourceFromJSON,
+    IoK8sApiCoreV1FCVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1FCVolumeSourceToJSON,
+    IoK8sApiCoreV1FCVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1FCVolumeSource';
+import type { IoK8sApiCoreV1StorageOSVolumeSource } from './IoK8sApiCoreV1StorageOSVolumeSource';
+import {
+    IoK8sApiCoreV1StorageOSVolumeSourceFromJSON,
+    IoK8sApiCoreV1StorageOSVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1StorageOSVolumeSourceToJSON,
+    IoK8sApiCoreV1StorageOSVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1StorageOSVolumeSource';
+import type { IoK8sApiCoreV1FlockerVolumeSource } from './IoK8sApiCoreV1FlockerVolumeSource';
+import {
+    IoK8sApiCoreV1FlockerVolumeSourceFromJSON,
+    IoK8sApiCoreV1FlockerVolumeSourceFromJSONTyped,
+    IoK8sApiCoreV1FlockerVolumeSourceToJSON,
+    IoK8sApiCoreV1FlockerVolumeSourceToJSONTyped,
+} from './IoK8sApiCoreV1FlockerVolumeSource';
 
 /**
  * Volume represents a named volume in a pod that may be accessed by any container in the pod.
@@ -298,6 +334,12 @@ export interface IoK8sApiCoreV1Volume {
     hostPath?: IoK8sApiCoreV1HostPathVolumeSource;
     /**
      * 
+     * @type {IoK8sApiCoreV1ImageVolumeSource}
+     * @memberof IoK8sApiCoreV1Volume
+     */
+    image?: IoK8sApiCoreV1ImageVolumeSource;
+    /**
+     * 
      * @type {IoK8sApiCoreV1ISCSIVolumeSource}
      * @memberof IoK8sApiCoreV1Volume
      */
@@ -379,11 +421,9 @@ export interface IoK8sApiCoreV1Volume {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Volume interface.
  */
-export function instanceOfIoK8sApiCoreV1Volume(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Volume(value: object): value is IoK8sApiCoreV1Volume {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1VolumeFromJSON(json: any): IoK8sApiCoreV1Volume {
@@ -391,83 +431,87 @@ export function IoK8sApiCoreV1VolumeFromJSON(json: any): IoK8sApiCoreV1Volume {
 }
 
 export function IoK8sApiCoreV1VolumeFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Volume {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'awsElasticBlockStore': !exists(json, 'awsElasticBlockStore') ? undefined : IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSON(json['awsElasticBlockStore']),
-        'azureDisk': !exists(json, 'azureDisk') ? undefined : IoK8sApiCoreV1AzureDiskVolumeSourceFromJSON(json['azureDisk']),
-        'azureFile': !exists(json, 'azureFile') ? undefined : IoK8sApiCoreV1AzureFileVolumeSourceFromJSON(json['azureFile']),
-        'cephfs': !exists(json, 'cephfs') ? undefined : IoK8sApiCoreV1CephFSVolumeSourceFromJSON(json['cephfs']),
-        'cinder': !exists(json, 'cinder') ? undefined : IoK8sApiCoreV1CinderVolumeSourceFromJSON(json['cinder']),
-        'configMap': !exists(json, 'configMap') ? undefined : IoK8sApiCoreV1ConfigMapVolumeSourceFromJSON(json['configMap']),
-        'csi': !exists(json, 'csi') ? undefined : IoK8sApiCoreV1CSIVolumeSourceFromJSON(json['csi']),
-        'downwardAPI': !exists(json, 'downwardAPI') ? undefined : IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSON(json['downwardAPI']),
-        'emptyDir': !exists(json, 'emptyDir') ? undefined : IoK8sApiCoreV1EmptyDirVolumeSourceFromJSON(json['emptyDir']),
-        'ephemeral': !exists(json, 'ephemeral') ? undefined : IoK8sApiCoreV1EphemeralVolumeSourceFromJSON(json['ephemeral']),
-        'fc': !exists(json, 'fc') ? undefined : IoK8sApiCoreV1FCVolumeSourceFromJSON(json['fc']),
-        'flexVolume': !exists(json, 'flexVolume') ? undefined : IoK8sApiCoreV1FlexVolumeSourceFromJSON(json['flexVolume']),
-        'flocker': !exists(json, 'flocker') ? undefined : IoK8sApiCoreV1FlockerVolumeSourceFromJSON(json['flocker']),
-        'gcePersistentDisk': !exists(json, 'gcePersistentDisk') ? undefined : IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSON(json['gcePersistentDisk']),
-        'gitRepo': !exists(json, 'gitRepo') ? undefined : IoK8sApiCoreV1GitRepoVolumeSourceFromJSON(json['gitRepo']),
-        'glusterfs': !exists(json, 'glusterfs') ? undefined : IoK8sApiCoreV1GlusterfsVolumeSourceFromJSON(json['glusterfs']),
-        'hostPath': !exists(json, 'hostPath') ? undefined : IoK8sApiCoreV1HostPathVolumeSourceFromJSON(json['hostPath']),
-        'iscsi': !exists(json, 'iscsi') ? undefined : IoK8sApiCoreV1ISCSIVolumeSourceFromJSON(json['iscsi']),
+        'awsElasticBlockStore': json['awsElasticBlockStore'] == null ? undefined : IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceFromJSON(json['awsElasticBlockStore']),
+        'azureDisk': json['azureDisk'] == null ? undefined : IoK8sApiCoreV1AzureDiskVolumeSourceFromJSON(json['azureDisk']),
+        'azureFile': json['azureFile'] == null ? undefined : IoK8sApiCoreV1AzureFileVolumeSourceFromJSON(json['azureFile']),
+        'cephfs': json['cephfs'] == null ? undefined : IoK8sApiCoreV1CephFSVolumeSourceFromJSON(json['cephfs']),
+        'cinder': json['cinder'] == null ? undefined : IoK8sApiCoreV1CinderVolumeSourceFromJSON(json['cinder']),
+        'configMap': json['configMap'] == null ? undefined : IoK8sApiCoreV1ConfigMapVolumeSourceFromJSON(json['configMap']),
+        'csi': json['csi'] == null ? undefined : IoK8sApiCoreV1CSIVolumeSourceFromJSON(json['csi']),
+        'downwardAPI': json['downwardAPI'] == null ? undefined : IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSON(json['downwardAPI']),
+        'emptyDir': json['emptyDir'] == null ? undefined : IoK8sApiCoreV1EmptyDirVolumeSourceFromJSON(json['emptyDir']),
+        'ephemeral': json['ephemeral'] == null ? undefined : IoK8sApiCoreV1EphemeralVolumeSourceFromJSON(json['ephemeral']),
+        'fc': json['fc'] == null ? undefined : IoK8sApiCoreV1FCVolumeSourceFromJSON(json['fc']),
+        'flexVolume': json['flexVolume'] == null ? undefined : IoK8sApiCoreV1FlexVolumeSourceFromJSON(json['flexVolume']),
+        'flocker': json['flocker'] == null ? undefined : IoK8sApiCoreV1FlockerVolumeSourceFromJSON(json['flocker']),
+        'gcePersistentDisk': json['gcePersistentDisk'] == null ? undefined : IoK8sApiCoreV1GCEPersistentDiskVolumeSourceFromJSON(json['gcePersistentDisk']),
+        'gitRepo': json['gitRepo'] == null ? undefined : IoK8sApiCoreV1GitRepoVolumeSourceFromJSON(json['gitRepo']),
+        'glusterfs': json['glusterfs'] == null ? undefined : IoK8sApiCoreV1GlusterfsVolumeSourceFromJSON(json['glusterfs']),
+        'hostPath': json['hostPath'] == null ? undefined : IoK8sApiCoreV1HostPathVolumeSourceFromJSON(json['hostPath']),
+        'image': json['image'] == null ? undefined : IoK8sApiCoreV1ImageVolumeSourceFromJSON(json['image']),
+        'iscsi': json['iscsi'] == null ? undefined : IoK8sApiCoreV1ISCSIVolumeSourceFromJSON(json['iscsi']),
         'name': json['name'],
-        'nfs': !exists(json, 'nfs') ? undefined : IoK8sApiCoreV1NFSVolumeSourceFromJSON(json['nfs']),
-        'persistentVolumeClaim': !exists(json, 'persistentVolumeClaim') ? undefined : IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSON(json['persistentVolumeClaim']),
-        'photonPersistentDisk': !exists(json, 'photonPersistentDisk') ? undefined : IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSON(json['photonPersistentDisk']),
-        'portworxVolume': !exists(json, 'portworxVolume') ? undefined : IoK8sApiCoreV1PortworxVolumeSourceFromJSON(json['portworxVolume']),
-        'projected': !exists(json, 'projected') ? undefined : IoK8sApiCoreV1ProjectedVolumeSourceFromJSON(json['projected']),
-        'quobyte': !exists(json, 'quobyte') ? undefined : IoK8sApiCoreV1QuobyteVolumeSourceFromJSON(json['quobyte']),
-        'rbd': !exists(json, 'rbd') ? undefined : IoK8sApiCoreV1RBDVolumeSourceFromJSON(json['rbd']),
-        'scaleIO': !exists(json, 'scaleIO') ? undefined : IoK8sApiCoreV1ScaleIOVolumeSourceFromJSON(json['scaleIO']),
-        'secret': !exists(json, 'secret') ? undefined : IoK8sApiCoreV1SecretVolumeSourceFromJSON(json['secret']),
-        'storageos': !exists(json, 'storageos') ? undefined : IoK8sApiCoreV1StorageOSVolumeSourceFromJSON(json['storageos']),
-        'vsphereVolume': !exists(json, 'vsphereVolume') ? undefined : IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSON(json['vsphereVolume']),
+        'nfs': json['nfs'] == null ? undefined : IoK8sApiCoreV1NFSVolumeSourceFromJSON(json['nfs']),
+        'persistentVolumeClaim': json['persistentVolumeClaim'] == null ? undefined : IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSON(json['persistentVolumeClaim']),
+        'photonPersistentDisk': json['photonPersistentDisk'] == null ? undefined : IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceFromJSON(json['photonPersistentDisk']),
+        'portworxVolume': json['portworxVolume'] == null ? undefined : IoK8sApiCoreV1PortworxVolumeSourceFromJSON(json['portworxVolume']),
+        'projected': json['projected'] == null ? undefined : IoK8sApiCoreV1ProjectedVolumeSourceFromJSON(json['projected']),
+        'quobyte': json['quobyte'] == null ? undefined : IoK8sApiCoreV1QuobyteVolumeSourceFromJSON(json['quobyte']),
+        'rbd': json['rbd'] == null ? undefined : IoK8sApiCoreV1RBDVolumeSourceFromJSON(json['rbd']),
+        'scaleIO': json['scaleIO'] == null ? undefined : IoK8sApiCoreV1ScaleIOVolumeSourceFromJSON(json['scaleIO']),
+        'secret': json['secret'] == null ? undefined : IoK8sApiCoreV1SecretVolumeSourceFromJSON(json['secret']),
+        'storageos': json['storageos'] == null ? undefined : IoK8sApiCoreV1StorageOSVolumeSourceFromJSON(json['storageos']),
+        'vsphereVolume': json['vsphereVolume'] == null ? undefined : IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSON(json['vsphereVolume']),
     };
 }
 
-export function IoK8sApiCoreV1VolumeToJSON(value?: IoK8sApiCoreV1Volume | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VolumeToJSON(json: any): IoK8sApiCoreV1Volume {
+    return IoK8sApiCoreV1VolumeToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VolumeToJSONTyped(value?: IoK8sApiCoreV1Volume | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'awsElasticBlockStore': IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSON(value.awsElasticBlockStore),
-        'azureDisk': IoK8sApiCoreV1AzureDiskVolumeSourceToJSON(value.azureDisk),
-        'azureFile': IoK8sApiCoreV1AzureFileVolumeSourceToJSON(value.azureFile),
-        'cephfs': IoK8sApiCoreV1CephFSVolumeSourceToJSON(value.cephfs),
-        'cinder': IoK8sApiCoreV1CinderVolumeSourceToJSON(value.cinder),
-        'configMap': IoK8sApiCoreV1ConfigMapVolumeSourceToJSON(value.configMap),
-        'csi': IoK8sApiCoreV1CSIVolumeSourceToJSON(value.csi),
-        'downwardAPI': IoK8sApiCoreV1DownwardAPIVolumeSourceToJSON(value.downwardAPI),
-        'emptyDir': IoK8sApiCoreV1EmptyDirVolumeSourceToJSON(value.emptyDir),
-        'ephemeral': IoK8sApiCoreV1EphemeralVolumeSourceToJSON(value.ephemeral),
-        'fc': IoK8sApiCoreV1FCVolumeSourceToJSON(value.fc),
-        'flexVolume': IoK8sApiCoreV1FlexVolumeSourceToJSON(value.flexVolume),
-        'flocker': IoK8sApiCoreV1FlockerVolumeSourceToJSON(value.flocker),
-        'gcePersistentDisk': IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSON(value.gcePersistentDisk),
-        'gitRepo': IoK8sApiCoreV1GitRepoVolumeSourceToJSON(value.gitRepo),
-        'glusterfs': IoK8sApiCoreV1GlusterfsVolumeSourceToJSON(value.glusterfs),
-        'hostPath': IoK8sApiCoreV1HostPathVolumeSourceToJSON(value.hostPath),
-        'iscsi': IoK8sApiCoreV1ISCSIVolumeSourceToJSON(value.iscsi),
-        'name': value.name,
-        'nfs': IoK8sApiCoreV1NFSVolumeSourceToJSON(value.nfs),
-        'persistentVolumeClaim': IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSON(value.persistentVolumeClaim),
-        'photonPersistentDisk': IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSON(value.photonPersistentDisk),
-        'portworxVolume': IoK8sApiCoreV1PortworxVolumeSourceToJSON(value.portworxVolume),
-        'projected': IoK8sApiCoreV1ProjectedVolumeSourceToJSON(value.projected),
-        'quobyte': IoK8sApiCoreV1QuobyteVolumeSourceToJSON(value.quobyte),
-        'rbd': IoK8sApiCoreV1RBDVolumeSourceToJSON(value.rbd),
-        'scaleIO': IoK8sApiCoreV1ScaleIOVolumeSourceToJSON(value.scaleIO),
-        'secret': IoK8sApiCoreV1SecretVolumeSourceToJSON(value.secret),
-        'storageos': IoK8sApiCoreV1StorageOSVolumeSourceToJSON(value.storageos),
-        'vsphereVolume': IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSON(value.vsphereVolume),
+        'awsElasticBlockStore': IoK8sApiCoreV1AWSElasticBlockStoreVolumeSourceToJSON(value['awsElasticBlockStore']),
+        'azureDisk': IoK8sApiCoreV1AzureDiskVolumeSourceToJSON(value['azureDisk']),
+        'azureFile': IoK8sApiCoreV1AzureFileVolumeSourceToJSON(value['azureFile']),
+        'cephfs': IoK8sApiCoreV1CephFSVolumeSourceToJSON(value['cephfs']),
+        'cinder': IoK8sApiCoreV1CinderVolumeSourceToJSON(value['cinder']),
+        'configMap': IoK8sApiCoreV1ConfigMapVolumeSourceToJSON(value['configMap']),
+        'csi': IoK8sApiCoreV1CSIVolumeSourceToJSON(value['csi']),
+        'downwardAPI': IoK8sApiCoreV1DownwardAPIVolumeSourceToJSON(value['downwardAPI']),
+        'emptyDir': IoK8sApiCoreV1EmptyDirVolumeSourceToJSON(value['emptyDir']),
+        'ephemeral': IoK8sApiCoreV1EphemeralVolumeSourceToJSON(value['ephemeral']),
+        'fc': IoK8sApiCoreV1FCVolumeSourceToJSON(value['fc']),
+        'flexVolume': IoK8sApiCoreV1FlexVolumeSourceToJSON(value['flexVolume']),
+        'flocker': IoK8sApiCoreV1FlockerVolumeSourceToJSON(value['flocker']),
+        'gcePersistentDisk': IoK8sApiCoreV1GCEPersistentDiskVolumeSourceToJSON(value['gcePersistentDisk']),
+        'gitRepo': IoK8sApiCoreV1GitRepoVolumeSourceToJSON(value['gitRepo']),
+        'glusterfs': IoK8sApiCoreV1GlusterfsVolumeSourceToJSON(value['glusterfs']),
+        'hostPath': IoK8sApiCoreV1HostPathVolumeSourceToJSON(value['hostPath']),
+        'image': IoK8sApiCoreV1ImageVolumeSourceToJSON(value['image']),
+        'iscsi': IoK8sApiCoreV1ISCSIVolumeSourceToJSON(value['iscsi']),
+        'name': value['name'],
+        'nfs': IoK8sApiCoreV1NFSVolumeSourceToJSON(value['nfs']),
+        'persistentVolumeClaim': IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSON(value['persistentVolumeClaim']),
+        'photonPersistentDisk': IoK8sApiCoreV1PhotonPersistentDiskVolumeSourceToJSON(value['photonPersistentDisk']),
+        'portworxVolume': IoK8sApiCoreV1PortworxVolumeSourceToJSON(value['portworxVolume']),
+        'projected': IoK8sApiCoreV1ProjectedVolumeSourceToJSON(value['projected']),
+        'quobyte': IoK8sApiCoreV1QuobyteVolumeSourceToJSON(value['quobyte']),
+        'rbd': IoK8sApiCoreV1RBDVolumeSourceToJSON(value['rbd']),
+        'scaleIO': IoK8sApiCoreV1ScaleIOVolumeSourceToJSON(value['scaleIO']),
+        'secret': IoK8sApiCoreV1SecretVolumeSourceToJSON(value['secret']),
+        'storageos': IoK8sApiCoreV1StorageOSVolumeSourceToJSON(value['storageos']),
+        'vsphereVolume': IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSON(value['vsphereVolume']),
     };
 }
 

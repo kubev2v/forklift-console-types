@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
  * @export
@@ -20,13 +20,13 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthorizationV1NonResourceAttributes {
     /**
-     * Path is the URL path of the request
+     * path is the URL path of the request
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1NonResourceAttributes
      */
     path?: string;
     /**
-     * Verb is the standard HTTP verb
+     * verb is the standard HTTP verb
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1NonResourceAttributes
      */
@@ -36,10 +36,8 @@ export interface IoK8sApiAuthorizationV1NonResourceAttributes {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1NonResourceAttributes interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1NonResourceAttributes(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1NonResourceAttributes(value: object): value is IoK8sApiAuthorizationV1NonResourceAttributes {
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1NonResourceAttributesFromJSON(json: any): IoK8sApiAuthorizationV1NonResourceAttributes {
@@ -47,27 +45,29 @@ export function IoK8sApiAuthorizationV1NonResourceAttributesFromJSON(json: any):
 }
 
 export function IoK8sApiAuthorizationV1NonResourceAttributesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1NonResourceAttributes {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'path': !exists(json, 'path') ? undefined : json['path'],
-        'verb': !exists(json, 'verb') ? undefined : json['verb'],
+        'path': json['path'] == null ? undefined : json['path'],
+        'verb': json['verb'] == null ? undefined : json['verb'],
     };
 }
 
-export function IoK8sApiAuthorizationV1NonResourceAttributesToJSON(value?: IoK8sApiAuthorizationV1NonResourceAttributes | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1NonResourceAttributesToJSON(json: any): IoK8sApiAuthorizationV1NonResourceAttributes {
+    return IoK8sApiAuthorizationV1NonResourceAttributesToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1NonResourceAttributesToJSONTyped(value?: IoK8sApiAuthorizationV1NonResourceAttributes | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'path': value.path,
-        'verb': value.verb,
+        'path': value['path'],
+        'verb': value['verb'],
     };
 }
 

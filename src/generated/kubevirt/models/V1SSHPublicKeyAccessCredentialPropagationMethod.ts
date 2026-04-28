@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation } from './V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation';
 import {
     V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSON,
     V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSONTyped,
     V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSON,
+    V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSONTyped,
 } from './V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation';
 
 /**
@@ -49,10 +50,8 @@ export interface V1SSHPublicKeyAccessCredentialPropagationMethod {
 /**
  * Check if a given object implements the V1SSHPublicKeyAccessCredentialPropagationMethod interface.
  */
-export function instanceOfV1SSHPublicKeyAccessCredentialPropagationMethod(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SSHPublicKeyAccessCredentialPropagationMethod(value: object): value is V1SSHPublicKeyAccessCredentialPropagationMethod {
+    return true;
 }
 
 export function V1SSHPublicKeyAccessCredentialPropagationMethodFromJSON(json: any): V1SSHPublicKeyAccessCredentialPropagationMethod {
@@ -60,29 +59,31 @@ export function V1SSHPublicKeyAccessCredentialPropagationMethodFromJSON(json: an
 }
 
 export function V1SSHPublicKeyAccessCredentialPropagationMethodFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SSHPublicKeyAccessCredentialPropagationMethod {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'configDrive': !exists(json, 'configDrive') ? undefined : json['configDrive'],
-        'noCloud': !exists(json, 'noCloud') ? undefined : json['noCloud'],
-        'qemuGuestAgent': !exists(json, 'qemuGuestAgent') ? undefined : V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSON(json['qemuGuestAgent']),
+        'configDrive': json['configDrive'] == null ? undefined : json['configDrive'],
+        'noCloud': json['noCloud'] == null ? undefined : json['noCloud'],
+        'qemuGuestAgent': json['qemuGuestAgent'] == null ? undefined : V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSON(json['qemuGuestAgent']),
     };
 }
 
-export function V1SSHPublicKeyAccessCredentialPropagationMethodToJSON(value?: V1SSHPublicKeyAccessCredentialPropagationMethod | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SSHPublicKeyAccessCredentialPropagationMethodToJSON(json: any): V1SSHPublicKeyAccessCredentialPropagationMethod {
+    return V1SSHPublicKeyAccessCredentialPropagationMethodToJSONTyped(json, false);
+}
+
+export function V1SSHPublicKeyAccessCredentialPropagationMethodToJSONTyped(value?: V1SSHPublicKeyAccessCredentialPropagationMethod | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'configDrive': value.configDrive,
-        'noCloud': value.noCloud,
-        'qemuGuestAgent': V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSON(value.qemuGuestAgent),
+        'configDrive': value['configDrive'],
+        'noCloud': value['noCloud'],
+        'qemuGuestAgent': V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSON(value['qemuGuestAgent']),
     };
 }
 

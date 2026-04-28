@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
  * @export
@@ -30,17 +30,15 @@ export interface IoK8sApiNetworkingV1IPBlock {
      * @type {Array<string>}
      * @memberof IoK8sApiNetworkingV1IPBlock
      */
-    except?: string[];
+    except?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IPBlock interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IPBlock(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "cidr" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IPBlock(value: object): value is IoK8sApiNetworkingV1IPBlock {
+    if (!('cidr' in value) || value['cidr'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IPBlockFromJSON(json: any): IoK8sApiNetworkingV1IPBlock {
@@ -48,27 +46,29 @@ export function IoK8sApiNetworkingV1IPBlockFromJSON(json: any): IoK8sApiNetworki
 }
 
 export function IoK8sApiNetworkingV1IPBlockFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IPBlock {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'cidr': json['cidr'],
-        'except': !exists(json, 'except') ? undefined : json['except'],
+        'except': json['except'] == null ? undefined : json['except'],
     };
 }
 
-export function IoK8sApiNetworkingV1IPBlockToJSON(value?: IoK8sApiNetworkingV1IPBlock | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IPBlockToJSON(json: any): IoK8sApiNetworkingV1IPBlock {
+    return IoK8sApiNetworkingV1IPBlockToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IPBlockToJSONTyped(value?: IoK8sApiNetworkingV1IPBlock | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'cidr': value.cidr,
-        'except': value.except,
+        'cidr': value['cidr'],
+        'except': value['except'],
     };
 }
 

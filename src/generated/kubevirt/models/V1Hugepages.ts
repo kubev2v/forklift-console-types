@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Hugepages allow to use hugepages for the VirtualMachineInstance instead of regular memory.
  * @export
@@ -30,10 +30,8 @@ export interface V1Hugepages {
 /**
  * Check if a given object implements the V1Hugepages interface.
  */
-export function instanceOfV1Hugepages(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Hugepages(value: object): value is V1Hugepages {
+    return true;
 }
 
 export function V1HugepagesFromJSON(json: any): V1Hugepages {
@@ -41,25 +39,27 @@ export function V1HugepagesFromJSON(json: any): V1Hugepages {
 }
 
 export function V1HugepagesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Hugepages {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'pageSize': !exists(json, 'pageSize') ? undefined : json['pageSize'],
+        'pageSize': json['pageSize'] == null ? undefined : json['pageSize'],
     };
 }
 
-export function V1HugepagesToJSON(value?: V1Hugepages | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HugepagesToJSON(json: any): V1Hugepages {
+    return V1HugepagesToJSONTyped(json, false);
+}
+
+export function V1HugepagesToJSONTyped(value?: V1Hugepages | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'pageSize': value.pageSize,
+        'pageSize': value['pageSize'],
     };
 }
 

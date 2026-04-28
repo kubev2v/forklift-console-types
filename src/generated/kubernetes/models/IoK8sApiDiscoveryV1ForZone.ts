@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ForZone provides information about which zones should consume this endpoint.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiDiscoveryV1ForZone {
 /**
  * Check if a given object implements the IoK8sApiDiscoveryV1ForZone interface.
  */
-export function instanceOfIoK8sApiDiscoveryV1ForZone(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiDiscoveryV1ForZone(value: object): value is IoK8sApiDiscoveryV1ForZone {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiDiscoveryV1ForZoneFromJSON(json: any): IoK8sApiDiscoveryV1ForZone {
@@ -42,7 +40,7 @@ export function IoK8sApiDiscoveryV1ForZoneFromJSON(json: any): IoK8sApiDiscovery
 }
 
 export function IoK8sApiDiscoveryV1ForZoneFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiDiscoveryV1ForZone {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiDiscoveryV1ForZoneFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function IoK8sApiDiscoveryV1ForZoneToJSON(value?: IoK8sApiDiscoveryV1ForZone | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiDiscoveryV1ForZoneToJSON(json: any): IoK8sApiDiscoveryV1ForZone {
+    return IoK8sApiDiscoveryV1ForZoneToJSONTyped(json, false);
+}
+
+export function IoK8sApiDiscoveryV1ForZoneToJSONTyped(value?: IoK8sApiDiscoveryV1ForZone | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
+        'name': value['name'],
     };
 }
 

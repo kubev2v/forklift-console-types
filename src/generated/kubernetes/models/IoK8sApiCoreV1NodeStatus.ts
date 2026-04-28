@@ -12,49 +12,70 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1AttachedVolume } from './IoK8sApiCoreV1AttachedVolume';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiCoreV1NodeFeatures } from './IoK8sApiCoreV1NodeFeatures';
 import {
-    IoK8sApiCoreV1AttachedVolumeFromJSON,
-    IoK8sApiCoreV1AttachedVolumeFromJSONTyped,
-    IoK8sApiCoreV1AttachedVolumeToJSON,
-} from './IoK8sApiCoreV1AttachedVolume';
-import type { IoK8sApiCoreV1ContainerImage } from './IoK8sApiCoreV1ContainerImage';
-import {
-    IoK8sApiCoreV1ContainerImageFromJSON,
-    IoK8sApiCoreV1ContainerImageFromJSONTyped,
-    IoK8sApiCoreV1ContainerImageToJSON,
-} from './IoK8sApiCoreV1ContainerImage';
-import type { IoK8sApiCoreV1NodeAddress } from './IoK8sApiCoreV1NodeAddress';
-import {
-    IoK8sApiCoreV1NodeAddressFromJSON,
-    IoK8sApiCoreV1NodeAddressFromJSONTyped,
-    IoK8sApiCoreV1NodeAddressToJSON,
-} from './IoK8sApiCoreV1NodeAddress';
-import type { IoK8sApiCoreV1NodeCondition } from './IoK8sApiCoreV1NodeCondition';
-import {
-    IoK8sApiCoreV1NodeConditionFromJSON,
-    IoK8sApiCoreV1NodeConditionFromJSONTyped,
-    IoK8sApiCoreV1NodeConditionToJSON,
-} from './IoK8sApiCoreV1NodeCondition';
+    IoK8sApiCoreV1NodeFeaturesFromJSON,
+    IoK8sApiCoreV1NodeFeaturesFromJSONTyped,
+    IoK8sApiCoreV1NodeFeaturesToJSON,
+    IoK8sApiCoreV1NodeFeaturesToJSONTyped,
+} from './IoK8sApiCoreV1NodeFeatures';
 import type { IoK8sApiCoreV1NodeConfigStatus } from './IoK8sApiCoreV1NodeConfigStatus';
 import {
     IoK8sApiCoreV1NodeConfigStatusFromJSON,
     IoK8sApiCoreV1NodeConfigStatusFromJSONTyped,
     IoK8sApiCoreV1NodeConfigStatusToJSON,
+    IoK8sApiCoreV1NodeConfigStatusToJSONTyped,
 } from './IoK8sApiCoreV1NodeConfigStatus';
+import type { IoK8sApiCoreV1ContainerImage } from './IoK8sApiCoreV1ContainerImage';
+import {
+    IoK8sApiCoreV1ContainerImageFromJSON,
+    IoK8sApiCoreV1ContainerImageFromJSONTyped,
+    IoK8sApiCoreV1ContainerImageToJSON,
+    IoK8sApiCoreV1ContainerImageToJSONTyped,
+} from './IoK8sApiCoreV1ContainerImage';
+import type { IoK8sApiCoreV1NodeCondition } from './IoK8sApiCoreV1NodeCondition';
+import {
+    IoK8sApiCoreV1NodeConditionFromJSON,
+    IoK8sApiCoreV1NodeConditionFromJSONTyped,
+    IoK8sApiCoreV1NodeConditionToJSON,
+    IoK8sApiCoreV1NodeConditionToJSONTyped,
+} from './IoK8sApiCoreV1NodeCondition';
+import type { IoK8sApiCoreV1NodeRuntimeHandler } from './IoK8sApiCoreV1NodeRuntimeHandler';
+import {
+    IoK8sApiCoreV1NodeRuntimeHandlerFromJSON,
+    IoK8sApiCoreV1NodeRuntimeHandlerFromJSONTyped,
+    IoK8sApiCoreV1NodeRuntimeHandlerToJSON,
+    IoK8sApiCoreV1NodeRuntimeHandlerToJSONTyped,
+} from './IoK8sApiCoreV1NodeRuntimeHandler';
 import type { IoK8sApiCoreV1NodeDaemonEndpoints } from './IoK8sApiCoreV1NodeDaemonEndpoints';
 import {
     IoK8sApiCoreV1NodeDaemonEndpointsFromJSON,
     IoK8sApiCoreV1NodeDaemonEndpointsFromJSONTyped,
     IoK8sApiCoreV1NodeDaemonEndpointsToJSON,
+    IoK8sApiCoreV1NodeDaemonEndpointsToJSONTyped,
 } from './IoK8sApiCoreV1NodeDaemonEndpoints';
 import type { IoK8sApiCoreV1NodeSystemInfo } from './IoK8sApiCoreV1NodeSystemInfo';
 import {
     IoK8sApiCoreV1NodeSystemInfoFromJSON,
     IoK8sApiCoreV1NodeSystemInfoFromJSONTyped,
     IoK8sApiCoreV1NodeSystemInfoToJSON,
+    IoK8sApiCoreV1NodeSystemInfoToJSONTyped,
 } from './IoK8sApiCoreV1NodeSystemInfo';
+import type { IoK8sApiCoreV1AttachedVolume } from './IoK8sApiCoreV1AttachedVolume';
+import {
+    IoK8sApiCoreV1AttachedVolumeFromJSON,
+    IoK8sApiCoreV1AttachedVolumeFromJSONTyped,
+    IoK8sApiCoreV1AttachedVolumeToJSON,
+    IoK8sApiCoreV1AttachedVolumeToJSONTyped,
+} from './IoK8sApiCoreV1AttachedVolume';
+import type { IoK8sApiCoreV1NodeAddress } from './IoK8sApiCoreV1NodeAddress';
+import {
+    IoK8sApiCoreV1NodeAddressFromJSON,
+    IoK8sApiCoreV1NodeAddressFromJSONTyped,
+    IoK8sApiCoreV1NodeAddressToJSON,
+    IoK8sApiCoreV1NodeAddressToJSONTyped,
+} from './IoK8sApiCoreV1NodeAddress';
 
 /**
  * NodeStatus is information about the current status of a node.
@@ -63,7 +84,7 @@ import {
  */
 export interface IoK8sApiCoreV1NodeStatus {
     /**
-     * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
+     * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/reference/node/node-status/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
      * @type {Array<IoK8sApiCoreV1NodeAddress>}
      * @memberof IoK8sApiCoreV1NodeStatus
      */
@@ -75,13 +96,13 @@ export interface IoK8sApiCoreV1NodeStatus {
      */
     allocatable?: { [key: string]: string; };
     /**
-     * Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+     * Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/reference/node/node-status/#capacity
      * @type {{ [key: string]: string; }}
      * @memberof IoK8sApiCoreV1NodeStatus
      */
     capacity?: { [key: string]: string; };
     /**
-     * Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+     * Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/reference/node/node-status/#condition
      * @type {Array<IoK8sApiCoreV1NodeCondition>}
      * @memberof IoK8sApiCoreV1NodeStatus
      */
@@ -98,6 +119,18 @@ export interface IoK8sApiCoreV1NodeStatus {
      * @memberof IoK8sApiCoreV1NodeStatus
      */
     daemonEndpoints?: IoK8sApiCoreV1NodeDaemonEndpoints;
+    /**
+     * DeclaredFeatures represents the features related to feature gates that are declared by the node.
+     * @type {Array<string>}
+     * @memberof IoK8sApiCoreV1NodeStatus
+     */
+    declaredFeatures?: Array<string>;
+    /**
+     * 
+     * @type {IoK8sApiCoreV1NodeFeatures}
+     * @memberof IoK8sApiCoreV1NodeStatus
+     */
+    features?: IoK8sApiCoreV1NodeFeatures;
     /**
      * List of container images on this node
      * @type {Array<IoK8sApiCoreV1ContainerImage>}
@@ -117,6 +150,12 @@ export interface IoK8sApiCoreV1NodeStatus {
      */
     phase?: string;
     /**
+     * The available runtime handlers.
+     * @type {Array<IoK8sApiCoreV1NodeRuntimeHandler>}
+     * @memberof IoK8sApiCoreV1NodeStatus
+     */
+    runtimeHandlers?: Array<IoK8sApiCoreV1NodeRuntimeHandler>;
+    /**
      * List of volumes that are attached to the node.
      * @type {Array<IoK8sApiCoreV1AttachedVolume>}
      * @memberof IoK8sApiCoreV1NodeStatus
@@ -127,16 +166,14 @@ export interface IoK8sApiCoreV1NodeStatus {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1NodeStatus
      */
-    volumesInUse?: string[];
+    volumesInUse?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeStatus(value: object): value is IoK8sApiCoreV1NodeStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeStatusFromJSON(json: any): IoK8sApiCoreV1NodeStatus {
@@ -144,45 +181,53 @@ export function IoK8sApiCoreV1NodeStatusFromJSON(json: any): IoK8sApiCoreV1NodeS
 }
 
 export function IoK8sApiCoreV1NodeStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'addresses': !exists(json, 'addresses') ? undefined : ((json['addresses'] as Array<any>).map(IoK8sApiCoreV1NodeAddressFromJSON)),
-        'allocatable': !exists(json, 'allocatable') ? undefined : json['allocatable'],
-        'capacity': !exists(json, 'capacity') ? undefined : json['capacity'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1NodeConditionFromJSON)),
-        'config': !exists(json, 'config') ? undefined : IoK8sApiCoreV1NodeConfigStatusFromJSON(json['config']),
-        'daemonEndpoints': !exists(json, 'daemonEndpoints') ? undefined : IoK8sApiCoreV1NodeDaemonEndpointsFromJSON(json['daemonEndpoints']),
-        'images': !exists(json, 'images') ? undefined : ((json['images'] as Array<any>).map(IoK8sApiCoreV1ContainerImageFromJSON)),
-        'nodeInfo': !exists(json, 'nodeInfo') ? undefined : IoK8sApiCoreV1NodeSystemInfoFromJSON(json['nodeInfo']),
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'volumesAttached': !exists(json, 'volumesAttached') ? undefined : ((json['volumesAttached'] as Array<any>).map(IoK8sApiCoreV1AttachedVolumeFromJSON)),
-        'volumesInUse': !exists(json, 'volumesInUse') ? undefined : json['volumesInUse'],
+        'addresses': json['addresses'] == null ? undefined : ((json['addresses'] as Array<any>).map(IoK8sApiCoreV1NodeAddressFromJSON)),
+        'allocatable': json['allocatable'] == null ? undefined : json['allocatable'],
+        'capacity': json['capacity'] == null ? undefined : json['capacity'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1NodeConditionFromJSON)),
+        'config': json['config'] == null ? undefined : IoK8sApiCoreV1NodeConfigStatusFromJSON(json['config']),
+        'daemonEndpoints': json['daemonEndpoints'] == null ? undefined : IoK8sApiCoreV1NodeDaemonEndpointsFromJSON(json['daemonEndpoints']),
+        'declaredFeatures': json['declaredFeatures'] == null ? undefined : json['declaredFeatures'],
+        'features': json['features'] == null ? undefined : IoK8sApiCoreV1NodeFeaturesFromJSON(json['features']),
+        'images': json['images'] == null ? undefined : ((json['images'] as Array<any>).map(IoK8sApiCoreV1ContainerImageFromJSON)),
+        'nodeInfo': json['nodeInfo'] == null ? undefined : IoK8sApiCoreV1NodeSystemInfoFromJSON(json['nodeInfo']),
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'runtimeHandlers': json['runtimeHandlers'] == null ? undefined : ((json['runtimeHandlers'] as Array<any>).map(IoK8sApiCoreV1NodeRuntimeHandlerFromJSON)),
+        'volumesAttached': json['volumesAttached'] == null ? undefined : ((json['volumesAttached'] as Array<any>).map(IoK8sApiCoreV1AttachedVolumeFromJSON)),
+        'volumesInUse': json['volumesInUse'] == null ? undefined : json['volumesInUse'],
     };
 }
 
-export function IoK8sApiCoreV1NodeStatusToJSON(value?: IoK8sApiCoreV1NodeStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeStatusToJSON(json: any): IoK8sApiCoreV1NodeStatus {
+    return IoK8sApiCoreV1NodeStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeStatusToJSONTyped(value?: IoK8sApiCoreV1NodeStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'addresses': value.addresses === undefined ? undefined : ((value.addresses as Array<any>).map(IoK8sApiCoreV1NodeAddressToJSON)),
-        'allocatable': value.allocatable,
-        'capacity': value.capacity,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCoreV1NodeConditionToJSON)),
-        'config': IoK8sApiCoreV1NodeConfigStatusToJSON(value.config),
-        'daemonEndpoints': IoK8sApiCoreV1NodeDaemonEndpointsToJSON(value.daemonEndpoints),
-        'images': value.images === undefined ? undefined : ((value.images as Array<any>).map(IoK8sApiCoreV1ContainerImageToJSON)),
-        'nodeInfo': IoK8sApiCoreV1NodeSystemInfoToJSON(value.nodeInfo),
-        'phase': value.phase,
-        'volumesAttached': value.volumesAttached === undefined ? undefined : ((value.volumesAttached as Array<any>).map(IoK8sApiCoreV1AttachedVolumeToJSON)),
-        'volumesInUse': value.volumesInUse,
+        'addresses': value['addresses'] == null ? undefined : ((value['addresses'] as Array<any>).map(IoK8sApiCoreV1NodeAddressToJSON)),
+        'allocatable': value['allocatable'],
+        'capacity': value['capacity'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCoreV1NodeConditionToJSON)),
+        'config': IoK8sApiCoreV1NodeConfigStatusToJSON(value['config']),
+        'daemonEndpoints': IoK8sApiCoreV1NodeDaemonEndpointsToJSON(value['daemonEndpoints']),
+        'declaredFeatures': value['declaredFeatures'],
+        'features': IoK8sApiCoreV1NodeFeaturesToJSON(value['features']),
+        'images': value['images'] == null ? undefined : ((value['images'] as Array<any>).map(IoK8sApiCoreV1ContainerImageToJSON)),
+        'nodeInfo': IoK8sApiCoreV1NodeSystemInfoToJSON(value['nodeInfo']),
+        'phase': value['phase'],
+        'runtimeHandlers': value['runtimeHandlers'] == null ? undefined : ((value['runtimeHandlers'] as Array<any>).map(IoK8sApiCoreV1NodeRuntimeHandlerToJSON)),
+        'volumesAttached': value['volumesAttached'] == null ? undefined : ((value['volumesAttached'] as Array<any>).map(IoK8sApiCoreV1AttachedVolumeToJSON)),
+        'volumesInUse': value['volumesInUse'],
     };
 }
 

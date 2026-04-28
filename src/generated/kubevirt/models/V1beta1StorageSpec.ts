@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApiCoreV1ResourceRequirements } from './K8sIoApiCoreV1ResourceRequirements';
+import { mapValues } from '../../runtime';
+import type { K8sIoApiCoreV1VolumeResourceRequirements } from './K8sIoApiCoreV1VolumeResourceRequirements';
 import {
-    K8sIoApiCoreV1ResourceRequirementsFromJSON,
-    K8sIoApiCoreV1ResourceRequirementsFromJSONTyped,
-    K8sIoApiCoreV1ResourceRequirementsToJSON,
-} from './K8sIoApiCoreV1ResourceRequirements';
-import type { K8sIoApiCoreV1TypedLocalObjectReference } from './K8sIoApiCoreV1TypedLocalObjectReference';
-import {
-    K8sIoApiCoreV1TypedLocalObjectReferenceFromJSON,
-    K8sIoApiCoreV1TypedLocalObjectReferenceFromJSONTyped,
-    K8sIoApiCoreV1TypedLocalObjectReferenceToJSON,
-} from './K8sIoApiCoreV1TypedLocalObjectReference';
+    K8sIoApiCoreV1VolumeResourceRequirementsFromJSON,
+    K8sIoApiCoreV1VolumeResourceRequirementsFromJSONTyped,
+    K8sIoApiCoreV1VolumeResourceRequirementsToJSON,
+    K8sIoApiCoreV1VolumeResourceRequirementsToJSONTyped,
+} from './K8sIoApiCoreV1VolumeResourceRequirements';
 import type { K8sIoApiCoreV1TypedObjectReference } from './K8sIoApiCoreV1TypedObjectReference';
 import {
     K8sIoApiCoreV1TypedObjectReferenceFromJSON,
     K8sIoApiCoreV1TypedObjectReferenceFromJSONTyped,
     K8sIoApiCoreV1TypedObjectReferenceToJSON,
+    K8sIoApiCoreV1TypedObjectReferenceToJSONTyped,
 } from './K8sIoApiCoreV1TypedObjectReference';
+import type { K8sIoApiCoreV1TypedLocalObjectReference } from './K8sIoApiCoreV1TypedLocalObjectReference';
+import {
+    K8sIoApiCoreV1TypedLocalObjectReferenceFromJSON,
+    K8sIoApiCoreV1TypedLocalObjectReferenceFromJSONTyped,
+    K8sIoApiCoreV1TypedLocalObjectReferenceToJSON,
+    K8sIoApiCoreV1TypedLocalObjectReferenceToJSONTyped,
+} from './K8sIoApiCoreV1TypedLocalObjectReference';
 import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 import {
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -49,7 +53,7 @@ export interface V1beta1StorageSpec {
      * @type {Array<string>}
      * @memberof V1beta1StorageSpec
      */
-    accessModes?: Array<string>;
+    accessModes?: Array<V1beta1StorageSpecAccessModesEnum>;
     /**
      * 
      * @type {K8sIoApiCoreV1TypedLocalObjectReference}
@@ -64,10 +68,10 @@ export interface V1beta1StorageSpec {
     dataSourceRef?: K8sIoApiCoreV1TypedObjectReference;
     /**
      * 
-     * @type {K8sIoApiCoreV1ResourceRequirements}
+     * @type {K8sIoApiCoreV1VolumeResourceRequirements}
      * @memberof V1beta1StorageSpec
      */
-    resources?: K8sIoApiCoreV1ResourceRequirements;
+    resources?: K8sIoApiCoreV1VolumeResourceRequirements;
     /**
      * 
      * @type {K8sIoApimachineryPkgApisMetaV1LabelSelector}
@@ -86,6 +90,7 @@ export interface V1beta1StorageSpec {
      * Possible enum values:
      *  - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
      *  - `"Filesystem"` means the volume will be or is formatted with a filesystem.
+     *  - `"FromStorageProfile"` means the volume mode will be auto selected by CDI according to a matching StorageProfile
      * @type {string}
      * @memberof V1beta1StorageSpec
      */
@@ -102,9 +107,21 @@ export interface V1beta1StorageSpec {
 /**
  * @export
  */
+export const V1beta1StorageSpecAccessModesEnum = {
+    ReadOnlyMany: 'ReadOnlyMany',
+    ReadWriteMany: 'ReadWriteMany',
+    ReadWriteOnce: 'ReadWriteOnce',
+    ReadWriteOncePod: 'ReadWriteOncePod'
+} as const;
+export type V1beta1StorageSpecAccessModesEnum = typeof V1beta1StorageSpecAccessModesEnum[keyof typeof V1beta1StorageSpecAccessModesEnum];
+
+/**
+ * @export
+ */
 export const V1beta1StorageSpecVolumeModeEnum = {
     Block: 'Block',
-    Filesystem: 'Filesystem'
+    Filesystem: 'Filesystem',
+    FromStorageProfile: 'FromStorageProfile'
 } as const;
 export type V1beta1StorageSpecVolumeModeEnum = typeof V1beta1StorageSpecVolumeModeEnum[keyof typeof V1beta1StorageSpecVolumeModeEnum];
 
@@ -112,10 +129,8 @@ export type V1beta1StorageSpecVolumeModeEnum = typeof V1beta1StorageSpecVolumeMo
 /**
  * Check if a given object implements the V1beta1StorageSpec interface.
  */
-export function instanceOfV1beta1StorageSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1StorageSpec(value: object): value is V1beta1StorageSpec {
+    return true;
 }
 
 export function V1beta1StorageSpecFromJSON(json: any): V1beta1StorageSpec {
@@ -123,39 +138,41 @@ export function V1beta1StorageSpecFromJSON(json: any): V1beta1StorageSpec {
 }
 
 export function V1beta1StorageSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1StorageSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessModes': !exists(json, 'accessModes') ? undefined : json['accessModes'],
-        'dataSource': !exists(json, 'dataSource') ? undefined : K8sIoApiCoreV1TypedLocalObjectReferenceFromJSON(json['dataSource']),
-        'dataSourceRef': !exists(json, 'dataSourceRef') ? undefined : K8sIoApiCoreV1TypedObjectReferenceFromJSON(json['dataSourceRef']),
-        'resources': !exists(json, 'resources') ? undefined : K8sIoApiCoreV1ResourceRequirementsFromJSON(json['resources']),
-        'selector': !exists(json, 'selector') ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'storageClassName': !exists(json, 'storageClassName') ? undefined : json['storageClassName'],
-        'volumeMode': !exists(json, 'volumeMode') ? undefined : json['volumeMode'],
-        'volumeName': !exists(json, 'volumeName') ? undefined : json['volumeName'],
+        'accessModes': json['accessModes'] == null ? undefined : json['accessModes'],
+        'dataSource': json['dataSource'] == null ? undefined : K8sIoApiCoreV1TypedLocalObjectReferenceFromJSON(json['dataSource']),
+        'dataSourceRef': json['dataSourceRef'] == null ? undefined : K8sIoApiCoreV1TypedObjectReferenceFromJSON(json['dataSourceRef']),
+        'resources': json['resources'] == null ? undefined : K8sIoApiCoreV1VolumeResourceRequirementsFromJSON(json['resources']),
+        'selector': json['selector'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
+        'storageClassName': json['storageClassName'] == null ? undefined : json['storageClassName'],
+        'volumeMode': json['volumeMode'] == null ? undefined : json['volumeMode'],
+        'volumeName': json['volumeName'] == null ? undefined : json['volumeName'],
     };
 }
 
-export function V1beta1StorageSpecToJSON(value?: V1beta1StorageSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1StorageSpecToJSON(json: any): V1beta1StorageSpec {
+    return V1beta1StorageSpecToJSONTyped(json, false);
+}
+
+export function V1beta1StorageSpecToJSONTyped(value?: V1beta1StorageSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'accessModes': value.accessModes,
-        'dataSource': K8sIoApiCoreV1TypedLocalObjectReferenceToJSON(value.dataSource),
-        'dataSourceRef': K8sIoApiCoreV1TypedObjectReferenceToJSON(value.dataSourceRef),
-        'resources': K8sIoApiCoreV1ResourceRequirementsToJSON(value.resources),
-        'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'storageClassName': value.storageClassName,
-        'volumeMode': value.volumeMode,
-        'volumeName': value.volumeName,
+        'accessModes': value['accessModes'],
+        'dataSource': K8sIoApiCoreV1TypedLocalObjectReferenceToJSON(value['dataSource']),
+        'dataSourceRef': K8sIoApiCoreV1TypedObjectReferenceToJSON(value['dataSourceRef']),
+        'resources': K8sIoApiCoreV1VolumeResourceRequirementsToJSON(value['resources']),
+        'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'storageClassName': value['storageClassName'],
+        'volumeMode': value['volumeMode'],
+        'volumeName': value['volumeName'],
     };
 }
 

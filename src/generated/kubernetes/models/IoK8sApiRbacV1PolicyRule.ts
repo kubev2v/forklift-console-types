@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
  * @export
@@ -24,41 +24,39 @@ export interface IoK8sApiRbacV1PolicyRule {
      * @type {Array<string>}
      * @memberof IoK8sApiRbacV1PolicyRule
      */
-    apiGroups?: string[];
+    apiGroups?: Array<string>;
     /**
      * NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
      * @type {Array<string>}
      * @memberof IoK8sApiRbacV1PolicyRule
      */
-    nonResourceURLs?: string[];
+    nonResourceURLs?: Array<string>;
     /**
      * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
      * @type {Array<string>}
      * @memberof IoK8sApiRbacV1PolicyRule
      */
-    resourceNames?: string[];
+    resourceNames?: Array<string>;
     /**
      * Resources is a list of resources this rule applies to. '*' represents all resources.
      * @type {Array<string>}
      * @memberof IoK8sApiRbacV1PolicyRule
      */
-    resources?: string[];
+    resources?: Array<string>;
     /**
      * Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
      * @type {Array<string>}
      * @memberof IoK8sApiRbacV1PolicyRule
      */
-    verbs: string[];
+    verbs: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiRbacV1PolicyRule interface.
  */
-export function instanceOfIoK8sApiRbacV1PolicyRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1PolicyRule(value: object): value is IoK8sApiRbacV1PolicyRule {
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiRbacV1PolicyRuleFromJSON(json: any): IoK8sApiRbacV1PolicyRule {
@@ -66,33 +64,35 @@ export function IoK8sApiRbacV1PolicyRuleFromJSON(json: any): IoK8sApiRbacV1Polic
 }
 
 export function IoK8sApiRbacV1PolicyRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1PolicyRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroups': !exists(json, 'apiGroups') ? undefined : json['apiGroups'],
-        'nonResourceURLs': !exists(json, 'nonResourceURLs') ? undefined : json['nonResourceURLs'],
-        'resourceNames': !exists(json, 'resourceNames') ? undefined : json['resourceNames'],
-        'resources': !exists(json, 'resources') ? undefined : json['resources'],
+        'apiGroups': json['apiGroups'] == null ? undefined : json['apiGroups'],
+        'nonResourceURLs': json['nonResourceURLs'] == null ? undefined : json['nonResourceURLs'],
+        'resourceNames': json['resourceNames'] == null ? undefined : json['resourceNames'],
+        'resources': json['resources'] == null ? undefined : json['resources'],
         'verbs': json['verbs'],
     };
 }
 
-export function IoK8sApiRbacV1PolicyRuleToJSON(value?: IoK8sApiRbacV1PolicyRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1PolicyRuleToJSON(json: any): IoK8sApiRbacV1PolicyRule {
+    return IoK8sApiRbacV1PolicyRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1PolicyRuleToJSONTyped(value?: IoK8sApiRbacV1PolicyRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroups': value.apiGroups,
-        'nonResourceURLs': value.nonResourceURLs,
-        'resourceNames': value.resourceNames,
-        'resources': value.resources,
-        'verbs': value.verbs,
+        'apiGroups': value['apiGroups'],
+        'nonResourceURLs': value['nonResourceURLs'],
+        'resourceNames': value['resourceNames'],
+        'resources': value['resources'],
+        'verbs': value['verbs'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1DHCPPrivateOptions } from './V1DHCPPrivateOptions';
 import {
     V1DHCPPrivateOptionsFromJSON,
     V1DHCPPrivateOptionsFromJSONTyped,
     V1DHCPPrivateOptionsToJSON,
+    V1DHCPPrivateOptionsToJSONTyped,
 } from './V1DHCPPrivateOptions';
 
 /**
@@ -55,10 +56,8 @@ export interface V1DHCPOptions {
 /**
  * Check if a given object implements the V1DHCPOptions interface.
  */
-export function instanceOfV1DHCPOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1DHCPOptions(value: object): value is V1DHCPOptions {
+    return true;
 }
 
 export function V1DHCPOptionsFromJSON(json: any): V1DHCPOptions {
@@ -66,31 +65,33 @@ export function V1DHCPOptionsFromJSON(json: any): V1DHCPOptions {
 }
 
 export function V1DHCPOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1DHCPOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'bootFileName': !exists(json, 'bootFileName') ? undefined : json['bootFileName'],
-        'ntpServers': !exists(json, 'ntpServers') ? undefined : json['ntpServers'],
-        'privateOptions': !exists(json, 'privateOptions') ? undefined : ((json['privateOptions'] as Array<any>).map(V1DHCPPrivateOptionsFromJSON)),
-        'tftpServerName': !exists(json, 'tftpServerName') ? undefined : json['tftpServerName'],
+        'bootFileName': json['bootFileName'] == null ? undefined : json['bootFileName'],
+        'ntpServers': json['ntpServers'] == null ? undefined : json['ntpServers'],
+        'privateOptions': json['privateOptions'] == null ? undefined : ((json['privateOptions'] as Array<any>).map(V1DHCPPrivateOptionsFromJSON)),
+        'tftpServerName': json['tftpServerName'] == null ? undefined : json['tftpServerName'],
     };
 }
 
-export function V1DHCPOptionsToJSON(value?: V1DHCPOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DHCPOptionsToJSON(json: any): V1DHCPOptions {
+    return V1DHCPOptionsToJSONTyped(json, false);
+}
+
+export function V1DHCPOptionsToJSONTyped(value?: V1DHCPOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'bootFileName': value.bootFileName,
-        'ntpServers': value.ntpServers,
-        'privateOptions': value.privateOptions === undefined ? undefined : ((value.privateOptions as Array<any>).map(V1DHCPPrivateOptionsToJSON)),
-        'tftpServerName': value.tftpServerName,
+        'bootFileName': value['bootFileName'],
+        'ntpServers': value['ntpServers'],
+        'privateOptions': value['privateOptions'] == null ? undefined : ((value['privateOptions'] as Array<any>).map(V1DHCPPrivateOptionsToJSON)),
+        'tftpServerName': value['tftpServerName'],
     };
 }
 

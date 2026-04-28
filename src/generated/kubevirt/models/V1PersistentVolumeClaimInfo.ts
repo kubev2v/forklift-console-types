@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PersistentVolumeClaimInfo contains the relavant information virt-handler needs cached about a PVC
  * @export
@@ -24,13 +24,19 @@ export interface V1PersistentVolumeClaimInfo {
      * @type {Array<string>}
      * @memberof V1PersistentVolumeClaimInfo
      */
-    accessModes?: Array<string>;
+    accessModes?: Array<V1PersistentVolumeClaimInfoAccessModesEnum>;
     /**
      * Capacity represents the capacity set on the corresponding PVC status
-     * @type {{ [key: string]: string; }}
+     * @type {{ [key: string]: object; }}
      * @memberof V1PersistentVolumeClaimInfo
      */
-    capacity?: { [key: string]: string; };
+    capacity?: { [key: string]: object; };
+    /**
+     * ClaimName is the name of the PVC
+     * @type {string}
+     * @memberof V1PersistentVolumeClaimInfo
+     */
+    claimName?: string;
     /**
      * Percentage of filesystem's size to be reserved when resizing the PVC
      * @type {string}
@@ -45,16 +51,17 @@ export interface V1PersistentVolumeClaimInfo {
     preallocated?: boolean;
     /**
      * Requests represents the resources requested by the corresponding PVC spec
-     * @type {{ [key: string]: string; }}
+     * @type {{ [key: string]: object; }}
      * @memberof V1PersistentVolumeClaimInfo
      */
-    requests?: { [key: string]: string; };
+    requests?: { [key: string]: object; };
     /**
      * VolumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
      * 
      * Possible enum values:
      *  - `"Block"` means the volume will not be formatted with a filesystem and will remain a raw block device.
      *  - `"Filesystem"` means the volume will be or is formatted with a filesystem.
+     *  - `"FromStorageProfile"` means the volume mode will be auto selected by CDI according to a matching StorageProfile
      * @type {string}
      * @memberof V1PersistentVolumeClaimInfo
      */
@@ -65,9 +72,21 @@ export interface V1PersistentVolumeClaimInfo {
 /**
  * @export
  */
+export const V1PersistentVolumeClaimInfoAccessModesEnum = {
+    ReadOnlyMany: 'ReadOnlyMany',
+    ReadWriteMany: 'ReadWriteMany',
+    ReadWriteOnce: 'ReadWriteOnce',
+    ReadWriteOncePod: 'ReadWriteOncePod'
+} as const;
+export type V1PersistentVolumeClaimInfoAccessModesEnum = typeof V1PersistentVolumeClaimInfoAccessModesEnum[keyof typeof V1PersistentVolumeClaimInfoAccessModesEnum];
+
+/**
+ * @export
+ */
 export const V1PersistentVolumeClaimInfoVolumeModeEnum = {
     Block: 'Block',
-    Filesystem: 'Filesystem'
+    Filesystem: 'Filesystem',
+    FromStorageProfile: 'FromStorageProfile'
 } as const;
 export type V1PersistentVolumeClaimInfoVolumeModeEnum = typeof V1PersistentVolumeClaimInfoVolumeModeEnum[keyof typeof V1PersistentVolumeClaimInfoVolumeModeEnum];
 
@@ -75,10 +94,8 @@ export type V1PersistentVolumeClaimInfoVolumeModeEnum = typeof V1PersistentVolum
 /**
  * Check if a given object implements the V1PersistentVolumeClaimInfo interface.
  */
-export function instanceOfV1PersistentVolumeClaimInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1PersistentVolumeClaimInfo(value: object): value is V1PersistentVolumeClaimInfo {
+    return true;
 }
 
 export function V1PersistentVolumeClaimInfoFromJSON(json: any): V1PersistentVolumeClaimInfo {
@@ -86,35 +103,39 @@ export function V1PersistentVolumeClaimInfoFromJSON(json: any): V1PersistentVolu
 }
 
 export function V1PersistentVolumeClaimInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PersistentVolumeClaimInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessModes': !exists(json, 'accessModes') ? undefined : json['accessModes'],
-        'capacity': !exists(json, 'capacity') ? undefined : json['capacity'],
-        'filesystemOverhead': !exists(json, 'filesystemOverhead') ? undefined : json['filesystemOverhead'],
-        'preallocated': !exists(json, 'preallocated') ? undefined : json['preallocated'],
-        'requests': !exists(json, 'requests') ? undefined : json['requests'],
-        'volumeMode': !exists(json, 'volumeMode') ? undefined : json['volumeMode'],
+        'accessModes': json['accessModes'] == null ? undefined : json['accessModes'],
+        'capacity': json['capacity'] == null ? undefined : json['capacity'],
+        'claimName': json['claimName'] == null ? undefined : json['claimName'],
+        'filesystemOverhead': json['filesystemOverhead'] == null ? undefined : json['filesystemOverhead'],
+        'preallocated': json['preallocated'] == null ? undefined : json['preallocated'],
+        'requests': json['requests'] == null ? undefined : json['requests'],
+        'volumeMode': json['volumeMode'] == null ? undefined : json['volumeMode'],
     };
 }
 
-export function V1PersistentVolumeClaimInfoToJSON(value?: V1PersistentVolumeClaimInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PersistentVolumeClaimInfoToJSON(json: any): V1PersistentVolumeClaimInfo {
+    return V1PersistentVolumeClaimInfoToJSONTyped(json, false);
+}
+
+export function V1PersistentVolumeClaimInfoToJSONTyped(value?: V1PersistentVolumeClaimInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'accessModes': value.accessModes,
-        'capacity': value.capacity,
-        'filesystemOverhead': value.filesystemOverhead,
-        'preallocated': value.preallocated,
-        'requests': value.requests,
-        'volumeMode': value.volumeMode,
+        'accessModes': value['accessModes'],
+        'capacity': value['capacity'],
+        'claimName': value['claimName'],
+        'filesystemOverhead': value['filesystemOverhead'],
+        'preallocated': value['preallocated'],
+        'requests': value['requests'],
+        'volumeMode': value['volumeMode'],
     };
 }
 

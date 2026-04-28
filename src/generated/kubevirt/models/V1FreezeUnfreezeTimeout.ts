@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * FreezeUnfreezeTimeout represent the time unfreeze will be triggered if guest was not unfrozen by unfreeze command
  * @export
@@ -30,11 +30,9 @@ export interface V1FreezeUnfreezeTimeout {
 /**
  * Check if a given object implements the V1FreezeUnfreezeTimeout interface.
  */
-export function instanceOfV1FreezeUnfreezeTimeout(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "unfreezeTimeout" in value;
-
-    return isInstance;
+export function instanceOfV1FreezeUnfreezeTimeout(value: object): value is V1FreezeUnfreezeTimeout {
+    if (!('unfreezeTimeout' in value) || value['unfreezeTimeout'] === undefined) return false;
+    return true;
 }
 
 export function V1FreezeUnfreezeTimeoutFromJSON(json: any): V1FreezeUnfreezeTimeout {
@@ -42,7 +40,7 @@ export function V1FreezeUnfreezeTimeoutFromJSON(json: any): V1FreezeUnfreezeTime
 }
 
 export function V1FreezeUnfreezeTimeoutFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1FreezeUnfreezeTimeout {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function V1FreezeUnfreezeTimeoutFromJSONTyped(json: any, ignoreDiscrimina
     };
 }
 
-export function V1FreezeUnfreezeTimeoutToJSON(value?: V1FreezeUnfreezeTimeout | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FreezeUnfreezeTimeoutToJSON(json: any): V1FreezeUnfreezeTimeout {
+    return V1FreezeUnfreezeTimeoutToJSONTyped(json, false);
+}
+
+export function V1FreezeUnfreezeTimeoutToJSONTyped(value?: V1FreezeUnfreezeTimeout | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'unfreezeTimeout': value.unfreezeTimeout,
+        'unfreezeTimeout': value['unfreezeTimeout'],
     };
 }
 

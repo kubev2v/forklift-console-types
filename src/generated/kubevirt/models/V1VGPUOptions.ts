@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1VGPUDisplayOptions } from './V1VGPUDisplayOptions';
 import {
     V1VGPUDisplayOptionsFromJSON,
     V1VGPUDisplayOptionsFromJSONTyped,
     V1VGPUDisplayOptionsToJSON,
+    V1VGPUDisplayOptionsToJSONTyped,
 } from './V1VGPUDisplayOptions';
 
 /**
@@ -37,10 +38,8 @@ export interface V1VGPUOptions {
 /**
  * Check if a given object implements the V1VGPUOptions interface.
  */
-export function instanceOfV1VGPUOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VGPUOptions(value: object): value is V1VGPUOptions {
+    return true;
 }
 
 export function V1VGPUOptionsFromJSON(json: any): V1VGPUOptions {
@@ -48,25 +47,27 @@ export function V1VGPUOptionsFromJSON(json: any): V1VGPUOptions {
 }
 
 export function V1VGPUOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VGPUOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'display': !exists(json, 'display') ? undefined : V1VGPUDisplayOptionsFromJSON(json['display']),
+        'display': json['display'] == null ? undefined : V1VGPUDisplayOptionsFromJSON(json['display']),
     };
 }
 
-export function V1VGPUOptionsToJSON(value?: V1VGPUOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VGPUOptionsToJSON(json: any): V1VGPUOptions {
+    return V1VGPUOptionsToJSONTyped(json, false);
+}
+
+export function V1VGPUOptionsToJSONTyped(value?: V1VGPUOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'display': V1VGPUDisplayOptionsToJSON(value.display),
+        'display': V1VGPUDisplayOptionsToJSON(value['display']),
     };
 }
 

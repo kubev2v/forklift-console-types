@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ObjectFieldSelector selects an APIVersioned field of an object.
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiCoreV1ObjectFieldSelector {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ObjectFieldSelector interface.
  */
-export function instanceOfIoK8sApiCoreV1ObjectFieldSelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "fieldPath" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ObjectFieldSelector(value: object): value is IoK8sApiCoreV1ObjectFieldSelector {
+    if (!('fieldPath' in value) || value['fieldPath'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ObjectFieldSelectorFromJSON(json: any): IoK8sApiCoreV1ObjectFieldSelector {
@@ -48,27 +46,29 @@ export function IoK8sApiCoreV1ObjectFieldSelectorFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1ObjectFieldSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ObjectFieldSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'fieldPath': json['fieldPath'],
     };
 }
 
-export function IoK8sApiCoreV1ObjectFieldSelectorToJSON(value?: IoK8sApiCoreV1ObjectFieldSelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ObjectFieldSelectorToJSON(json: any): IoK8sApiCoreV1ObjectFieldSelector {
+    return IoK8sApiCoreV1ObjectFieldSelectorToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ObjectFieldSelectorToJSONTyped(value?: IoK8sApiCoreV1ObjectFieldSelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'fieldPath': value.fieldPath,
+        'apiVersion': value['apiVersion'],
+        'fieldPath': value['fieldPath'],
     };
 }
 

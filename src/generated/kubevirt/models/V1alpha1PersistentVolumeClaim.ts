@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { K8sIoApiCoreV1PersistentVolumeClaimSpec } from './K8sIoApiCoreV1PersistentVolumeClaimSpec';
 import {
     K8sIoApiCoreV1PersistentVolumeClaimSpecFromJSON,

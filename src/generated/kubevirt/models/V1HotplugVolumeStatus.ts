@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HotplugVolumeStatus represents the hotplug status of the volume
  * @export
@@ -36,10 +36,8 @@ export interface V1HotplugVolumeStatus {
 /**
  * Check if a given object implements the V1HotplugVolumeStatus interface.
  */
-export function instanceOfV1HotplugVolumeStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1HotplugVolumeStatus(value: object): value is V1HotplugVolumeStatus {
+    return true;
 }
 
 export function V1HotplugVolumeStatusFromJSON(json: any): V1HotplugVolumeStatus {
@@ -47,27 +45,29 @@ export function V1HotplugVolumeStatusFromJSON(json: any): V1HotplugVolumeStatus 
 }
 
 export function V1HotplugVolumeStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1HotplugVolumeStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'attachPodName': !exists(json, 'attachPodName') ? undefined : json['attachPodName'],
-        'attachPodUID': !exists(json, 'attachPodUID') ? undefined : json['attachPodUID'],
+        'attachPodName': json['attachPodName'] == null ? undefined : json['attachPodName'],
+        'attachPodUID': json['attachPodUID'] == null ? undefined : json['attachPodUID'],
     };
 }
 
-export function V1HotplugVolumeStatusToJSON(value?: V1HotplugVolumeStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HotplugVolumeStatusToJSON(json: any): V1HotplugVolumeStatus {
+    return V1HotplugVolumeStatusToJSONTyped(json, false);
+}
+
+export function V1HotplugVolumeStatusToJSONTyped(value?: V1HotplugVolumeStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'attachPodName': value.attachPodName,
-        'attachPodUID': value.attachPodUID,
+        'attachPodName': value['attachPodName'],
+        'attachPodUID': value['attachPodUID'],
     };
 }
 

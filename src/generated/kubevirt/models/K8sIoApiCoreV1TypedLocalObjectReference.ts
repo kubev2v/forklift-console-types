@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
  * @export
@@ -42,12 +42,10 @@ export interface K8sIoApiCoreV1TypedLocalObjectReference {
 /**
  * Check if a given object implements the K8sIoApiCoreV1TypedLocalObjectReference interface.
  */
-export function instanceOfK8sIoApiCoreV1TypedLocalObjectReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1TypedLocalObjectReference(value: object): value is K8sIoApiCoreV1TypedLocalObjectReference {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1TypedLocalObjectReferenceFromJSON(json: any): K8sIoApiCoreV1TypedLocalObjectReference {
@@ -55,29 +53,31 @@ export function K8sIoApiCoreV1TypedLocalObjectReferenceFromJSON(json: any): K8sI
 }
 
 export function K8sIoApiCoreV1TypedLocalObjectReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1TypedLocalObjectReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroup': !exists(json, 'apiGroup') ? undefined : json['apiGroup'],
+        'apiGroup': json['apiGroup'] == null ? undefined : json['apiGroup'],
         'kind': json['kind'],
         'name': json['name'],
     };
 }
 
-export function K8sIoApiCoreV1TypedLocalObjectReferenceToJSON(value?: K8sIoApiCoreV1TypedLocalObjectReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1TypedLocalObjectReferenceToJSON(json: any): K8sIoApiCoreV1TypedLocalObjectReference {
+    return K8sIoApiCoreV1TypedLocalObjectReferenceToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1TypedLocalObjectReferenceToJSONTyped(value?: K8sIoApiCoreV1TypedLocalObjectReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroup': value.apiGroup,
-        'kind': value.kind,
-        'name': value.name,
+        'apiGroup': value['apiGroup'],
+        'kind': value['kind'],
+        'name': value['name'],
     };
 }
 

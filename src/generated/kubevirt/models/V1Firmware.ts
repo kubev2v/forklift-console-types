@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1ACPI } from './V1ACPI';
 import {
     V1ACPIFromJSON,
     V1ACPIFromJSONTyped,
     V1ACPIToJSON,
+    V1ACPIToJSONTyped,
 } from './V1ACPI';
 import type { V1Bootloader } from './V1Bootloader';
 import {
     V1BootloaderFromJSON,
     V1BootloaderFromJSONTyped,
     V1BootloaderToJSON,
+    V1BootloaderToJSONTyped,
 } from './V1Bootloader';
 import type { V1KernelBoot } from './V1KernelBoot';
 import {
     V1KernelBootFromJSON,
     V1KernelBootFromJSONTyped,
     V1KernelBootToJSON,
+    V1KernelBootToJSONTyped,
 } from './V1KernelBoot';
 
 /**
@@ -73,10 +76,8 @@ export interface V1Firmware {
 /**
  * Check if a given object implements the V1Firmware interface.
  */
-export function instanceOfV1Firmware(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Firmware(value: object): value is V1Firmware {
+    return true;
 }
 
 export function V1FirmwareFromJSON(json: any): V1Firmware {
@@ -84,33 +85,35 @@ export function V1FirmwareFromJSON(json: any): V1Firmware {
 }
 
 export function V1FirmwareFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Firmware {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'acpi': !exists(json, 'acpi') ? undefined : V1ACPIFromJSON(json['acpi']),
-        'bootloader': !exists(json, 'bootloader') ? undefined : V1BootloaderFromJSON(json['bootloader']),
-        'kernelBoot': !exists(json, 'kernelBoot') ? undefined : V1KernelBootFromJSON(json['kernelBoot']),
-        'serial': !exists(json, 'serial') ? undefined : json['serial'],
-        'uuid': !exists(json, 'uuid') ? undefined : json['uuid'],
+        'acpi': json['acpi'] == null ? undefined : V1ACPIFromJSON(json['acpi']),
+        'bootloader': json['bootloader'] == null ? undefined : V1BootloaderFromJSON(json['bootloader']),
+        'kernelBoot': json['kernelBoot'] == null ? undefined : V1KernelBootFromJSON(json['kernelBoot']),
+        'serial': json['serial'] == null ? undefined : json['serial'],
+        'uuid': json['uuid'] == null ? undefined : json['uuid'],
     };
 }
 
-export function V1FirmwareToJSON(value?: V1Firmware | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FirmwareToJSON(json: any): V1Firmware {
+    return V1FirmwareToJSONTyped(json, false);
+}
+
+export function V1FirmwareToJSONTyped(value?: V1Firmware | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'acpi': V1ACPIToJSON(value.acpi),
-        'bootloader': V1BootloaderToJSON(value.bootloader),
-        'kernelBoot': V1KernelBootToJSON(value.kernelBoot),
-        'serial': value.serial,
-        'uuid': value.uuid,
+        'acpi': V1ACPIToJSON(value['acpi']),
+        'bootloader': V1BootloaderToJSON(value['bootloader']),
+        'kernelBoot': V1KernelBootToJSON(value['kernelBoot']),
+        'serial': value['serial'],
+        'uuid': value['uuid'],
     };
 }
 

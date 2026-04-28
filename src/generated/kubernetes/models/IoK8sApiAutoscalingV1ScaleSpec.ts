@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ScaleSpec describes the attributes of a scale subresource.
  * @export
@@ -30,10 +30,8 @@ export interface IoK8sApiAutoscalingV1ScaleSpec {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV1ScaleSpec interface.
  */
-export function instanceOfIoK8sApiAutoscalingV1ScaleSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV1ScaleSpec(value: object): value is IoK8sApiAutoscalingV1ScaleSpec {
+    return true;
 }
 
 export function IoK8sApiAutoscalingV1ScaleSpecFromJSON(json: any): IoK8sApiAutoscalingV1ScaleSpec {
@@ -41,25 +39,27 @@ export function IoK8sApiAutoscalingV1ScaleSpecFromJSON(json: any): IoK8sApiAutos
 }
 
 export function IoK8sApiAutoscalingV1ScaleSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV1ScaleSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
     };
 }
 
-export function IoK8sApiAutoscalingV1ScaleSpecToJSON(value?: IoK8sApiAutoscalingV1ScaleSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV1ScaleSpecToJSON(json: any): IoK8sApiAutoscalingV1ScaleSpec {
+    return IoK8sApiAutoscalingV1ScaleSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV1ScaleSpecToJSONTyped(value?: IoK8sApiAutoscalingV1ScaleSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'replicas': value.replicas,
+        'replicas': value['replicas'],
     };
 }
 

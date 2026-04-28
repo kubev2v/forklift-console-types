@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1RateLimiter } from './V1RateLimiter';
 import {
     V1RateLimiterFromJSON,
     V1RateLimiterFromJSONTyped,
     V1RateLimiterToJSON,
+    V1RateLimiterToJSONTyped,
 } from './V1RateLimiter';
 
 /**
@@ -37,10 +38,8 @@ export interface V1RESTClientConfiguration {
 /**
  * Check if a given object implements the V1RESTClientConfiguration interface.
  */
-export function instanceOfV1RESTClientConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1RESTClientConfiguration(value: object): value is V1RESTClientConfiguration {
+    return true;
 }
 
 export function V1RESTClientConfigurationFromJSON(json: any): V1RESTClientConfiguration {
@@ -48,25 +47,27 @@ export function V1RESTClientConfigurationFromJSON(json: any): V1RESTClientConfig
 }
 
 export function V1RESTClientConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1RESTClientConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'rateLimiter': !exists(json, 'rateLimiter') ? undefined : V1RateLimiterFromJSON(json['rateLimiter']),
+        'rateLimiter': json['rateLimiter'] == null ? undefined : V1RateLimiterFromJSON(json['rateLimiter']),
     };
 }
 
-export function V1RESTClientConfigurationToJSON(value?: V1RESTClientConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1RESTClientConfigurationToJSON(json: any): V1RESTClientConfiguration {
+    return V1RESTClientConfigurationToJSONTyped(json, false);
+}
+
+export function V1RESTClientConfigurationToJSONTyped(value?: V1RESTClientConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'rateLimiter': V1RateLimiterToJSON(value.rateLimiter),
+        'rateLimiter': V1RateLimiterToJSON(value['rateLimiter']),
     };
 }
 

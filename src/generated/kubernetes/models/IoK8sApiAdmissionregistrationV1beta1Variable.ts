@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.
  * @export
@@ -20,13 +20,13 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAdmissionregistrationV1beta1Variable {
     /**
-     * Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+     * expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1beta1Variable
      */
     expression: string;
     /**
-     * Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+     * name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1beta1Variable
      */
@@ -36,12 +36,10 @@ export interface IoK8sApiAdmissionregistrationV1beta1Variable {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1beta1Variable interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1beta1Variable(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "expression" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1beta1Variable(value: object): value is IoK8sApiAdmissionregistrationV1beta1Variable {
+    if (!('expression' in value) || value['expression'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1beta1VariableFromJSON(json: any): IoK8sApiAdmissionregistrationV1beta1Variable {
@@ -49,7 +47,7 @@ export function IoK8sApiAdmissionregistrationV1beta1VariableFromJSON(json: any):
 }
 
 export function IoK8sApiAdmissionregistrationV1beta1VariableFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1beta1Variable {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiAdmissionregistrationV1beta1VariableFromJSONTyped(json: 
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1beta1VariableToJSON(value?: IoK8sApiAdmissionregistrationV1beta1Variable | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1beta1VariableToJSON(json: any): IoK8sApiAdmissionregistrationV1beta1Variable {
+    return IoK8sApiAdmissionregistrationV1beta1VariableToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1beta1VariableToJSONTyped(value?: IoK8sApiAdmissionregistrationV1beta1Variable | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'expression': value.expression,
-        'name': value.name,
+        'expression': value['expression'],
+        'name': value['name'],
     };
 }
 

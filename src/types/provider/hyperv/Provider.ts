@@ -1,23 +1,20 @@
-import { V1beta1Provider } from '../../../generated/forklift/models';
-
+import { V1beta1Provider } from '../../../generated';
 import { OpenshiftResource } from '../openshift/Resource';
 
 // https://github.com/kubev2v/forklift/tree/main/pkg/controller/provider/web/hyperv/provider.go
 export interface HypervProvider extends OpenshiftResource {
-  // Type
+  // Type         string       `json:"type"`
   type: string;
-  // Object
+  // Object       api.Provider `json:"object"`
   object: V1beta1Provider;
-  // APIVersion
+  // APIVersion   string       `json:"apiVersion"`
   apiVersion: string;
-  // Product
+  // Product      string       `json:"product"`
   product: string;
-  // VMCount
+  // VMCount      int64        `json:"vmCount"`
   vmCount: number;
-  // NetworkCount
+  // NetworkCount int64        `json:"networkCount"`
   networkCount: number;
-  // DiskCount
-  diskCount: number;
-  // StorageCount
+  // StorageCount int64        `json:"storageCount"`
   storageCount: number;
 }

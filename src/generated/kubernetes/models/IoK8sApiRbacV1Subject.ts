@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
  * @export
@@ -48,12 +48,10 @@ export interface IoK8sApiRbacV1Subject {
 /**
  * Check if a given object implements the IoK8sApiRbacV1Subject interface.
  */
-export function instanceOfIoK8sApiRbacV1Subject(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1Subject(value: object): value is IoK8sApiRbacV1Subject {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiRbacV1SubjectFromJSON(json: any): IoK8sApiRbacV1Subject {
@@ -61,31 +59,33 @@ export function IoK8sApiRbacV1SubjectFromJSON(json: any): IoK8sApiRbacV1Subject 
 }
 
 export function IoK8sApiRbacV1SubjectFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1Subject {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroup': !exists(json, 'apiGroup') ? undefined : json['apiGroup'],
+        'apiGroup': json['apiGroup'] == null ? undefined : json['apiGroup'],
         'kind': json['kind'],
         'name': json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
     };
 }
 
-export function IoK8sApiRbacV1SubjectToJSON(value?: IoK8sApiRbacV1Subject | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1SubjectToJSON(json: any): IoK8sApiRbacV1Subject {
+    return IoK8sApiRbacV1SubjectToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1SubjectToJSONTyped(value?: IoK8sApiRbacV1Subject | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroup': value.apiGroup,
-        'kind': value.kind,
-        'name': value.name,
-        'namespace': value.namespace,
+        'apiGroup': value['apiGroup'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'namespace': value['namespace'],
     };
 }
 

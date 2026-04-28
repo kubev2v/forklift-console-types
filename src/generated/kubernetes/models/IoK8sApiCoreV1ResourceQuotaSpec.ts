@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ScopeSelector } from './IoK8sApiCoreV1ScopeSelector';
 import {
     IoK8sApiCoreV1ScopeSelectorFromJSON,
     IoK8sApiCoreV1ScopeSelectorFromJSONTyped,
     IoK8sApiCoreV1ScopeSelectorToJSON,
+    IoK8sApiCoreV1ScopeSelectorToJSONTyped,
 } from './IoK8sApiCoreV1ScopeSelector';
 
 /**
@@ -43,16 +44,14 @@ export interface IoK8sApiCoreV1ResourceQuotaSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ResourceQuotaSpec
      */
-    scopes?: string[];
+    scopes?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ResourceQuotaSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1ResourceQuotaSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ResourceQuotaSpec(value: object): value is IoK8sApiCoreV1ResourceQuotaSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1ResourceQuotaSpecFromJSON(json: any): IoK8sApiCoreV1ResourceQuotaSpec {
@@ -60,29 +59,31 @@ export function IoK8sApiCoreV1ResourceQuotaSpecFromJSON(json: any): IoK8sApiCore
 }
 
 export function IoK8sApiCoreV1ResourceQuotaSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ResourceQuotaSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hard': !exists(json, 'hard') ? undefined : json['hard'],
-        'scopeSelector': !exists(json, 'scopeSelector') ? undefined : IoK8sApiCoreV1ScopeSelectorFromJSON(json['scopeSelector']),
-        'scopes': !exists(json, 'scopes') ? undefined : json['scopes'],
+        'hard': json['hard'] == null ? undefined : json['hard'],
+        'scopeSelector': json['scopeSelector'] == null ? undefined : IoK8sApiCoreV1ScopeSelectorFromJSON(json['scopeSelector']),
+        'scopes': json['scopes'] == null ? undefined : json['scopes'],
     };
 }
 
-export function IoK8sApiCoreV1ResourceQuotaSpecToJSON(value?: IoK8sApiCoreV1ResourceQuotaSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ResourceQuotaSpecToJSON(json: any): IoK8sApiCoreV1ResourceQuotaSpec {
+    return IoK8sApiCoreV1ResourceQuotaSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ResourceQuotaSpecToJSONTyped(value?: IoK8sApiCoreV1ResourceQuotaSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hard': value.hard,
-        'scopeSelector': IoK8sApiCoreV1ScopeSelectorToJSON(value.scopeSelector),
-        'scopes': value.scopes,
+        'hard': value['hard'],
+        'scopeSelector': IoK8sApiCoreV1ScopeSelectorToJSON(value['scopeSelector']),
+        'scopes': value['scopes'],
     };
 }
 

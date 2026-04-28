@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiDiscoveryV1EndpointSlice } from './IoK8sApiDiscoveryV1EndpointSlice';
 import {
     IoK8sApiDiscoveryV1EndpointSliceFromJSON,
     IoK8sApiDiscoveryV1EndpointSliceFromJSONTyped,
     IoK8sApiDiscoveryV1EndpointSliceToJSON,
+    IoK8sApiDiscoveryV1EndpointSliceToJSONTyped,
 } from './IoK8sApiDiscoveryV1EndpointSlice';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiDiscoveryV1EndpointSliceList {
 /**
  * Check if a given object implements the IoK8sApiDiscoveryV1EndpointSliceList interface.
  */
-export function instanceOfIoK8sApiDiscoveryV1EndpointSliceList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiDiscoveryV1EndpointSliceList(value: object): value is IoK8sApiDiscoveryV1EndpointSliceList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiDiscoveryV1EndpointSliceListFromJSON(json: any): IoK8sApiDiscoveryV1EndpointSliceList {
@@ -73,31 +73,33 @@ export function IoK8sApiDiscoveryV1EndpointSliceListFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApiDiscoveryV1EndpointSliceListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiDiscoveryV1EndpointSliceList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiDiscoveryV1EndpointSliceFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiDiscoveryV1EndpointSliceListToJSON(value?: IoK8sApiDiscoveryV1EndpointSliceList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiDiscoveryV1EndpointSliceListToJSON(json: any): IoK8sApiDiscoveryV1EndpointSliceList {
+    return IoK8sApiDiscoveryV1EndpointSliceListToJSONTyped(json, false);
+}
+
+export function IoK8sApiDiscoveryV1EndpointSliceListToJSONTyped(value?: IoK8sApiDiscoveryV1EndpointSliceList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiDiscoveryV1EndpointSliceToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiDiscoveryV1EndpointSliceToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

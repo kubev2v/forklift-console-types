@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ComponentCondition } from './IoK8sApiCoreV1ComponentCondition';
-import {
-    IoK8sApiCoreV1ComponentConditionFromJSON,
-    IoK8sApiCoreV1ComponentConditionFromJSONTyped,
-    IoK8sApiCoreV1ComponentConditionToJSON,
-} from './IoK8sApiCoreV1ComponentCondition';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiCoreV1ComponentCondition } from './IoK8sApiCoreV1ComponentCondition';
+import {
+    IoK8sApiCoreV1ComponentConditionFromJSON,
+    IoK8sApiCoreV1ComponentConditionFromJSONTyped,
+    IoK8sApiCoreV1ComponentConditionToJSON,
+    IoK8sApiCoreV1ComponentConditionToJSONTyped,
+} from './IoK8sApiCoreV1ComponentCondition';
 
 /**
  * ComponentStatus (and ComponentStatusList) holds the cluster validation info. Deprecated: This API is deprecated in v1.19+
@@ -61,10 +63,8 @@ export interface IoK8sApiCoreV1ComponentStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ComponentStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1ComponentStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ComponentStatus(value: object): value is IoK8sApiCoreV1ComponentStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1ComponentStatusFromJSON(json: any): IoK8sApiCoreV1ComponentStatus {
@@ -72,31 +72,33 @@ export function IoK8sApiCoreV1ComponentStatusFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1ComponentStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ComponentStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1ComponentConditionFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1ComponentConditionFromJSON)),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiCoreV1ComponentStatusToJSON(value?: IoK8sApiCoreV1ComponentStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ComponentStatusToJSON(json: any): IoK8sApiCoreV1ComponentStatus {
+    return IoK8sApiCoreV1ComponentStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ComponentStatusToJSONTyped(value?: IoK8sApiCoreV1ComponentStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCoreV1ComponentConditionToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCoreV1ComponentConditionToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -48,12 +48,10 @@ export interface V1VirtualMachineInstanceMigrationCondition {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceMigrationCondition interface.
  */
-export function instanceOfV1VirtualMachineInstanceMigrationCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceMigrationCondition(value: object): value is V1VirtualMachineInstanceMigrationCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceMigrationConditionFromJSON(json: any): V1VirtualMachineInstanceMigrationCondition {
@@ -61,31 +59,33 @@ export function V1VirtualMachineInstanceMigrationConditionFromJSON(json: any): V
 }
 
 export function V1VirtualMachineInstanceMigrationConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceMigrationCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function V1VirtualMachineInstanceMigrationConditionToJSON(value?: V1VirtualMachineInstanceMigrationCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceMigrationConditionToJSON(json: any): V1VirtualMachineInstanceMigrationCondition {
+    return V1VirtualMachineInstanceMigrationConditionToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceMigrationConditionToJSONTyped(value?: V1VirtualMachineInstanceMigrationCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

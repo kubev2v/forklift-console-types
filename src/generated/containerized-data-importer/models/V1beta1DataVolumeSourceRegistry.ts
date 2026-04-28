@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { V1beta1PlatformOptions } from './V1beta1PlatformOptions';
+import {
+    V1beta1PlatformOptionsFromJSON,
+    V1beta1PlatformOptionsFromJSONTyped,
+    V1beta1PlatformOptionsToJSON,
+} from './V1beta1PlatformOptions';
+
 /**
  * DataVolumeSourceRegistry provides the parameters to create a Data Volume from an registry source
  * @export
@@ -31,6 +38,12 @@ export interface V1beta1DataVolumeSourceRegistry {
      * @memberof V1beta1DataVolumeSourceRegistry
      */
     imageStream?: string;
+    /**
+     * 
+     * @type {V1beta1PlatformOptions}
+     * @memberof V1beta1DataVolumeSourceRegistry
+     */
+    platform?: V1beta1PlatformOptions;
     /**
      * PullMethod can be either "pod" (default import), or "node" (node docker cache based import)
      * @type {string}
@@ -70,6 +83,7 @@ export function V1beta1DataVolumeSourceRegistryFromJSONTyped(json: any, ignoreDi
         
         'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
         'imageStream': json['imageStream'] == null ? undefined : json['imageStream'],
+        'platform': json['platform'] == null ? undefined : V1beta1PlatformOptionsFromJSON(json['platform']),
         'pullMethod': json['pullMethod'] == null ? undefined : json['pullMethod'],
         'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
         'url': json['url'] == null ? undefined : json['url'],
@@ -84,6 +98,7 @@ export function V1beta1DataVolumeSourceRegistryToJSON(value?: V1beta1DataVolumeS
         
         'certConfigMap': value['certConfigMap'],
         'imageStream': value['imageStream'],
+        'platform': V1beta1PlatformOptionsToJSON(value['platform']),
         'pullMethod': value['pullMethod'],
         'secretRef': value['secretRef'],
         'url': value['url'],

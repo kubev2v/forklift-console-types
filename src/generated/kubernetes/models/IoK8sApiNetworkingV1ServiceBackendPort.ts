@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServiceBackendPort is the service port being referenced.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiNetworkingV1ServiceBackendPort {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1ServiceBackendPort interface.
  */
-export function instanceOfIoK8sApiNetworkingV1ServiceBackendPort(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1ServiceBackendPort(value: object): value is IoK8sApiNetworkingV1ServiceBackendPort {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1ServiceBackendPortFromJSON(json: any): IoK8sApiNetworkingV1ServiceBackendPort {
@@ -47,27 +45,29 @@ export function IoK8sApiNetworkingV1ServiceBackendPortFromJSON(json: any): IoK8s
 }
 
 export function IoK8sApiNetworkingV1ServiceBackendPortFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1ServiceBackendPort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'number': !exists(json, 'number') ? undefined : json['number'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'number': json['number'] == null ? undefined : json['number'],
     };
 }
 
-export function IoK8sApiNetworkingV1ServiceBackendPortToJSON(value?: IoK8sApiNetworkingV1ServiceBackendPort | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1ServiceBackendPortToJSON(json: any): IoK8sApiNetworkingV1ServiceBackendPort {
+    return IoK8sApiNetworkingV1ServiceBackendPortToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1ServiceBackendPortToJSONTyped(value?: IoK8sApiNetworkingV1ServiceBackendPort | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'number': value.number,
+        'name': value['name'],
+        'number': value['number'],
     };
 }
 

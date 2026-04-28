@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -44,6 +44,12 @@ export interface V1VirtualMachineInstanceNetworkInterface {
      */
     ipAddresses?: Array<string>;
     /**
+     * LinkState Reports the current operational link state`. values: up, down.
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceNetworkInterface
+     */
+    linkState?: string;
+    /**
      * Hardware address of a Virtual Machine interface
      * @type {string}
      * @memberof V1VirtualMachineInstanceNetworkInterface
@@ -56,6 +62,12 @@ export interface V1VirtualMachineInstanceNetworkInterface {
      */
     name?: string;
     /**
+     * PodInterfaceName represents the name of the pod network interface
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceNetworkInterface
+     */
+    podInterfaceName?: string;
+    /**
      * Specifies how many queues are allocated by MultiQueue
      * @type {number}
      * @memberof V1VirtualMachineInstanceNetworkInterface
@@ -66,10 +78,8 @@ export interface V1VirtualMachineInstanceNetworkInterface {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceNetworkInterface interface.
  */
-export function instanceOfV1VirtualMachineInstanceNetworkInterface(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceNetworkInterface(value: object): value is V1VirtualMachineInstanceNetworkInterface {
+    return true;
 }
 
 export function V1VirtualMachineInstanceNetworkInterfaceFromJSON(json: any): V1VirtualMachineInstanceNetworkInterface {
@@ -77,37 +87,43 @@ export function V1VirtualMachineInstanceNetworkInterfaceFromJSON(json: any): V1V
 }
 
 export function V1VirtualMachineInstanceNetworkInterfaceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceNetworkInterface {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'infoSource': !exists(json, 'infoSource') ? undefined : json['infoSource'],
-        'interfaceName': !exists(json, 'interfaceName') ? undefined : json['interfaceName'],
-        'ipAddress': !exists(json, 'ipAddress') ? undefined : json['ipAddress'],
-        'ipAddresses': !exists(json, 'ipAddresses') ? undefined : json['ipAddresses'],
-        'mac': !exists(json, 'mac') ? undefined : json['mac'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'queueCount': !exists(json, 'queueCount') ? undefined : json['queueCount'],
+        'infoSource': json['infoSource'] == null ? undefined : json['infoSource'],
+        'interfaceName': json['interfaceName'] == null ? undefined : json['interfaceName'],
+        'ipAddress': json['ipAddress'] == null ? undefined : json['ipAddress'],
+        'ipAddresses': json['ipAddresses'] == null ? undefined : json['ipAddresses'],
+        'linkState': json['linkState'] == null ? undefined : json['linkState'],
+        'mac': json['mac'] == null ? undefined : json['mac'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'podInterfaceName': json['podInterfaceName'] == null ? undefined : json['podInterfaceName'],
+        'queueCount': json['queueCount'] == null ? undefined : json['queueCount'],
     };
 }
 
-export function V1VirtualMachineInstanceNetworkInterfaceToJSON(value?: V1VirtualMachineInstanceNetworkInterface | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceNetworkInterfaceToJSON(json: any): V1VirtualMachineInstanceNetworkInterface {
+    return V1VirtualMachineInstanceNetworkInterfaceToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceNetworkInterfaceToJSONTyped(value?: V1VirtualMachineInstanceNetworkInterface | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'infoSource': value.infoSource,
-        'interfaceName': value.interfaceName,
-        'ipAddress': value.ipAddress,
-        'ipAddresses': value.ipAddresses,
-        'mac': value.mac,
-        'name': value.name,
-        'queueCount': value.queueCount,
+        'infoSource': value['infoSource'],
+        'interfaceName': value['interfaceName'],
+        'ipAddress': value['ipAddress'],
+        'ipAddresses': value['ipAddresses'],
+        'linkState': value['linkState'],
+        'mac': value['mac'],
+        'name': value['name'],
+        'podInterfaceName': value['podInterfaceName'],
+        'queueCount': value['queueCount'],
     };
 }
 

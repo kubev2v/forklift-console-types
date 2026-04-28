@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1ObjectMeta } from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
-import {
-    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON,
-    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
+import { mapValues } from '../../runtime';
 import type { V1alpha1MigrationPolicySpec } from './V1alpha1MigrationPolicySpec';
 import {
     V1alpha1MigrationPolicySpecFromJSON,
     V1alpha1MigrationPolicySpecFromJSONTyped,
     V1alpha1MigrationPolicySpecToJSON,
+    V1alpha1MigrationPolicySpecToJSONTyped,
 } from './V1alpha1MigrationPolicySpec';
+import type { K8sIoApimachineryPkgApisMetaV1ObjectMeta } from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
+import {
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
  * MigrationPolicy holds migration policy (i.e. configurations) to apply to a VM or group of VMs
@@ -67,11 +69,9 @@ export interface V1alpha1MigrationPolicy {
 /**
  * Check if a given object implements the V1alpha1MigrationPolicy interface.
  */
-export function instanceOfV1alpha1MigrationPolicy(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfV1alpha1MigrationPolicy(value: object): value is V1alpha1MigrationPolicy {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function V1alpha1MigrationPolicyFromJSON(json: any): V1alpha1MigrationPolicy {
@@ -79,33 +79,35 @@ export function V1alpha1MigrationPolicyFromJSON(json: any): V1alpha1MigrationPol
 }
 
 export function V1alpha1MigrationPolicyFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1alpha1MigrationPolicy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': V1alpha1MigrationPolicySpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : json['status'],
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
-export function V1alpha1MigrationPolicyToJSON(value?: V1alpha1MigrationPolicy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1alpha1MigrationPolicyToJSON(json: any): V1alpha1MigrationPolicy {
+    return V1alpha1MigrationPolicyToJSONTyped(json, false);
+}
+
+export function V1alpha1MigrationPolicyToJSONTyped(value?: V1alpha1MigrationPolicy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': V1alpha1MigrationPolicySpecToJSON(value.spec),
-        'status': value.status,
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': V1alpha1MigrationPolicySpecToJSON(value['spec']),
+        'status': value['status'],
     };
 }
 

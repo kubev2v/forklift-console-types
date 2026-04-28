@@ -12,31 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { V1HyperVPassthrough } from './V1HyperVPassthrough';
+import {
+    V1HyperVPassthroughFromJSON,
+    V1HyperVPassthroughFromJSONTyped,
+    V1HyperVPassthroughToJSON,
+    V1HyperVPassthroughToJSONTyped,
+} from './V1HyperVPassthrough';
 import type { V1FeatureAPIC } from './V1FeatureAPIC';
 import {
     V1FeatureAPICFromJSON,
     V1FeatureAPICFromJSONTyped,
     V1FeatureAPICToJSON,
+    V1FeatureAPICToJSONTyped,
 } from './V1FeatureAPIC';
 import type { V1FeatureHyperv } from './V1FeatureHyperv';
 import {
     V1FeatureHypervFromJSON,
     V1FeatureHypervFromJSONTyped,
     V1FeatureHypervToJSON,
+    V1FeatureHypervToJSONTyped,
 } from './V1FeatureHyperv';
-import type { V1FeatureKVM } from './V1FeatureKVM';
-import {
-    V1FeatureKVMFromJSON,
-    V1FeatureKVMFromJSONTyped,
-    V1FeatureKVMToJSON,
-} from './V1FeatureKVM';
 import type { V1FeatureState } from './V1FeatureState';
 import {
     V1FeatureStateFromJSON,
     V1FeatureStateFromJSONTyped,
     V1FeatureStateToJSON,
+    V1FeatureStateToJSONTyped,
 } from './V1FeatureState';
+import type { V1FeatureKVM } from './V1FeatureKVM';
+import {
+    V1FeatureKVMFromJSON,
+    V1FeatureKVMFromJSONTyped,
+    V1FeatureKVMToJSON,
+    V1FeatureKVMToJSONTyped,
+} from './V1FeatureKVM';
 
 /**
  * 
@@ -64,6 +75,12 @@ export interface V1Features {
     hyperv?: V1FeatureHyperv;
     /**
      * 
+     * @type {V1HyperVPassthrough}
+     * @memberof V1Features
+     */
+    hypervPassthrough?: V1HyperVPassthrough;
+    /**
+     * 
      * @type {V1FeatureKVM}
      * @memberof V1Features
      */
@@ -85,10 +102,8 @@ export interface V1Features {
 /**
  * Check if a given object implements the V1Features interface.
  */
-export function instanceOfV1Features(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Features(value: object): value is V1Features {
+    return true;
 }
 
 export function V1FeaturesFromJSON(json: any): V1Features {
@@ -96,35 +111,39 @@ export function V1FeaturesFromJSON(json: any): V1Features {
 }
 
 export function V1FeaturesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Features {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'acpi': !exists(json, 'acpi') ? undefined : V1FeatureStateFromJSON(json['acpi']),
-        'apic': !exists(json, 'apic') ? undefined : V1FeatureAPICFromJSON(json['apic']),
-        'hyperv': !exists(json, 'hyperv') ? undefined : V1FeatureHypervFromJSON(json['hyperv']),
-        'kvm': !exists(json, 'kvm') ? undefined : V1FeatureKVMFromJSON(json['kvm']),
-        'pvspinlock': !exists(json, 'pvspinlock') ? undefined : V1FeatureStateFromJSON(json['pvspinlock']),
-        'smm': !exists(json, 'smm') ? undefined : V1FeatureStateFromJSON(json['smm']),
+        'acpi': json['acpi'] == null ? undefined : V1FeatureStateFromJSON(json['acpi']),
+        'apic': json['apic'] == null ? undefined : V1FeatureAPICFromJSON(json['apic']),
+        'hyperv': json['hyperv'] == null ? undefined : V1FeatureHypervFromJSON(json['hyperv']),
+        'hypervPassthrough': json['hypervPassthrough'] == null ? undefined : V1HyperVPassthroughFromJSON(json['hypervPassthrough']),
+        'kvm': json['kvm'] == null ? undefined : V1FeatureKVMFromJSON(json['kvm']),
+        'pvspinlock': json['pvspinlock'] == null ? undefined : V1FeatureStateFromJSON(json['pvspinlock']),
+        'smm': json['smm'] == null ? undefined : V1FeatureStateFromJSON(json['smm']),
     };
 }
 
-export function V1FeaturesToJSON(value?: V1Features | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FeaturesToJSON(json: any): V1Features {
+    return V1FeaturesToJSONTyped(json, false);
+}
+
+export function V1FeaturesToJSONTyped(value?: V1Features | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'acpi': V1FeatureStateToJSON(value.acpi),
-        'apic': V1FeatureAPICToJSON(value.apic),
-        'hyperv': V1FeatureHypervToJSON(value.hyperv),
-        'kvm': V1FeatureKVMToJSON(value.kvm),
-        'pvspinlock': V1FeatureStateToJSON(value.pvspinlock),
-        'smm': V1FeatureStateToJSON(value.smm),
+        'acpi': V1FeatureStateToJSON(value['acpi']),
+        'apic': V1FeatureAPICToJSON(value['apic']),
+        'hyperv': V1FeatureHypervToJSON(value['hyperv']),
+        'hypervPassthrough': V1HyperVPassthroughToJSON(value['hypervPassthrough']),
+        'kvm': V1FeatureKVMToJSON(value['kvm']),
+        'pvspinlock': V1FeatureStateToJSON(value['pvspinlock']),
+        'smm': V1FeatureStateToJSON(value['smm']),
     };
 }
 

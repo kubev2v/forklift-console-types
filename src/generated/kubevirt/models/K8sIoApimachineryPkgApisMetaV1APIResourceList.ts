@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1APIResource } from './K8sIoApimachineryPkgApisMetaV1APIResource';
 import {
     K8sIoApimachineryPkgApisMetaV1APIResourceFromJSON,
     K8sIoApimachineryPkgApisMetaV1APIResourceFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1APIResourceToJSON,
+    K8sIoApimachineryPkgApisMetaV1APIResourceToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1APIResource';
 
 /**
@@ -55,12 +56,10 @@ export interface K8sIoApimachineryPkgApisMetaV1APIResourceList {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1APIResourceList interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1APIResourceList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "groupVersion" in value;
-    isInstance = isInstance && "resources" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1APIResourceList(value: object): value is K8sIoApimachineryPkgApisMetaV1APIResourceList {
+    if (!('groupVersion' in value) || value['groupVersion'] === undefined) return false;
+    if (!('resources' in value) || value['resources'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1APIResourceListFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1APIResourceList {
@@ -68,31 +67,33 @@ export function K8sIoApimachineryPkgApisMetaV1APIResourceListFromJSON(json: any)
 }
 
 export function K8sIoApimachineryPkgApisMetaV1APIResourceListFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1APIResourceList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'groupVersion': json['groupVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
         'resources': ((json['resources'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1APIResourceFromJSON)),
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1APIResourceListToJSON(value?: K8sIoApimachineryPkgApisMetaV1APIResourceList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1APIResourceListToJSON(json: any): K8sIoApimachineryPkgApisMetaV1APIResourceList {
+    return K8sIoApimachineryPkgApisMetaV1APIResourceListToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1APIResourceListToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1APIResourceList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'groupVersion': value.groupVersion,
-        'kind': value.kind,
-        'resources': ((value.resources as Array<any>).map(K8sIoApimachineryPkgApisMetaV1APIResourceToJSON)),
+        'apiVersion': value['apiVersion'],
+        'groupVersion': value['groupVersion'],
+        'kind': value['kind'],
+        'resources': ((value['resources'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1APIResourceToJSON)),
     };
 }
 

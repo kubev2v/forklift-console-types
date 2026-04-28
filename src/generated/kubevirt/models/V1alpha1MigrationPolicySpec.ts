@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1alpha1Selectors } from './V1alpha1Selectors';
 import {
     V1alpha1SelectorsFromJSON,
     V1alpha1SelectorsFromJSONTyped,
     V1alpha1SelectorsToJSON,
+    V1alpha1SelectorsToJSONTyped,
 } from './V1alpha1Selectors';
 
 /**
@@ -38,6 +39,12 @@ export interface V1alpha1MigrationPolicySpec {
      * @memberof V1alpha1MigrationPolicySpec
      */
     allowPostCopy?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof V1alpha1MigrationPolicySpec
+     */
+    allowWorkloadDisruption?: boolean;
     /**
      * Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
      * 
@@ -76,10 +83,10 @@ export interface V1alpha1MigrationPolicySpec {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1alpha1MigrationPolicySpec
      */
-    bandwidthPerMigration?: string;
+    bandwidthPerMigration?: object;
     /**
      * 
      * @type {number}
@@ -97,11 +104,9 @@ export interface V1alpha1MigrationPolicySpec {
 /**
  * Check if a given object implements the V1alpha1MigrationPolicySpec interface.
  */
-export function instanceOfV1alpha1MigrationPolicySpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selectors" in value;
-
-    return isInstance;
+export function instanceOfV1alpha1MigrationPolicySpec(value: object): value is V1alpha1MigrationPolicySpec {
+    if (!('selectors' in value) || value['selectors'] === undefined) return false;
+    return true;
 }
 
 export function V1alpha1MigrationPolicySpecFromJSON(json: any): V1alpha1MigrationPolicySpec {
@@ -109,33 +114,37 @@ export function V1alpha1MigrationPolicySpecFromJSON(json: any): V1alpha1Migratio
 }
 
 export function V1alpha1MigrationPolicySpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1alpha1MigrationPolicySpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allowAutoConverge': !exists(json, 'allowAutoConverge') ? undefined : json['allowAutoConverge'],
-        'allowPostCopy': !exists(json, 'allowPostCopy') ? undefined : json['allowPostCopy'],
-        'bandwidthPerMigration': !exists(json, 'bandwidthPerMigration') ? undefined : json['bandwidthPerMigration'],
-        'completionTimeoutPerGiB': !exists(json, 'completionTimeoutPerGiB') ? undefined : json['completionTimeoutPerGiB'],
+        'allowAutoConverge': json['allowAutoConverge'] == null ? undefined : json['allowAutoConverge'],
+        'allowPostCopy': json['allowPostCopy'] == null ? undefined : json['allowPostCopy'],
+        'allowWorkloadDisruption': json['allowWorkloadDisruption'] == null ? undefined : json['allowWorkloadDisruption'],
+        'bandwidthPerMigration': json['bandwidthPerMigration'] == null ? undefined : json['bandwidthPerMigration'],
+        'completionTimeoutPerGiB': json['completionTimeoutPerGiB'] == null ? undefined : json['completionTimeoutPerGiB'],
         'selectors': V1alpha1SelectorsFromJSON(json['selectors']),
     };
 }
 
-export function V1alpha1MigrationPolicySpecToJSON(value?: V1alpha1MigrationPolicySpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1alpha1MigrationPolicySpecToJSON(json: any): V1alpha1MigrationPolicySpec {
+    return V1alpha1MigrationPolicySpecToJSONTyped(json, false);
+}
+
+export function V1alpha1MigrationPolicySpecToJSONTyped(value?: V1alpha1MigrationPolicySpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allowAutoConverge': value.allowAutoConverge,
-        'allowPostCopy': value.allowPostCopy,
-        'bandwidthPerMigration': value.bandwidthPerMigration,
-        'completionTimeoutPerGiB': value.completionTimeoutPerGiB,
-        'selectors': V1alpha1SelectorsToJSON(value.selectors),
+        'allowAutoConverge': value['allowAutoConverge'],
+        'allowPostCopy': value['allowPostCopy'],
+        'allowWorkloadDisruption': value['allowWorkloadDisruption'],
+        'bandwidthPerMigration': value['bandwidthPerMigration'],
+        'completionTimeoutPerGiB': value['completionTimeoutPerGiB'],
+        'selectors': V1alpha1SelectorsToJSON(value['selectors']),
     };
 }
 

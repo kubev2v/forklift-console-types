@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1UserPasswordAccessCredentialPropagationMethod } from './V1UserPasswordAccessCredentialPropagationMethod';
-import {
-    V1UserPasswordAccessCredentialPropagationMethodFromJSON,
-    V1UserPasswordAccessCredentialPropagationMethodFromJSONTyped,
-    V1UserPasswordAccessCredentialPropagationMethodToJSON,
-} from './V1UserPasswordAccessCredentialPropagationMethod';
+import { mapValues } from '../../runtime';
 import type { V1UserPasswordAccessCredentialSource } from './V1UserPasswordAccessCredentialSource';
 import {
     V1UserPasswordAccessCredentialSourceFromJSON,
     V1UserPasswordAccessCredentialSourceFromJSONTyped,
     V1UserPasswordAccessCredentialSourceToJSON,
+    V1UserPasswordAccessCredentialSourceToJSONTyped,
 } from './V1UserPasswordAccessCredentialSource';
+import type { V1UserPasswordAccessCredentialPropagationMethod } from './V1UserPasswordAccessCredentialPropagationMethod';
+import {
+    V1UserPasswordAccessCredentialPropagationMethodFromJSON,
+    V1UserPasswordAccessCredentialPropagationMethodFromJSONTyped,
+    V1UserPasswordAccessCredentialPropagationMethodToJSON,
+    V1UserPasswordAccessCredentialPropagationMethodToJSONTyped,
+} from './V1UserPasswordAccessCredentialPropagationMethod';
 
 /**
  * UserPasswordAccessCredential represents a source and propagation method for injecting user passwords into a vm guest Only one of its members may be specified.
@@ -49,12 +51,10 @@ export interface V1UserPasswordAccessCredential {
 /**
  * Check if a given object implements the V1UserPasswordAccessCredential interface.
  */
-export function instanceOfV1UserPasswordAccessCredential(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "propagationMethod" in value;
-    isInstance = isInstance && "source" in value;
-
-    return isInstance;
+export function instanceOfV1UserPasswordAccessCredential(value: object): value is V1UserPasswordAccessCredential {
+    if (!('propagationMethod' in value) || value['propagationMethod'] === undefined) return false;
+    if (!('source' in value) || value['source'] === undefined) return false;
+    return true;
 }
 
 export function V1UserPasswordAccessCredentialFromJSON(json: any): V1UserPasswordAccessCredential {
@@ -62,7 +62,7 @@ export function V1UserPasswordAccessCredentialFromJSON(json: any): V1UserPasswor
 }
 
 export function V1UserPasswordAccessCredentialFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1UserPasswordAccessCredential {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -72,17 +72,19 @@ export function V1UserPasswordAccessCredentialFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function V1UserPasswordAccessCredentialToJSON(value?: V1UserPasswordAccessCredential | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1UserPasswordAccessCredentialToJSON(json: any): V1UserPasswordAccessCredential {
+    return V1UserPasswordAccessCredentialToJSONTyped(json, false);
+}
+
+export function V1UserPasswordAccessCredentialToJSONTyped(value?: V1UserPasswordAccessCredential | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'propagationMethod': V1UserPasswordAccessCredentialPropagationMethodToJSON(value.propagationMethod),
-        'source': V1UserPasswordAccessCredentialSourceToJSON(value.source),
+        'propagationMethod': V1UserPasswordAccessCredentialPropagationMethodToJSON(value['propagationMethod']),
+        'source': V1UserPasswordAccessCredentialSourceToJSON(value['source']),
     };
 }
 

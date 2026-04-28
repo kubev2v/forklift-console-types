@@ -26,6 +26,12 @@ export interface V1beta1DataVolumeSourceVDDK {
      */
     backingFile?: string;
     /**
+     * ExtraArgs is a reference to a ConfigMap containing extra arguments to pass directly to the VDDK library
+     * @type {string}
+     * @memberof V1beta1DataVolumeSourceVDDK
+     */
+    extraArgs?: string;
+    /**
      * InitImageURL is an optional URL to an image containing an extracted VDDK library, overrides v2v-vmware config map
      * @type {string}
      * @memberof V1beta1DataVolumeSourceVDDK
@@ -75,6 +81,7 @@ export function V1beta1DataVolumeSourceVDDKFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'backingFile': json['backingFile'] == null ? undefined : json['backingFile'],
+        'extraArgs': json['extraArgs'] == null ? undefined : json['extraArgs'],
         'initImageURL': json['initImageURL'] == null ? undefined : json['initImageURL'],
         'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
         'thumbprint': json['thumbprint'] == null ? undefined : json['thumbprint'],
@@ -90,6 +97,7 @@ export function V1beta1DataVolumeSourceVDDKToJSON(value?: V1beta1DataVolumeSourc
     return {
         
         'backingFile': value['backingFile'],
+        'extraArgs': value['extraArgs'],
         'initImageURL': value['initImageURL'],
         'secretRef': value['secretRef'],
         'thumbprint': value['thumbprint'],

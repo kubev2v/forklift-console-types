@@ -12,55 +12,63 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1beta1DataVolumeSourceGCS } from './V1beta1DataVolumeSourceGCS';
-import {
-    V1beta1DataVolumeSourceGCSFromJSON,
-    V1beta1DataVolumeSourceGCSFromJSONTyped,
-    V1beta1DataVolumeSourceGCSToJSON,
-} from './V1beta1DataVolumeSourceGCS';
-import type { V1beta1DataVolumeSourceHTTP } from './V1beta1DataVolumeSourceHTTP';
-import {
-    V1beta1DataVolumeSourceHTTPFromJSON,
-    V1beta1DataVolumeSourceHTTPFromJSONTyped,
-    V1beta1DataVolumeSourceHTTPToJSON,
-} from './V1beta1DataVolumeSourceHTTP';
-import type { V1beta1DataVolumeSourceImageIO } from './V1beta1DataVolumeSourceImageIO';
-import {
-    V1beta1DataVolumeSourceImageIOFromJSON,
-    V1beta1DataVolumeSourceImageIOFromJSONTyped,
-    V1beta1DataVolumeSourceImageIOToJSON,
-} from './V1beta1DataVolumeSourceImageIO';
+import { mapValues } from '../../runtime';
 import type { V1beta1DataVolumeSourcePVC } from './V1beta1DataVolumeSourcePVC';
 import {
     V1beta1DataVolumeSourcePVCFromJSON,
     V1beta1DataVolumeSourcePVCFromJSONTyped,
     V1beta1DataVolumeSourcePVCToJSON,
+    V1beta1DataVolumeSourcePVCToJSONTyped,
 } from './V1beta1DataVolumeSourcePVC';
 import type { V1beta1DataVolumeSourceRegistry } from './V1beta1DataVolumeSourceRegistry';
 import {
     V1beta1DataVolumeSourceRegistryFromJSON,
     V1beta1DataVolumeSourceRegistryFromJSONTyped,
     V1beta1DataVolumeSourceRegistryToJSON,
+    V1beta1DataVolumeSourceRegistryToJSONTyped,
 } from './V1beta1DataVolumeSourceRegistry';
+import type { V1beta1DataVolumeSourceImageIO } from './V1beta1DataVolumeSourceImageIO';
+import {
+    V1beta1DataVolumeSourceImageIOFromJSON,
+    V1beta1DataVolumeSourceImageIOFromJSONTyped,
+    V1beta1DataVolumeSourceImageIOToJSON,
+    V1beta1DataVolumeSourceImageIOToJSONTyped,
+} from './V1beta1DataVolumeSourceImageIO';
+import type { V1beta1DataVolumeSourceVDDK } from './V1beta1DataVolumeSourceVDDK';
+import {
+    V1beta1DataVolumeSourceVDDKFromJSON,
+    V1beta1DataVolumeSourceVDDKFromJSONTyped,
+    V1beta1DataVolumeSourceVDDKToJSON,
+    V1beta1DataVolumeSourceVDDKToJSONTyped,
+} from './V1beta1DataVolumeSourceVDDK';
+import type { V1beta1DataVolumeSourceGCS } from './V1beta1DataVolumeSourceGCS';
+import {
+    V1beta1DataVolumeSourceGCSFromJSON,
+    V1beta1DataVolumeSourceGCSFromJSONTyped,
+    V1beta1DataVolumeSourceGCSToJSON,
+    V1beta1DataVolumeSourceGCSToJSONTyped,
+} from './V1beta1DataVolumeSourceGCS';
+import type { V1beta1DataVolumeSourceHTTP } from './V1beta1DataVolumeSourceHTTP';
+import {
+    V1beta1DataVolumeSourceHTTPFromJSON,
+    V1beta1DataVolumeSourceHTTPFromJSONTyped,
+    V1beta1DataVolumeSourceHTTPToJSON,
+    V1beta1DataVolumeSourceHTTPToJSONTyped,
+} from './V1beta1DataVolumeSourceHTTP';
 import type { V1beta1DataVolumeSourceS3 } from './V1beta1DataVolumeSourceS3';
 import {
     V1beta1DataVolumeSourceS3FromJSON,
     V1beta1DataVolumeSourceS3FromJSONTyped,
     V1beta1DataVolumeSourceS3ToJSON,
+    V1beta1DataVolumeSourceS3ToJSONTyped,
 } from './V1beta1DataVolumeSourceS3';
 import type { V1beta1DataVolumeSourceSnapshot } from './V1beta1DataVolumeSourceSnapshot';
 import {
     V1beta1DataVolumeSourceSnapshotFromJSON,
     V1beta1DataVolumeSourceSnapshotFromJSONTyped,
     V1beta1DataVolumeSourceSnapshotToJSON,
+    V1beta1DataVolumeSourceSnapshotToJSONTyped,
 } from './V1beta1DataVolumeSourceSnapshot';
-import type { V1beta1DataVolumeSourceVDDK } from './V1beta1DataVolumeSourceVDDK';
-import {
-    V1beta1DataVolumeSourceVDDKFromJSON,
-    V1beta1DataVolumeSourceVDDKFromJSONTyped,
-    V1beta1DataVolumeSourceVDDKToJSON,
-} from './V1beta1DataVolumeSourceVDDK';
 
 /**
  * DataVolumeSource represents the source for our Data Volume, this can be HTTP, Imageio, S3, GCS, Registry or an existing PVC
@@ -133,10 +141,8 @@ export interface V1beta1DataVolumeSource {
 /**
  * Check if a given object implements the V1beta1DataVolumeSource interface.
  */
-export function instanceOfV1beta1DataVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeSource(value: object): value is V1beta1DataVolumeSource {
+    return true;
 }
 
 export function V1beta1DataVolumeSourceFromJSON(json: any): V1beta1DataVolumeSource {
@@ -144,43 +150,45 @@ export function V1beta1DataVolumeSourceFromJSON(json: any): V1beta1DataVolumeSou
 }
 
 export function V1beta1DataVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'blank': !exists(json, 'blank') ? undefined : json['blank'],
-        'gcs': !exists(json, 'gcs') ? undefined : V1beta1DataVolumeSourceGCSFromJSON(json['gcs']),
-        'http': !exists(json, 'http') ? undefined : V1beta1DataVolumeSourceHTTPFromJSON(json['http']),
-        'imageio': !exists(json, 'imageio') ? undefined : V1beta1DataVolumeSourceImageIOFromJSON(json['imageio']),
-        'pvc': !exists(json, 'pvc') ? undefined : V1beta1DataVolumeSourcePVCFromJSON(json['pvc']),
-        'registry': !exists(json, 'registry') ? undefined : V1beta1DataVolumeSourceRegistryFromJSON(json['registry']),
-        's3': !exists(json, 's3') ? undefined : V1beta1DataVolumeSourceS3FromJSON(json['s3']),
-        'snapshot': !exists(json, 'snapshot') ? undefined : V1beta1DataVolumeSourceSnapshotFromJSON(json['snapshot']),
-        'upload': !exists(json, 'upload') ? undefined : json['upload'],
-        'vddk': !exists(json, 'vddk') ? undefined : V1beta1DataVolumeSourceVDDKFromJSON(json['vddk']),
+        'blank': json['blank'] == null ? undefined : json['blank'],
+        'gcs': json['gcs'] == null ? undefined : V1beta1DataVolumeSourceGCSFromJSON(json['gcs']),
+        'http': json['http'] == null ? undefined : V1beta1DataVolumeSourceHTTPFromJSON(json['http']),
+        'imageio': json['imageio'] == null ? undefined : V1beta1DataVolumeSourceImageIOFromJSON(json['imageio']),
+        'pvc': json['pvc'] == null ? undefined : V1beta1DataVolumeSourcePVCFromJSON(json['pvc']),
+        'registry': json['registry'] == null ? undefined : V1beta1DataVolumeSourceRegistryFromJSON(json['registry']),
+        's3': json['s3'] == null ? undefined : V1beta1DataVolumeSourceS3FromJSON(json['s3']),
+        'snapshot': json['snapshot'] == null ? undefined : V1beta1DataVolumeSourceSnapshotFromJSON(json['snapshot']),
+        'upload': json['upload'] == null ? undefined : json['upload'],
+        'vddk': json['vddk'] == null ? undefined : V1beta1DataVolumeSourceVDDKFromJSON(json['vddk']),
     };
 }
 
-export function V1beta1DataVolumeSourceToJSON(value?: V1beta1DataVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeSourceToJSON(json: any): V1beta1DataVolumeSource {
+    return V1beta1DataVolumeSourceToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeSourceToJSONTyped(value?: V1beta1DataVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'blank': value.blank,
-        'gcs': V1beta1DataVolumeSourceGCSToJSON(value.gcs),
-        'http': V1beta1DataVolumeSourceHTTPToJSON(value.http),
-        'imageio': V1beta1DataVolumeSourceImageIOToJSON(value.imageio),
-        'pvc': V1beta1DataVolumeSourcePVCToJSON(value.pvc),
-        'registry': V1beta1DataVolumeSourceRegistryToJSON(value.registry),
-        's3': V1beta1DataVolumeSourceS3ToJSON(value.s3),
-        'snapshot': V1beta1DataVolumeSourceSnapshotToJSON(value.snapshot),
-        'upload': value.upload,
-        'vddk': V1beta1DataVolumeSourceVDDKToJSON(value.vddk),
+        'blank': value['blank'],
+        'gcs': V1beta1DataVolumeSourceGCSToJSON(value['gcs']),
+        'http': V1beta1DataVolumeSourceHTTPToJSON(value['http']),
+        'imageio': V1beta1DataVolumeSourceImageIOToJSON(value['imageio']),
+        'pvc': V1beta1DataVolumeSourcePVCToJSON(value['pvc']),
+        'registry': V1beta1DataVolumeSourceRegistryToJSON(value['registry']),
+        's3': V1beta1DataVolumeSourceS3ToJSON(value['s3']),
+        'snapshot': V1beta1DataVolumeSourceSnapshotToJSON(value['snapshot']),
+        'upload': value['upload'],
+        'vddk': V1beta1DataVolumeSourceVDDKToJSON(value['vddk']),
     };
 }
 

@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import {
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import type { IoK8sApiAppsV1DaemonSetSpec } from './IoK8sApiAppsV1DaemonSetSpec';
 import {
     IoK8sApiAppsV1DaemonSetSpecFromJSON,
     IoK8sApiAppsV1DaemonSetSpecFromJSONTyped,
     IoK8sApiAppsV1DaemonSetSpecToJSON,
+    IoK8sApiAppsV1DaemonSetSpecToJSONTyped,
 } from './IoK8sApiAppsV1DaemonSetSpec';
 import type { IoK8sApiAppsV1DaemonSetStatus } from './IoK8sApiAppsV1DaemonSetStatus';
 import {
     IoK8sApiAppsV1DaemonSetStatusFromJSON,
     IoK8sApiAppsV1DaemonSetStatusFromJSONTyped,
     IoK8sApiAppsV1DaemonSetStatusToJSON,
+    IoK8sApiAppsV1DaemonSetStatusToJSONTyped,
 } from './IoK8sApiAppsV1DaemonSetStatus';
-import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
-import {
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
-} from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
  * DaemonSet represents the configuration of a daemon set.
@@ -73,10 +76,8 @@ export interface IoK8sApiAppsV1DaemonSet {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DaemonSet interface.
  */
-export function instanceOfIoK8sApiAppsV1DaemonSet(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DaemonSet(value: object): value is IoK8sApiAppsV1DaemonSet {
+    return true;
 }
 
 export function IoK8sApiAppsV1DaemonSetFromJSON(json: any): IoK8sApiAppsV1DaemonSet {
@@ -84,33 +85,35 @@ export function IoK8sApiAppsV1DaemonSetFromJSON(json: any): IoK8sApiAppsV1Daemon
 }
 
 export function IoK8sApiAppsV1DaemonSetFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DaemonSet {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiAppsV1DaemonSetSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAppsV1DaemonSetStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiAppsV1DaemonSetSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiAppsV1DaemonSetStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAppsV1DaemonSetToJSON(value?: IoK8sApiAppsV1DaemonSet | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DaemonSetToJSON(json: any): IoK8sApiAppsV1DaemonSet {
+    return IoK8sApiAppsV1DaemonSetToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DaemonSetToJSONTyped(value?: IoK8sApiAppsV1DaemonSet | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAppsV1DaemonSetSpecToJSON(value.spec),
-        'status': IoK8sApiAppsV1DaemonSetStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAppsV1DaemonSetSpecToJSON(value['spec']),
+        'status': IoK8sApiAppsV1DaemonSetStatusToJSON(value['status']),
     };
 }
 

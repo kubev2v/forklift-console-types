@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1TopologyHints {
 /**
  * Check if a given object implements the V1TopologyHints interface.
  */
-export function instanceOfV1TopologyHints(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1TopologyHints(value: object): value is V1TopologyHints {
+    return true;
 }
 
 export function V1TopologyHintsFromJSON(json: any): V1TopologyHints {
@@ -41,25 +39,27 @@ export function V1TopologyHintsFromJSON(json: any): V1TopologyHints {
 }
 
 export function V1TopologyHintsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1TopologyHints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'tscFrequency': !exists(json, 'tscFrequency') ? undefined : json['tscFrequency'],
+        'tscFrequency': json['tscFrequency'] == null ? undefined : json['tscFrequency'],
     };
 }
 
-export function V1TopologyHintsToJSON(value?: V1TopologyHints | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1TopologyHintsToJSON(json: any): V1TopologyHints {
+    return V1TopologyHintsToJSONTyped(json, false);
+}
+
+export function V1TopologyHintsToJSONTyped(value?: V1TopologyHints | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'tscFrequency': value.tscFrequency,
+        'tscFrequency': value['tscFrequency'],
     };
 }
 

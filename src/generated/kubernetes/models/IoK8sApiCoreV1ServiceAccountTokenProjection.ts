@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
  * @export
@@ -42,11 +42,9 @@ export interface IoK8sApiCoreV1ServiceAccountTokenProjection {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ServiceAccountTokenProjection interface.
  */
-export function instanceOfIoK8sApiCoreV1ServiceAccountTokenProjection(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ServiceAccountTokenProjection(value: object): value is IoK8sApiCoreV1ServiceAccountTokenProjection {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSON(json: any): IoK8sApiCoreV1ServiceAccountTokenProjection {
@@ -54,29 +52,31 @@ export function IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSON(json: any): 
 }
 
 export function IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ServiceAccountTokenProjection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'audience': !exists(json, 'audience') ? undefined : json['audience'],
-        'expirationSeconds': !exists(json, 'expirationSeconds') ? undefined : json['expirationSeconds'],
+        'audience': json['audience'] == null ? undefined : json['audience'],
+        'expirationSeconds': json['expirationSeconds'] == null ? undefined : json['expirationSeconds'],
         'path': json['path'],
     };
 }
 
-export function IoK8sApiCoreV1ServiceAccountTokenProjectionToJSON(value?: IoK8sApiCoreV1ServiceAccountTokenProjection | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ServiceAccountTokenProjectionToJSON(json: any): IoK8sApiCoreV1ServiceAccountTokenProjection {
+    return IoK8sApiCoreV1ServiceAccountTokenProjectionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ServiceAccountTokenProjectionToJSONTyped(value?: IoK8sApiCoreV1ServiceAccountTokenProjection | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'audience': value.audience,
-        'expirationSeconds': value.expirationSeconds,
-        'path': value.path,
+        'audience': value['audience'],
+        'expirationSeconds': value['expirationSeconds'],
+        'path': value['path'],
     };
 }
 

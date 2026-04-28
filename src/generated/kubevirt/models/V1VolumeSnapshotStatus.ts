@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,12 +42,10 @@ export interface V1VolumeSnapshotStatus {
 /**
  * Check if a given object implements the V1VolumeSnapshotStatus interface.
  */
-export function instanceOfV1VolumeSnapshotStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "enabled" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfV1VolumeSnapshotStatus(value: object): value is V1VolumeSnapshotStatus {
+    if (!('enabled' in value) || value['enabled'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function V1VolumeSnapshotStatusFromJSON(json: any): V1VolumeSnapshotStatus {
@@ -55,29 +53,31 @@ export function V1VolumeSnapshotStatusFromJSON(json: any): V1VolumeSnapshotStatu
 }
 
 export function V1VolumeSnapshotStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VolumeSnapshotStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'enabled': json['enabled'],
         'name': json['name'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
     };
 }
 
-export function V1VolumeSnapshotStatusToJSON(value?: V1VolumeSnapshotStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VolumeSnapshotStatusToJSON(json: any): V1VolumeSnapshotStatus {
+    return V1VolumeSnapshotStatusToJSONTyped(json, false);
+}
+
+export function V1VolumeSnapshotStatusToJSONTyped(value?: V1VolumeSnapshotStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'enabled': value.enabled,
-        'name': value.name,
-        'reason': value.reason,
+        'enabled': value['enabled'],
+        'name': value['name'],
+        'reason': value['reason'],
     };
 }
 

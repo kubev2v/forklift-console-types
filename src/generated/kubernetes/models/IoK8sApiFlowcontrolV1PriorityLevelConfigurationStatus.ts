@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition';
 import {
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSON,
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSONTyped,
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSON,
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSONTyped,
 } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationCondition';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus(value: object): value is IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus {
@@ -48,25 +47,27 @@ export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSON(js
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSON)),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionFromJSON)),
     };
 }
 
-export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSON(value?: IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus {
+    return IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSONTyped(value?: IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSON)),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiFlowcontrolV1PriorityLevelConfigurationConditionToJSON)),
     };
 }
 

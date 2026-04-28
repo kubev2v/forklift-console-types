@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiNetworkingV1alpha1ServiceCIDRSpec } from './IoK8sApiNetworkingV1alpha1ServiceCIDRSpec';
 import {
     IoK8sApiNetworkingV1alpha1ServiceCIDRSpecFromJSON,

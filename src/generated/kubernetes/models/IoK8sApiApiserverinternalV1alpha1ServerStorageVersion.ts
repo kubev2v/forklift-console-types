@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * An API server instance reports the version it can decode and the version it encodes objects to when persisting objects in the backend.
  * @export
@@ -20,38 +20,39 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiApiserverinternalV1alpha1ServerStorageVersion {
     /**
-     * The ID of the reporting API server.
+     * apiServerID is the ID of the reporting API server.
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1ServerStorageVersion
      */
-    apiServerID?: string;
+    apiServerID: string;
     /**
-     * The API server can decode objects encoded in these versions. The encodingVersion must be included in the decodableVersions.
+     * decodableVersions are the encoding versions the API server can handle to decode. The API server can decode objects encoded in these versions. The encodingVersion must be included in the decodableVersions.
      * @type {Array<string>}
      * @memberof IoK8sApiApiserverinternalV1alpha1ServerStorageVersion
      */
-    decodableVersions?: string[];
+    decodableVersions: Array<string>;
     /**
-     * The API server encodes the object to this version when persisting it in the backend (e.g., etcd).
+     * encodingVersion the API server encodes the object to when persisting it in the backend (e.g., etcd).
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1ServerStorageVersion
      */
-    encodingVersion?: string;
+    encodingVersion: string;
     /**
-     * The API server can serve these versions. DecodableVersions must include all ServedVersions.
+     * servedVersions lists all versions the API server can serve. DecodableVersions must include all ServedVersions.
      * @type {Array<string>}
      * @memberof IoK8sApiApiserverinternalV1alpha1ServerStorageVersion
      */
-    servedVersions?: string[];
+    servedVersions?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiApiserverinternalV1alpha1ServerStorageVersion interface.
  */
-export function instanceOfIoK8sApiApiserverinternalV1alpha1ServerStorageVersion(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiApiserverinternalV1alpha1ServerStorageVersion(value: object): value is IoK8sApiApiserverinternalV1alpha1ServerStorageVersion {
+    if (!('apiServerID' in value) || value['apiServerID'] === undefined) return false;
+    if (!('decodableVersions' in value) || value['decodableVersions'] === undefined) return false;
+    if (!('encodingVersion' in value) || value['encodingVersion'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSON(json: any): IoK8sApiApiserverinternalV1alpha1ServerStorageVersion {
@@ -59,31 +60,33 @@ export function IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSON(js
 }
 
 export function IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiApiserverinternalV1alpha1ServerStorageVersion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiServerID': !exists(json, 'apiServerID') ? undefined : json['apiServerID'],
-        'decodableVersions': !exists(json, 'decodableVersions') ? undefined : json['decodableVersions'],
-        'encodingVersion': !exists(json, 'encodingVersion') ? undefined : json['encodingVersion'],
-        'servedVersions': !exists(json, 'servedVersions') ? undefined : json['servedVersions'],
+        'apiServerID': json['apiServerID'],
+        'decodableVersions': json['decodableVersions'],
+        'encodingVersion': json['encodingVersion'],
+        'servedVersions': json['servedVersions'] == null ? undefined : json['servedVersions'],
     };
 }
 
-export function IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSON(value?: IoK8sApiApiserverinternalV1alpha1ServerStorageVersion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSON(json: any): IoK8sApiApiserverinternalV1alpha1ServerStorageVersion {
+    return IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSONTyped(json, false);
+}
+
+export function IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSONTyped(value?: IoK8sApiApiserverinternalV1alpha1ServerStorageVersion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiServerID': value.apiServerID,
-        'decodableVersions': value.decodableVersions,
-        'encodingVersion': value.encodingVersion,
-        'servedVersions': value.servedVersions,
+        'apiServerID': value['apiServerID'],
+        'decodableVersions': value['decodableVersions'],
+        'encodingVersion': value['encodingVersion'],
+        'servedVersions': value['servedVersions'],
     };
 }
 

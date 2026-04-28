@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,11 +30,9 @@ export interface V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation {
 /**
  * Check if a given object implements the V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation interface.
  */
-export function instanceOfV1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "users" in value;
-
-    return isInstance;
+export function instanceOfV1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation(value: object): value is V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation {
+    if (!('users' in value) || value['users'] === undefined) return false;
+    return true;
 }
 
 export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSON(json: any): V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation {
@@ -42,7 +40,7 @@ export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSON(
 }
 
 export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationFromJSONT
     };
 }
 
-export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSON(value?: V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSON(json: any): V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation {
+    return V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSONTyped(json, false);
+}
+
+export function V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagationToJSONTyped(value?: V1QemuGuestAgentSSHPublicKeyAccessCredentialPropagation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'users': value.users,
+        'users': value['users'],
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1DataVolumeSource } from './V1DataVolumeSource';
-import {
-    V1DataVolumeSourceFromJSON,
-    V1DataVolumeSourceFromJSONTyped,
-    V1DataVolumeSourceToJSON,
-} from './V1DataVolumeSource';
+import { mapValues } from '../../runtime';
 import type { V1PersistentVolumeClaimVolumeSource } from './V1PersistentVolumeClaimVolumeSource';
 import {
     V1PersistentVolumeClaimVolumeSourceFromJSON,
     V1PersistentVolumeClaimVolumeSourceFromJSONTyped,
     V1PersistentVolumeClaimVolumeSourceToJSON,
+    V1PersistentVolumeClaimVolumeSourceToJSONTyped,
 } from './V1PersistentVolumeClaimVolumeSource';
+import type { V1DataVolumeSource } from './V1DataVolumeSource';
+import {
+    V1DataVolumeSourceFromJSON,
+    V1DataVolumeSourceFromJSONTyped,
+    V1DataVolumeSourceToJSON,
+    V1DataVolumeSourceToJSONTyped,
+} from './V1DataVolumeSource';
 
 /**
  * HotplugVolumeSource Represents the source of a volume to mount which are capable of being hotplugged on a live running VMI. Only one of its members may be specified.
@@ -49,10 +51,8 @@ export interface V1HotplugVolumeSource {
 /**
  * Check if a given object implements the V1HotplugVolumeSource interface.
  */
-export function instanceOfV1HotplugVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1HotplugVolumeSource(value: object): value is V1HotplugVolumeSource {
+    return true;
 }
 
 export function V1HotplugVolumeSourceFromJSON(json: any): V1HotplugVolumeSource {
@@ -60,27 +60,29 @@ export function V1HotplugVolumeSourceFromJSON(json: any): V1HotplugVolumeSource 
 }
 
 export function V1HotplugVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1HotplugVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dataVolume': !exists(json, 'dataVolume') ? undefined : V1DataVolumeSourceFromJSON(json['dataVolume']),
-        'persistentVolumeClaim': !exists(json, 'persistentVolumeClaim') ? undefined : V1PersistentVolumeClaimVolumeSourceFromJSON(json['persistentVolumeClaim']),
+        'dataVolume': json['dataVolume'] == null ? undefined : V1DataVolumeSourceFromJSON(json['dataVolume']),
+        'persistentVolumeClaim': json['persistentVolumeClaim'] == null ? undefined : V1PersistentVolumeClaimVolumeSourceFromJSON(json['persistentVolumeClaim']),
     };
 }
 
-export function V1HotplugVolumeSourceToJSON(value?: V1HotplugVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HotplugVolumeSourceToJSON(json: any): V1HotplugVolumeSource {
+    return V1HotplugVolumeSourceToJSONTyped(json, false);
+}
+
+export function V1HotplugVolumeSourceToJSONTyped(value?: V1HotplugVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'dataVolume': V1DataVolumeSourceToJSON(value.dataVolume),
-        'persistentVolumeClaim': V1PersistentVolumeClaimVolumeSourceToJSON(value.persistentVolumeClaim),
+        'dataVolume': V1DataVolumeSourceToJSON(value['dataVolume']),
+        'persistentVolumeClaim': V1PersistentVolumeClaimVolumeSourceToJSON(value['persistentVolumeClaim']),
     };
 }
 

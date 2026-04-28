@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineGuestOSUser is the single user of the guest os
  * @export
@@ -26,7 +26,7 @@ export interface V1VirtualMachineInstanceGuestOSUser {
      */
     domain?: string;
     /**
-     * 
+     * Time of login of this user on the computer. If multiple instances of the user are logged in, the earliest login time is reported. The value is in fractional seconds since epoch time.
      * @type {number}
      * @memberof V1VirtualMachineInstanceGuestOSUser
      */
@@ -42,11 +42,9 @@ export interface V1VirtualMachineInstanceGuestOSUser {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceGuestOSUser interface.
  */
-export function instanceOfV1VirtualMachineInstanceGuestOSUser(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "userName" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceGuestOSUser(value: object): value is V1VirtualMachineInstanceGuestOSUser {
+    if (!('userName' in value) || value['userName'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceGuestOSUserFromJSON(json: any): V1VirtualMachineInstanceGuestOSUser {
@@ -54,29 +52,31 @@ export function V1VirtualMachineInstanceGuestOSUserFromJSON(json: any): V1Virtua
 }
 
 export function V1VirtualMachineInstanceGuestOSUserFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceGuestOSUser {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'domain': !exists(json, 'domain') ? undefined : json['domain'],
-        'loginTime': !exists(json, 'loginTime') ? undefined : json['loginTime'],
+        'domain': json['domain'] == null ? undefined : json['domain'],
+        'loginTime': json['loginTime'] == null ? undefined : json['loginTime'],
         'userName': json['userName'],
     };
 }
 
-export function V1VirtualMachineInstanceGuestOSUserToJSON(value?: V1VirtualMachineInstanceGuestOSUser | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceGuestOSUserToJSON(json: any): V1VirtualMachineInstanceGuestOSUser {
+    return V1VirtualMachineInstanceGuestOSUserToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceGuestOSUserToJSONTyped(value?: V1VirtualMachineInstanceGuestOSUser | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'domain': value.domain,
-        'loginTime': value.loginTime,
-        'userName': value.userName,
+        'domain': value['domain'],
+        'loginTime': value['loginTime'],
+        'userName': value['userName'],
     };
 }
 

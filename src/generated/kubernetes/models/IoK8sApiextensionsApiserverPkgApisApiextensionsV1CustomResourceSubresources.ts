@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScale';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources {
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourcesFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources {
@@ -54,27 +53,29 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceS
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourcesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'scale': !exists(json, 'scale') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleFromJSON(json['scale']),
-        'status': !exists(json, 'status') ? undefined : json['status'],
+        'scale': json['scale'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleFromJSON(json['scale']),
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourcesToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourcesToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourcesToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourcesToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresources | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'scale': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSON(value.scale),
-        'status': value.status,
+        'scale': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceSubresourceScaleToJSON(value['scale']),
+        'status': value['status'],
     };
 }
 

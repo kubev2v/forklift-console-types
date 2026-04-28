@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Describes the state of the storageVersion at a certain point.
  * @export
@@ -24,33 +24,33 @@ export interface IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
      * @type {Date}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
-     * A human readable message indicating details about the transition.
+     * message is a human readable string indicating details about the transition.
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
-    message?: string;
+    message: string;
     /**
-     * If set, this represents the .metadata.generation that the condition was set based upon.
+     * observedGeneration represents the .metadata.generation that the condition was set based upon, if field is set.
      * @type {number}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
     observedGeneration?: number;
     /**
-     * The reason for the condition's last transition.
+     * reason for the condition's last transition.
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
     reason: string;
     /**
-     * Status of the condition, one of True, False, Unknown.
+     * status of the condition, one of True, False, Unknown.
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
     status: string;
     /**
-     * Type of the condition.
+     * type of the condition.
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
@@ -60,13 +60,12 @@ export interface IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
 /**
  * Check if a given object implements the IoK8sApiApiserverinternalV1alpha1StorageVersionCondition interface.
  */
-export function instanceOfIoK8sApiApiserverinternalV1alpha1StorageVersionCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "reason" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiApiserverinternalV1alpha1StorageVersionCondition(value: object): value is IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
+    if (!('message' in value) || value['message'] === undefined) return false;
+    if (!('reason' in value) || value['reason'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSON(json: any): IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
@@ -74,35 +73,37 @@ export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSON
 }
 
 export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
         'reason': json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSON(value?: IoK8sApiApiserverinternalV1alpha1StorageVersionCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSON(json: any): IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
+    return IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSONTyped(value?: IoK8sApiApiserverinternalV1alpha1StorageVersionCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'observedGeneration': value.observedGeneration,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'observedGeneration': value['observedGeneration'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

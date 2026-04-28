@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricTarget } from './IoK8sApiAutoscalingV2MetricTarget';
 import {
     IoK8sApiAutoscalingV2MetricTargetFromJSON,
     IoK8sApiAutoscalingV2MetricTargetFromJSONTyped,
     IoK8sApiAutoscalingV2MetricTargetToJSON,
+    IoK8sApiAutoscalingV2MetricTargetToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricTarget';
 
 /**
@@ -43,12 +44,10 @@ export interface IoK8sApiAutoscalingV2ResourceMetricSource {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2ResourceMetricSource interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2ResourceMetricSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "target" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2ResourceMetricSource(value: object): value is IoK8sApiAutoscalingV2ResourceMetricSource {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('target' in value) || value['target'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2ResourceMetricSourceFromJSON(json: any): IoK8sApiAutoscalingV2ResourceMetricSource {
@@ -56,7 +55,7 @@ export function IoK8sApiAutoscalingV2ResourceMetricSourceFromJSON(json: any): Io
 }
 
 export function IoK8sApiAutoscalingV2ResourceMetricSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2ResourceMetricSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -66,17 +65,19 @@ export function IoK8sApiAutoscalingV2ResourceMetricSourceFromJSONTyped(json: any
     };
 }
 
-export function IoK8sApiAutoscalingV2ResourceMetricSourceToJSON(value?: IoK8sApiAutoscalingV2ResourceMetricSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2ResourceMetricSourceToJSON(json: any): IoK8sApiAutoscalingV2ResourceMetricSource {
+    return IoK8sApiAutoscalingV2ResourceMetricSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2ResourceMetricSourceToJSONTyped(value?: IoK8sApiAutoscalingV2ResourceMetricSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value.target),
+        'name': value['name'],
+        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value['target']),
     };
 }
 

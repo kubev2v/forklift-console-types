@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1EndpointAddress } from './IoK8sApiCoreV1EndpointAddress';
-import {
-    IoK8sApiCoreV1EndpointAddressFromJSON,
-    IoK8sApiCoreV1EndpointAddressFromJSONTyped,
-    IoK8sApiCoreV1EndpointAddressToJSON,
-} from './IoK8sApiCoreV1EndpointAddress';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1EndpointPort } from './IoK8sApiCoreV1EndpointPort';
 import {
     IoK8sApiCoreV1EndpointPortFromJSON,
     IoK8sApiCoreV1EndpointPortFromJSONTyped,
     IoK8sApiCoreV1EndpointPortToJSON,
+    IoK8sApiCoreV1EndpointPortToJSONTyped,
 } from './IoK8sApiCoreV1EndpointPort';
+import type { IoK8sApiCoreV1EndpointAddress } from './IoK8sApiCoreV1EndpointAddress';
+import {
+    IoK8sApiCoreV1EndpointAddressFromJSON,
+    IoK8sApiCoreV1EndpointAddressFromJSONTyped,
+    IoK8sApiCoreV1EndpointAddressToJSON,
+    IoK8sApiCoreV1EndpointAddressToJSONTyped,
+} from './IoK8sApiCoreV1EndpointAddress';
 
 /**
  * EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
@@ -38,6 +40,8 @@ import {
  * 
  * 	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
  * 	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+ * 
+ * Deprecated: This API is deprecated in v1.33+.
  * @export
  * @interface IoK8sApiCoreV1EndpointSubset
  */
@@ -65,10 +69,8 @@ export interface IoK8sApiCoreV1EndpointSubset {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EndpointSubset interface.
  */
-export function instanceOfIoK8sApiCoreV1EndpointSubset(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EndpointSubset(value: object): value is IoK8sApiCoreV1EndpointSubset {
+    return true;
 }
 
 export function IoK8sApiCoreV1EndpointSubsetFromJSON(json: any): IoK8sApiCoreV1EndpointSubset {
@@ -76,29 +78,31 @@ export function IoK8sApiCoreV1EndpointSubsetFromJSON(json: any): IoK8sApiCoreV1E
 }
 
 export function IoK8sApiCoreV1EndpointSubsetFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EndpointSubset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'addresses': !exists(json, 'addresses') ? undefined : ((json['addresses'] as Array<any>).map(IoK8sApiCoreV1EndpointAddressFromJSON)),
-        'notReadyAddresses': !exists(json, 'notReadyAddresses') ? undefined : ((json['notReadyAddresses'] as Array<any>).map(IoK8sApiCoreV1EndpointAddressFromJSON)),
-        'ports': !exists(json, 'ports') ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1EndpointPortFromJSON)),
+        'addresses': json['addresses'] == null ? undefined : ((json['addresses'] as Array<any>).map(IoK8sApiCoreV1EndpointAddressFromJSON)),
+        'notReadyAddresses': json['notReadyAddresses'] == null ? undefined : ((json['notReadyAddresses'] as Array<any>).map(IoK8sApiCoreV1EndpointAddressFromJSON)),
+        'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1EndpointPortFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1EndpointSubsetToJSON(value?: IoK8sApiCoreV1EndpointSubset | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EndpointSubsetToJSON(json: any): IoK8sApiCoreV1EndpointSubset {
+    return IoK8sApiCoreV1EndpointSubsetToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EndpointSubsetToJSONTyped(value?: IoK8sApiCoreV1EndpointSubset | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'addresses': value.addresses === undefined ? undefined : ((value.addresses as Array<any>).map(IoK8sApiCoreV1EndpointAddressToJSON)),
-        'notReadyAddresses': value.notReadyAddresses === undefined ? undefined : ((value.notReadyAddresses as Array<any>).map(IoK8sApiCoreV1EndpointAddressToJSON)),
-        'ports': value.ports === undefined ? undefined : ((value.ports as Array<any>).map(IoK8sApiCoreV1EndpointPortToJSON)),
+        'addresses': value['addresses'] == null ? undefined : ((value['addresses'] as Array<any>).map(IoK8sApiCoreV1EndpointAddressToJSON)),
+        'notReadyAddresses': value['notReadyAddresses'] == null ? undefined : ((value['notReadyAddresses'] as Array<any>).map(IoK8sApiCoreV1EndpointAddressToJSON)),
+        'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(IoK8sApiCoreV1EndpointPortToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * QueuingConfiguration holds the configuration parameters for queuing
  * @export
@@ -42,10 +42,8 @@ export interface IoK8sApiFlowcontrolV1QueuingConfiguration {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1QueuingConfiguration interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1QueuingConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1QueuingConfiguration(value: object): value is IoK8sApiFlowcontrolV1QueuingConfiguration {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1QueuingConfigurationFromJSON(json: any): IoK8sApiFlowcontrolV1QueuingConfiguration {
@@ -53,29 +51,31 @@ export function IoK8sApiFlowcontrolV1QueuingConfigurationFromJSON(json: any): Io
 }
 
 export function IoK8sApiFlowcontrolV1QueuingConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1QueuingConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'handSize': !exists(json, 'handSize') ? undefined : json['handSize'],
-        'queueLengthLimit': !exists(json, 'queueLengthLimit') ? undefined : json['queueLengthLimit'],
-        'queues': !exists(json, 'queues') ? undefined : json['queues'],
+        'handSize': json['handSize'] == null ? undefined : json['handSize'],
+        'queueLengthLimit': json['queueLengthLimit'] == null ? undefined : json['queueLengthLimit'],
+        'queues': json['queues'] == null ? undefined : json['queues'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1QueuingConfigurationToJSON(value?: IoK8sApiFlowcontrolV1QueuingConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1QueuingConfigurationToJSON(json: any): IoK8sApiFlowcontrolV1QueuingConfiguration {
+    return IoK8sApiFlowcontrolV1QueuingConfigurationToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1QueuingConfigurationToJSONTyped(value?: IoK8sApiFlowcontrolV1QueuingConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'handSize': value.handSize,
-        'queueLengthLimit': value.queueLengthLimit,
-        'queues': value.queues,
+        'handSize': value['handSize'],
+        'queueLengthLimit': value['queueLengthLimit'],
+        'queues': value['queues'],
     };
 }
 

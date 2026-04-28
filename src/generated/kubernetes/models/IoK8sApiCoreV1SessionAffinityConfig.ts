@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ClientIPConfig } from './IoK8sApiCoreV1ClientIPConfig';
 import {
     IoK8sApiCoreV1ClientIPConfigFromJSON,
     IoK8sApiCoreV1ClientIPConfigFromJSONTyped,
     IoK8sApiCoreV1ClientIPConfigToJSON,
+    IoK8sApiCoreV1ClientIPConfigToJSONTyped,
 } from './IoK8sApiCoreV1ClientIPConfig';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1SessionAffinityConfig {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SessionAffinityConfig interface.
  */
-export function instanceOfIoK8sApiCoreV1SessionAffinityConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SessionAffinityConfig(value: object): value is IoK8sApiCoreV1SessionAffinityConfig {
+    return true;
 }
 
 export function IoK8sApiCoreV1SessionAffinityConfigFromJSON(json: any): IoK8sApiCoreV1SessionAffinityConfig {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1SessionAffinityConfigFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1SessionAffinityConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SessionAffinityConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'clientIP': !exists(json, 'clientIP') ? undefined : IoK8sApiCoreV1ClientIPConfigFromJSON(json['clientIP']),
+        'clientIP': json['clientIP'] == null ? undefined : IoK8sApiCoreV1ClientIPConfigFromJSON(json['clientIP']),
     };
 }
 
-export function IoK8sApiCoreV1SessionAffinityConfigToJSON(value?: IoK8sApiCoreV1SessionAffinityConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SessionAffinityConfigToJSON(json: any): IoK8sApiCoreV1SessionAffinityConfig {
+    return IoK8sApiCoreV1SessionAffinityConfigToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SessionAffinityConfigToJSONTyped(value?: IoK8sApiCoreV1SessionAffinityConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'clientIP': IoK8sApiCoreV1ClientIPConfigToJSON(value.clientIP),
+        'clientIP': IoK8sApiCoreV1ClientIPConfigToJSON(value['clientIP']),
     };
 }
 

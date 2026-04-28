@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiNetworkingV1IngressBackend } from './IoK8sApiNetworkingV1IngressBackend';
-import {
-    IoK8sApiNetworkingV1IngressBackendFromJSON,
-    IoK8sApiNetworkingV1IngressBackendFromJSONTyped,
-    IoK8sApiNetworkingV1IngressBackendToJSON,
-} from './IoK8sApiNetworkingV1IngressBackend';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressRule } from './IoK8sApiNetworkingV1IngressRule';
 import {
     IoK8sApiNetworkingV1IngressRuleFromJSON,
     IoK8sApiNetworkingV1IngressRuleFromJSONTyped,
     IoK8sApiNetworkingV1IngressRuleToJSON,
+    IoK8sApiNetworkingV1IngressRuleToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressRule';
 import type { IoK8sApiNetworkingV1IngressTLS } from './IoK8sApiNetworkingV1IngressTLS';
 import {
     IoK8sApiNetworkingV1IngressTLSFromJSON,
     IoK8sApiNetworkingV1IngressTLSFromJSONTyped,
     IoK8sApiNetworkingV1IngressTLSToJSON,
+    IoK8sApiNetworkingV1IngressTLSToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressTLS';
+import type { IoK8sApiNetworkingV1IngressBackend } from './IoK8sApiNetworkingV1IngressBackend';
+import {
+    IoK8sApiNetworkingV1IngressBackendFromJSON,
+    IoK8sApiNetworkingV1IngressBackendFromJSONTyped,
+    IoK8sApiNetworkingV1IngressBackendToJSON,
+    IoK8sApiNetworkingV1IngressBackendToJSONTyped,
+} from './IoK8sApiNetworkingV1IngressBackend';
 
 /**
  * IngressSpec describes the Ingress the user wishes to exist.
@@ -67,10 +70,8 @@ export interface IoK8sApiNetworkingV1IngressSpec {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressSpec interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressSpec(value: object): value is IoK8sApiNetworkingV1IngressSpec {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressSpecFromJSON(json: any): IoK8sApiNetworkingV1IngressSpec {
@@ -78,31 +79,33 @@ export function IoK8sApiNetworkingV1IngressSpecFromJSON(json: any): IoK8sApiNetw
 }
 
 export function IoK8sApiNetworkingV1IngressSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'defaultBackend': !exists(json, 'defaultBackend') ? undefined : IoK8sApiNetworkingV1IngressBackendFromJSON(json['defaultBackend']),
-        'ingressClassName': !exists(json, 'ingressClassName') ? undefined : json['ingressClassName'],
-        'rules': !exists(json, 'rules') ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiNetworkingV1IngressRuleFromJSON)),
-        'tls': !exists(json, 'tls') ? undefined : ((json['tls'] as Array<any>).map(IoK8sApiNetworkingV1IngressTLSFromJSON)),
+        'defaultBackend': json['defaultBackend'] == null ? undefined : IoK8sApiNetworkingV1IngressBackendFromJSON(json['defaultBackend']),
+        'ingressClassName': json['ingressClassName'] == null ? undefined : json['ingressClassName'],
+        'rules': json['rules'] == null ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiNetworkingV1IngressRuleFromJSON)),
+        'tls': json['tls'] == null ? undefined : ((json['tls'] as Array<any>).map(IoK8sApiNetworkingV1IngressTLSFromJSON)),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressSpecToJSON(value?: IoK8sApiNetworkingV1IngressSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressSpecToJSON(json: any): IoK8sApiNetworkingV1IngressSpec {
+    return IoK8sApiNetworkingV1IngressSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressSpecToJSONTyped(value?: IoK8sApiNetworkingV1IngressSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'defaultBackend': IoK8sApiNetworkingV1IngressBackendToJSON(value.defaultBackend),
-        'ingressClassName': value.ingressClassName,
-        'rules': value.rules === undefined ? undefined : ((value.rules as Array<any>).map(IoK8sApiNetworkingV1IngressRuleToJSON)),
-        'tls': value.tls === undefined ? undefined : ((value.tls as Array<any>).map(IoK8sApiNetworkingV1IngressTLSToJSON)),
+        'defaultBackend': IoK8sApiNetworkingV1IngressBackendToJSON(value['defaultBackend']),
+        'ingressClassName': value['ingressClassName'],
+        'rules': value['rules'] == null ? undefined : ((value['rules'] as Array<any>).map(IoK8sApiNetworkingV1IngressRuleToJSON)),
+        'tls': value['tls'] == null ? undefined : ((value['tls'] as Array<any>).map(IoK8sApiNetworkingV1IngressTLSToJSON)),
     };
 }
 

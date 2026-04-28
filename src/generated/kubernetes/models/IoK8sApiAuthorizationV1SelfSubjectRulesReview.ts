@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec } from './IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec';
 import {
     IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecFromJSON,
     IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecFromJSONTyped,
     IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSON,
+    IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSONTyped,
 } from './IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec';
 import type { IoK8sApiAuthorizationV1SubjectRulesReviewStatus } from './IoK8sApiAuthorizationV1SubjectRulesReviewStatus';
 import {
     IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSON,
     IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSONTyped,
     IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSON,
+    IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSONTyped,
 } from './IoK8sApiAuthorizationV1SubjectRulesReviewStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,11 +76,9 @@ export interface IoK8sApiAuthorizationV1SelfSubjectRulesReview {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1SelfSubjectRulesReview interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1SelfSubjectRulesReview(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1SelfSubjectRulesReview(value: object): value is IoK8sApiAuthorizationV1SelfSubjectRulesReview {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewFromJSON(json: any): IoK8sApiAuthorizationV1SelfSubjectRulesReview {
@@ -85,33 +86,35 @@ export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewFromJSON(json: any)
 }
 
 export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1SelfSubjectRulesReview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSON(json['status']),
+        'status': json['status'] == null ? undefined : IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewToJSON(value?: IoK8sApiAuthorizationV1SelfSubjectRulesReview | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewToJSON(json: any): IoK8sApiAuthorizationV1SelfSubjectRulesReview {
+    return IoK8sApiAuthorizationV1SelfSubjectRulesReviewToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewToJSONTyped(value?: IoK8sApiAuthorizationV1SelfSubjectRulesReview | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSON(value.spec),
-        'status': IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSON(value['spec']),
+        'status': IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSON(value['status']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * LeaseSpec is a specification of a Lease.
  * @export
@@ -24,15 +24,15 @@ export interface IoK8sApiCoordinationV1LeaseSpec {
      * @type {Date}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
-    acquireTime?: string;
+    acquireTime?: Date;
     /**
-     * holderIdentity contains the identity of the holder of a current lease.
+     * holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
      * @type {string}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
     holderIdentity?: string;
     /**
-     * leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
+     * leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measured against the time of last observed renewTime.
      * @type {number}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
@@ -44,20 +44,30 @@ export interface IoK8sApiCoordinationV1LeaseSpec {
      */
     leaseTransitions?: number;
     /**
+     * PreferredHolder signals to a lease holder that the lease has a more optimal holder and should be given up. This field can only be set if Strategy is also set.
+     * @type {string}
+     * @memberof IoK8sApiCoordinationV1LeaseSpec
+     */
+    preferredHolder?: string;
+    /**
      * MicroTime is version of Time with microsecond level precision.
      * @type {Date}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
-    renewTime?: string;
+    renewTime?: Date;
+    /**
+     * Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
+     * @type {string}
+     * @memberof IoK8sApiCoordinationV1LeaseSpec
+     */
+    strategy?: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoordinationV1LeaseSpec interface.
  */
-export function instanceOfIoK8sApiCoordinationV1LeaseSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoordinationV1LeaseSpec(value: object): value is IoK8sApiCoordinationV1LeaseSpec {
+    return true;
 }
 
 export function IoK8sApiCoordinationV1LeaseSpecFromJSON(json: any): IoK8sApiCoordinationV1LeaseSpec {
@@ -65,33 +75,39 @@ export function IoK8sApiCoordinationV1LeaseSpecFromJSON(json: any): IoK8sApiCoor
 }
 
 export function IoK8sApiCoordinationV1LeaseSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoordinationV1LeaseSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'acquireTime': !exists(json, 'acquireTime') ? undefined : json['acquireTime'],
-        'holderIdentity': !exists(json, 'holderIdentity') ? undefined : json['holderIdentity'],
-        'leaseDurationSeconds': !exists(json, 'leaseDurationSeconds') ? undefined : json['leaseDurationSeconds'],
-        'leaseTransitions': !exists(json, 'leaseTransitions') ? undefined : json['leaseTransitions'],
-        'renewTime': !exists(json, 'renewTime') ? undefined : json['renewTime'],
+        'acquireTime': json['acquireTime'] == null ? undefined : (new Date(json['acquireTime'])),
+        'holderIdentity': json['holderIdentity'] == null ? undefined : json['holderIdentity'],
+        'leaseDurationSeconds': json['leaseDurationSeconds'] == null ? undefined : json['leaseDurationSeconds'],
+        'leaseTransitions': json['leaseTransitions'] == null ? undefined : json['leaseTransitions'],
+        'preferredHolder': json['preferredHolder'] == null ? undefined : json['preferredHolder'],
+        'renewTime': json['renewTime'] == null ? undefined : (new Date(json['renewTime'])),
+        'strategy': json['strategy'] == null ? undefined : json['strategy'],
     };
 }
 
-export function IoK8sApiCoordinationV1LeaseSpecToJSON(value?: IoK8sApiCoordinationV1LeaseSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoordinationV1LeaseSpecToJSON(json: any): IoK8sApiCoordinationV1LeaseSpec {
+    return IoK8sApiCoordinationV1LeaseSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoordinationV1LeaseSpecToJSONTyped(value?: IoK8sApiCoordinationV1LeaseSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'acquireTime': value.acquireTime === undefined ? undefined : (value.acquireTime),
-        'holderIdentity': value.holderIdentity,
-        'leaseDurationSeconds': value.leaseDurationSeconds,
-        'leaseTransitions': value.leaseTransitions,
-        'renewTime': value.renewTime === undefined ? undefined : (value.renewTime),
+        'acquireTime': value['acquireTime'] == null ? undefined : ((value['acquireTime']).toISOString()),
+        'holderIdentity': value['holderIdentity'],
+        'leaseDurationSeconds': value['leaseDurationSeconds'],
+        'leaseTransitions': value['leaseTransitions'],
+        'preferredHolder': value['preferredHolder'],
+        'renewTime': value['renewTime'] == null ? undefined : ((value['renewTime']).toISOString()),
+        'strategy': value['strategy'],
     };
 }
 

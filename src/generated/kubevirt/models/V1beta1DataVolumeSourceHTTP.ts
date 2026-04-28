@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DataVolumeSourceHTTP can be either an http or https endpoint, with an optional basic auth user name and password, and an optional configmap containing additional CAs
  * @export
@@ -54,11 +54,9 @@ export interface V1beta1DataVolumeSourceHTTP {
 /**
  * Check if a given object implements the V1beta1DataVolumeSourceHTTP interface.
  */
-export function instanceOfV1beta1DataVolumeSourceHTTP(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "url" in value;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeSourceHTTP(value: object): value is V1beta1DataVolumeSourceHTTP {
+    if (!('url' in value) || value['url'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1DataVolumeSourceHTTPFromJSON(json: any): V1beta1DataVolumeSourceHTTP {
@@ -66,33 +64,35 @@ export function V1beta1DataVolumeSourceHTTPFromJSON(json: any): V1beta1DataVolum
 }
 
 export function V1beta1DataVolumeSourceHTTPFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeSourceHTTP {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'certConfigMap': !exists(json, 'certConfigMap') ? undefined : json['certConfigMap'],
-        'extraHeaders': !exists(json, 'extraHeaders') ? undefined : json['extraHeaders'],
-        'secretExtraHeaders': !exists(json, 'secretExtraHeaders') ? undefined : json['secretExtraHeaders'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : json['secretRef'],
+        'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
+        'extraHeaders': json['extraHeaders'] == null ? undefined : json['extraHeaders'],
+        'secretExtraHeaders': json['secretExtraHeaders'] == null ? undefined : json['secretExtraHeaders'],
+        'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
         'url': json['url'],
     };
 }
 
-export function V1beta1DataVolumeSourceHTTPToJSON(value?: V1beta1DataVolumeSourceHTTP | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeSourceHTTPToJSON(json: any): V1beta1DataVolumeSourceHTTP {
+    return V1beta1DataVolumeSourceHTTPToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeSourceHTTPToJSONTyped(value?: V1beta1DataVolumeSourceHTTP | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'certConfigMap': value.certConfigMap,
-        'extraHeaders': value.extraHeaders,
-        'secretExtraHeaders': value.secretExtraHeaders,
-        'secretRef': value.secretRef,
-        'url': value.url,
+        'certConfigMap': value['certConfigMap'],
+        'extraHeaders': value['extraHeaders'],
+        'secretExtraHeaders': value['secretExtraHeaders'],
+        'secretRef': value['secretRef'],
+        'url': value['url'],
     };
 }
 

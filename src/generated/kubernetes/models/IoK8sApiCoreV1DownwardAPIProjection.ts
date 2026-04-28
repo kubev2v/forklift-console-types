@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1DownwardAPIVolumeFile } from './IoK8sApiCoreV1DownwardAPIVolumeFile';
 import {
     IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON,
     IoK8sApiCoreV1DownwardAPIVolumeFileFromJSONTyped,
     IoK8sApiCoreV1DownwardAPIVolumeFileToJSON,
+    IoK8sApiCoreV1DownwardAPIVolumeFileToJSONTyped,
 } from './IoK8sApiCoreV1DownwardAPIVolumeFile';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1DownwardAPIProjection {
 /**
  * Check if a given object implements the IoK8sApiCoreV1DownwardAPIProjection interface.
  */
-export function instanceOfIoK8sApiCoreV1DownwardAPIProjection(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1DownwardAPIProjection(value: object): value is IoK8sApiCoreV1DownwardAPIProjection {
+    return true;
 }
 
 export function IoK8sApiCoreV1DownwardAPIProjectionFromJSON(json: any): IoK8sApiCoreV1DownwardAPIProjection {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1DownwardAPIProjectionFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1DownwardAPIProjectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1DownwardAPIProjection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'items': !exists(json, 'items') ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON)),
+        'items': json['items'] == null ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1DownwardAPIProjectionToJSON(value?: IoK8sApiCoreV1DownwardAPIProjection | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1DownwardAPIProjectionToJSON(json: any): IoK8sApiCoreV1DownwardAPIProjection {
+    return IoK8sApiCoreV1DownwardAPIProjectionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1DownwardAPIProjectionToJSONTyped(value?: IoK8sApiCoreV1DownwardAPIProjection | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'items': value.items === undefined ? undefined : ((value.items as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileToJSON)),
+        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileToJSON)),
     };
 }
 

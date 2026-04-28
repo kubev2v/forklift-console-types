@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricTarget } from './IoK8sApiAutoscalingV2MetricTarget';
 import {
     IoK8sApiAutoscalingV2MetricTargetFromJSON,
     IoK8sApiAutoscalingV2MetricTargetFromJSONTyped,
     IoK8sApiAutoscalingV2MetricTargetToJSON,
+    IoK8sApiAutoscalingV2MetricTargetToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricTarget';
 
 /**
@@ -49,13 +50,11 @@ export interface IoK8sApiAutoscalingV2ContainerResourceMetricSource {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2ContainerResourceMetricSource interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2ContainerResourceMetricSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "container" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "target" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2ContainerResourceMetricSource(value: object): value is IoK8sApiAutoscalingV2ContainerResourceMetricSource {
+    if (!('container' in value) || value['container'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('target' in value) || value['target'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceFromJSON(json: any): IoK8sApiAutoscalingV2ContainerResourceMetricSource {
@@ -63,7 +62,7 @@ export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceFromJSON(json:
 }
 
 export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2ContainerResourceMetricSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -74,18 +73,20 @@ export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceFromJSONTyped(
     };
 }
 
-export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceToJSON(value?: IoK8sApiAutoscalingV2ContainerResourceMetricSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceToJSON(json: any): IoK8sApiAutoscalingV2ContainerResourceMetricSource {
+    return IoK8sApiAutoscalingV2ContainerResourceMetricSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2ContainerResourceMetricSourceToJSONTyped(value?: IoK8sApiAutoscalingV2ContainerResourceMetricSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'container': value.container,
-        'name': value.name,
-        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value.target),
+        'container': value['container'],
+        'name': value['name'],
+        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value['target']),
     };
 }
 

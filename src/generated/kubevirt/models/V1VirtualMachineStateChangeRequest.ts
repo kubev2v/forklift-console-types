@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,11 +42,9 @@ export interface V1VirtualMachineStateChangeRequest {
 /**
  * Check if a given object implements the V1VirtualMachineStateChangeRequest interface.
  */
-export function instanceOfV1VirtualMachineStateChangeRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "action" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineStateChangeRequest(value: object): value is V1VirtualMachineStateChangeRequest {
+    if (!('action' in value) || value['action'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineStateChangeRequestFromJSON(json: any): V1VirtualMachineStateChangeRequest {
@@ -54,29 +52,31 @@ export function V1VirtualMachineStateChangeRequestFromJSON(json: any): V1Virtual
 }
 
 export function V1VirtualMachineStateChangeRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineStateChangeRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'action': json['action'],
-        'data': !exists(json, 'data') ? undefined : json['data'],
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
+        'data': json['data'] == null ? undefined : json['data'],
+        'uid': json['uid'] == null ? undefined : json['uid'],
     };
 }
 
-export function V1VirtualMachineStateChangeRequestToJSON(value?: V1VirtualMachineStateChangeRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineStateChangeRequestToJSON(json: any): V1VirtualMachineStateChangeRequest {
+    return V1VirtualMachineStateChangeRequestToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineStateChangeRequestToJSONTyped(value?: V1VirtualMachineStateChangeRequest | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'action': value.action,
-        'data': value.data,
-        'uid': value.uid,
+        'action': value['action'],
+        'data': value['data'],
+        'uid': value['uid'],
     };
 }
 

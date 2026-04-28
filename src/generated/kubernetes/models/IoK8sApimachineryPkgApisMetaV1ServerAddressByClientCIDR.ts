@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "clientCIDR" in value;
-    isInstance = isInstance && "serverAddress" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR(value: object): value is IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR {
+    if (!('clientCIDR' in value) || value['clientCIDR'] === undefined) return false;
+    if (!('serverAddress' in value) || value['serverAddress'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR {
@@ -49,7 +47,7 @@ export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON(
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSONT
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON(value?: IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON(json: any): IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR {
+    return IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'clientCIDR': value.clientCIDR,
-        'serverAddress': value.serverAddress,
+        'clientCIDR': value['clientCIDR'],
+        'serverAddress': value['serverAddress'],
     };
 }
 

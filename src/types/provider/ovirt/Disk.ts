@@ -1,3 +1,4 @@
+import { OVirtLun } from './model';
 import { TypedOVirtResource } from './TypedResource';
 
 // https://github.com/kubev2v/forklift/tree/main/pkg/controller/provider/web/ovirt/disk.go
@@ -16,4 +17,6 @@ export interface OVirtDisk extends TypedOVirtResource {
   storageType: string;
   // Status          string `json:"status"`
   status: string;
+  // Lun             Lun    `json:"lunStorage"`
+  lunStorage: OVirtLun;
 }

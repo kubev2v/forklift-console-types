@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Overhead structure represents the resource overhead associated with running a pod.
  * @export
@@ -30,10 +30,8 @@ export interface IoK8sApiNodeV1Overhead {
 /**
  * Check if a given object implements the IoK8sApiNodeV1Overhead interface.
  */
-export function instanceOfIoK8sApiNodeV1Overhead(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNodeV1Overhead(value: object): value is IoK8sApiNodeV1Overhead {
+    return true;
 }
 
 export function IoK8sApiNodeV1OverheadFromJSON(json: any): IoK8sApiNodeV1Overhead {
@@ -41,25 +39,27 @@ export function IoK8sApiNodeV1OverheadFromJSON(json: any): IoK8sApiNodeV1Overhea
 }
 
 export function IoK8sApiNodeV1OverheadFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNodeV1Overhead {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'podFixed': !exists(json, 'podFixed') ? undefined : json['podFixed'],
+        'podFixed': json['podFixed'] == null ? undefined : json['podFixed'],
     };
 }
 
-export function IoK8sApiNodeV1OverheadToJSON(value?: IoK8sApiNodeV1Overhead | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNodeV1OverheadToJSON(json: any): IoK8sApiNodeV1Overhead {
+    return IoK8sApiNodeV1OverheadToJSONTyped(json, false);
+}
+
+export function IoK8sApiNodeV1OverheadToJSONTyped(value?: IoK8sApiNodeV1Overhead | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'podFixed': value.podFixed,
+        'podFixed': value['podFixed'],
     };
 }
 

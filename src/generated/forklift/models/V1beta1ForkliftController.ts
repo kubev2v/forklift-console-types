@@ -43,7 +43,7 @@ export interface V1beta1ForkliftController {
    * @required {false}
    * @originalType {V1beta1ForkliftControllerSpec}
    */
-  spec?: V1beta1ForkliftControllerSpec;
+  spec?: {};
   /** status
    * Status defines the observed state of ForkliftController
    *

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a vSphere volume resource.
  * @export
@@ -48,11 +48,9 @@ export interface IoK8sApiCoreV1VsphereVirtualDiskVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1VsphereVirtualDiskVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1VsphereVirtualDiskVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "volumePath" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1VsphereVirtualDiskVolumeSource(value: object): value is IoK8sApiCoreV1VsphereVirtualDiskVolumeSource {
+    if (!('volumePath' in value) || value['volumePath'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSON(json: any): IoK8sApiCoreV1VsphereVirtualDiskVolumeSource {
@@ -60,31 +58,33 @@ export function IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSON(json: any):
 }
 
 export function IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1VsphereVirtualDiskVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'storagePolicyID': !exists(json, 'storagePolicyID') ? undefined : json['storagePolicyID'],
-        'storagePolicyName': !exists(json, 'storagePolicyName') ? undefined : json['storagePolicyName'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'storagePolicyID': json['storagePolicyID'] == null ? undefined : json['storagePolicyID'],
+        'storagePolicyName': json['storagePolicyName'] == null ? undefined : json['storagePolicyName'],
         'volumePath': json['volumePath'],
     };
 }
 
-export function IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSON(value?: IoK8sApiCoreV1VsphereVirtualDiskVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSON(json: any): IoK8sApiCoreV1VsphereVirtualDiskVolumeSource {
+    return IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VsphereVirtualDiskVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1VsphereVirtualDiskVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'storagePolicyID': value.storagePolicyID,
-        'storagePolicyName': value.storagePolicyName,
-        'volumePath': value.volumePath,
+        'fsType': value['fsType'],
+        'storagePolicyID': value['storagePolicyID'],
+        'storagePolicyName': value['storagePolicyName'],
+        'volumePath': value['volumePath'],
     };
 }
 

@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAutoscalingV2CrossVersionObjectReference } from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
-import {
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON,
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped,
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON,
-} from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricIdentifier } from './IoK8sApiAutoscalingV2MetricIdentifier';
 import {
     IoK8sApiAutoscalingV2MetricIdentifierFromJSON,
     IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped,
     IoK8sApiAutoscalingV2MetricIdentifierToJSON,
+    IoK8sApiAutoscalingV2MetricIdentifierToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricIdentifier';
+import type { IoK8sApiAutoscalingV2CrossVersionObjectReference } from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
+import {
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSONTyped,
+} from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
 import type { IoK8sApiAutoscalingV2MetricValueStatus } from './IoK8sApiAutoscalingV2MetricValueStatus';
 import {
     IoK8sApiAutoscalingV2MetricValueStatusFromJSON,
     IoK8sApiAutoscalingV2MetricValueStatusFromJSONTyped,
     IoK8sApiAutoscalingV2MetricValueStatusToJSON,
+    IoK8sApiAutoscalingV2MetricValueStatusToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricValueStatus';
 
 /**
@@ -61,13 +64,11 @@ export interface IoK8sApiAutoscalingV2ObjectMetricStatus {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2ObjectMetricStatus interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2ObjectMetricStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "current" in value;
-    isInstance = isInstance && "describedObject" in value;
-    isInstance = isInstance && "metric" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2ObjectMetricStatus(value: object): value is IoK8sApiAutoscalingV2ObjectMetricStatus {
+    if (!('current' in value) || value['current'] === undefined) return false;
+    if (!('describedObject' in value) || value['describedObject'] === undefined) return false;
+    if (!('metric' in value) || value['metric'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2ObjectMetricStatusFromJSON(json: any): IoK8sApiAutoscalingV2ObjectMetricStatus {
@@ -75,7 +76,7 @@ export function IoK8sApiAutoscalingV2ObjectMetricStatusFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiAutoscalingV2ObjectMetricStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2ObjectMetricStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -86,18 +87,20 @@ export function IoK8sApiAutoscalingV2ObjectMetricStatusFromJSONTyped(json: any, 
     };
 }
 
-export function IoK8sApiAutoscalingV2ObjectMetricStatusToJSON(value?: IoK8sApiAutoscalingV2ObjectMetricStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2ObjectMetricStatusToJSON(json: any): IoK8sApiAutoscalingV2ObjectMetricStatus {
+    return IoK8sApiAutoscalingV2ObjectMetricStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2ObjectMetricStatusToJSONTyped(value?: IoK8sApiAutoscalingV2ObjectMetricStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'current': IoK8sApiAutoscalingV2MetricValueStatusToJSON(value.current),
-        'describedObject': IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value.describedObject),
-        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value.metric),
+        'current': IoK8sApiAutoscalingV2MetricValueStatusToJSON(value['current']),
+        'describedObject': IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value['describedObject']),
+        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value['metric']),
     };
 }
 

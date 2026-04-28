@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * StopOptions may be provided when deleting an API object.
  * @export
@@ -48,10 +48,8 @@ export interface V1StopOptions {
 /**
  * Check if a given object implements the V1StopOptions interface.
  */
-export function instanceOfV1StopOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1StopOptions(value: object): value is V1StopOptions {
+    return true;
 }
 
 export function V1StopOptionsFromJSON(json: any): V1StopOptions {
@@ -59,31 +57,33 @@ export function V1StopOptionsFromJSON(json: any): V1StopOptions {
 }
 
 export function V1StopOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1StopOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
-        'gracePeriod': !exists(json, 'gracePeriod') ? undefined : json['gracePeriod'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
+        'gracePeriod': json['gracePeriod'] == null ? undefined : json['gracePeriod'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
     };
 }
 
-export function V1StopOptionsToJSON(value?: V1StopOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1StopOptionsToJSON(json: any): V1StopOptions {
+    return V1StopOptionsToJSONTyped(json, false);
+}
+
+export function V1StopOptionsToJSONTyped(value?: V1StopOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'dryRun': value.dryRun,
-        'gracePeriod': value.gracePeriod,
-        'kind': value.kind,
+        'apiVersion': value['apiVersion'],
+        'dryRun': value['dryRun'],
+        'gracePeriod': value['gracePeriod'],
+        'kind': value['kind'],
     };
 }
 

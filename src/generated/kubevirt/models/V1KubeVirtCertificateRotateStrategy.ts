@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1KubeVirtSelfSignConfiguration } from './V1KubeVirtSelfSignConfiguration';
 import {
     V1KubeVirtSelfSignConfigurationFromJSON,
     V1KubeVirtSelfSignConfigurationFromJSONTyped,
     V1KubeVirtSelfSignConfigurationToJSON,
+    V1KubeVirtSelfSignConfigurationToJSONTyped,
 } from './V1KubeVirtSelfSignConfiguration';
 
 /**
@@ -37,10 +38,8 @@ export interface V1KubeVirtCertificateRotateStrategy {
 /**
  * Check if a given object implements the V1KubeVirtCertificateRotateStrategy interface.
  */
-export function instanceOfV1KubeVirtCertificateRotateStrategy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KubeVirtCertificateRotateStrategy(value: object): value is V1KubeVirtCertificateRotateStrategy {
+    return true;
 }
 
 export function V1KubeVirtCertificateRotateStrategyFromJSON(json: any): V1KubeVirtCertificateRotateStrategy {
@@ -48,25 +47,27 @@ export function V1KubeVirtCertificateRotateStrategyFromJSON(json: any): V1KubeVi
 }
 
 export function V1KubeVirtCertificateRotateStrategyFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtCertificateRotateStrategy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'selfSigned': !exists(json, 'selfSigned') ? undefined : V1KubeVirtSelfSignConfigurationFromJSON(json['selfSigned']),
+        'selfSigned': json['selfSigned'] == null ? undefined : V1KubeVirtSelfSignConfigurationFromJSON(json['selfSigned']),
     };
 }
 
-export function V1KubeVirtCertificateRotateStrategyToJSON(value?: V1KubeVirtCertificateRotateStrategy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtCertificateRotateStrategyToJSON(json: any): V1KubeVirtCertificateRotateStrategy {
+    return V1KubeVirtCertificateRotateStrategyToJSONTyped(json, false);
+}
+
+export function V1KubeVirtCertificateRotateStrategyToJSONTyped(value?: V1KubeVirtCertificateRotateStrategy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'selfSigned': V1KubeVirtSelfSignConfigurationToJSON(value.selfSigned),
+        'selfSigned': V1KubeVirtSelfSignConfigurationToJSON(value['selfSigned']),
     };
 }
 

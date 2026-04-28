@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * MigrateOptions may be provided on migrate request.
  * @export
  * @interface V1MigrateOptions
  */
 export interface V1MigrateOptions {
+    /**
+     * AddedNodeSelector is an additional selector that can be used to complement a NodeSelector or NodeAffinity as set on the VM to restrict the set of allowed target nodes for a migration. In case of key collisions, values set on the VM objects are going to be preserved to ensure that addedNodeSelector can only restrict but not bypass constraints already set on the VM object.
+     * @type {{ [key: string]: string; }}
+     * @memberof V1MigrateOptions
+     */
+    addedNodeSelector?: { [key: string]: string; };
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * @type {string}
@@ -42,10 +48,8 @@ export interface V1MigrateOptions {
 /**
  * Check if a given object implements the V1MigrateOptions interface.
  */
-export function instanceOfV1MigrateOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1MigrateOptions(value: object): value is V1MigrateOptions {
+    return true;
 }
 
 export function V1MigrateOptionsFromJSON(json: any): V1MigrateOptions {
@@ -53,29 +57,33 @@ export function V1MigrateOptionsFromJSON(json: any): V1MigrateOptions {
 }
 
 export function V1MigrateOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1MigrateOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'addedNodeSelector': json['addedNodeSelector'] == null ? undefined : json['addedNodeSelector'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
     };
 }
 
-export function V1MigrateOptionsToJSON(value?: V1MigrateOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MigrateOptionsToJSON(json: any): V1MigrateOptions {
+    return V1MigrateOptionsToJSONTyped(json, false);
+}
+
+export function V1MigrateOptionsToJSONTyped(value?: V1MigrateOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'dryRun': value.dryRun,
-        'kind': value.kind,
+        'addedNodeSelector': value['addedNodeSelector'],
+        'apiVersion': value['apiVersion'],
+        'dryRun': value['dryRun'],
+        'kind': value['kind'],
     };
 }
 

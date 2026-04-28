@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion';
-import {
-    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSON,
-    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSONTyped,
-    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSON,
-} from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames';
+import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion';
+import {
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSONTyped,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSONTyped,
+} from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersion } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersion';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersion';
 
 /**
@@ -79,14 +82,12 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "group" in value;
-    isInstance = isInstance && "names" in value;
-    isInstance = isInstance && "scope" in value;
-    isInstance = isInstance && "versions" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec {
+    if (!('group' in value) || value['group'] === undefined) return false;
+    if (!('names' in value) || value['names'] === undefined) return false;
+    if (!('scope' in value) || value['scope'] === undefined) return false;
+    if (!('versions' in value) || value['versions'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpecFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec {
@@ -94,35 +95,37 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceD
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conversion': !exists(json, 'conversion') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSON(json['conversion']),
+        'conversion': json['conversion'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSON(json['conversion']),
         'group': json['group'],
         'names': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSON(json['names']),
-        'preserveUnknownFields': !exists(json, 'preserveUnknownFields') ? undefined : json['preserveUnknownFields'],
+        'preserveUnknownFields': json['preserveUnknownFields'] == null ? undefined : json['preserveUnknownFields'],
         'scope': json['scope'],
         'versions': ((json['versions'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionFromJSON)),
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpecToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpecToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpecToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conversion': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSON(value.conversion),
-        'group': value.group,
-        'names': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON(value.names),
-        'preserveUnknownFields': value.preserveUnknownFields,
-        'scope': value.scope,
-        'versions': ((value.versions as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionToJSON)),
+        'conversion': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSON(value['conversion']),
+        'group': value['group'],
+        'names': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON(value['names']),
+        'preserveUnknownFields': value['preserveUnknownFields'],
+        'scope': value['scope'],
+        'versions': ((value['versions'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionVersionToJSON)),
     };
 }
 

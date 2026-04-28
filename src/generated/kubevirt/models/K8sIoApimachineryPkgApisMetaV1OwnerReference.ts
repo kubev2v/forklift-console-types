@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
  * @export
@@ -44,13 +44,13 @@ export interface K8sIoApimachineryPkgApisMetaV1OwnerReference {
      */
     kind: string;
     /**
-     * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * @type {string}
      * @memberof K8sIoApimachineryPkgApisMetaV1OwnerReference
      */
     name: string;
     /**
-     * UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * @type {string}
      * @memberof K8sIoApimachineryPkgApisMetaV1OwnerReference
      */
@@ -60,14 +60,12 @@ export interface K8sIoApimachineryPkgApisMetaV1OwnerReference {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1OwnerReference interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1OwnerReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "apiVersion" in value;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "uid" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1OwnerReference(value: object): value is K8sIoApimachineryPkgApisMetaV1OwnerReference {
+    if (!('apiVersion' in value) || value['apiVersion'] === undefined) return false;
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('uid' in value) || value['uid'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1OwnerReferenceFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1OwnerReference {
@@ -75,35 +73,37 @@ export function K8sIoApimachineryPkgApisMetaV1OwnerReferenceFromJSON(json: any):
 }
 
 export function K8sIoApimachineryPkgApisMetaV1OwnerReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1OwnerReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'apiVersion': json['apiVersion'],
-        'blockOwnerDeletion': !exists(json, 'blockOwnerDeletion') ? undefined : json['blockOwnerDeletion'],
-        'controller': !exists(json, 'controller') ? undefined : json['controller'],
+        'blockOwnerDeletion': json['blockOwnerDeletion'] == null ? undefined : json['blockOwnerDeletion'],
+        'controller': json['controller'] == null ? undefined : json['controller'],
         'kind': json['kind'],
         'name': json['name'],
         'uid': json['uid'],
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1OwnerReferenceToJSON(value?: K8sIoApimachineryPkgApisMetaV1OwnerReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1OwnerReferenceToJSON(json: any): K8sIoApimachineryPkgApisMetaV1OwnerReference {
+    return K8sIoApimachineryPkgApisMetaV1OwnerReferenceToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1OwnerReferenceToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1OwnerReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'blockOwnerDeletion': value.blockOwnerDeletion,
-        'controller': value.controller,
-        'kind': value.kind,
-        'name': value.name,
-        'uid': value.uid,
+        'apiVersion': value['apiVersion'],
+        'blockOwnerDeletion': value['blockOwnerDeletion'],
+        'controller': value['controller'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'uid': value['uid'],
     };
 }
 

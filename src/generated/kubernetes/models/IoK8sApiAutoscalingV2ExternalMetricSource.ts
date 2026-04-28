@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAutoscalingV2MetricIdentifier } from './IoK8sApiAutoscalingV2MetricIdentifier';
-import {
-    IoK8sApiAutoscalingV2MetricIdentifierFromJSON,
-    IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped,
-    IoK8sApiAutoscalingV2MetricIdentifierToJSON,
-} from './IoK8sApiAutoscalingV2MetricIdentifier';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricTarget } from './IoK8sApiAutoscalingV2MetricTarget';
 import {
     IoK8sApiAutoscalingV2MetricTargetFromJSON,
     IoK8sApiAutoscalingV2MetricTargetFromJSONTyped,
     IoK8sApiAutoscalingV2MetricTargetToJSON,
+    IoK8sApiAutoscalingV2MetricTargetToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricTarget';
+import type { IoK8sApiAutoscalingV2MetricIdentifier } from './IoK8sApiAutoscalingV2MetricIdentifier';
+import {
+    IoK8sApiAutoscalingV2MetricIdentifierFromJSON,
+    IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped,
+    IoK8sApiAutoscalingV2MetricIdentifierToJSON,
+    IoK8sApiAutoscalingV2MetricIdentifierToJSONTyped,
+} from './IoK8sApiAutoscalingV2MetricIdentifier';
 
 /**
  * ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
@@ -49,12 +51,10 @@ export interface IoK8sApiAutoscalingV2ExternalMetricSource {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2ExternalMetricSource interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2ExternalMetricSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "metric" in value;
-    isInstance = isInstance && "target" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2ExternalMetricSource(value: object): value is IoK8sApiAutoscalingV2ExternalMetricSource {
+    if (!('metric' in value) || value['metric'] === undefined) return false;
+    if (!('target' in value) || value['target'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2ExternalMetricSourceFromJSON(json: any): IoK8sApiAutoscalingV2ExternalMetricSource {
@@ -62,7 +62,7 @@ export function IoK8sApiAutoscalingV2ExternalMetricSourceFromJSON(json: any): Io
 }
 
 export function IoK8sApiAutoscalingV2ExternalMetricSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2ExternalMetricSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -72,17 +72,19 @@ export function IoK8sApiAutoscalingV2ExternalMetricSourceFromJSONTyped(json: any
     };
 }
 
-export function IoK8sApiAutoscalingV2ExternalMetricSourceToJSON(value?: IoK8sApiAutoscalingV2ExternalMetricSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2ExternalMetricSourceToJSON(json: any): IoK8sApiAutoscalingV2ExternalMetricSource {
+    return IoK8sApiAutoscalingV2ExternalMetricSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2ExternalMetricSourceToJSONTyped(value?: IoK8sApiAutoscalingV2ExternalMetricSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value.metric),
-        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value.target),
+        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value['metric']),
+        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value['target']),
     };
 }
 

@@ -12,22 +12,24 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1Endpoints } from './IoK8sApiCoreV1Endpoints';
 import {
     IoK8sApiCoreV1EndpointsFromJSON,
     IoK8sApiCoreV1EndpointsFromJSONTyped,
     IoK8sApiCoreV1EndpointsToJSON,
+    IoK8sApiCoreV1EndpointsToJSONTyped,
 } from './IoK8sApiCoreV1Endpoints';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
- * EndpointsList is a list of endpoints.
+ * EndpointsList is a list of endpoints. Deprecated: This API is deprecated in v1.33+.
  * @export
  * @interface IoK8sApiCoreV1EndpointsList
  */
@@ -61,11 +63,9 @@ export interface IoK8sApiCoreV1EndpointsList {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EndpointsList interface.
  */
-export function instanceOfIoK8sApiCoreV1EndpointsList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EndpointsList(value: object): value is IoK8sApiCoreV1EndpointsList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1EndpointsListFromJSON(json: any): IoK8sApiCoreV1EndpointsList {
@@ -73,31 +73,33 @@ export function IoK8sApiCoreV1EndpointsListFromJSON(json: any): IoK8sApiCoreV1En
 }
 
 export function IoK8sApiCoreV1EndpointsListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EndpointsList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiCoreV1EndpointsFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiCoreV1EndpointsListToJSON(value?: IoK8sApiCoreV1EndpointsList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EndpointsListToJSON(json: any): IoK8sApiCoreV1EndpointsList {
+    return IoK8sApiCoreV1EndpointsListToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EndpointsListToJSONTyped(value?: IoK8sApiCoreV1EndpointsList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiCoreV1EndpointsToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiCoreV1EndpointsToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * StartOptions may be provided on start request.
  * @export
@@ -48,10 +48,8 @@ export interface V1StartOptions {
 /**
  * Check if a given object implements the V1StartOptions interface.
  */
-export function instanceOfV1StartOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1StartOptions(value: object): value is V1StartOptions {
+    return true;
 }
 
 export function V1StartOptionsFromJSON(json: any): V1StartOptions {
@@ -59,31 +57,33 @@ export function V1StartOptionsFromJSON(json: any): V1StartOptions {
 }
 
 export function V1StartOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1StartOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'paused': !exists(json, 'paused') ? undefined : json['paused'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'paused': json['paused'] == null ? undefined : json['paused'],
     };
 }
 
-export function V1StartOptionsToJSON(value?: V1StartOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1StartOptionsToJSON(json: any): V1StartOptions {
+    return V1StartOptionsToJSONTyped(json, false);
+}
+
+export function V1StartOptionsToJSONTyped(value?: V1StartOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'dryRun': value.dryRun,
-        'kind': value.kind,
-        'paused': value.paused,
+        'apiVersion': value['apiVersion'],
+        'dryRun': value['dryRun'],
+        'kind': value['kind'],
+        'paused': value['paused'],
     };
 }
 

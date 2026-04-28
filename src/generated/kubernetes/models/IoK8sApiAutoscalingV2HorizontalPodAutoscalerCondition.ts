@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition {
      * @type {Date}
      * @memberof IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * message is a human-readable explanation containing details about the transition
      * @type {string}
@@ -54,12 +54,10 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition(value: object): value is IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition {
@@ -67,33 +65,35 @@ export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSON(js
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSON(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition {
+    return IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSONTyped(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

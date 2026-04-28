@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1HypervTimer {
 /**
  * Check if a given object implements the V1HypervTimer interface.
  */
-export function instanceOfV1HypervTimer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1HypervTimer(value: object): value is V1HypervTimer {
+    return true;
 }
 
 export function V1HypervTimerFromJSON(json: any): V1HypervTimer {
@@ -41,25 +39,27 @@ export function V1HypervTimerFromJSON(json: any): V1HypervTimer {
 }
 
 export function V1HypervTimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1HypervTimer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'present': !exists(json, 'present') ? undefined : json['present'],
+        'present': json['present'] == null ? undefined : json['present'],
     };
 }
 
-export function V1HypervTimerToJSON(value?: V1HypervTimer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HypervTimerToJSON(json: any): V1HypervTimer {
+    return V1HypervTimerToJSONTyped(json, false);
+}
+
+export function V1HypervTimerToJSONTyped(value?: V1HypervTimer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'present': value.present,
+        'present': value['present'],
     };
 }
 

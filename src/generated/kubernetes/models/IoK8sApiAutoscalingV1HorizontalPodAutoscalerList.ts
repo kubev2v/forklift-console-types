@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV1HorizontalPodAutoscaler } from './IoK8sApiAutoscalingV1HorizontalPodAutoscaler';
 import {
     IoK8sApiAutoscalingV1HorizontalPodAutoscalerFromJSON,
     IoK8sApiAutoscalingV1HorizontalPodAutoscalerFromJSONTyped,
     IoK8sApiAutoscalingV1HorizontalPodAutoscalerToJSON,
+    IoK8sApiAutoscalingV1HorizontalPodAutoscalerToJSONTyped,
 } from './IoK8sApiAutoscalingV1HorizontalPodAutoscaler';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiAutoscalingV1HorizontalPodAutoscalerList {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV1HorizontalPodAutoscalerList interface.
  */
-export function instanceOfIoK8sApiAutoscalingV1HorizontalPodAutoscalerList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV1HorizontalPodAutoscalerList(value: object): value is IoK8sApiAutoscalingV1HorizontalPodAutoscalerList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerListFromJSON(json: any): IoK8sApiAutoscalingV1HorizontalPodAutoscalerList {
@@ -73,31 +73,33 @@ export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerListFromJSON(json: a
 }
 
 export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV1HorizontalPodAutoscalerList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiAutoscalingV1HorizontalPodAutoscalerFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerListToJSON(value?: IoK8sApiAutoscalingV1HorizontalPodAutoscalerList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerListToJSON(json: any): IoK8sApiAutoscalingV1HorizontalPodAutoscalerList {
+    return IoK8sApiAutoscalingV1HorizontalPodAutoscalerListToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerListToJSONTyped(value?: IoK8sApiAutoscalingV1HorizontalPodAutoscalerList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiAutoscalingV1HorizontalPodAutoscalerToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiAutoscalingV1HorizontalPodAutoscalerToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * GenerationStatus keeps track of the generation for a given resource so that decisions about forced updates can be made.
  * @export
@@ -60,14 +60,12 @@ export interface V1GenerationStatus {
 /**
  * Check if a given object implements the V1GenerationStatus interface.
  */
-export function instanceOfV1GenerationStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "group" in value;
-    isInstance = isInstance && "lastGeneration" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "resource" in value;
-
-    return isInstance;
+export function instanceOfV1GenerationStatus(value: object): value is V1GenerationStatus {
+    if (!('group' in value) || value['group'] === undefined) return false;
+    if (!('lastGeneration' in value) || value['lastGeneration'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('resource' in value) || value['resource'] === undefined) return false;
+    return true;
 }
 
 export function V1GenerationStatusFromJSON(json: any): V1GenerationStatus {
@@ -75,35 +73,37 @@ export function V1GenerationStatusFromJSON(json: any): V1GenerationStatus {
 }
 
 export function V1GenerationStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1GenerationStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'group': json['group'],
-        'hash': !exists(json, 'hash') ? undefined : json['hash'],
+        'hash': json['hash'] == null ? undefined : json['hash'],
         'lastGeneration': json['lastGeneration'],
         'name': json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
         'resource': json['resource'],
     };
 }
 
-export function V1GenerationStatusToJSON(value?: V1GenerationStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1GenerationStatusToJSON(json: any): V1GenerationStatus {
+    return V1GenerationStatusToJSONTyped(json, false);
+}
+
+export function V1GenerationStatusToJSONTyped(value?: V1GenerationStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'group': value.group,
-        'hash': value.hash,
-        'lastGeneration': value.lastGeneration,
-        'name': value.name,
-        'namespace': value.namespace,
-        'resource': value.resource,
+        'group': value['group'],
+        'hash': value['hash'],
+        'lastGeneration': value['lastGeneration'],
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'resource': value['resource'],
     };
 }
 

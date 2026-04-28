@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * UserInfo holds the information about the user needed to implement the user.Info interface.
  * @export
@@ -20,25 +20,25 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthenticationV1UserInfo {
     /**
-     * Any additional information provided by the authenticator.
-     * @type {{ [key: string]: string[]; }}
+     * extra is any additional information provided by the authenticator.
+     * @type {{ [key: string]: Array<string>; }}
      * @memberof IoK8sApiAuthenticationV1UserInfo
      */
-    extra?: { [key: string]: string[]; };
+    extra?: { [key: string]: Array<string>; };
     /**
-     * The names of groups this user is a part of.
+     * groups is the names of groups this user is a part of.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthenticationV1UserInfo
      */
-    groups?: string[];
+    groups?: Array<string>;
     /**
-     * A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
+     * uid is a unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1UserInfo
      */
     uid?: string;
     /**
-     * The name that uniquely identifies this user among all active users.
+     * username is the name that uniquely identifies this user among all active users.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1UserInfo
      */
@@ -48,10 +48,8 @@ export interface IoK8sApiAuthenticationV1UserInfo {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1UserInfo interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1UserInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1UserInfo(value: object): value is IoK8sApiAuthenticationV1UserInfo {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1UserInfoFromJSON(json: any): IoK8sApiAuthenticationV1UserInfo {
@@ -59,31 +57,33 @@ export function IoK8sApiAuthenticationV1UserInfoFromJSON(json: any): IoK8sApiAut
 }
 
 export function IoK8sApiAuthenticationV1UserInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1UserInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'extra': !exists(json, 'extra') ? undefined : json['extra'],
-        'groups': !exists(json, 'groups') ? undefined : json['groups'],
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
-        'username': !exists(json, 'username') ? undefined : json['username'],
+        'extra': json['extra'] == null ? undefined : json['extra'],
+        'groups': json['groups'] == null ? undefined : json['groups'],
+        'uid': json['uid'] == null ? undefined : json['uid'],
+        'username': json['username'] == null ? undefined : json['username'],
     };
 }
 
-export function IoK8sApiAuthenticationV1UserInfoToJSON(value?: IoK8sApiAuthenticationV1UserInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1UserInfoToJSON(json: any): IoK8sApiAuthenticationV1UserInfo {
+    return IoK8sApiAuthenticationV1UserInfoToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1UserInfoToJSONTyped(value?: IoK8sApiAuthenticationV1UserInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'extra': value.extra,
-        'groups': value.groups,
-        'uid': value.uid,
-        'username': value.username,
+        'extra': value['extra'],
+        'groups': value['groups'],
+        'uid': value['uid'],
+        'username': value['username'],
     };
 }
 

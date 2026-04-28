@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DataVolumeCheckpoint defines a stage in a warm migration.
  * @export
@@ -36,12 +36,10 @@ export interface V1beta1DataVolumeCheckpoint {
 /**
  * Check if a given object implements the V1beta1DataVolumeCheckpoint interface.
  */
-export function instanceOfV1beta1DataVolumeCheckpoint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "current" in value;
-    isInstance = isInstance && "previous" in value;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeCheckpoint(value: object): value is V1beta1DataVolumeCheckpoint {
+    if (!('current' in value) || value['current'] === undefined) return false;
+    if (!('previous' in value) || value['previous'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1DataVolumeCheckpointFromJSON(json: any): V1beta1DataVolumeCheckpoint {
@@ -49,7 +47,7 @@ export function V1beta1DataVolumeCheckpointFromJSON(json: any): V1beta1DataVolum
 }
 
 export function V1beta1DataVolumeCheckpointFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeCheckpoint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function V1beta1DataVolumeCheckpointFromJSONTyped(json: any, ignoreDiscri
     };
 }
 
-export function V1beta1DataVolumeCheckpointToJSON(value?: V1beta1DataVolumeCheckpoint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeCheckpointToJSON(json: any): V1beta1DataVolumeCheckpoint {
+    return V1beta1DataVolumeCheckpointToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeCheckpointToJSONTyped(value?: V1beta1DataVolumeCheckpoint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'current': value.current,
-        'previous': value.previous,
+        'current': value['current'],
+        'previous': value['previous'],
     };
 }
 

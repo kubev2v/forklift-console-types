@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
 import {
     IoK8sApiCoreV1ObjectReferenceFromJSON,
     IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1ObjectReferenceToJSON,
+    IoK8sApiCoreV1ObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1ObjectReference';
 
 /**
@@ -37,22 +38,20 @@ export interface IoK8sApiBatchV1CronJobStatus {
      * @type {Date}
      * @memberof IoK8sApiBatchV1CronJobStatus
      */
-    lastScheduleTime?: string;
+    lastScheduleTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiBatchV1CronJobStatus
      */
-    lastSuccessfulTime?: string;
+    lastSuccessfulTime?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiBatchV1CronJobStatus interface.
  */
-export function instanceOfIoK8sApiBatchV1CronJobStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1CronJobStatus(value: object): value is IoK8sApiBatchV1CronJobStatus {
+    return true;
 }
 
 export function IoK8sApiBatchV1CronJobStatusFromJSON(json: any): IoK8sApiBatchV1CronJobStatus {
@@ -60,29 +59,31 @@ export function IoK8sApiBatchV1CronJobStatusFromJSON(json: any): IoK8sApiBatchV1
 }
 
 export function IoK8sApiBatchV1CronJobStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1CronJobStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'active': !exists(json, 'active') ? undefined : ((json['active'] as Array<any>).map(IoK8sApiCoreV1ObjectReferenceFromJSON)),
-        'lastScheduleTime': !exists(json, 'lastScheduleTime') ? undefined : json['lastScheduleTime'],
-        'lastSuccessfulTime': !exists(json, 'lastSuccessfulTime') ? undefined : json['lastSuccessfulTime'],
+        'active': json['active'] == null ? undefined : ((json['active'] as Array<any>).map(IoK8sApiCoreV1ObjectReferenceFromJSON)),
+        'lastScheduleTime': json['lastScheduleTime'] == null ? undefined : (new Date(json['lastScheduleTime'])),
+        'lastSuccessfulTime': json['lastSuccessfulTime'] == null ? undefined : (new Date(json['lastSuccessfulTime'])),
     };
 }
 
-export function IoK8sApiBatchV1CronJobStatusToJSON(value?: IoK8sApiBatchV1CronJobStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1CronJobStatusToJSON(json: any): IoK8sApiBatchV1CronJobStatus {
+    return IoK8sApiBatchV1CronJobStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1CronJobStatusToJSONTyped(value?: IoK8sApiBatchV1CronJobStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'active': value.active === undefined ? undefined : ((value.active as Array<any>).map(IoK8sApiCoreV1ObjectReferenceToJSON)),
-        'lastScheduleTime': value.lastScheduleTime === undefined ? undefined : (value.lastScheduleTime),
-        'lastSuccessfulTime': value.lastSuccessfulTime === undefined ? undefined : (value.lastSuccessfulTime),
+        'active': value['active'] == null ? undefined : ((value['active'] as Array<any>).map(IoK8sApiCoreV1ObjectReferenceToJSON)),
+        'lastScheduleTime': value['lastScheduleTime'] == null ? undefined : ((value['lastScheduleTime']).toISOString()),
+        'lastSuccessfulTime': value['lastSuccessfulTime'] == null ? undefined : ((value['lastSuccessfulTime']).toISOString()),
     };
 }
 

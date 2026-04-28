@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,12 +36,10 @@ export interface V1Filesystem {
 /**
  * Check if a given object implements the V1Filesystem interface.
  */
-export function instanceOfV1Filesystem(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "virtiofs" in value;
-
-    return isInstance;
+export function instanceOfV1Filesystem(value: object): value is V1Filesystem {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('virtiofs' in value) || value['virtiofs'] === undefined) return false;
+    return true;
 }
 
 export function V1FilesystemFromJSON(json: any): V1Filesystem {
@@ -49,7 +47,7 @@ export function V1FilesystemFromJSON(json: any): V1Filesystem {
 }
 
 export function V1FilesystemFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Filesystem {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function V1FilesystemFromJSONTyped(json: any, ignoreDiscriminator: boolea
     };
 }
 
-export function V1FilesystemToJSON(value?: V1Filesystem | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FilesystemToJSON(json: any): V1Filesystem {
+    return V1FilesystemToJSONTyped(json, false);
+}
+
+export function V1FilesystemToJSONTyped(value?: V1Filesystem | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'virtiofs': value.virtiofs,
+        'name': value['name'],
+        'virtiofs': value['virtiofs'],
     };
 }
 

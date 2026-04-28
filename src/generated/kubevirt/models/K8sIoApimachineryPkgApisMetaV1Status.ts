@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { K8sIoApimachineryPkgApisMetaV1StatusDetails } from './K8sIoApimachineryPkgApisMetaV1StatusDetails';
 import {
     K8sIoApimachineryPkgApisMetaV1StatusDetailsFromJSON,
     K8sIoApimachineryPkgApisMetaV1StatusDetailsFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1StatusDetailsToJSON,
+    K8sIoApimachineryPkgApisMetaV1StatusDetailsToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1StatusDetails';
 
 /**
@@ -85,10 +87,8 @@ export interface K8sIoApimachineryPkgApisMetaV1Status {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1Status interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1Status(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1Status(value: object): value is K8sIoApimachineryPkgApisMetaV1Status {
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1StatusFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1Status {
@@ -96,39 +96,41 @@ export function K8sIoApimachineryPkgApisMetaV1StatusFromJSON(json: any): K8sIoAp
 }
 
 export function K8sIoApimachineryPkgApisMetaV1StatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1Status {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'code': !exists(json, 'code') ? undefined : json['code'],
-        'details': !exists(json, 'details') ? undefined : K8sIoApimachineryPkgApisMetaV1StatusDetailsFromJSON(json['details']),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'status': !exists(json, 'status') ? undefined : json['status'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'code': json['code'] == null ? undefined : json['code'],
+        'details': json['details'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1StatusDetailsFromJSON(json['details']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1StatusToJSON(value?: K8sIoApimachineryPkgApisMetaV1Status | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1StatusToJSON(json: any): K8sIoApimachineryPkgApisMetaV1Status {
+    return K8sIoApimachineryPkgApisMetaV1StatusToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1StatusToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1Status | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'code': value.code,
-        'details': K8sIoApimachineryPkgApisMetaV1StatusDetailsToJSON(value.details),
-        'kind': value.kind,
-        'message': value.message,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
-        'reason': value.reason,
-        'status': value.status,
+        'apiVersion': value['apiVersion'],
+        'code': value['code'],
+        'details': K8sIoApimachineryPkgApisMetaV1StatusDetailsToJSON(value['details']),
+        'kind': value['kind'],
+        'message': value['message'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
+        'reason': value['reason'],
+        'status': value['status'],
     };
 }
 

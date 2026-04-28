@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy {
 /**
  * Check if a given object implements the IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy interface.
  */
-export function instanceOfIoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy(value: object): value is IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy {
+    return true;
 }
 
 export function IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSON(json: any): IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy {
@@ -47,27 +45,29 @@ export function IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFro
 }
 
 export function IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'whenDeleted': !exists(json, 'whenDeleted') ? undefined : json['whenDeleted'],
-        'whenScaled': !exists(json, 'whenScaled') ? undefined : json['whenScaled'],
+        'whenDeleted': json['whenDeleted'] == null ? undefined : json['whenDeleted'],
+        'whenScaled': json['whenScaled'] == null ? undefined : json['whenScaled'],
     };
 }
 
-export function IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSON(value?: IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSON(json: any): IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy {
+    return IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSONTyped(value?: IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'whenDeleted': value.whenDeleted,
-        'whenScaled': value.whenScaled,
+        'whenDeleted': value['whenDeleted'],
+        'whenScaled': value['whenScaled'],
     };
 }
 

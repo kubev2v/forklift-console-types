@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiEventsV1Event } from './IoK8sApiEventsV1Event';
 import {
     IoK8sApiEventsV1EventFromJSON,
     IoK8sApiEventsV1EventFromJSONTyped,
     IoK8sApiEventsV1EventToJSON,
+    IoK8sApiEventsV1EventToJSONTyped,
 } from './IoK8sApiEventsV1Event';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiEventsV1EventList {
 /**
  * Check if a given object implements the IoK8sApiEventsV1EventList interface.
  */
-export function instanceOfIoK8sApiEventsV1EventList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiEventsV1EventList(value: object): value is IoK8sApiEventsV1EventList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiEventsV1EventListFromJSON(json: any): IoK8sApiEventsV1EventList {
@@ -73,31 +73,33 @@ export function IoK8sApiEventsV1EventListFromJSON(json: any): IoK8sApiEventsV1Ev
 }
 
 export function IoK8sApiEventsV1EventListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiEventsV1EventList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiEventsV1EventFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiEventsV1EventListToJSON(value?: IoK8sApiEventsV1EventList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiEventsV1EventListToJSON(json: any): IoK8sApiEventsV1EventList {
+    return IoK8sApiEventsV1EventListToJSONTyped(json, false);
+}
+
+export function IoK8sApiEventsV1EventListToJSONTyped(value?: IoK8sApiEventsV1EventList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiEventsV1EventToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiEventsV1EventToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

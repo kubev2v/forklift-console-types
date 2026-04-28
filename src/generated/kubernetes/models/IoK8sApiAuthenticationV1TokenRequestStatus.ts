@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * TokenRequestStatus is the result of a token request.
  * @export
@@ -24,24 +24,20 @@ export interface IoK8sApiAuthenticationV1TokenRequestStatus {
      * @type {Date}
      * @memberof IoK8sApiAuthenticationV1TokenRequestStatus
      */
-    expirationTimestamp: string;
+    expirationTimestamp?: Date;
     /**
-     * Token is the opaque bearer token.
+     * token is the opaque bearer token.
      * @type {string}
      * @memberof IoK8sApiAuthenticationV1TokenRequestStatus
      */
-    token: string;
+    token?: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1TokenRequestStatus interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1TokenRequestStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "expirationTimestamp" in value;
-    isInstance = isInstance && "token" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1TokenRequestStatus(value: object): value is IoK8sApiAuthenticationV1TokenRequestStatus {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1TokenRequestStatusFromJSON(json: any): IoK8sApiAuthenticationV1TokenRequestStatus {
@@ -49,27 +45,29 @@ export function IoK8sApiAuthenticationV1TokenRequestStatusFromJSON(json: any): I
 }
 
 export function IoK8sApiAuthenticationV1TokenRequestStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1TokenRequestStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'expirationTimestamp': json['expirationTimestamp'],
-        'token': json['token'],
+        'expirationTimestamp': json['expirationTimestamp'] == null ? undefined : (new Date(json['expirationTimestamp'])),
+        'token': json['token'] == null ? undefined : json['token'],
     };
 }
 
-export function IoK8sApiAuthenticationV1TokenRequestStatusToJSON(value?: IoK8sApiAuthenticationV1TokenRequestStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1TokenRequestStatusToJSON(json: any): IoK8sApiAuthenticationV1TokenRequestStatus {
+    return IoK8sApiAuthenticationV1TokenRequestStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1TokenRequestStatusToJSONTyped(value?: IoK8sApiAuthenticationV1TokenRequestStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'expirationTimestamp': (value.expirationTimestamp),
-        'token': value.token,
+        'expirationTimestamp': value['expirationTimestamp'] == null ? undefined : ((value['expirationTimestamp']).toISOString()),
+        'token': value['token'],
     };
 }
 

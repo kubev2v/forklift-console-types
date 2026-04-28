@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1PersistentVolumeClaimSpec } from './IoK8sApiCoreV1PersistentVolumeClaimSpec';
-import {
-    IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON,
-    IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSONTyped,
-    IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON,
-} from './IoK8sApiCoreV1PersistentVolumeClaimSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiCoreV1PersistentVolumeClaimSpec } from './IoK8sApiCoreV1PersistentVolumeClaimSpec';
+import {
+    IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSONTyped,
+    IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimSpecToJSONTyped,
+} from './IoK8sApiCoreV1PersistentVolumeClaimSpec';
 
 /**
  * PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
@@ -49,11 +51,9 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimTemplate {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PersistentVolumeClaimTemplate interface.
  */
-export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimTemplate(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimTemplate(value: object): value is IoK8sApiCoreV1PersistentVolumeClaimTemplate {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimTemplate {
@@ -61,27 +61,29 @@ export function IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSON(json: any): 
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PersistentVolumeClaimTemplate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSON(value?: IoK8sApiCoreV1PersistentVolumeClaimTemplate | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimTemplate {
+    return IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSONTyped(value?: IoK8sApiCoreV1PersistentVolumeClaimTemplate | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON(value.spec),
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON(value['spec']),
     };
 }
 

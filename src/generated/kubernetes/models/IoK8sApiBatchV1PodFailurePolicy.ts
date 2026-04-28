@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiBatchV1PodFailurePolicyRule } from './IoK8sApiBatchV1PodFailurePolicyRule';
 import {
     IoK8sApiBatchV1PodFailurePolicyRuleFromJSON,
     IoK8sApiBatchV1PodFailurePolicyRuleFromJSONTyped,
     IoK8sApiBatchV1PodFailurePolicyRuleToJSON,
+    IoK8sApiBatchV1PodFailurePolicyRuleToJSONTyped,
 } from './IoK8sApiBatchV1PodFailurePolicyRule';
 
 /**
@@ -37,11 +38,9 @@ export interface IoK8sApiBatchV1PodFailurePolicy {
 /**
  * Check if a given object implements the IoK8sApiBatchV1PodFailurePolicy interface.
  */
-export function instanceOfIoK8sApiBatchV1PodFailurePolicy(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "rules" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1PodFailurePolicy(value: object): value is IoK8sApiBatchV1PodFailurePolicy {
+    if (!('rules' in value) || value['rules'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyFromJSON(json: any): IoK8sApiBatchV1PodFailurePolicy {
@@ -49,7 +48,7 @@ export function IoK8sApiBatchV1PodFailurePolicyFromJSON(json: any): IoK8sApiBatc
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1PodFailurePolicy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function IoK8sApiBatchV1PodFailurePolicyFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function IoK8sApiBatchV1PodFailurePolicyToJSON(value?: IoK8sApiBatchV1PodFailurePolicy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1PodFailurePolicyToJSON(json: any): IoK8sApiBatchV1PodFailurePolicy {
+    return IoK8sApiBatchV1PodFailurePolicyToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1PodFailurePolicyToJSONTyped(value?: IoK8sApiBatchV1PodFailurePolicy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'rules': ((value.rules as Array<any>).map(IoK8sApiBatchV1PodFailurePolicyRuleToJSON)),
+        'rules': ((value['rules'] as Array<any>).map(IoK8sApiBatchV1PodFailurePolicyRuleToJSON)),
     };
 }
 

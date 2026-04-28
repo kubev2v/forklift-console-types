@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { V1beta1VirtualMachineClusterInstancetype } from './V1beta1VirtualMachineClusterInstancetype';
 import {
     V1beta1VirtualMachineClusterInstancetypeFromJSON,
     V1beta1VirtualMachineClusterInstancetypeFromJSONTyped,
     V1beta1VirtualMachineClusterInstancetypeToJSON,
+    V1beta1VirtualMachineClusterInstancetypeToJSONTyped,
 } from './V1beta1VirtualMachineClusterInstancetype';
 
 /**
@@ -61,11 +63,9 @@ export interface V1beta1VirtualMachineClusterInstancetypeList {
 /**
  * Check if a given object implements the V1beta1VirtualMachineClusterInstancetypeList interface.
  */
-export function instanceOfV1beta1VirtualMachineClusterInstancetypeList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1beta1VirtualMachineClusterInstancetypeList(value: object): value is V1beta1VirtualMachineClusterInstancetypeList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1VirtualMachineClusterInstancetypeListFromJSON(json: any): V1beta1VirtualMachineClusterInstancetypeList {
@@ -73,31 +73,33 @@ export function V1beta1VirtualMachineClusterInstancetypeListFromJSON(json: any):
 }
 
 export function V1beta1VirtualMachineClusterInstancetypeListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1VirtualMachineClusterInstancetypeList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1beta1VirtualMachineClusterInstancetypeFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1beta1VirtualMachineClusterInstancetypeListToJSON(value?: V1beta1VirtualMachineClusterInstancetypeList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1VirtualMachineClusterInstancetypeListToJSON(json: any): V1beta1VirtualMachineClusterInstancetypeList {
+    return V1beta1VirtualMachineClusterInstancetypeListToJSONTyped(json, false);
+}
+
+export function V1beta1VirtualMachineClusterInstancetypeListToJSONTyped(value?: V1beta1VirtualMachineClusterInstancetypeList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1beta1VirtualMachineClusterInstancetypeToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1beta1VirtualMachineClusterInstancetypeToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

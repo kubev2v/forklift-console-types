@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodTemplateSpec } from './IoK8sApiCoreV1PodTemplateSpec';
 import {
     IoK8sApiCoreV1PodTemplateSpecFromJSON,
     IoK8sApiCoreV1PodTemplateSpecFromJSONTyped,
     IoK8sApiCoreV1PodTemplateSpecToJSON,
+    IoK8sApiCoreV1PodTemplateSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodTemplateSpec';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -39,7 +41,7 @@ export interface IoK8sApiAppsV1ReplicaSetSpec {
      */
     minReadySeconds?: number;
     /**
-     * Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * Replicas is the number of desired pods. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset
      * @type {number}
      * @memberof IoK8sApiAppsV1ReplicaSetSpec
      */
@@ -61,11 +63,9 @@ export interface IoK8sApiAppsV1ReplicaSetSpec {
 /**
  * Check if a given object implements the IoK8sApiAppsV1ReplicaSetSpec interface.
  */
-export function instanceOfIoK8sApiAppsV1ReplicaSetSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selector" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1ReplicaSetSpec(value: object): value is IoK8sApiAppsV1ReplicaSetSpec {
+    if (!('selector' in value) || value['selector'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1ReplicaSetSpecFromJSON(json: any): IoK8sApiAppsV1ReplicaSetSpec {
@@ -73,31 +73,33 @@ export function IoK8sApiAppsV1ReplicaSetSpecFromJSON(json: any): IoK8sApiAppsV1R
 }
 
 export function IoK8sApiAppsV1ReplicaSetSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1ReplicaSetSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'minReadySeconds': !exists(json, 'minReadySeconds') ? undefined : json['minReadySeconds'],
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
+        'minReadySeconds': json['minReadySeconds'] == null ? undefined : json['minReadySeconds'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
         'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'template': !exists(json, 'template') ? undefined : IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
+        'template': json['template'] == null ? undefined : IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
     };
 }
 
-export function IoK8sApiAppsV1ReplicaSetSpecToJSON(value?: IoK8sApiAppsV1ReplicaSetSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1ReplicaSetSpecToJSON(json: any): IoK8sApiAppsV1ReplicaSetSpec {
+    return IoK8sApiAppsV1ReplicaSetSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1ReplicaSetSpecToJSONTyped(value?: IoK8sApiAppsV1ReplicaSetSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'minReadySeconds': value.minReadySeconds,
-        'replicas': value.replicas,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value.template),
+        'minReadySeconds': value['minReadySeconds'],
+        'replicas': value['replicas'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value['template']),
     };
 }
 

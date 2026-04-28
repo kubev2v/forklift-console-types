@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LifecycleHandler } from './IoK8sApiCoreV1LifecycleHandler';
 import {
     IoK8sApiCoreV1LifecycleHandlerFromJSON,
     IoK8sApiCoreV1LifecycleHandlerFromJSONTyped,
     IoK8sApiCoreV1LifecycleHandlerToJSON,
+    IoK8sApiCoreV1LifecycleHandlerToJSONTyped,
 } from './IoK8sApiCoreV1LifecycleHandler';
 
 /**
@@ -38,15 +39,19 @@ export interface IoK8sApiCoreV1Lifecycle {
      * @memberof IoK8sApiCoreV1Lifecycle
      */
     preStop?: IoK8sApiCoreV1LifecycleHandler;
+    /**
+     * StopSignal defines which signal will be sent to a container when it is being stopped. If not specified, the default is defined by the container runtime in use. StopSignal can only be set for Pods with a non-empty .spec.os.name
+     * @type {string}
+     * @memberof IoK8sApiCoreV1Lifecycle
+     */
+    stopSignal?: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1Lifecycle interface.
  */
-export function instanceOfIoK8sApiCoreV1Lifecycle(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Lifecycle(value: object): value is IoK8sApiCoreV1Lifecycle {
+    return true;
 }
 
 export function IoK8sApiCoreV1LifecycleFromJSON(json: any): IoK8sApiCoreV1Lifecycle {
@@ -54,27 +59,31 @@ export function IoK8sApiCoreV1LifecycleFromJSON(json: any): IoK8sApiCoreV1Lifecy
 }
 
 export function IoK8sApiCoreV1LifecycleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Lifecycle {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'postStart': !exists(json, 'postStart') ? undefined : IoK8sApiCoreV1LifecycleHandlerFromJSON(json['postStart']),
-        'preStop': !exists(json, 'preStop') ? undefined : IoK8sApiCoreV1LifecycleHandlerFromJSON(json['preStop']),
+        'postStart': json['postStart'] == null ? undefined : IoK8sApiCoreV1LifecycleHandlerFromJSON(json['postStart']),
+        'preStop': json['preStop'] == null ? undefined : IoK8sApiCoreV1LifecycleHandlerFromJSON(json['preStop']),
+        'stopSignal': json['stopSignal'] == null ? undefined : json['stopSignal'],
     };
 }
 
-export function IoK8sApiCoreV1LifecycleToJSON(value?: IoK8sApiCoreV1Lifecycle | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1LifecycleToJSON(json: any): IoK8sApiCoreV1Lifecycle {
+    return IoK8sApiCoreV1LifecycleToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1LifecycleToJSONTyped(value?: IoK8sApiCoreV1Lifecycle | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'postStart': IoK8sApiCoreV1LifecycleHandlerToJSON(value.postStart),
-        'preStop': IoK8sApiCoreV1LifecycleHandlerToJSON(value.preStop),
+        'postStart': IoK8sApiCoreV1LifecycleHandlerToJSON(value['postStart']),
+        'preStop': IoK8sApiCoreV1LifecycleHandlerToJSON(value['preStop']),
+        'stopSignal': value['stopSignal'],
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { V1VirtualMachine } from './V1VirtualMachine';
 import {
     V1VirtualMachineFromJSON,
     V1VirtualMachineFromJSONTyped,
     V1VirtualMachineToJSON,
+    V1VirtualMachineToJSONTyped,
 } from './V1VirtualMachine';
 
 /**
@@ -61,11 +63,9 @@ export interface V1VirtualMachineList {
 /**
  * Check if a given object implements the V1VirtualMachineList interface.
  */
-export function instanceOfV1VirtualMachineList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineList(value: object): value is V1VirtualMachineList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineListFromJSON(json: any): V1VirtualMachineList {
@@ -73,31 +73,33 @@ export function V1VirtualMachineListFromJSON(json: any): V1VirtualMachineList {
 }
 
 export function V1VirtualMachineListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1VirtualMachineFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1VirtualMachineListToJSON(value?: V1VirtualMachineList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineListToJSON(json: any): V1VirtualMachineList {
+    return V1VirtualMachineListToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineListToJSONTyped(value?: V1VirtualMachineList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1VirtualMachineToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1VirtualMachineToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

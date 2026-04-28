@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * UserPasswordAccessCredentialPropagationMethod represents the method used to inject a user passwords into the vm guest. Only one of its members may be specified.
  * @export
@@ -30,10 +30,8 @@ export interface V1UserPasswordAccessCredentialPropagationMethod {
 /**
  * Check if a given object implements the V1UserPasswordAccessCredentialPropagationMethod interface.
  */
-export function instanceOfV1UserPasswordAccessCredentialPropagationMethod(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1UserPasswordAccessCredentialPropagationMethod(value: object): value is V1UserPasswordAccessCredentialPropagationMethod {
+    return true;
 }
 
 export function V1UserPasswordAccessCredentialPropagationMethodFromJSON(json: any): V1UserPasswordAccessCredentialPropagationMethod {
@@ -41,25 +39,27 @@ export function V1UserPasswordAccessCredentialPropagationMethodFromJSON(json: an
 }
 
 export function V1UserPasswordAccessCredentialPropagationMethodFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1UserPasswordAccessCredentialPropagationMethod {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'qemuGuestAgent': !exists(json, 'qemuGuestAgent') ? undefined : json['qemuGuestAgent'],
+        'qemuGuestAgent': json['qemuGuestAgent'] == null ? undefined : json['qemuGuestAgent'],
     };
 }
 
-export function V1UserPasswordAccessCredentialPropagationMethodToJSON(value?: V1UserPasswordAccessCredentialPropagationMethod | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1UserPasswordAccessCredentialPropagationMethodToJSON(json: any): V1UserPasswordAccessCredentialPropagationMethod {
+    return V1UserPasswordAccessCredentialPropagationMethodToJSONTyped(json, false);
+}
+
+export function V1UserPasswordAccessCredentialPropagationMethodToJSONTyped(value?: V1UserPasswordAccessCredentialPropagationMethod | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'qemuGuestAgent': value.qemuGuestAgent,
+        'qemuGuestAgent': value['qemuGuestAgent'],
     };
 }
 

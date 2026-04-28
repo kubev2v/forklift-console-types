@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1HTTPIngressRuleValue } from './IoK8sApiNetworkingV1HTTPIngressRuleValue';
 import {
     IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSON,
     IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSONTyped,
     IoK8sApiNetworkingV1HTTPIngressRuleValueToJSON,
+    IoK8sApiNetworkingV1HTTPIngressRuleValueToJSONTyped,
 } from './IoK8sApiNetworkingV1HTTPIngressRuleValue';
 
 /**
@@ -50,10 +51,8 @@ export interface IoK8sApiNetworkingV1IngressRule {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressRule interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressRule(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressRule(value: object): value is IoK8sApiNetworkingV1IngressRule {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressRuleFromJSON(json: any): IoK8sApiNetworkingV1IngressRule {
@@ -61,27 +60,29 @@ export function IoK8sApiNetworkingV1IngressRuleFromJSON(json: any): IoK8sApiNetw
 }
 
 export function IoK8sApiNetworkingV1IngressRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'host': !exists(json, 'host') ? undefined : json['host'],
-        'http': !exists(json, 'http') ? undefined : IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSON(json['http']),
+        'host': json['host'] == null ? undefined : json['host'],
+        'http': json['http'] == null ? undefined : IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSON(json['http']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressRuleToJSON(value?: IoK8sApiNetworkingV1IngressRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressRuleToJSON(json: any): IoK8sApiNetworkingV1IngressRule {
+    return IoK8sApiNetworkingV1IngressRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressRuleToJSONTyped(value?: IoK8sApiNetworkingV1IngressRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'host': value.host,
-        'http': IoK8sApiNetworkingV1HTTPIngressRuleValueToJSON(value.http),
+        'host': value['host'],
+        'http': IoK8sApiNetworkingV1HTTPIngressRuleValueToJSON(value['http']),
     };
 }
 

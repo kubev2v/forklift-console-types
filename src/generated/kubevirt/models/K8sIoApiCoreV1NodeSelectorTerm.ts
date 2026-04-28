@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1NodeSelectorRequirement } from './K8sIoApiCoreV1NodeSelectorRequirement';
 import {
     K8sIoApiCoreV1NodeSelectorRequirementFromJSON,
     K8sIoApiCoreV1NodeSelectorRequirementFromJSONTyped,
     K8sIoApiCoreV1NodeSelectorRequirementToJSON,
+    K8sIoApiCoreV1NodeSelectorRequirementToJSONTyped,
 } from './K8sIoApiCoreV1NodeSelectorRequirement';
 
 /**
@@ -43,10 +44,8 @@ export interface K8sIoApiCoreV1NodeSelectorTerm {
 /**
  * Check if a given object implements the K8sIoApiCoreV1NodeSelectorTerm interface.
  */
-export function instanceOfK8sIoApiCoreV1NodeSelectorTerm(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1NodeSelectorTerm(value: object): value is K8sIoApiCoreV1NodeSelectorTerm {
+    return true;
 }
 
 export function K8sIoApiCoreV1NodeSelectorTermFromJSON(json: any): K8sIoApiCoreV1NodeSelectorTerm {
@@ -54,27 +53,29 @@ export function K8sIoApiCoreV1NodeSelectorTermFromJSON(json: any): K8sIoApiCoreV
 }
 
 export function K8sIoApiCoreV1NodeSelectorTermFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1NodeSelectorTerm {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'matchExpressions': !exists(json, 'matchExpressions') ? undefined : ((json['matchExpressions'] as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementFromJSON)),
-        'matchFields': !exists(json, 'matchFields') ? undefined : ((json['matchFields'] as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementFromJSON)),
+        'matchExpressions': json['matchExpressions'] == null ? undefined : ((json['matchExpressions'] as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementFromJSON)),
+        'matchFields': json['matchFields'] == null ? undefined : ((json['matchFields'] as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementFromJSON)),
     };
 }
 
-export function K8sIoApiCoreV1NodeSelectorTermToJSON(value?: K8sIoApiCoreV1NodeSelectorTerm | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1NodeSelectorTermToJSON(json: any): K8sIoApiCoreV1NodeSelectorTerm {
+    return K8sIoApiCoreV1NodeSelectorTermToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1NodeSelectorTermToJSONTyped(value?: K8sIoApiCoreV1NodeSelectorTerm | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'matchExpressions': value.matchExpressions === undefined ? undefined : ((value.matchExpressions as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementToJSON)),
-        'matchFields': value.matchFields === undefined ? undefined : ((value.matchFields as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementToJSON)),
+        'matchExpressions': value['matchExpressions'] == null ? undefined : ((value['matchExpressions'] as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementToJSON)),
+        'matchFields': value['matchFields'] == null ? undefined : ((value['matchFields'] as Array<any>).map(K8sIoApiCoreV1NodeSelectorRequirementToJSON)),
     };
 }
 

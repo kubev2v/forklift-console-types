@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VolumeNodeResources is a set of resource limits for scheduling of volumes.
  * @export
@@ -30,10 +30,8 @@ export interface IoK8sApiStorageV1VolumeNodeResources {
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeNodeResources interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeNodeResources(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeNodeResources(value: object): value is IoK8sApiStorageV1VolumeNodeResources {
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeNodeResourcesFromJSON(json: any): IoK8sApiStorageV1VolumeNodeResources {
@@ -41,25 +39,27 @@ export function IoK8sApiStorageV1VolumeNodeResourcesFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApiStorageV1VolumeNodeResourcesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeNodeResources {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'count': !exists(json, 'count') ? undefined : json['count'],
+        'count': json['count'] == null ? undefined : json['count'],
     };
 }
 
-export function IoK8sApiStorageV1VolumeNodeResourcesToJSON(value?: IoK8sApiStorageV1VolumeNodeResources | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeNodeResourcesToJSON(json: any): IoK8sApiStorageV1VolumeNodeResources {
+    return IoK8sApiStorageV1VolumeNodeResourcesToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeNodeResourcesToJSONTyped(value?: IoK8sApiStorageV1VolumeNodeResources | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'count': value.count,
+        'count': value['count'],
     };
 }
 

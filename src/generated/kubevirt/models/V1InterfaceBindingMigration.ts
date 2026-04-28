@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1InterfaceBindingMigration {
 /**
  * Check if a given object implements the V1InterfaceBindingMigration interface.
  */
-export function instanceOfV1InterfaceBindingMigration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1InterfaceBindingMigration(value: object): value is V1InterfaceBindingMigration {
+    return true;
 }
 
 export function V1InterfaceBindingMigrationFromJSON(json: any): V1InterfaceBindingMigration {
@@ -41,25 +39,27 @@ export function V1InterfaceBindingMigrationFromJSON(json: any): V1InterfaceBindi
 }
 
 export function V1InterfaceBindingMigrationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1InterfaceBindingMigration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'method': !exists(json, 'method') ? undefined : json['method'],
+        'method': json['method'] == null ? undefined : json['method'],
     };
 }
 
-export function V1InterfaceBindingMigrationToJSON(value?: V1InterfaceBindingMigration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1InterfaceBindingMigrationToJSON(json: any): V1InterfaceBindingMigration {
+    return V1InterfaceBindingMigrationToJSONTyped(json, false);
+}
+
+export function V1InterfaceBindingMigrationToJSONTyped(value?: V1InterfaceBindingMigration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'method': value.method,
+        'method': value['method'],
     };
 }
 

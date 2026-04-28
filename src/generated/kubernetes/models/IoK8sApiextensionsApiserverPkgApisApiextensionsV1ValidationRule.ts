@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ValidationRule describes a validation rule written in the CEL expression language.
  * @export
@@ -98,11 +98,9 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "rule" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule {
+    if (!('rule' in value) || value['rule'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule {
@@ -110,35 +108,37 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleF
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fieldPath': !exists(json, 'fieldPath') ? undefined : json['fieldPath'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'messageExpression': !exists(json, 'messageExpression') ? undefined : json['messageExpression'],
-        'optionalOldSelf': !exists(json, 'optionalOldSelf') ? undefined : json['optionalOldSelf'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'fieldPath': json['fieldPath'] == null ? undefined : json['fieldPath'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'messageExpression': json['messageExpression'] == null ? undefined : json['messageExpression'],
+        'optionalOldSelf': json['optionalOldSelf'] == null ? undefined : json['optionalOldSelf'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'rule': json['rule'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRuleToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1ValidationRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fieldPath': value.fieldPath,
-        'message': value.message,
-        'messageExpression': value.messageExpression,
-        'optionalOldSelf': value.optionalOldSelf,
-        'reason': value.reason,
-        'rule': value.rule,
+        'fieldPath': value['fieldPath'],
+        'message': value['message'],
+        'messageExpression': value['messageExpression'],
+        'optionalOldSelf': value['optionalOldSelf'],
+        'reason': value['reason'],
+        'rule': value['rule'],
     };
 }
 

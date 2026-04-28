@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ReplicationControllerCondition describes the state of a replication controller at a certain point.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiCoreV1ReplicationControllerCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ReplicationControllerCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * A human readable message indicating details about the transition.
      * @type {string}
@@ -54,12 +54,10 @@ export interface IoK8sApiCoreV1ReplicationControllerCondition {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ReplicationControllerCondition interface.
  */
-export function instanceOfIoK8sApiCoreV1ReplicationControllerCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ReplicationControllerCondition(value: object): value is IoK8sApiCoreV1ReplicationControllerCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ReplicationControllerConditionFromJSON(json: any): IoK8sApiCoreV1ReplicationControllerCondition {
@@ -67,33 +65,35 @@ export function IoK8sApiCoreV1ReplicationControllerConditionFromJSON(json: any):
 }
 
 export function IoK8sApiCoreV1ReplicationControllerConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ReplicationControllerCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1ReplicationControllerConditionToJSON(value?: IoK8sApiCoreV1ReplicationControllerCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ReplicationControllerConditionToJSON(json: any): IoK8sApiCoreV1ReplicationControllerCondition {
+    return IoK8sApiCoreV1ReplicationControllerConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ReplicationControllerConditionToJSONTyped(value?: IoK8sApiCoreV1ReplicationControllerCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

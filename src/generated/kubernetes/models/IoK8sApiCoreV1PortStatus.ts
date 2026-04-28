@@ -12,9 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
- * 
+ * PortStatus represents the error condition of a service port
  * @export
  * @interface IoK8sApiCoreV1PortStatus
  */
@@ -45,12 +45,10 @@ export interface IoK8sApiCoreV1PortStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PortStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1PortStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-    isInstance = isInstance && "protocol" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PortStatus(value: object): value is IoK8sApiCoreV1PortStatus {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    if (!('protocol' in value) || value['protocol'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PortStatusFromJSON(json: any): IoK8sApiCoreV1PortStatus {
@@ -58,29 +56,31 @@ export function IoK8sApiCoreV1PortStatusFromJSON(json: any): IoK8sApiCoreV1PortS
 }
 
 export function IoK8sApiCoreV1PortStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PortStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'error': !exists(json, 'error') ? undefined : json['error'],
+        'error': json['error'] == null ? undefined : json['error'],
         'port': json['port'],
         'protocol': json['protocol'],
     };
 }
 
-export function IoK8sApiCoreV1PortStatusToJSON(value?: IoK8sApiCoreV1PortStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PortStatusToJSON(json: any): IoK8sApiCoreV1PortStatus {
+    return IoK8sApiCoreV1PortStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PortStatusToJSONTyped(value?: IoK8sApiCoreV1PortStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'error': value.error,
-        'port': value.port,
-        'protocol': value.protocol,
+        'error': value['error'],
+        'port': value['port'],
+        'protocol': value['protocol'],
     };
 }
 

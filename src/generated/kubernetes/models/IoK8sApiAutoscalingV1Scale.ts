@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAutoscalingV1ScaleSpec } from './IoK8sApiAutoscalingV1ScaleSpec';
-import {
-    IoK8sApiAutoscalingV1ScaleSpecFromJSON,
-    IoK8sApiAutoscalingV1ScaleSpecFromJSONTyped,
-    IoK8sApiAutoscalingV1ScaleSpecToJSON,
-} from './IoK8sApiAutoscalingV1ScaleSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV1ScaleStatus } from './IoK8sApiAutoscalingV1ScaleStatus';
 import {
     IoK8sApiAutoscalingV1ScaleStatusFromJSON,
     IoK8sApiAutoscalingV1ScaleStatusFromJSONTyped,
     IoK8sApiAutoscalingV1ScaleStatusToJSON,
+    IoK8sApiAutoscalingV1ScaleStatusToJSONTyped,
 } from './IoK8sApiAutoscalingV1ScaleStatus';
+import type { IoK8sApiAutoscalingV1ScaleSpec } from './IoK8sApiAutoscalingV1ScaleSpec';
+import {
+    IoK8sApiAutoscalingV1ScaleSpecFromJSON,
+    IoK8sApiAutoscalingV1ScaleSpecFromJSONTyped,
+    IoK8sApiAutoscalingV1ScaleSpecToJSON,
+    IoK8sApiAutoscalingV1ScaleSpecToJSONTyped,
+} from './IoK8sApiAutoscalingV1ScaleSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sApiAutoscalingV1Scale {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV1Scale interface.
  */
-export function instanceOfIoK8sApiAutoscalingV1Scale(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV1Scale(value: object): value is IoK8sApiAutoscalingV1Scale {
+    return true;
 }
 
 export function IoK8sApiAutoscalingV1ScaleFromJSON(json: any): IoK8sApiAutoscalingV1Scale {
@@ -84,33 +85,35 @@ export function IoK8sApiAutoscalingV1ScaleFromJSON(json: any): IoK8sApiAutoscali
 }
 
 export function IoK8sApiAutoscalingV1ScaleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV1Scale {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiAutoscalingV1ScaleSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAutoscalingV1ScaleStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiAutoscalingV1ScaleSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiAutoscalingV1ScaleStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAutoscalingV1ScaleToJSON(value?: IoK8sApiAutoscalingV1Scale | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV1ScaleToJSON(json: any): IoK8sApiAutoscalingV1Scale {
+    return IoK8sApiAutoscalingV1ScaleToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV1ScaleToJSONTyped(value?: IoK8sApiAutoscalingV1Scale | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAutoscalingV1ScaleSpecToJSON(value.spec),
-        'status': IoK8sApiAutoscalingV1ScaleStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAutoscalingV1ScaleSpecToJSON(value['spec']),
+        'status': IoK8sApiAutoscalingV1ScaleStatusToJSON(value['status']),
     };
 }
 

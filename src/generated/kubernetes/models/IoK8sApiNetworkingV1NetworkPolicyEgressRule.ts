@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiNetworkingV1NetworkPolicyPeer } from './IoK8sApiNetworkingV1NetworkPolicyPeer';
-import {
-    IoK8sApiNetworkingV1NetworkPolicyPeerFromJSON,
-    IoK8sApiNetworkingV1NetworkPolicyPeerFromJSONTyped,
-    IoK8sApiNetworkingV1NetworkPolicyPeerToJSON,
-} from './IoK8sApiNetworkingV1NetworkPolicyPeer';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1NetworkPolicyPort } from './IoK8sApiNetworkingV1NetworkPolicyPort';
 import {
     IoK8sApiNetworkingV1NetworkPolicyPortFromJSON,
     IoK8sApiNetworkingV1NetworkPolicyPortFromJSONTyped,
     IoK8sApiNetworkingV1NetworkPolicyPortToJSON,
+    IoK8sApiNetworkingV1NetworkPolicyPortToJSONTyped,
 } from './IoK8sApiNetworkingV1NetworkPolicyPort';
+import type { IoK8sApiNetworkingV1NetworkPolicyPeer } from './IoK8sApiNetworkingV1NetworkPolicyPeer';
+import {
+    IoK8sApiNetworkingV1NetworkPolicyPeerFromJSON,
+    IoK8sApiNetworkingV1NetworkPolicyPeerFromJSONTyped,
+    IoK8sApiNetworkingV1NetworkPolicyPeerToJSON,
+    IoK8sApiNetworkingV1NetworkPolicyPeerToJSONTyped,
+} from './IoK8sApiNetworkingV1NetworkPolicyPeer';
 
 /**
  * NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
@@ -49,10 +51,8 @@ export interface IoK8sApiNetworkingV1NetworkPolicyEgressRule {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1NetworkPolicyEgressRule interface.
  */
-export function instanceOfIoK8sApiNetworkingV1NetworkPolicyEgressRule(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1NetworkPolicyEgressRule(value: object): value is IoK8sApiNetworkingV1NetworkPolicyEgressRule {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1NetworkPolicyEgressRuleFromJSON(json: any): IoK8sApiNetworkingV1NetworkPolicyEgressRule {
@@ -60,27 +60,29 @@ export function IoK8sApiNetworkingV1NetworkPolicyEgressRuleFromJSON(json: any): 
 }
 
 export function IoK8sApiNetworkingV1NetworkPolicyEgressRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1NetworkPolicyEgressRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ports': !exists(json, 'ports') ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPortFromJSON)),
-        'to': !exists(json, 'to') ? undefined : ((json['to'] as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPeerFromJSON)),
+        'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPortFromJSON)),
+        'to': json['to'] == null ? undefined : ((json['to'] as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPeerFromJSON)),
     };
 }
 
-export function IoK8sApiNetworkingV1NetworkPolicyEgressRuleToJSON(value?: IoK8sApiNetworkingV1NetworkPolicyEgressRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1NetworkPolicyEgressRuleToJSON(json: any): IoK8sApiNetworkingV1NetworkPolicyEgressRule {
+    return IoK8sApiNetworkingV1NetworkPolicyEgressRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1NetworkPolicyEgressRuleToJSONTyped(value?: IoK8sApiNetworkingV1NetworkPolicyEgressRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ports': value.ports === undefined ? undefined : ((value.ports as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPortToJSON)),
-        'to': value.to === undefined ? undefined : ((value.to as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPeerToJSON)),
+        'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPortToJSON)),
+        'to': value['to'] == null ? undefined : ((value['to'] as Array<any>).map(IoK8sApiNetworkingV1NetworkPolicyPeerToJSON)),
     };
 }
 

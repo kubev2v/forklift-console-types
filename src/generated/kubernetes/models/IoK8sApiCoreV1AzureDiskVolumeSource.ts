@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
  * @export
@@ -60,12 +60,10 @@ export interface IoK8sApiCoreV1AzureDiskVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1AzureDiskVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1AzureDiskVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "diskName" in value;
-    isInstance = isInstance && "diskURI" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1AzureDiskVolumeSource(value: object): value is IoK8sApiCoreV1AzureDiskVolumeSource {
+    if (!('diskName' in value) || value['diskName'] === undefined) return false;
+    if (!('diskURI' in value) || value['diskURI'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1AzureDiskVolumeSourceFromJSON(json: any): IoK8sApiCoreV1AzureDiskVolumeSource {
@@ -73,35 +71,37 @@ export function IoK8sApiCoreV1AzureDiskVolumeSourceFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1AzureDiskVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1AzureDiskVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'cachingMode': !exists(json, 'cachingMode') ? undefined : json['cachingMode'],
+        'cachingMode': json['cachingMode'] == null ? undefined : json['cachingMode'],
         'diskName': json['diskName'],
         'diskURI': json['diskURI'],
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
     };
 }
 
-export function IoK8sApiCoreV1AzureDiskVolumeSourceToJSON(value?: IoK8sApiCoreV1AzureDiskVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1AzureDiskVolumeSourceToJSON(json: any): IoK8sApiCoreV1AzureDiskVolumeSource {
+    return IoK8sApiCoreV1AzureDiskVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1AzureDiskVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1AzureDiskVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'cachingMode': value.cachingMode,
-        'diskName': value.diskName,
-        'diskURI': value.diskURI,
-        'fsType': value.fsType,
-        'kind': value.kind,
-        'readOnly': value.readOnly,
+        'cachingMode': value['cachingMode'],
+        'diskName': value['diskName'],
+        'diskURI': value['diskURI'],
+        'fsType': value['fsType'],
+        'kind': value['kind'],
+        'readOnly': value['readOnly'],
     };
 }
 

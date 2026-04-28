@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1NodeMediatedDeviceTypesConfig } from './V1NodeMediatedDeviceTypesConfig';
 import {
     V1NodeMediatedDeviceTypesConfigFromJSON,
     V1NodeMediatedDeviceTypesConfigFromJSONTyped,
     V1NodeMediatedDeviceTypesConfigToJSON,
+    V1NodeMediatedDeviceTypesConfigToJSONTyped,
 } from './V1NodeMediatedDeviceTypesConfig';
 
 /**
@@ -26,6 +27,12 @@ import {
  * @interface V1MediatedDevicesConfiguration
  */
 export interface V1MediatedDevicesConfiguration {
+    /**
+     * Enable the creation and removal of mediated devices by virt-handler Replaces the deprecated DisableMDEVConfiguration feature gate Defaults to true
+     * @type {boolean}
+     * @memberof V1MediatedDevicesConfiguration
+     */
+    enabled?: boolean;
     /**
      * 
      * @type {Array<string>}
@@ -49,10 +56,8 @@ export interface V1MediatedDevicesConfiguration {
 /**
  * Check if a given object implements the V1MediatedDevicesConfiguration interface.
  */
-export function instanceOfV1MediatedDevicesConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1MediatedDevicesConfiguration(value: object): value is V1MediatedDevicesConfiguration {
+    return true;
 }
 
 export function V1MediatedDevicesConfigurationFromJSON(json: any): V1MediatedDevicesConfiguration {
@@ -60,29 +65,33 @@ export function V1MediatedDevicesConfigurationFromJSON(json: any): V1MediatedDev
 }
 
 export function V1MediatedDevicesConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1MediatedDevicesConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'mediatedDeviceTypes': !exists(json, 'mediatedDeviceTypes') ? undefined : json['mediatedDeviceTypes'],
-        'mediatedDevicesTypes': !exists(json, 'mediatedDevicesTypes') ? undefined : json['mediatedDevicesTypes'],
-        'nodeMediatedDeviceTypes': !exists(json, 'nodeMediatedDeviceTypes') ? undefined : ((json['nodeMediatedDeviceTypes'] as Array<any>).map(V1NodeMediatedDeviceTypesConfigFromJSON)),
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'mediatedDeviceTypes': json['mediatedDeviceTypes'] == null ? undefined : json['mediatedDeviceTypes'],
+        'mediatedDevicesTypes': json['mediatedDevicesTypes'] == null ? undefined : json['mediatedDevicesTypes'],
+        'nodeMediatedDeviceTypes': json['nodeMediatedDeviceTypes'] == null ? undefined : ((json['nodeMediatedDeviceTypes'] as Array<any>).map(V1NodeMediatedDeviceTypesConfigFromJSON)),
     };
 }
 
-export function V1MediatedDevicesConfigurationToJSON(value?: V1MediatedDevicesConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MediatedDevicesConfigurationToJSON(json: any): V1MediatedDevicesConfiguration {
+    return V1MediatedDevicesConfigurationToJSONTyped(json, false);
+}
+
+export function V1MediatedDevicesConfigurationToJSONTyped(value?: V1MediatedDevicesConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'mediatedDeviceTypes': value.mediatedDeviceTypes,
-        'mediatedDevicesTypes': value.mediatedDevicesTypes,
-        'nodeMediatedDeviceTypes': value.nodeMediatedDeviceTypes === undefined ? undefined : ((value.nodeMediatedDeviceTypes as Array<any>).map(V1NodeMediatedDeviceTypesConfigToJSON)),
+        'enabled': value['enabled'],
+        'mediatedDeviceTypes': value['mediatedDeviceTypes'],
+        'mediatedDevicesTypes': value['mediatedDevicesTypes'],
+        'nodeMediatedDeviceTypes': value['nodeMediatedDeviceTypes'] == null ? undefined : ((value['nodeMediatedDeviceTypes'] as Array<any>).map(V1NodeMediatedDeviceTypesConfigToJSON)),
     };
 }
 

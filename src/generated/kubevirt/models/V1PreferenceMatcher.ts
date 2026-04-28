@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PreferenceMatcher references a set of preference that is used to fill fields in the VMI template.
  * @export
@@ -54,10 +54,8 @@ export interface V1PreferenceMatcher {
 /**
  * Check if a given object implements the V1PreferenceMatcher interface.
  */
-export function instanceOfV1PreferenceMatcher(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1PreferenceMatcher(value: object): value is V1PreferenceMatcher {
+    return true;
 }
 
 export function V1PreferenceMatcherFromJSON(json: any): V1PreferenceMatcher {
@@ -65,33 +63,35 @@ export function V1PreferenceMatcherFromJSON(json: any): V1PreferenceMatcher {
 }
 
 export function V1PreferenceMatcherFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PreferenceMatcher {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'inferFromVolume': !exists(json, 'inferFromVolume') ? undefined : json['inferFromVolume'],
-        'inferFromVolumeFailurePolicy': !exists(json, 'inferFromVolumeFailurePolicy') ? undefined : json['inferFromVolumeFailurePolicy'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'revisionName': !exists(json, 'revisionName') ? undefined : json['revisionName'],
+        'inferFromVolume': json['inferFromVolume'] == null ? undefined : json['inferFromVolume'],
+        'inferFromVolumeFailurePolicy': json['inferFromVolumeFailurePolicy'] == null ? undefined : json['inferFromVolumeFailurePolicy'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'revisionName': json['revisionName'] == null ? undefined : json['revisionName'],
     };
 }
 
-export function V1PreferenceMatcherToJSON(value?: V1PreferenceMatcher | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PreferenceMatcherToJSON(json: any): V1PreferenceMatcher {
+    return V1PreferenceMatcherToJSONTyped(json, false);
+}
+
+export function V1PreferenceMatcherToJSONTyped(value?: V1PreferenceMatcher | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'inferFromVolume': value.inferFromVolume,
-        'inferFromVolumeFailurePolicy': value.inferFromVolumeFailurePolicy,
-        'kind': value.kind,
-        'name': value.name,
-        'revisionName': value.revisionName,
+        'inferFromVolume': value['inferFromVolume'],
+        'inferFromVolumeFailurePolicy': value['inferFromVolumeFailurePolicy'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'revisionName': value['revisionName'],
     };
 }
 

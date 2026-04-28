@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HTTPHeader describes a custom header to be used in HTTP probes
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface K8sIoApiCoreV1HTTPHeader {
     /**
-     * The header field name
+     * The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * @type {string}
      * @memberof K8sIoApiCoreV1HTTPHeader
      */
@@ -36,12 +36,10 @@ export interface K8sIoApiCoreV1HTTPHeader {
 /**
  * Check if a given object implements the K8sIoApiCoreV1HTTPHeader interface.
  */
-export function instanceOfK8sIoApiCoreV1HTTPHeader(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1HTTPHeader(value: object): value is K8sIoApiCoreV1HTTPHeader {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1HTTPHeaderFromJSON(json: any): K8sIoApiCoreV1HTTPHeader {
@@ -49,7 +47,7 @@ export function K8sIoApiCoreV1HTTPHeaderFromJSON(json: any): K8sIoApiCoreV1HTTPH
 }
 
 export function K8sIoApiCoreV1HTTPHeaderFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1HTTPHeader {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function K8sIoApiCoreV1HTTPHeaderFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function K8sIoApiCoreV1HTTPHeaderToJSON(value?: K8sIoApiCoreV1HTTPHeader | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1HTTPHeaderToJSON(json: any): K8sIoApiCoreV1HTTPHeader {
+    return K8sIoApiCoreV1HTTPHeaderToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1HTTPHeaderToJSONTyped(value?: K8sIoApiCoreV1HTTPHeader | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'value': value.value,
+        'name': value['name'],
+        'value': value['value'],
     };
 }
 

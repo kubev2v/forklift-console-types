@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineMemoryDumpRequest represent the memory dump request phase and info
  * @export
@@ -30,7 +30,7 @@ export interface V1VirtualMachineMemoryDumpRequest {
      * @type {Date}
      * @memberof V1VirtualMachineMemoryDumpRequest
      */
-    endTimestamp?: string;
+    endTimestamp?: Date;
     /**
      * FileName represents the name of the output file
      * @type {string}
@@ -60,18 +60,16 @@ export interface V1VirtualMachineMemoryDumpRequest {
      * @type {Date}
      * @memberof V1VirtualMachineMemoryDumpRequest
      */
-    startTimestamp?: string;
+    startTimestamp?: Date;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineMemoryDumpRequest interface.
  */
-export function instanceOfV1VirtualMachineMemoryDumpRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "claimName" in value;
-    isInstance = isInstance && "phase" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineMemoryDumpRequest(value: object): value is V1VirtualMachineMemoryDumpRequest {
+    if (!('claimName' in value) || value['claimName'] === undefined) return false;
+    if (!('phase' in value) || value['phase'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineMemoryDumpRequestFromJSON(json: any): V1VirtualMachineMemoryDumpRequest {
@@ -79,37 +77,39 @@ export function V1VirtualMachineMemoryDumpRequestFromJSON(json: any): V1VirtualM
 }
 
 export function V1VirtualMachineMemoryDumpRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineMemoryDumpRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'claimName': json['claimName'],
-        'endTimestamp': !exists(json, 'endTimestamp') ? undefined : json['endTimestamp'],
-        'fileName': !exists(json, 'fileName') ? undefined : json['fileName'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
+        'endTimestamp': json['endTimestamp'] == null ? undefined : (new Date(json['endTimestamp'])),
+        'fileName': json['fileName'] == null ? undefined : json['fileName'],
+        'message': json['message'] == null ? undefined : json['message'],
         'phase': json['phase'],
-        'remove': !exists(json, 'remove') ? undefined : json['remove'],
-        'startTimestamp': !exists(json, 'startTimestamp') ? undefined : json['startTimestamp'],
+        'remove': json['remove'] == null ? undefined : json['remove'],
+        'startTimestamp': json['startTimestamp'] == null ? undefined : (new Date(json['startTimestamp'])),
     };
 }
 
-export function V1VirtualMachineMemoryDumpRequestToJSON(value?: V1VirtualMachineMemoryDumpRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineMemoryDumpRequestToJSON(json: any): V1VirtualMachineMemoryDumpRequest {
+    return V1VirtualMachineMemoryDumpRequestToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineMemoryDumpRequestToJSONTyped(value?: V1VirtualMachineMemoryDumpRequest | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'claimName': value.claimName,
-        'endTimestamp': value.endTimestamp === undefined ? undefined : (value.endTimestamp),
-        'fileName': value.fileName,
-        'message': value.message,
-        'phase': value.phase,
-        'remove': value.remove,
-        'startTimestamp': value.startTimestamp === undefined ? undefined : (value.startTimestamp),
+        'claimName': value['claimName'],
+        'endTimestamp': value['endTimestamp'] == null ? undefined : ((value['endTimestamp']).toISOString()),
+        'fileName': value['fileName'],
+        'message': value['message'],
+        'phase': value['phase'],
+        'remove': value['remove'],
+        'startTimestamp': value['startTimestamp'] == null ? undefined : ((value['startTimestamp']).toISOString()),
     };
 }
 

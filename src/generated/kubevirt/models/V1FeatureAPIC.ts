@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1FeatureAPIC {
 /**
  * Check if a given object implements the V1FeatureAPIC interface.
  */
-export function instanceOfV1FeatureAPIC(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1FeatureAPIC(value: object): value is V1FeatureAPIC {
+    return true;
 }
 
 export function V1FeatureAPICFromJSON(json: any): V1FeatureAPIC {
@@ -47,27 +45,29 @@ export function V1FeatureAPICFromJSON(json: any): V1FeatureAPIC {
 }
 
 export function V1FeatureAPICFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1FeatureAPIC {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
-        'endOfInterrupt': !exists(json, 'endOfInterrupt') ? undefined : json['endOfInterrupt'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'endOfInterrupt': json['endOfInterrupt'] == null ? undefined : json['endOfInterrupt'],
     };
 }
 
-export function V1FeatureAPICToJSON(value?: V1FeatureAPIC | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FeatureAPICToJSON(json: any): V1FeatureAPIC {
+    return V1FeatureAPICToJSONTyped(json, false);
+}
+
+export function V1FeatureAPICToJSONTyped(value?: V1FeatureAPIC | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'enabled': value.enabled,
-        'endOfInterrupt': value.endOfInterrupt,
+        'enabled': value['enabled'],
+        'endOfInterrupt': value['endOfInterrupt'],
     };
 }
 

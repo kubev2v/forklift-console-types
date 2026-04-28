@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1NodeSelectorTerm } from './K8sIoApiCoreV1NodeSelectorTerm';
 import {
     K8sIoApiCoreV1NodeSelectorTermFromJSON,
     K8sIoApiCoreV1NodeSelectorTermFromJSONTyped,
     K8sIoApiCoreV1NodeSelectorTermToJSON,
+    K8sIoApiCoreV1NodeSelectorTermToJSONTyped,
 } from './K8sIoApiCoreV1NodeSelectorTerm';
 
 /**
@@ -43,12 +44,10 @@ export interface K8sIoApiCoreV1PreferredSchedulingTerm {
 /**
  * Check if a given object implements the K8sIoApiCoreV1PreferredSchedulingTerm interface.
  */
-export function instanceOfK8sIoApiCoreV1PreferredSchedulingTerm(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "preference" in value;
-    isInstance = isInstance && "weight" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1PreferredSchedulingTerm(value: object): value is K8sIoApiCoreV1PreferredSchedulingTerm {
+    if (!('preference' in value) || value['preference'] === undefined) return false;
+    if (!('weight' in value) || value['weight'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1PreferredSchedulingTermFromJSON(json: any): K8sIoApiCoreV1PreferredSchedulingTerm {
@@ -56,7 +55,7 @@ export function K8sIoApiCoreV1PreferredSchedulingTermFromJSON(json: any): K8sIoA
 }
 
 export function K8sIoApiCoreV1PreferredSchedulingTermFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1PreferredSchedulingTerm {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -66,17 +65,19 @@ export function K8sIoApiCoreV1PreferredSchedulingTermFromJSONTyped(json: any, ig
     };
 }
 
-export function K8sIoApiCoreV1PreferredSchedulingTermToJSON(value?: K8sIoApiCoreV1PreferredSchedulingTerm | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1PreferredSchedulingTermToJSON(json: any): K8sIoApiCoreV1PreferredSchedulingTerm {
+    return K8sIoApiCoreV1PreferredSchedulingTermToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1PreferredSchedulingTermToJSONTyped(value?: K8sIoApiCoreV1PreferredSchedulingTerm | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preference': K8sIoApiCoreV1NodeSelectorTermToJSON(value.preference),
-        'weight': value.weight,
+        'preference': K8sIoApiCoreV1NodeSelectorTermToJSON(value['preference']),
+        'weight': value['weight'],
     };
 }
 

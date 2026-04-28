@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ReplicationControllerCondition } from './IoK8sApiCoreV1ReplicationControllerCondition';
 import {
     IoK8sApiCoreV1ReplicationControllerConditionFromJSON,
     IoK8sApiCoreV1ReplicationControllerConditionFromJSONTyped,
     IoK8sApiCoreV1ReplicationControllerConditionToJSON,
+    IoK8sApiCoreV1ReplicationControllerConditionToJSONTyped,
 } from './IoK8sApiCoreV1ReplicationControllerCondition';
 
 /**
@@ -67,11 +68,9 @@ export interface IoK8sApiCoreV1ReplicationControllerStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ReplicationControllerStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1ReplicationControllerStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "replicas" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ReplicationControllerStatus(value: object): value is IoK8sApiCoreV1ReplicationControllerStatus {
+    if (!('replicas' in value) || value['replicas'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ReplicationControllerStatusFromJSON(json: any): IoK8sApiCoreV1ReplicationControllerStatus {
@@ -79,35 +78,37 @@ export function IoK8sApiCoreV1ReplicationControllerStatusFromJSON(json: any): Io
 }
 
 export function IoK8sApiCoreV1ReplicationControllerStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ReplicationControllerStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'availableReplicas': !exists(json, 'availableReplicas') ? undefined : json['availableReplicas'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1ReplicationControllerConditionFromJSON)),
-        'fullyLabeledReplicas': !exists(json, 'fullyLabeledReplicas') ? undefined : json['fullyLabeledReplicas'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
-        'readyReplicas': !exists(json, 'readyReplicas') ? undefined : json['readyReplicas'],
+        'availableReplicas': json['availableReplicas'] == null ? undefined : json['availableReplicas'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1ReplicationControllerConditionFromJSON)),
+        'fullyLabeledReplicas': json['fullyLabeledReplicas'] == null ? undefined : json['fullyLabeledReplicas'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'readyReplicas': json['readyReplicas'] == null ? undefined : json['readyReplicas'],
         'replicas': json['replicas'],
     };
 }
 
-export function IoK8sApiCoreV1ReplicationControllerStatusToJSON(value?: IoK8sApiCoreV1ReplicationControllerStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ReplicationControllerStatusToJSON(json: any): IoK8sApiCoreV1ReplicationControllerStatus {
+    return IoK8sApiCoreV1ReplicationControllerStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ReplicationControllerStatusToJSONTyped(value?: IoK8sApiCoreV1ReplicationControllerStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'availableReplicas': value.availableReplicas,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCoreV1ReplicationControllerConditionToJSON)),
-        'fullyLabeledReplicas': value.fullyLabeledReplicas,
-        'observedGeneration': value.observedGeneration,
-        'readyReplicas': value.readyReplicas,
-        'replicas': value.replicas,
+        'availableReplicas': value['availableReplicas'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCoreV1ReplicationControllerConditionToJSON)),
+        'fullyLabeledReplicas': value['fullyLabeledReplicas'],
+        'observedGeneration': value['observedGeneration'],
+        'readyReplicas': value['readyReplicas'],
+        'replicas': value['replicas'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LocalObjectReference } from './IoK8sApiCoreV1LocalObjectReference';
 import {
     IoK8sApiCoreV1LocalObjectReferenceFromJSON,
     IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1LocalObjectReferenceToJSON,
+    IoK8sApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1LocalObjectReference';
 
 /**
@@ -91,13 +92,11 @@ export interface IoK8sApiCoreV1ScaleIOVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ScaleIOVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1ScaleIOVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "gateway" in value;
-    isInstance = isInstance && "secretRef" in value;
-    isInstance = isInstance && "system" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ScaleIOVolumeSource(value: object): value is IoK8sApiCoreV1ScaleIOVolumeSource {
+    if (!('gateway' in value) || value['gateway'] === undefined) return false;
+    if (!('secretRef' in value) || value['secretRef'] === undefined) return false;
+    if (!('system' in value) || value['system'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ScaleIOVolumeSourceFromJSON(json: any): IoK8sApiCoreV1ScaleIOVolumeSource {
@@ -105,43 +104,45 @@ export function IoK8sApiCoreV1ScaleIOVolumeSourceFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1ScaleIOVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ScaleIOVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
         'gateway': json['gateway'],
-        'protectionDomain': !exists(json, 'protectionDomain') ? undefined : json['protectionDomain'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'protectionDomain': json['protectionDomain'] == null ? undefined : json['protectionDomain'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
         'secretRef': IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
-        'sslEnabled': !exists(json, 'sslEnabled') ? undefined : json['sslEnabled'],
-        'storageMode': !exists(json, 'storageMode') ? undefined : json['storageMode'],
-        'storagePool': !exists(json, 'storagePool') ? undefined : json['storagePool'],
+        'sslEnabled': json['sslEnabled'] == null ? undefined : json['sslEnabled'],
+        'storageMode': json['storageMode'] == null ? undefined : json['storageMode'],
+        'storagePool': json['storagePool'] == null ? undefined : json['storagePool'],
         'system': json['system'],
-        'volumeName': !exists(json, 'volumeName') ? undefined : json['volumeName'],
+        'volumeName': json['volumeName'] == null ? undefined : json['volumeName'],
     };
 }
 
-export function IoK8sApiCoreV1ScaleIOVolumeSourceToJSON(value?: IoK8sApiCoreV1ScaleIOVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ScaleIOVolumeSourceToJSON(json: any): IoK8sApiCoreV1ScaleIOVolumeSource {
+    return IoK8sApiCoreV1ScaleIOVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ScaleIOVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1ScaleIOVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'gateway': value.gateway,
-        'protectionDomain': value.protectionDomain,
-        'readOnly': value.readOnly,
-        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value.secretRef),
-        'sslEnabled': value.sslEnabled,
-        'storageMode': value.storageMode,
-        'storagePool': value.storagePool,
-        'system': value.system,
-        'volumeName': value.volumeName,
+        'fsType': value['fsType'],
+        'gateway': value['gateway'],
+        'protectionDomain': value['protectionDomain'],
+        'readOnly': value['readOnly'],
+        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value['secretRef']),
+        'sslEnabled': value['sslEnabled'],
+        'storageMode': value['storageMode'],
+        'storagePool': value['storagePool'],
+        'system': value['system'],
+        'volumeName': value['volumeName'],
     };
 }
 

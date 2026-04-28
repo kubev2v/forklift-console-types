@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiBatchV1JobTemplateSpec } from './IoK8sApiBatchV1JobTemplateSpec';
 import {
     IoK8sApiBatchV1JobTemplateSpecFromJSON,
     IoK8sApiBatchV1JobTemplateSpecFromJSONTyped,
     IoK8sApiBatchV1JobTemplateSpecToJSON,
+    IoK8sApiBatchV1JobTemplateSpecToJSONTyped,
 } from './IoK8sApiBatchV1JobTemplateSpec';
 
 /**
@@ -81,12 +82,10 @@ export interface IoK8sApiBatchV1CronJobSpec {
 /**
  * Check if a given object implements the IoK8sApiBatchV1CronJobSpec interface.
  */
-export function instanceOfIoK8sApiBatchV1CronJobSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "jobTemplate" in value;
-    isInstance = isInstance && "schedule" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1CronJobSpec(value: object): value is IoK8sApiBatchV1CronJobSpec {
+    if (!('jobTemplate' in value) || value['jobTemplate'] === undefined) return false;
+    if (!('schedule' in value) || value['schedule'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1CronJobSpecFromJSON(json: any): IoK8sApiBatchV1CronJobSpec {
@@ -94,39 +93,41 @@ export function IoK8sApiBatchV1CronJobSpecFromJSON(json: any): IoK8sApiBatchV1Cr
 }
 
 export function IoK8sApiBatchV1CronJobSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1CronJobSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'concurrencyPolicy': !exists(json, 'concurrencyPolicy') ? undefined : json['concurrencyPolicy'],
-        'failedJobsHistoryLimit': !exists(json, 'failedJobsHistoryLimit') ? undefined : json['failedJobsHistoryLimit'],
+        'concurrencyPolicy': json['concurrencyPolicy'] == null ? undefined : json['concurrencyPolicy'],
+        'failedJobsHistoryLimit': json['failedJobsHistoryLimit'] == null ? undefined : json['failedJobsHistoryLimit'],
         'jobTemplate': IoK8sApiBatchV1JobTemplateSpecFromJSON(json['jobTemplate']),
         'schedule': json['schedule'],
-        'startingDeadlineSeconds': !exists(json, 'startingDeadlineSeconds') ? undefined : json['startingDeadlineSeconds'],
-        'successfulJobsHistoryLimit': !exists(json, 'successfulJobsHistoryLimit') ? undefined : json['successfulJobsHistoryLimit'],
-        'suspend': !exists(json, 'suspend') ? undefined : json['suspend'],
-        'timeZone': !exists(json, 'timeZone') ? undefined : json['timeZone'],
+        'startingDeadlineSeconds': json['startingDeadlineSeconds'] == null ? undefined : json['startingDeadlineSeconds'],
+        'successfulJobsHistoryLimit': json['successfulJobsHistoryLimit'] == null ? undefined : json['successfulJobsHistoryLimit'],
+        'suspend': json['suspend'] == null ? undefined : json['suspend'],
+        'timeZone': json['timeZone'] == null ? undefined : json['timeZone'],
     };
 }
 
-export function IoK8sApiBatchV1CronJobSpecToJSON(value?: IoK8sApiBatchV1CronJobSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1CronJobSpecToJSON(json: any): IoK8sApiBatchV1CronJobSpec {
+    return IoK8sApiBatchV1CronJobSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1CronJobSpecToJSONTyped(value?: IoK8sApiBatchV1CronJobSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'concurrencyPolicy': value.concurrencyPolicy,
-        'failedJobsHistoryLimit': value.failedJobsHistoryLimit,
-        'jobTemplate': IoK8sApiBatchV1JobTemplateSpecToJSON(value.jobTemplate),
-        'schedule': value.schedule,
-        'startingDeadlineSeconds': value.startingDeadlineSeconds,
-        'successfulJobsHistoryLimit': value.successfulJobsHistoryLimit,
-        'suspend': value.suspend,
-        'timeZone': value.timeZone,
+        'concurrencyPolicy': value['concurrencyPolicy'],
+        'failedJobsHistoryLimit': value['failedJobsHistoryLimit'],
+        'jobTemplate': IoK8sApiBatchV1JobTemplateSpecToJSON(value['jobTemplate']),
+        'schedule': value['schedule'],
+        'startingDeadlineSeconds': value['startingDeadlineSeconds'],
+        'successfulJobsHistoryLimit': value['successfulJobsHistoryLimit'],
+        'suspend': value['suspend'],
+        'timeZone': value['timeZone'],
     };
 }
 

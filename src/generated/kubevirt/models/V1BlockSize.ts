@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1CustomBlockSize } from './V1CustomBlockSize';
 import {
     V1CustomBlockSizeFromJSON,
     V1CustomBlockSizeFromJSONTyped,
     V1CustomBlockSizeToJSON,
+    V1CustomBlockSizeToJSONTyped,
 } from './V1CustomBlockSize';
 import type { V1FeatureState } from './V1FeatureState';
 import {
     V1FeatureStateFromJSON,
     V1FeatureStateFromJSONTyped,
     V1FeatureStateToJSON,
+    V1FeatureStateToJSONTyped,
 } from './V1FeatureState';
 
 /**
@@ -49,10 +51,8 @@ export interface V1BlockSize {
 /**
  * Check if a given object implements the V1BlockSize interface.
  */
-export function instanceOfV1BlockSize(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1BlockSize(value: object): value is V1BlockSize {
+    return true;
 }
 
 export function V1BlockSizeFromJSON(json: any): V1BlockSize {
@@ -60,27 +60,29 @@ export function V1BlockSizeFromJSON(json: any): V1BlockSize {
 }
 
 export function V1BlockSizeFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1BlockSize {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'custom': !exists(json, 'custom') ? undefined : V1CustomBlockSizeFromJSON(json['custom']),
-        'matchVolume': !exists(json, 'matchVolume') ? undefined : V1FeatureStateFromJSON(json['matchVolume']),
+        'custom': json['custom'] == null ? undefined : V1CustomBlockSizeFromJSON(json['custom']),
+        'matchVolume': json['matchVolume'] == null ? undefined : V1FeatureStateFromJSON(json['matchVolume']),
     };
 }
 
-export function V1BlockSizeToJSON(value?: V1BlockSize | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1BlockSizeToJSON(json: any): V1BlockSize {
+    return V1BlockSizeToJSONTyped(json, false);
+}
+
+export function V1BlockSizeToJSONTyped(value?: V1BlockSize | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'custom': V1CustomBlockSizeToJSON(value.custom),
-        'matchVolume': V1FeatureStateToJSON(value.matchVolume),
+        'custom': V1CustomBlockSizeToJSON(value['custom']),
+        'matchVolume': V1FeatureStateToJSON(value['matchVolume']),
     };
 }
 

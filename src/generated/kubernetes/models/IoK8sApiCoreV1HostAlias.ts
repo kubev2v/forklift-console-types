@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
  * @export
@@ -24,22 +24,21 @@ export interface IoK8sApiCoreV1HostAlias {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1HostAlias
      */
-    hostnames?: string[];
+    hostnames?: Array<string>;
     /**
      * IP address of the host file entry.
      * @type {string}
      * @memberof IoK8sApiCoreV1HostAlias
      */
-    ip?: string;
+    ip: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1HostAlias interface.
  */
-export function instanceOfIoK8sApiCoreV1HostAlias(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1HostAlias(value: object): value is IoK8sApiCoreV1HostAlias {
+    if (!('ip' in value) || value['ip'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1HostAliasFromJSON(json: any): IoK8sApiCoreV1HostAlias {
@@ -47,27 +46,29 @@ export function IoK8sApiCoreV1HostAliasFromJSON(json: any): IoK8sApiCoreV1HostAl
 }
 
 export function IoK8sApiCoreV1HostAliasFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1HostAlias {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hostnames': !exists(json, 'hostnames') ? undefined : json['hostnames'],
-        'ip': !exists(json, 'ip') ? undefined : json['ip'],
+        'hostnames': json['hostnames'] == null ? undefined : json['hostnames'],
+        'ip': json['ip'],
     };
 }
 
-export function IoK8sApiCoreV1HostAliasToJSON(value?: IoK8sApiCoreV1HostAlias | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1HostAliasToJSON(json: any): IoK8sApiCoreV1HostAlias {
+    return IoK8sApiCoreV1HostAliasToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1HostAliasToJSONTyped(value?: IoK8sApiCoreV1HostAlias | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hostnames': value.hostnames,
-        'ip': value.ip,
+        'hostnames': value['hostnames'],
+        'ip': value['ip'],
     };
 }
 

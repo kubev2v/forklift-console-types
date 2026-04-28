@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NodeSelectorTerm } from './IoK8sApiCoreV1NodeSelectorTerm';
 import {
     IoK8sApiCoreV1NodeSelectorTermFromJSON,
     IoK8sApiCoreV1NodeSelectorTermFromJSONTyped,
     IoK8sApiCoreV1NodeSelectorTermToJSON,
+    IoK8sApiCoreV1NodeSelectorTermToJSONTyped,
 } from './IoK8sApiCoreV1NodeSelectorTerm';
 
 /**
@@ -37,11 +38,9 @@ export interface IoK8sApiCoreV1NodeSelector {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeSelector interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeSelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "nodeSelectorTerms" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeSelector(value: object): value is IoK8sApiCoreV1NodeSelector {
+    if (!('nodeSelectorTerms' in value) || value['nodeSelectorTerms'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeSelectorFromJSON(json: any): IoK8sApiCoreV1NodeSelector {
@@ -49,7 +48,7 @@ export function IoK8sApiCoreV1NodeSelectorFromJSON(json: any): IoK8sApiCoreV1Nod
 }
 
 export function IoK8sApiCoreV1NodeSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function IoK8sApiCoreV1NodeSelectorFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function IoK8sApiCoreV1NodeSelectorToJSON(value?: IoK8sApiCoreV1NodeSelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeSelectorToJSON(json: any): IoK8sApiCoreV1NodeSelector {
+    return IoK8sApiCoreV1NodeSelectorToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeSelectorToJSONTyped(value?: IoK8sApiCoreV1NodeSelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nodeSelectorTerms': ((value.nodeSelectorTerms as Array<any>).map(IoK8sApiCoreV1NodeSelectorTermToJSON)),
+        'nodeSelectorTerms': ((value['nodeSelectorTerms'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorTermToJSON)),
     };
 }
 

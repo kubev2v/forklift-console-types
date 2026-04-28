@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1TokenRequest } from './IoK8sApiStorageV1TokenRequest';
 import {
     IoK8sApiStorageV1TokenRequestFromJSON,
     IoK8sApiStorageV1TokenRequestFromJSONTyped,
     IoK8sApiStorageV1TokenRequestToJSON,
+    IoK8sApiStorageV1TokenRequestToJSONTyped,
 } from './IoK8sApiStorageV1TokenRequest';
 
 /**
@@ -27,7 +28,7 @@ import {
  */
 export interface IoK8sApiStorageV1CSIDriverSpec {
     /**
-     * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
+     * attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
      * 
      * This field is immutable.
      * @type {boolean}
@@ -45,6 +46,16 @@ export interface IoK8sApiStorageV1CSIDriverSpec {
      */
     fsGroupPolicy?: string;
     /**
+     * nodeAllocatableUpdatePeriodSeconds specifies the interval between periodic updates of the CSINode allocatable capacity for this driver. When set, both periodic updates and updates triggered by capacity-related failures are enabled. If not set, no updates occur (neither periodic nor upon detecting capacity-related failures), and the allocatable.count remains static. The minimum allowed value for this field is 10 seconds.
+     * 
+     * This feature requires the MutableCSINodeAllocatableCount feature gate to be enabled.
+     * 
+     * This field is mutable.
+     * @type {number}
+     * @memberof IoK8sApiStorageV1CSIDriverSpec
+     */
+    nodeAllocatableUpdatePeriodSeconds?: number;
+    /**
      * podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
      * 
      * The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
@@ -59,6 +70,18 @@ export interface IoK8sApiStorageV1CSIDriverSpec {
      * @memberof IoK8sApiStorageV1CSIDriverSpec
      */
     podInfoOnMount?: boolean;
+    /**
+     * PreventPodSchedulingIfMissing indicates that the CSI driver wants to prevent pod scheduling if the CSI driver on the node is missing.
+     * 
+     * Enabling this option will prevent the scheduler (or any other component which embeds default scheduler such as cluster-autoscaler) from scheduling pods to nodes where CSI driver is not installed.
+     * 
+     * For components(such as cluster-autoscaler) that embed the scheduler and run pod placement simulations using scheduler plugins, they MUST be aware of CSI driver registration information via CSINode object. They must create simulated CSINode objects in addition to Node objects during scheduling simulation, otherwise if PreventPodSchedulingIfMissing is enabled globally for CSIDriver object, any newly created node may be rejected by the scheduler because of missing CSI driver information from the node.
+     * 
+     * This is an alpha feature and requires the VolumeLimitScaling feature gate to be enabled. Default is "false".
+     * @type {boolean}
+     * @memberof IoK8sApiStorageV1CSIDriverSpec
+     */
+    preventPodSchedulingIfMissing?: boolean;
     /**
      * requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
      * 
@@ -79,6 +102,20 @@ export interface IoK8sApiStorageV1CSIDriverSpec {
      * @memberof IoK8sApiStorageV1CSIDriverSpec
      */
     seLinuxMount?: boolean;
+    /**
+     * serviceAccountTokenInSecrets is an opt-in for CSI drivers to indicate that service account tokens should be passed via the Secrets field in NodePublishVolumeRequest instead of the VolumeContext field. The CSI specification provides a dedicated Secrets field for sensitive information like tokens, which is the appropriate mechanism for handling credentials. This addresses security concerns where sensitive tokens were being logged as part of volume context.
+     * 
+     * When "true", kubelet will pass the tokens only in the Secrets field with the key "csi.storage.k8s.io/serviceAccount.tokens". The CSI driver must be updated to read tokens from the Secrets field instead of VolumeContext.
+     * 
+     * When "false" or not set, kubelet will pass the tokens in VolumeContext with the key "csi.storage.k8s.io/serviceAccount.tokens" (existing behavior). This maintains backward compatibility with existing CSI drivers.
+     * 
+     * This field can only be set when TokenRequests is configured. The API server will reject CSIDriver specs that set this field without TokenRequests.
+     * 
+     * Default behavior if unset is to pass tokens in the VolumeContext field.
+     * @type {boolean}
+     * @memberof IoK8sApiStorageV1CSIDriverSpec
+     */
+    serviceAccountTokenInSecrets?: boolean;
     /**
      * storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
      * 
@@ -116,16 +153,14 @@ export interface IoK8sApiStorageV1CSIDriverSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiStorageV1CSIDriverSpec
      */
-    volumeLifecycleModes?: string[];
+    volumeLifecycleModes?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiStorageV1CSIDriverSpec interface.
  */
-export function instanceOfIoK8sApiStorageV1CSIDriverSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1CSIDriverSpec(value: object): value is IoK8sApiStorageV1CSIDriverSpec {
+    return true;
 }
 
 export function IoK8sApiStorageV1CSIDriverSpecFromJSON(json: any): IoK8sApiStorageV1CSIDriverSpec {
@@ -133,39 +168,47 @@ export function IoK8sApiStorageV1CSIDriverSpecFromJSON(json: any): IoK8sApiStora
 }
 
 export function IoK8sApiStorageV1CSIDriverSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1CSIDriverSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'attachRequired': !exists(json, 'attachRequired') ? undefined : json['attachRequired'],
-        'fsGroupPolicy': !exists(json, 'fsGroupPolicy') ? undefined : json['fsGroupPolicy'],
-        'podInfoOnMount': !exists(json, 'podInfoOnMount') ? undefined : json['podInfoOnMount'],
-        'requiresRepublish': !exists(json, 'requiresRepublish') ? undefined : json['requiresRepublish'],
-        'seLinuxMount': !exists(json, 'seLinuxMount') ? undefined : json['seLinuxMount'],
-        'storageCapacity': !exists(json, 'storageCapacity') ? undefined : json['storageCapacity'],
-        'tokenRequests': !exists(json, 'tokenRequests') ? undefined : ((json['tokenRequests'] as Array<any>).map(IoK8sApiStorageV1TokenRequestFromJSON)),
-        'volumeLifecycleModes': !exists(json, 'volumeLifecycleModes') ? undefined : json['volumeLifecycleModes'],
+        'attachRequired': json['attachRequired'] == null ? undefined : json['attachRequired'],
+        'fsGroupPolicy': json['fsGroupPolicy'] == null ? undefined : json['fsGroupPolicy'],
+        'nodeAllocatableUpdatePeriodSeconds': json['nodeAllocatableUpdatePeriodSeconds'] == null ? undefined : json['nodeAllocatableUpdatePeriodSeconds'],
+        'podInfoOnMount': json['podInfoOnMount'] == null ? undefined : json['podInfoOnMount'],
+        'preventPodSchedulingIfMissing': json['preventPodSchedulingIfMissing'] == null ? undefined : json['preventPodSchedulingIfMissing'],
+        'requiresRepublish': json['requiresRepublish'] == null ? undefined : json['requiresRepublish'],
+        'seLinuxMount': json['seLinuxMount'] == null ? undefined : json['seLinuxMount'],
+        'serviceAccountTokenInSecrets': json['serviceAccountTokenInSecrets'] == null ? undefined : json['serviceAccountTokenInSecrets'],
+        'storageCapacity': json['storageCapacity'] == null ? undefined : json['storageCapacity'],
+        'tokenRequests': json['tokenRequests'] == null ? undefined : ((json['tokenRequests'] as Array<any>).map(IoK8sApiStorageV1TokenRequestFromJSON)),
+        'volumeLifecycleModes': json['volumeLifecycleModes'] == null ? undefined : json['volumeLifecycleModes'],
     };
 }
 
-export function IoK8sApiStorageV1CSIDriverSpecToJSON(value?: IoK8sApiStorageV1CSIDriverSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1CSIDriverSpecToJSON(json: any): IoK8sApiStorageV1CSIDriverSpec {
+    return IoK8sApiStorageV1CSIDriverSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1CSIDriverSpecToJSONTyped(value?: IoK8sApiStorageV1CSIDriverSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'attachRequired': value.attachRequired,
-        'fsGroupPolicy': value.fsGroupPolicy,
-        'podInfoOnMount': value.podInfoOnMount,
-        'requiresRepublish': value.requiresRepublish,
-        'seLinuxMount': value.seLinuxMount,
-        'storageCapacity': value.storageCapacity,
-        'tokenRequests': value.tokenRequests === undefined ? undefined : ((value.tokenRequests as Array<any>).map(IoK8sApiStorageV1TokenRequestToJSON)),
-        'volumeLifecycleModes': value.volumeLifecycleModes,
+        'attachRequired': value['attachRequired'],
+        'fsGroupPolicy': value['fsGroupPolicy'],
+        'nodeAllocatableUpdatePeriodSeconds': value['nodeAllocatableUpdatePeriodSeconds'],
+        'podInfoOnMount': value['podInfoOnMount'],
+        'preventPodSchedulingIfMissing': value['preventPodSchedulingIfMissing'],
+        'requiresRepublish': value['requiresRepublish'],
+        'seLinuxMount': value['seLinuxMount'],
+        'serviceAccountTokenInSecrets': value['serviceAccountTokenInSecrets'],
+        'storageCapacity': value['storageCapacity'],
+        'tokenRequests': value['tokenRequests'] == null ? undefined : ((value['tokenRequests'] as Array<any>).map(IoK8sApiStorageV1TokenRequestToJSON)),
+        'volumeLifecycleModes': value['volumeLifecycleModes'],
     };
 }
 

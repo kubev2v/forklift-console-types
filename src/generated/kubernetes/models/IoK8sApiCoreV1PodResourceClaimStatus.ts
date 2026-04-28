@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.
  * @export
@@ -26,7 +26,11 @@ export interface IoK8sApiCoreV1PodResourceClaimStatus {
      */
     name: string;
     /**
-     * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod. It this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
+     * ResourceClaimName is the name of the ResourceClaim that was generated for the Pod in the namespace of the Pod.
+     * 
+     * When the DRAWorkloadResourceClaims feature is enabled and the corresponding PodResourceClaim matches a PodGroupResourceClaim made by the Pod's PodGroup, then this is the name of the ResourceClaim generated and reserved for the PodGroup.
+     * 
+     * If this is unset, then generating a ResourceClaim was not necessary. The pod.spec.resourceClaims entry can be ignored in this case.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodResourceClaimStatus
      */
@@ -36,11 +40,9 @@ export interface IoK8sApiCoreV1PodResourceClaimStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodResourceClaimStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1PodResourceClaimStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodResourceClaimStatus(value: object): value is IoK8sApiCoreV1PodResourceClaimStatus {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodResourceClaimStatusFromJSON(json: any): IoK8sApiCoreV1PodResourceClaimStatus {
@@ -48,27 +50,29 @@ export function IoK8sApiCoreV1PodResourceClaimStatusFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApiCoreV1PodResourceClaimStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodResourceClaimStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
-        'resourceClaimName': !exists(json, 'resourceClaimName') ? undefined : json['resourceClaimName'],
+        'resourceClaimName': json['resourceClaimName'] == null ? undefined : json['resourceClaimName'],
     };
 }
 
-export function IoK8sApiCoreV1PodResourceClaimStatusToJSON(value?: IoK8sApiCoreV1PodResourceClaimStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodResourceClaimStatusToJSON(json: any): IoK8sApiCoreV1PodResourceClaimStatus {
+    return IoK8sApiCoreV1PodResourceClaimStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodResourceClaimStatusToJSONTyped(value?: IoK8sApiCoreV1PodResourceClaimStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'resourceClaimName': value.resourceClaimName,
+        'name': value['name'],
+        'resourceClaimName': value['resourceClaimName'],
     };
 }
 

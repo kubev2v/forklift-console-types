@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1CSINodeDriver } from './IoK8sApiStorageV1CSINodeDriver';
 import {
     IoK8sApiStorageV1CSINodeDriverFromJSON,
     IoK8sApiStorageV1CSINodeDriverFromJSONTyped,
     IoK8sApiStorageV1CSINodeDriverToJSON,
+    IoK8sApiStorageV1CSINodeDriverToJSONTyped,
 } from './IoK8sApiStorageV1CSINodeDriver';
 
 /**
@@ -37,11 +38,9 @@ export interface IoK8sApiStorageV1CSINodeSpec {
 /**
  * Check if a given object implements the IoK8sApiStorageV1CSINodeSpec interface.
  */
-export function instanceOfIoK8sApiStorageV1CSINodeSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "drivers" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1CSINodeSpec(value: object): value is IoK8sApiStorageV1CSINodeSpec {
+    if (!('drivers' in value) || value['drivers'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1CSINodeSpecFromJSON(json: any): IoK8sApiStorageV1CSINodeSpec {
@@ -49,7 +48,7 @@ export function IoK8sApiStorageV1CSINodeSpecFromJSON(json: any): IoK8sApiStorage
 }
 
 export function IoK8sApiStorageV1CSINodeSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1CSINodeSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function IoK8sApiStorageV1CSINodeSpecFromJSONTyped(json: any, ignoreDiscr
     };
 }
 
-export function IoK8sApiStorageV1CSINodeSpecToJSON(value?: IoK8sApiStorageV1CSINodeSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1CSINodeSpecToJSON(json: any): IoK8sApiStorageV1CSINodeSpec {
+    return IoK8sApiStorageV1CSINodeSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1CSINodeSpecToJSONTyped(value?: IoK8sApiStorageV1CSINodeSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'drivers': ((value.drivers as Array<any>).map(IoK8sApiStorageV1CSINodeDriverToJSON)),
+        'drivers': ((value['drivers'] as Array<any>).map(IoK8sApiStorageV1CSINodeDriverToJSON)),
     };
 }
 

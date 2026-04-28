@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1VGPUOptions } from './V1VGPUOptions';
 import {
     V1VGPUOptionsFromJSON,
     V1VGPUOptionsFromJSONTyped,
     V1VGPUOptionsToJSON,
+    V1VGPUOptionsToJSONTyped,
 } from './V1VGPUOptions';
 
 /**
@@ -27,17 +28,29 @@ import {
  */
 export interface V1GPU {
     /**
-     * 
+     * ClaimName needs to be provided from the list vmi.spec.resourceClaims[].name where this device is allocated
      * @type {string}
      * @memberof V1GPU
      */
-    deviceName: string;
+    claimName?: string;
+    /**
+     * DeviceName is the name of the device provisioned by device-plugins
+     * @type {string}
+     * @memberof V1GPU
+     */
+    deviceName?: string;
     /**
      * Name of the GPU device as exposed by a device plugin
      * @type {string}
      * @memberof V1GPU
      */
     name: string;
+    /**
+     * RequestName needs to be provided from resourceClaim.spec.devices.requests[].name where this device is requested
+     * @type {string}
+     * @memberof V1GPU
+     */
+    requestName?: string;
     /**
      * If specified, the virtual network interface address and its tag will be provided to the guest via config drive
      * @type {string}
@@ -55,12 +68,9 @@ export interface V1GPU {
 /**
  * Check if a given object implements the V1GPU interface.
  */
-export function instanceOfV1GPU(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "deviceName" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfV1GPU(value: object): value is V1GPU {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function V1GPUFromJSON(json: any): V1GPU {
@@ -68,31 +78,37 @@ export function V1GPUFromJSON(json: any): V1GPU {
 }
 
 export function V1GPUFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1GPU {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'deviceName': json['deviceName'],
+        'claimName': json['claimName'] == null ? undefined : json['claimName'],
+        'deviceName': json['deviceName'] == null ? undefined : json['deviceName'],
         'name': json['name'],
-        'tag': !exists(json, 'tag') ? undefined : json['tag'],
-        'virtualGPUOptions': !exists(json, 'virtualGPUOptions') ? undefined : V1VGPUOptionsFromJSON(json['virtualGPUOptions']),
+        'requestName': json['requestName'] == null ? undefined : json['requestName'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
+        'virtualGPUOptions': json['virtualGPUOptions'] == null ? undefined : V1VGPUOptionsFromJSON(json['virtualGPUOptions']),
     };
 }
 
-export function V1GPUToJSON(value?: V1GPU | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1GPUToJSON(json: any): V1GPU {
+    return V1GPUToJSONTyped(json, false);
+}
+
+export function V1GPUToJSONTyped(value?: V1GPU | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'deviceName': value.deviceName,
-        'name': value.name,
-        'tag': value.tag,
-        'virtualGPUOptions': V1VGPUOptionsToJSON(value.virtualGPUOptions),
+        'claimName': value['claimName'],
+        'deviceName': value['deviceName'],
+        'name': value['name'],
+        'requestName': value['requestName'],
+        'tag': value['tag'],
+        'virtualGPUOptions': V1VGPUOptionsToJSON(value['virtualGPUOptions']),
     };
 }
 

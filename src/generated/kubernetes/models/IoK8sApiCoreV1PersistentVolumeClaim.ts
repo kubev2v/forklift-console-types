@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import {
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import type { IoK8sApiCoreV1PersistentVolumeClaimSpec } from './IoK8sApiCoreV1PersistentVolumeClaimSpec';
 import {
     IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON,
     IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSONTyped,
     IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimSpecToJSONTyped,
 } from './IoK8sApiCoreV1PersistentVolumeClaimSpec';
 import type { IoK8sApiCoreV1PersistentVolumeClaimStatus } from './IoK8sApiCoreV1PersistentVolumeClaimStatus';
 import {
     IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSON,
     IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSONTyped,
     IoK8sApiCoreV1PersistentVolumeClaimStatusToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimStatusToJSONTyped,
 } from './IoK8sApiCoreV1PersistentVolumeClaimStatus';
-import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
-import {
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
-} from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
  * PersistentVolumeClaim is a user's request for and claim to a persistent volume
@@ -73,10 +76,8 @@ export interface IoK8sApiCoreV1PersistentVolumeClaim {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PersistentVolumeClaim interface.
  */
-export function instanceOfIoK8sApiCoreV1PersistentVolumeClaim(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PersistentVolumeClaim(value: object): value is IoK8sApiCoreV1PersistentVolumeClaim {
+    return true;
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimFromJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaim {
@@ -84,33 +85,35 @@ export function IoK8sApiCoreV1PersistentVolumeClaimFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PersistentVolumeClaim {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiCoreV1PersistentVolumeClaimToJSON(value?: IoK8sApiCoreV1PersistentVolumeClaim | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PersistentVolumeClaimToJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaim {
+    return IoK8sApiCoreV1PersistentVolumeClaimToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PersistentVolumeClaimToJSONTyped(value?: IoK8sApiCoreV1PersistentVolumeClaim | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON(value.spec),
-        'status': IoK8sApiCoreV1PersistentVolumeClaimStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON(value['spec']),
+        'status': IoK8sApiCoreV1PersistentVolumeClaimStatusToJSON(value['status']),
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
-import {
-    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
-    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
-    IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
-} from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1StatusDetails } from './IoK8sApimachineryPkgApisMetaV1StatusDetails';
 import {
     IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSON,
     IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSON,
+    IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1StatusDetails';
+import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import {
+    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
  * Status is a return value for calls that don't return other objects.
@@ -85,10 +87,8 @@ export interface IoK8sApimachineryPkgApisMetaV1Status {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1Status interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1Status(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1Status(value: object): value is IoK8sApimachineryPkgApisMetaV1Status {
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1StatusFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1Status {
@@ -96,39 +96,41 @@ export function IoK8sApimachineryPkgApisMetaV1StatusFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApimachineryPkgApisMetaV1StatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1Status {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'code': !exists(json, 'code') ? undefined : json['code'],
-        'details': !exists(json, 'details') ? undefined : IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSON(json['details']),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'status': !exists(json, 'status') ? undefined : json['status'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'code': json['code'] == null ? undefined : json['code'],
+        'details': json['details'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSON(json['details']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1StatusToJSON(value?: IoK8sApimachineryPkgApisMetaV1Status | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1StatusToJSON(json: any): IoK8sApimachineryPkgApisMetaV1Status {
+    return IoK8sApimachineryPkgApisMetaV1StatusToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1StatusToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1Status | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'code': value.code,
-        'details': IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSON(value.details),
-        'kind': value.kind,
-        'message': value.message,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
-        'reason': value.reason,
-        'status': value.status,
+        'apiVersion': value['apiVersion'],
+        'code': value['code'],
+        'details': IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSON(value['details']),
+        'kind': value['kind'],
+        'message': value['message'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
+        'reason': value['reason'],
+        'status': value['status'],
     };
 }
 

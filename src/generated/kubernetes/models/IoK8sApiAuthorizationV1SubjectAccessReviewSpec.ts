@@ -12,38 +12,40 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthorizationV1NonResourceAttributes } from './IoK8sApiAuthorizationV1NonResourceAttributes';
 import {
     IoK8sApiAuthorizationV1NonResourceAttributesFromJSON,
     IoK8sApiAuthorizationV1NonResourceAttributesFromJSONTyped,
     IoK8sApiAuthorizationV1NonResourceAttributesToJSON,
+    IoK8sApiAuthorizationV1NonResourceAttributesToJSONTyped,
 } from './IoK8sApiAuthorizationV1NonResourceAttributes';
 import type { IoK8sApiAuthorizationV1ResourceAttributes } from './IoK8sApiAuthorizationV1ResourceAttributes';
 import {
     IoK8sApiAuthorizationV1ResourceAttributesFromJSON,
     IoK8sApiAuthorizationV1ResourceAttributesFromJSONTyped,
     IoK8sApiAuthorizationV1ResourceAttributesToJSON,
+    IoK8sApiAuthorizationV1ResourceAttributesToJSONTyped,
 } from './IoK8sApiAuthorizationV1ResourceAttributes';
 
 /**
- * SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+ * SubjectAccessReviewSpec is a description of the access request.  Exactly one of resourceAttributes and nonResourceAttributes must be set
  * @export
  * @interface IoK8sApiAuthorizationV1SubjectAccessReviewSpec
  */
 export interface IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
     /**
-     * Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-     * @type {{ [key: string]: string[]; }}
+     * extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
+     * @type {{ [key: string]: Array<string>; }}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewSpec
      */
-    extra?: { [key: string]: string[]; };
+    extra?: { [key: string]: Array<string>; };
     /**
-     * Groups is the groups you're testing for.
+     * groups is the groups you're testing for.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewSpec
      */
-    groups?: string[];
+    groups?: Array<string>;
     /**
      * 
      * @type {IoK8sApiAuthorizationV1NonResourceAttributes}
@@ -57,13 +59,13 @@ export interface IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
      */
     resourceAttributes?: IoK8sApiAuthorizationV1ResourceAttributes;
     /**
-     * UID information about the requesting user.
+     * uid information about the requesting user.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewSpec
      */
     uid?: string;
     /**
-     * User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
+     * user is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewSpec
      */
@@ -73,10 +75,8 @@ export interface IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1SubjectAccessReviewSpec interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1SubjectAccessReviewSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1SubjectAccessReviewSpec(value: object): value is IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSON(json: any): IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
@@ -84,35 +84,37 @@ export function IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSON(json: any
 }
 
 export function IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'extra': !exists(json, 'extra') ? undefined : json['extra'],
-        'groups': !exists(json, 'groups') ? undefined : json['groups'],
-        'nonResourceAttributes': !exists(json, 'nonResourceAttributes') ? undefined : IoK8sApiAuthorizationV1NonResourceAttributesFromJSON(json['nonResourceAttributes']),
-        'resourceAttributes': !exists(json, 'resourceAttributes') ? undefined : IoK8sApiAuthorizationV1ResourceAttributesFromJSON(json['resourceAttributes']),
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'extra': json['extra'] == null ? undefined : json['extra'],
+        'groups': json['groups'] == null ? undefined : json['groups'],
+        'nonResourceAttributes': json['nonResourceAttributes'] == null ? undefined : IoK8sApiAuthorizationV1NonResourceAttributesFromJSON(json['nonResourceAttributes']),
+        'resourceAttributes': json['resourceAttributes'] == null ? undefined : IoK8sApiAuthorizationV1ResourceAttributesFromJSON(json['resourceAttributes']),
+        'uid': json['uid'] == null ? undefined : json['uid'],
+        'user': json['user'] == null ? undefined : json['user'],
     };
 }
 
-export function IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSON(value?: IoK8sApiAuthorizationV1SubjectAccessReviewSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSON(json: any): IoK8sApiAuthorizationV1SubjectAccessReviewSpec {
+    return IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSONTyped(value?: IoK8sApiAuthorizationV1SubjectAccessReviewSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'extra': value.extra,
-        'groups': value.groups,
-        'nonResourceAttributes': IoK8sApiAuthorizationV1NonResourceAttributesToJSON(value.nonResourceAttributes),
-        'resourceAttributes': IoK8sApiAuthorizationV1ResourceAttributesToJSON(value.resourceAttributes),
-        'uid': value.uid,
-        'user': value.user,
+        'extra': value['extra'],
+        'groups': value['groups'],
+        'nonResourceAttributes': IoK8sApiAuthorizationV1NonResourceAttributesToJSON(value['nonResourceAttributes']),
+        'resourceAttributes': IoK8sApiAuthorizationV1ResourceAttributesToJSON(value['resourceAttributes']),
+        'uid': value['uid'],
+        'user': value['user'],
     };
 }
 

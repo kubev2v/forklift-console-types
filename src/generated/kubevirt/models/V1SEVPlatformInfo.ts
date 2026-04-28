@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SEVPlatformInfo contains information about the AMD SEV features for the node.
  * @export
@@ -48,10 +48,8 @@ export interface V1SEVPlatformInfo {
 /**
  * Check if a given object implements the V1SEVPlatformInfo interface.
  */
-export function instanceOfV1SEVPlatformInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SEVPlatformInfo(value: object): value is V1SEVPlatformInfo {
+    return true;
 }
 
 export function V1SEVPlatformInfoFromJSON(json: any): V1SEVPlatformInfo {
@@ -59,31 +57,33 @@ export function V1SEVPlatformInfoFromJSON(json: any): V1SEVPlatformInfo {
 }
 
 export function V1SEVPlatformInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SEVPlatformInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'certChain': !exists(json, 'certChain') ? undefined : json['certChain'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'pdh': !exists(json, 'pdh') ? undefined : json['pdh'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'certChain': json['certChain'] == null ? undefined : json['certChain'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'pdh': json['pdh'] == null ? undefined : json['pdh'],
     };
 }
 
-export function V1SEVPlatformInfoToJSON(value?: V1SEVPlatformInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SEVPlatformInfoToJSON(json: any): V1SEVPlatformInfo {
+    return V1SEVPlatformInfoToJSONTyped(json, false);
+}
+
+export function V1SEVPlatformInfoToJSONTyped(value?: V1SEVPlatformInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'certChain': value.certChain,
-        'kind': value.kind,
-        'pdh': value.pdh,
+        'apiVersion': value['apiVersion'],
+        'certChain': value['certChain'],
+        'kind': value['kind'],
+        'pdh': value['pdh'],
     };
 }
 

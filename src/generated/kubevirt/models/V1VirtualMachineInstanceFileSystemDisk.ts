@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineInstanceFileSystemDisk represents the guest os FS disks
  * @export
@@ -30,18 +30,15 @@ export interface V1VirtualMachineInstanceFileSystemDisk {
      * @type {string}
      * @memberof V1VirtualMachineInstanceFileSystemDisk
      */
-    serial: string;
+    serial?: string;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineInstanceFileSystemDisk interface.
  */
-export function instanceOfV1VirtualMachineInstanceFileSystemDisk(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "busType" in value;
-    isInstance = isInstance && "serial" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceFileSystemDisk(value: object): value is V1VirtualMachineInstanceFileSystemDisk {
+    if (!('busType' in value) || value['busType'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceFileSystemDiskFromJSON(json: any): V1VirtualMachineInstanceFileSystemDisk {
@@ -49,27 +46,29 @@ export function V1VirtualMachineInstanceFileSystemDiskFromJSON(json: any): V1Vir
 }
 
 export function V1VirtualMachineInstanceFileSystemDiskFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceFileSystemDisk {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'busType': json['bus-type'],
-        'serial': json['serial'],
+        'busType': json['busType'],
+        'serial': json['serial'] == null ? undefined : json['serial'],
     };
 }
 
-export function V1VirtualMachineInstanceFileSystemDiskToJSON(value?: V1VirtualMachineInstanceFileSystemDisk | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceFileSystemDiskToJSON(json: any): V1VirtualMachineInstanceFileSystemDisk {
+    return V1VirtualMachineInstanceFileSystemDiskToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceFileSystemDiskToJSONTyped(value?: V1VirtualMachineInstanceFileSystemDisk | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'bus-type': value.busType,
-        'serial': value.serial,
+        'busType': value['busType'],
+        'serial': value['serial'],
     };
 }
 

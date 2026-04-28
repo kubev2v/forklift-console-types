@@ -12,19 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ContainerState } from './IoK8sApiCoreV1ContainerState';
-import {
-    IoK8sApiCoreV1ContainerStateFromJSON,
-    IoK8sApiCoreV1ContainerStateFromJSONTyped,
-    IoK8sApiCoreV1ContainerStateToJSON,
-} from './IoK8sApiCoreV1ContainerState';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ResourceRequirements } from './IoK8sApiCoreV1ResourceRequirements';
 import {
     IoK8sApiCoreV1ResourceRequirementsFromJSON,
     IoK8sApiCoreV1ResourceRequirementsFromJSONTyped,
     IoK8sApiCoreV1ResourceRequirementsToJSON,
+    IoK8sApiCoreV1ResourceRequirementsToJSONTyped,
 } from './IoK8sApiCoreV1ResourceRequirements';
+import type { IoK8sApiCoreV1ResourceStatus } from './IoK8sApiCoreV1ResourceStatus';
+import {
+    IoK8sApiCoreV1ResourceStatusFromJSON,
+    IoK8sApiCoreV1ResourceStatusFromJSONTyped,
+    IoK8sApiCoreV1ResourceStatusToJSON,
+    IoK8sApiCoreV1ResourceStatusToJSONTyped,
+} from './IoK8sApiCoreV1ResourceStatus';
+import type { IoK8sApiCoreV1ContainerUser } from './IoK8sApiCoreV1ContainerUser';
+import {
+    IoK8sApiCoreV1ContainerUserFromJSON,
+    IoK8sApiCoreV1ContainerUserFromJSONTyped,
+    IoK8sApiCoreV1ContainerUserToJSON,
+    IoK8sApiCoreV1ContainerUserToJSONTyped,
+} from './IoK8sApiCoreV1ContainerUser';
+import type { IoK8sApiCoreV1VolumeMountStatus } from './IoK8sApiCoreV1VolumeMountStatus';
+import {
+    IoK8sApiCoreV1VolumeMountStatusFromJSON,
+    IoK8sApiCoreV1VolumeMountStatusFromJSONTyped,
+    IoK8sApiCoreV1VolumeMountStatusToJSON,
+    IoK8sApiCoreV1VolumeMountStatusToJSONTyped,
+} from './IoK8sApiCoreV1VolumeMountStatus';
+import type { IoK8sApiCoreV1ContainerState } from './IoK8sApiCoreV1ContainerState';
+import {
+    IoK8sApiCoreV1ContainerStateFromJSON,
+    IoK8sApiCoreV1ContainerStateFromJSONTyped,
+    IoK8sApiCoreV1ContainerStateToJSON,
+    IoK8sApiCoreV1ContainerStateToJSONTyped,
+} from './IoK8sApiCoreV1ContainerState';
 
 /**
  * ContainerStatus contains details for the current status of this container.
@@ -38,6 +61,12 @@ export interface IoK8sApiCoreV1ContainerStatus {
      * @memberof IoK8sApiCoreV1ContainerStatus
      */
     allocatedResources?: { [key: string]: string; };
+    /**
+     * AllocatedResourcesStatus represents the status of various resources allocated for this Pod.
+     * @type {Array<IoK8sApiCoreV1ResourceStatus>}
+     * @memberof IoK8sApiCoreV1ContainerStatus
+     */
+    allocatedResourcesStatus?: Array<IoK8sApiCoreV1ResourceStatus>;
     /**
      * ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
      * @type {string}
@@ -100,20 +129,36 @@ export interface IoK8sApiCoreV1ContainerStatus {
      * @memberof IoK8sApiCoreV1ContainerStatus
      */
     state?: IoK8sApiCoreV1ContainerState;
+    /**
+     * StopSignal reports the effective stop signal for this container
+     * @type {string}
+     * @memberof IoK8sApiCoreV1ContainerStatus
+     */
+    stopSignal?: string;
+    /**
+     * 
+     * @type {IoK8sApiCoreV1ContainerUser}
+     * @memberof IoK8sApiCoreV1ContainerStatus
+     */
+    user?: IoK8sApiCoreV1ContainerUser;
+    /**
+     * Status of volume mounts.
+     * @type {Array<IoK8sApiCoreV1VolumeMountStatus>}
+     * @memberof IoK8sApiCoreV1ContainerStatus
+     */
+    volumeMounts?: Array<IoK8sApiCoreV1VolumeMountStatus>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "image" in value;
-    isInstance = isInstance && "imageID" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "ready" in value;
-    isInstance = isInstance && "restartCount" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerStatus(value: object): value is IoK8sApiCoreV1ContainerStatus {
+    if (!('image' in value) || value['image'] === undefined) return false;
+    if (!('imageID' in value) || value['imageID'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('ready' in value) || value['ready'] === undefined) return false;
+    if (!('restartCount' in value) || value['restartCount'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerStatusFromJSON(json: any): IoK8sApiCoreV1ContainerStatus {
@@ -121,45 +166,55 @@ export function IoK8sApiCoreV1ContainerStatusFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1ContainerStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allocatedResources': !exists(json, 'allocatedResources') ? undefined : json['allocatedResources'],
-        'containerID': !exists(json, 'containerID') ? undefined : json['containerID'],
+        'allocatedResources': json['allocatedResources'] == null ? undefined : json['allocatedResources'],
+        'allocatedResourcesStatus': json['allocatedResourcesStatus'] == null ? undefined : ((json['allocatedResourcesStatus'] as Array<any>).map(IoK8sApiCoreV1ResourceStatusFromJSON)),
+        'containerID': json['containerID'] == null ? undefined : json['containerID'],
         'image': json['image'],
         'imageID': json['imageID'],
-        'lastState': !exists(json, 'lastState') ? undefined : IoK8sApiCoreV1ContainerStateFromJSON(json['lastState']),
+        'lastState': json['lastState'] == null ? undefined : IoK8sApiCoreV1ContainerStateFromJSON(json['lastState']),
         'name': json['name'],
         'ready': json['ready'],
-        'resources': !exists(json, 'resources') ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
+        'resources': json['resources'] == null ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
         'restartCount': json['restartCount'],
-        'started': !exists(json, 'started') ? undefined : json['started'],
-        'state': !exists(json, 'state') ? undefined : IoK8sApiCoreV1ContainerStateFromJSON(json['state']),
+        'started': json['started'] == null ? undefined : json['started'],
+        'state': json['state'] == null ? undefined : IoK8sApiCoreV1ContainerStateFromJSON(json['state']),
+        'stopSignal': json['stopSignal'] == null ? undefined : json['stopSignal'],
+        'user': json['user'] == null ? undefined : IoK8sApiCoreV1ContainerUserFromJSON(json['user']),
+        'volumeMounts': json['volumeMounts'] == null ? undefined : ((json['volumeMounts'] as Array<any>).map(IoK8sApiCoreV1VolumeMountStatusFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1ContainerStatusToJSON(value?: IoK8sApiCoreV1ContainerStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerStatusToJSON(json: any): IoK8sApiCoreV1ContainerStatus {
+    return IoK8sApiCoreV1ContainerStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerStatusToJSONTyped(value?: IoK8sApiCoreV1ContainerStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allocatedResources': value.allocatedResources,
-        'containerID': value.containerID,
-        'image': value.image,
-        'imageID': value.imageID,
-        'lastState': IoK8sApiCoreV1ContainerStateToJSON(value.lastState),
-        'name': value.name,
-        'ready': value.ready,
-        'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value.resources),
-        'restartCount': value.restartCount,
-        'started': value.started,
-        'state': IoK8sApiCoreV1ContainerStateToJSON(value.state),
+        'allocatedResources': value['allocatedResources'],
+        'allocatedResourcesStatus': value['allocatedResourcesStatus'] == null ? undefined : ((value['allocatedResourcesStatus'] as Array<any>).map(IoK8sApiCoreV1ResourceStatusToJSON)),
+        'containerID': value['containerID'],
+        'image': value['image'],
+        'imageID': value['imageID'],
+        'lastState': IoK8sApiCoreV1ContainerStateToJSON(value['lastState']),
+        'name': value['name'],
+        'ready': value['ready'],
+        'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value['resources']),
+        'restartCount': value['restartCount'],
+        'started': value['started'],
+        'state': IoK8sApiCoreV1ContainerStateToJSON(value['state']),
+        'stopSignal': value['stopSignal'],
+        'user': IoK8sApiCoreV1ContainerUserToJSON(value['user']),
+        'volumeMounts': value['volumeMounts'] == null ? undefined : ((value['volumeMounts'] as Array<any>).map(IoK8sApiCoreV1VolumeMountStatusToJSON)),
     };
 }
 

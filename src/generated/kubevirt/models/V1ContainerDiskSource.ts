@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a docker image with an embedded disk.
  * @export
@@ -65,11 +65,9 @@ export type V1ContainerDiskSourceImagePullPolicyEnum = typeof V1ContainerDiskSou
 /**
  * Check if a given object implements the V1ContainerDiskSource interface.
  */
-export function instanceOfV1ContainerDiskSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "image" in value;
-
-    return isInstance;
+export function instanceOfV1ContainerDiskSource(value: object): value is V1ContainerDiskSource {
+    if (!('image' in value) || value['image'] === undefined) return false;
+    return true;
 }
 
 export function V1ContainerDiskSourceFromJSON(json: any): V1ContainerDiskSource {
@@ -77,31 +75,33 @@ export function V1ContainerDiskSourceFromJSON(json: any): V1ContainerDiskSource 
 }
 
 export function V1ContainerDiskSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ContainerDiskSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'image': json['image'],
-        'imagePullPolicy': !exists(json, 'imagePullPolicy') ? undefined : json['imagePullPolicy'],
-        'imagePullSecret': !exists(json, 'imagePullSecret') ? undefined : json['imagePullSecret'],
-        'path': !exists(json, 'path') ? undefined : json['path'],
+        'imagePullPolicy': json['imagePullPolicy'] == null ? undefined : json['imagePullPolicy'],
+        'imagePullSecret': json['imagePullSecret'] == null ? undefined : json['imagePullSecret'],
+        'path': json['path'] == null ? undefined : json['path'],
     };
 }
 
-export function V1ContainerDiskSourceToJSON(value?: V1ContainerDiskSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ContainerDiskSourceToJSON(json: any): V1ContainerDiskSource {
+    return V1ContainerDiskSourceToJSONTyped(json, false);
+}
+
+export function V1ContainerDiskSourceToJSONTyped(value?: V1ContainerDiskSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'image': value.image,
-        'imagePullPolicy': value.imagePullPolicy,
-        'imagePullSecret': value.imagePullSecret,
-        'path': value.path,
+        'image': value['image'],
+        'imagePullPolicy': value['imagePullPolicy'],
+        'imagePullSecret': value['imagePullSecret'],
+        'path': value['path'],
     };
 }
 

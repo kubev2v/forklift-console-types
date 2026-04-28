@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PersistentVolumeClaimVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "claimName" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimVolumeSource(value: object): value is IoK8sApiCoreV1PersistentVolumeClaimVolumeSource {
+    if (!('claimName' in value) || value['claimName'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimVolumeSource {
@@ -48,27 +46,29 @@ export function IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSON(json: an
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PersistentVolumeClaimVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'claimName': json['claimName'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
     };
 }
 
-export function IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSON(value?: IoK8sApiCoreV1PersistentVolumeClaimVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimVolumeSource {
+    return IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PersistentVolumeClaimVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1PersistentVolumeClaimVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'claimName': value.claimName,
-        'readOnly': value.readOnly,
+        'claimName': value['claimName'],
+        'readOnly': value['readOnly'],
     };
 }
 

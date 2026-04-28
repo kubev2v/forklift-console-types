@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1Preconditions } from './IoK8sApimachineryPkgApisMetaV1Preconditions';
 import {
     IoK8sApimachineryPkgApisMetaV1PreconditionsFromJSON,
     IoK8sApimachineryPkgApisMetaV1PreconditionsFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1PreconditionsToJSON,
+    IoK8sApimachineryPkgApisMetaV1PreconditionsToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1Preconditions';
 
 /**
@@ -37,13 +38,19 @@ export interface IoK8sApimachineryPkgApisMetaV1DeleteOptions {
      * @type {Array<string>}
      * @memberof IoK8sApimachineryPkgApisMetaV1DeleteOptions
      */
-    dryRun?: string[];
+    dryRun?: Array<string>;
     /**
      * The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
      * @type {number}
      * @memberof IoK8sApimachineryPkgApisMetaV1DeleteOptions
      */
     gracePeriodSeconds?: number;
+    /**
+     * if set to true, it will trigger an unsafe deletion of the resource in case the normal deletion flow fails with a corrupt object error. A resource is considered corrupt if it can not be retrieved from the underlying storage successfully because of a) its data can not be transformed e.g. decryption failure, or b) it fails to decode into an object. NOTE: unsafe deletion ignores finalizer constraints, skips precondition checks, and removes the object from the storage. WARNING: This may potentially break the cluster if the workload associated with the resource being unsafe-deleted relies on normal deletion flow. Use only if you REALLY know what you are doing. The default value is false, and the user must opt in to enable it
+     * @type {boolean}
+     * @memberof IoK8sApimachineryPkgApisMetaV1DeleteOptions
+     */
+    ignoreStoreReadErrorWithClusterBreakingPotential?: boolean;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * @type {string}
@@ -73,10 +80,8 @@ export interface IoK8sApimachineryPkgApisMetaV1DeleteOptions {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1DeleteOptions interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1DeleteOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1DeleteOptions(value: object): value is IoK8sApimachineryPkgApisMetaV1DeleteOptions {
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1DeleteOptions {
@@ -84,37 +89,41 @@ export function IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSON(json: any): 
 }
 
 export function IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1DeleteOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
-        'gracePeriodSeconds': !exists(json, 'gracePeriodSeconds') ? undefined : json['gracePeriodSeconds'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'orphanDependents': !exists(json, 'orphanDependents') ? undefined : json['orphanDependents'],
-        'preconditions': !exists(json, 'preconditions') ? undefined : IoK8sApimachineryPkgApisMetaV1PreconditionsFromJSON(json['preconditions']),
-        'propagationPolicy': !exists(json, 'propagationPolicy') ? undefined : json['propagationPolicy'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
+        'gracePeriodSeconds': json['gracePeriodSeconds'] == null ? undefined : json['gracePeriodSeconds'],
+        'ignoreStoreReadErrorWithClusterBreakingPotential': json['ignoreStoreReadErrorWithClusterBreakingPotential'] == null ? undefined : json['ignoreStoreReadErrorWithClusterBreakingPotential'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'orphanDependents': json['orphanDependents'] == null ? undefined : json['orphanDependents'],
+        'preconditions': json['preconditions'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1PreconditionsFromJSON(json['preconditions']),
+        'propagationPolicy': json['propagationPolicy'] == null ? undefined : json['propagationPolicy'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSON(value?: IoK8sApimachineryPkgApisMetaV1DeleteOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSON(json: any): IoK8sApimachineryPkgApisMetaV1DeleteOptions {
+    return IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1DeleteOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'dryRun': value.dryRun,
-        'gracePeriodSeconds': value.gracePeriodSeconds,
-        'kind': value.kind,
-        'orphanDependents': value.orphanDependents,
-        'preconditions': IoK8sApimachineryPkgApisMetaV1PreconditionsToJSON(value.preconditions),
-        'propagationPolicy': value.propagationPolicy,
+        'apiVersion': value['apiVersion'],
+        'dryRun': value['dryRun'],
+        'gracePeriodSeconds': value['gracePeriodSeconds'],
+        'ignoreStoreReadErrorWithClusterBreakingPotential': value['ignoreStoreReadErrorWithClusterBreakingPotential'],
+        'kind': value['kind'],
+        'orphanDependents': value['orphanDependents'],
+        'preconditions': IoK8sApimachineryPkgApisMetaV1PreconditionsToJSON(value['preconditions']),
+        'propagationPolicy': value['propagationPolicy'],
     };
 }
 

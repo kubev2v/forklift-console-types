@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1AddVolumeOptions } from './V1AddVolumeOptions';
-import {
-    V1AddVolumeOptionsFromJSON,
-    V1AddVolumeOptionsFromJSONTyped,
-    V1AddVolumeOptionsToJSON,
-} from './V1AddVolumeOptions';
+import { mapValues } from '../../runtime';
 import type { V1RemoveVolumeOptions } from './V1RemoveVolumeOptions';
 import {
     V1RemoveVolumeOptionsFromJSON,
     V1RemoveVolumeOptionsFromJSONTyped,
     V1RemoveVolumeOptionsToJSON,
+    V1RemoveVolumeOptionsToJSONTyped,
 } from './V1RemoveVolumeOptions';
+import type { V1AddVolumeOptions } from './V1AddVolumeOptions';
+import {
+    V1AddVolumeOptionsFromJSON,
+    V1AddVolumeOptionsFromJSONTyped,
+    V1AddVolumeOptionsToJSON,
+    V1AddVolumeOptionsToJSONTyped,
+} from './V1AddVolumeOptions';
 
 /**
  * 
@@ -49,10 +51,8 @@ export interface V1VirtualMachineVolumeRequest {
 /**
  * Check if a given object implements the V1VirtualMachineVolumeRequest interface.
  */
-export function instanceOfV1VirtualMachineVolumeRequest(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineVolumeRequest(value: object): value is V1VirtualMachineVolumeRequest {
+    return true;
 }
 
 export function V1VirtualMachineVolumeRequestFromJSON(json: any): V1VirtualMachineVolumeRequest {
@@ -60,27 +60,29 @@ export function V1VirtualMachineVolumeRequestFromJSON(json: any): V1VirtualMachi
 }
 
 export function V1VirtualMachineVolumeRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineVolumeRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'addVolumeOptions': !exists(json, 'addVolumeOptions') ? undefined : V1AddVolumeOptionsFromJSON(json['addVolumeOptions']),
-        'removeVolumeOptions': !exists(json, 'removeVolumeOptions') ? undefined : V1RemoveVolumeOptionsFromJSON(json['removeVolumeOptions']),
+        'addVolumeOptions': json['addVolumeOptions'] == null ? undefined : V1AddVolumeOptionsFromJSON(json['addVolumeOptions']),
+        'removeVolumeOptions': json['removeVolumeOptions'] == null ? undefined : V1RemoveVolumeOptionsFromJSON(json['removeVolumeOptions']),
     };
 }
 
-export function V1VirtualMachineVolumeRequestToJSON(value?: V1VirtualMachineVolumeRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineVolumeRequestToJSON(json: any): V1VirtualMachineVolumeRequest {
+    return V1VirtualMachineVolumeRequestToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineVolumeRequestToJSONTyped(value?: V1VirtualMachineVolumeRequest | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'addVolumeOptions': V1AddVolumeOptionsToJSON(value.addVolumeOptions),
-        'removeVolumeOptions': V1RemoveVolumeOptionsToJSON(value.removeVolumeOptions),
+        'addVolumeOptions': V1AddVolumeOptionsToJSON(value['addVolumeOptions']),
+        'removeVolumeOptions': V1RemoveVolumeOptionsToJSON(value['removeVolumeOptions']),
     };
 }
 

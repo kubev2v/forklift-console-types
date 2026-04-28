@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
      * @type {Array<string>}
      * @memberof IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames
      */
-    categories?: string[];
+    categories?: Array<string>;
     /**
      * kind is the serialized kind of the resource. It is normally CamelCase and singular. Custom resource instances will use this value as the `kind` attribute in API calls.
      * @type {string}
@@ -48,7 +48,7 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
      * @type {Array<string>}
      * @memberof IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames
      */
-    shortNames?: string[];
+    shortNames?: Array<string>;
     /**
      * singular is the singular name of the resource. It must be all lowercase. Defaults to lowercased `kind`.
      * @type {string}
@@ -60,12 +60,10 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "plural" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('plural' in value) || value['plural'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames {
@@ -73,35 +71,37 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceD
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'categories': !exists(json, 'categories') ? undefined : json['categories'],
+        'categories': json['categories'] == null ? undefined : json['categories'],
         'kind': json['kind'],
-        'listKind': !exists(json, 'listKind') ? undefined : json['listKind'],
+        'listKind': json['listKind'] == null ? undefined : json['listKind'],
         'plural': json['plural'],
-        'shortNames': !exists(json, 'shortNames') ? undefined : json['shortNames'],
-        'singular': !exists(json, 'singular') ? undefined : json['singular'],
+        'shortNames': json['shortNames'] == null ? undefined : json['shortNames'],
+        'singular': json['singular'] == null ? undefined : json['singular'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'categories': value.categories,
-        'kind': value.kind,
-        'listKind': value.listKind,
-        'plural': value.plural,
-        'shortNames': value.shortNames,
-        'singular': value.singular,
+        'categories': value['categories'],
+        'kind': value['kind'],
+        'listKind': value['listKind'],
+        'plural': value['plural'],
+        'shortNames': value['shortNames'],
+        'singular': value['singular'],
     };
 }
 

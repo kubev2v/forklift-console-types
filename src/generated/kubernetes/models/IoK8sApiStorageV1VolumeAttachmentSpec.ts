@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1VolumeAttachmentSource } from './IoK8sApiStorageV1VolumeAttachmentSource';
 import {
     IoK8sApiStorageV1VolumeAttachmentSourceFromJSON,
     IoK8sApiStorageV1VolumeAttachmentSourceFromJSONTyped,
     IoK8sApiStorageV1VolumeAttachmentSourceToJSON,
+    IoK8sApiStorageV1VolumeAttachmentSourceToJSONTyped,
 } from './IoK8sApiStorageV1VolumeAttachmentSource';
 
 /**
@@ -49,13 +50,11 @@ export interface IoK8sApiStorageV1VolumeAttachmentSpec {
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeAttachmentSpec interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeAttachmentSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "attacher" in value;
-    isInstance = isInstance && "nodeName" in value;
-    isInstance = isInstance && "source" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeAttachmentSpec(value: object): value is IoK8sApiStorageV1VolumeAttachmentSpec {
+    if (!('attacher' in value) || value['attacher'] === undefined) return false;
+    if (!('nodeName' in value) || value['nodeName'] === undefined) return false;
+    if (!('source' in value) || value['source'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentSpecFromJSON(json: any): IoK8sApiStorageV1VolumeAttachmentSpec {
@@ -63,7 +62,7 @@ export function IoK8sApiStorageV1VolumeAttachmentSpecFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeAttachmentSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -74,18 +73,20 @@ export function IoK8sApiStorageV1VolumeAttachmentSpecFromJSONTyped(json: any, ig
     };
 }
 
-export function IoK8sApiStorageV1VolumeAttachmentSpecToJSON(value?: IoK8sApiStorageV1VolumeAttachmentSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeAttachmentSpecToJSON(json: any): IoK8sApiStorageV1VolumeAttachmentSpec {
+    return IoK8sApiStorageV1VolumeAttachmentSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeAttachmentSpecToJSONTyped(value?: IoK8sApiStorageV1VolumeAttachmentSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'attacher': value.attacher,
-        'nodeName': value.nodeName,
-        'source': IoK8sApiStorageV1VolumeAttachmentSourceToJSON(value.source),
+        'attacher': value['attacher'],
+        'nodeName': value['nodeName'],
+        'source': IoK8sApiStorageV1VolumeAttachmentSourceToJSON(value['source']),
     };
 }
 

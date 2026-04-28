@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthenticationV1BoundObjectReference } from './IoK8sApiAuthenticationV1BoundObjectReference';
 import {
     IoK8sApiAuthenticationV1BoundObjectReferenceFromJSON,
     IoK8sApiAuthenticationV1BoundObjectReferenceFromJSONTyped,
     IoK8sApiAuthenticationV1BoundObjectReferenceToJSON,
+    IoK8sApiAuthenticationV1BoundObjectReferenceToJSONTyped,
 } from './IoK8sApiAuthenticationV1BoundObjectReference';
 
 /**
@@ -27,11 +28,11 @@ import {
  */
 export interface IoK8sApiAuthenticationV1TokenRequestSpec {
     /**
-     * Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+     * audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthenticationV1TokenRequestSpec
      */
-    audiences: string[];
+    audiences?: Array<string>;
     /**
      * 
      * @type {IoK8sApiAuthenticationV1BoundObjectReference}
@@ -39,7 +40,7 @@ export interface IoK8sApiAuthenticationV1TokenRequestSpec {
      */
     boundObjectRef?: IoK8sApiAuthenticationV1BoundObjectReference;
     /**
-     * ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
+     * expirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
      * @type {number}
      * @memberof IoK8sApiAuthenticationV1TokenRequestSpec
      */
@@ -49,11 +50,8 @@ export interface IoK8sApiAuthenticationV1TokenRequestSpec {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1TokenRequestSpec interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1TokenRequestSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "audiences" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1TokenRequestSpec(value: object): value is IoK8sApiAuthenticationV1TokenRequestSpec {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1TokenRequestSpecFromJSON(json: any): IoK8sApiAuthenticationV1TokenRequestSpec {
@@ -61,29 +59,31 @@ export function IoK8sApiAuthenticationV1TokenRequestSpecFromJSON(json: any): IoK
 }
 
 export function IoK8sApiAuthenticationV1TokenRequestSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1TokenRequestSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'audiences': json['audiences'],
-        'boundObjectRef': !exists(json, 'boundObjectRef') ? undefined : IoK8sApiAuthenticationV1BoundObjectReferenceFromJSON(json['boundObjectRef']),
-        'expirationSeconds': !exists(json, 'expirationSeconds') ? undefined : json['expirationSeconds'],
+        'audiences': json['audiences'] == null ? undefined : json['audiences'],
+        'boundObjectRef': json['boundObjectRef'] == null ? undefined : IoK8sApiAuthenticationV1BoundObjectReferenceFromJSON(json['boundObjectRef']),
+        'expirationSeconds': json['expirationSeconds'] == null ? undefined : json['expirationSeconds'],
     };
 }
 
-export function IoK8sApiAuthenticationV1TokenRequestSpecToJSON(value?: IoK8sApiAuthenticationV1TokenRequestSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1TokenRequestSpecToJSON(json: any): IoK8sApiAuthenticationV1TokenRequestSpec {
+    return IoK8sApiAuthenticationV1TokenRequestSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1TokenRequestSpecToJSONTyped(value?: IoK8sApiAuthenticationV1TokenRequestSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'audiences': value.audiences,
-        'boundObjectRef': IoK8sApiAuthenticationV1BoundObjectReferenceToJSON(value.boundObjectRef),
-        'expirationSeconds': value.expirationSeconds,
+        'audiences': value['audiences'],
+        'boundObjectRef': IoK8sApiAuthenticationV1BoundObjectReferenceToJSON(value['boundObjectRef']),
+        'expirationSeconds': value['expirationSeconds'],
     };
 }
 

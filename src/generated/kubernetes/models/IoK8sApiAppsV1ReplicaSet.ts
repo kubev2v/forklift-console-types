@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1ReplicaSetSpec } from './IoK8sApiAppsV1ReplicaSetSpec';
 import {
     IoK8sApiAppsV1ReplicaSetSpecFromJSON,
     IoK8sApiAppsV1ReplicaSetSpecFromJSONTyped,
     IoK8sApiAppsV1ReplicaSetSpecToJSON,
+    IoK8sApiAppsV1ReplicaSetSpecToJSONTyped,
 } from './IoK8sApiAppsV1ReplicaSetSpec';
-import type { IoK8sApiAppsV1ReplicaSetStatus } from './IoK8sApiAppsV1ReplicaSetStatus';
-import {
-    IoK8sApiAppsV1ReplicaSetStatusFromJSON,
-    IoK8sApiAppsV1ReplicaSetStatusFromJSONTyped,
-    IoK8sApiAppsV1ReplicaSetStatusToJSON,
-} from './IoK8sApiAppsV1ReplicaSetStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiAppsV1ReplicaSetStatus } from './IoK8sApiAppsV1ReplicaSetStatus';
+import {
+    IoK8sApiAppsV1ReplicaSetStatusFromJSON,
+    IoK8sApiAppsV1ReplicaSetStatusFromJSONTyped,
+    IoK8sApiAppsV1ReplicaSetStatusToJSON,
+    IoK8sApiAppsV1ReplicaSetStatusToJSONTyped,
+} from './IoK8sApiAppsV1ReplicaSetStatus';
 
 /**
  * ReplicaSet ensures that a specified number of pod replicas are running at any given time.
@@ -73,10 +76,8 @@ export interface IoK8sApiAppsV1ReplicaSet {
 /**
  * Check if a given object implements the IoK8sApiAppsV1ReplicaSet interface.
  */
-export function instanceOfIoK8sApiAppsV1ReplicaSet(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1ReplicaSet(value: object): value is IoK8sApiAppsV1ReplicaSet {
+    return true;
 }
 
 export function IoK8sApiAppsV1ReplicaSetFromJSON(json: any): IoK8sApiAppsV1ReplicaSet {
@@ -84,33 +85,35 @@ export function IoK8sApiAppsV1ReplicaSetFromJSON(json: any): IoK8sApiAppsV1Repli
 }
 
 export function IoK8sApiAppsV1ReplicaSetFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1ReplicaSet {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiAppsV1ReplicaSetSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAppsV1ReplicaSetStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiAppsV1ReplicaSetSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiAppsV1ReplicaSetStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAppsV1ReplicaSetToJSON(value?: IoK8sApiAppsV1ReplicaSet | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1ReplicaSetToJSON(json: any): IoK8sApiAppsV1ReplicaSet {
+    return IoK8sApiAppsV1ReplicaSetToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1ReplicaSetToJSONTyped(value?: IoK8sApiAppsV1ReplicaSet | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAppsV1ReplicaSetSpecToJSON(value.spec),
-        'status': IoK8sApiAppsV1ReplicaSetStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAppsV1ReplicaSetSpecToJSON(value['spec']),
+        'status': IoK8sApiAppsV1ReplicaSetStatusToJSON(value['status']),
     };
 }
 

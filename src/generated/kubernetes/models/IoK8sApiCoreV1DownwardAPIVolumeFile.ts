@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ObjectFieldSelector } from './IoK8sApiCoreV1ObjectFieldSelector';
-import {
-    IoK8sApiCoreV1ObjectFieldSelectorFromJSON,
-    IoK8sApiCoreV1ObjectFieldSelectorFromJSONTyped,
-    IoK8sApiCoreV1ObjectFieldSelectorToJSON,
-} from './IoK8sApiCoreV1ObjectFieldSelector';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ResourceFieldSelector } from './IoK8sApiCoreV1ResourceFieldSelector';
 import {
     IoK8sApiCoreV1ResourceFieldSelectorFromJSON,
     IoK8sApiCoreV1ResourceFieldSelectorFromJSONTyped,
     IoK8sApiCoreV1ResourceFieldSelectorToJSON,
+    IoK8sApiCoreV1ResourceFieldSelectorToJSONTyped,
 } from './IoK8sApiCoreV1ResourceFieldSelector';
+import type { IoK8sApiCoreV1ObjectFieldSelector } from './IoK8sApiCoreV1ObjectFieldSelector';
+import {
+    IoK8sApiCoreV1ObjectFieldSelectorFromJSON,
+    IoK8sApiCoreV1ObjectFieldSelectorFromJSONTyped,
+    IoK8sApiCoreV1ObjectFieldSelectorToJSON,
+    IoK8sApiCoreV1ObjectFieldSelectorToJSONTyped,
+} from './IoK8sApiCoreV1ObjectFieldSelector';
 
 /**
  * DownwardAPIVolumeFile represents information to create the file containing the pod field
@@ -61,11 +63,9 @@ export interface IoK8sApiCoreV1DownwardAPIVolumeFile {
 /**
  * Check if a given object implements the IoK8sApiCoreV1DownwardAPIVolumeFile interface.
  */
-export function instanceOfIoK8sApiCoreV1DownwardAPIVolumeFile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1DownwardAPIVolumeFile(value: object): value is IoK8sApiCoreV1DownwardAPIVolumeFile {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON(json: any): IoK8sApiCoreV1DownwardAPIVolumeFile {
@@ -73,31 +73,33 @@ export function IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1DownwardAPIVolumeFileFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1DownwardAPIVolumeFile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fieldRef': !exists(json, 'fieldRef') ? undefined : IoK8sApiCoreV1ObjectFieldSelectorFromJSON(json['fieldRef']),
-        'mode': !exists(json, 'mode') ? undefined : json['mode'],
+        'fieldRef': json['fieldRef'] == null ? undefined : IoK8sApiCoreV1ObjectFieldSelectorFromJSON(json['fieldRef']),
+        'mode': json['mode'] == null ? undefined : json['mode'],
         'path': json['path'],
-        'resourceFieldRef': !exists(json, 'resourceFieldRef') ? undefined : IoK8sApiCoreV1ResourceFieldSelectorFromJSON(json['resourceFieldRef']),
+        'resourceFieldRef': json['resourceFieldRef'] == null ? undefined : IoK8sApiCoreV1ResourceFieldSelectorFromJSON(json['resourceFieldRef']),
     };
 }
 
-export function IoK8sApiCoreV1DownwardAPIVolumeFileToJSON(value?: IoK8sApiCoreV1DownwardAPIVolumeFile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1DownwardAPIVolumeFileToJSON(json: any): IoK8sApiCoreV1DownwardAPIVolumeFile {
+    return IoK8sApiCoreV1DownwardAPIVolumeFileToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1DownwardAPIVolumeFileToJSONTyped(value?: IoK8sApiCoreV1DownwardAPIVolumeFile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fieldRef': IoK8sApiCoreV1ObjectFieldSelectorToJSON(value.fieldRef),
-        'mode': value.mode,
-        'path': value.path,
-        'resourceFieldRef': IoK8sApiCoreV1ResourceFieldSelectorToJSON(value.resourceFieldRef),
+        'fieldRef': IoK8sApiCoreV1ObjectFieldSelectorToJSON(value['fieldRef']),
+        'mode': value['mode'],
+        'path': value['path'],
+        'resourceFieldRef': IoK8sApiCoreV1ResourceFieldSelectorToJSON(value['resourceFieldRef']),
     };
 }
 

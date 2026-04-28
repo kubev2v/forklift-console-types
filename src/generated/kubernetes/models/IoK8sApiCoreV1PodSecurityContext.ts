@@ -12,30 +12,41 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiCoreV1Sysctl } from './IoK8sApiCoreV1Sysctl';
+import {
+    IoK8sApiCoreV1SysctlFromJSON,
+    IoK8sApiCoreV1SysctlFromJSONTyped,
+    IoK8sApiCoreV1SysctlToJSON,
+    IoK8sApiCoreV1SysctlToJSONTyped,
+} from './IoK8sApiCoreV1Sysctl';
 import type { IoK8sApiCoreV1SELinuxOptions } from './IoK8sApiCoreV1SELinuxOptions';
 import {
     IoK8sApiCoreV1SELinuxOptionsFromJSON,
     IoK8sApiCoreV1SELinuxOptionsFromJSONTyped,
     IoK8sApiCoreV1SELinuxOptionsToJSON,
+    IoK8sApiCoreV1SELinuxOptionsToJSONTyped,
 } from './IoK8sApiCoreV1SELinuxOptions';
 import type { IoK8sApiCoreV1SeccompProfile } from './IoK8sApiCoreV1SeccompProfile';
 import {
     IoK8sApiCoreV1SeccompProfileFromJSON,
     IoK8sApiCoreV1SeccompProfileFromJSONTyped,
     IoK8sApiCoreV1SeccompProfileToJSON,
+    IoK8sApiCoreV1SeccompProfileToJSONTyped,
 } from './IoK8sApiCoreV1SeccompProfile';
-import type { IoK8sApiCoreV1Sysctl } from './IoK8sApiCoreV1Sysctl';
+import type { IoK8sApiCoreV1AppArmorProfile } from './IoK8sApiCoreV1AppArmorProfile';
 import {
-    IoK8sApiCoreV1SysctlFromJSON,
-    IoK8sApiCoreV1SysctlFromJSONTyped,
-    IoK8sApiCoreV1SysctlToJSON,
-} from './IoK8sApiCoreV1Sysctl';
+    IoK8sApiCoreV1AppArmorProfileFromJSON,
+    IoK8sApiCoreV1AppArmorProfileFromJSONTyped,
+    IoK8sApiCoreV1AppArmorProfileToJSON,
+    IoK8sApiCoreV1AppArmorProfileToJSONTyped,
+} from './IoK8sApiCoreV1AppArmorProfile';
 import type { IoK8sApiCoreV1WindowsSecurityContextOptions } from './IoK8sApiCoreV1WindowsSecurityContextOptions';
 import {
     IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON,
     IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSONTyped,
     IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON,
+    IoK8sApiCoreV1WindowsSecurityContextOptionsToJSONTyped,
 } from './IoK8sApiCoreV1WindowsSecurityContextOptions';
 
 /**
@@ -44,6 +55,12 @@ import {
  * @interface IoK8sApiCoreV1PodSecurityContext
  */
 export interface IoK8sApiCoreV1PodSecurityContext {
+    /**
+     * 
+     * @type {IoK8sApiCoreV1AppArmorProfile}
+     * @memberof IoK8sApiCoreV1PodSecurityContext
+     */
+    appArmorProfile?: IoK8sApiCoreV1AppArmorProfile;
     /**
      * A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
      * 
@@ -79,6 +96,22 @@ export interface IoK8sApiCoreV1PodSecurityContext {
      */
     runAsUser?: number;
     /**
+     * seLinuxChangePolicy defines how the container's SELinux label is applied to all volumes used by the Pod. It has no effect on nodes that do not support SELinux or to volumes does not support SELinux. Valid values are "MountOption" and "Recursive".
+     * 
+     * "Recursive" means relabeling of all files on all Pod volumes by the container runtime. This may be slow for large volumes, but allows mixing privileged and unprivileged Pods sharing the same volume on the same node.
+     * 
+     * "MountOption" mounts all eligible Pod volumes with `-o context` mount option. This requires all Pods that share the same volume to use the same SELinux label. It is not possible to share the same volume among privileged and unprivileged Pods. Eligible volumes are in-tree FibreChannel and iSCSI volumes, and all CSI volumes whose CSI driver announces SELinux support by setting spec.seLinuxMount: true in their CSIDriver instance. Other volumes are always re-labelled recursively. "MountOption" value is allowed only when SELinuxMount feature gate is enabled.
+     * 
+     * If not specified and SELinuxMount feature gate is enabled, "MountOption" is used. If not specified and SELinuxMount feature gate is disabled, "MountOption" is used for ReadWriteOncePod volumes and "Recursive" for all other volumes.
+     * 
+     * This field affects only Pods that have SELinux label set, either in PodSecurityContext or in SecurityContext of all containers.
+     * 
+     * All Pods that use the same volume should use the same seLinuxChangePolicy, otherwise some pods can get stuck in ContainerCreating state. Note that this field cannot be set when spec.os.name is windows.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1PodSecurityContext
+     */
+    seLinuxChangePolicy?: string;
+    /**
      * 
      * @type {IoK8sApiCoreV1SELinuxOptions}
      * @memberof IoK8sApiCoreV1PodSecurityContext
@@ -91,11 +124,17 @@ export interface IoK8sApiCoreV1PodSecurityContext {
      */
     seccompProfile?: IoK8sApiCoreV1SeccompProfile;
     /**
-     * A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
+     * A list of groups applied to the first process run in each container, in addition to the container's primary GID and fsGroup (if specified).  If the SupplementalGroupsPolicy feature is enabled, the supplementalGroupsPolicy field determines whether these are in addition to or instead of any group memberships defined in the container image. If unspecified, no additional groups are added, though group memberships defined in the container image may still be used, depending on the supplementalGroupsPolicy field. Note that this field cannot be set when spec.os.name is windows.
      * @type {Array<number>}
      * @memberof IoK8sApiCoreV1PodSecurityContext
      */
     supplementalGroups?: Array<number>;
+    /**
+     * Defines how supplemental groups of the first container processes are calculated. Valid values are "Merge" and "Strict". If not specified, "Merge" is used. (Alpha) Using the field requires the SupplementalGroupsPolicy feature gate to be enabled and the container runtime must implement support for this feature. Note that this field cannot be set when spec.os.name is windows.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1PodSecurityContext
+     */
+    supplementalGroupsPolicy?: string;
     /**
      * Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
      * @type {Array<IoK8sApiCoreV1Sysctl>}
@@ -113,10 +152,8 @@ export interface IoK8sApiCoreV1PodSecurityContext {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodSecurityContext interface.
  */
-export function instanceOfIoK8sApiCoreV1PodSecurityContext(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodSecurityContext(value: object): value is IoK8sApiCoreV1PodSecurityContext {
+    return true;
 }
 
 export function IoK8sApiCoreV1PodSecurityContextFromJSON(json: any): IoK8sApiCoreV1PodSecurityContext {
@@ -124,43 +161,51 @@ export function IoK8sApiCoreV1PodSecurityContextFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1PodSecurityContextFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodSecurityContext {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsGroup': !exists(json, 'fsGroup') ? undefined : json['fsGroup'],
-        'fsGroupChangePolicy': !exists(json, 'fsGroupChangePolicy') ? undefined : json['fsGroupChangePolicy'],
-        'runAsGroup': !exists(json, 'runAsGroup') ? undefined : json['runAsGroup'],
-        'runAsNonRoot': !exists(json, 'runAsNonRoot') ? undefined : json['runAsNonRoot'],
-        'runAsUser': !exists(json, 'runAsUser') ? undefined : json['runAsUser'],
-        'seLinuxOptions': !exists(json, 'seLinuxOptions') ? undefined : IoK8sApiCoreV1SELinuxOptionsFromJSON(json['seLinuxOptions']),
-        'seccompProfile': !exists(json, 'seccompProfile') ? undefined : IoK8sApiCoreV1SeccompProfileFromJSON(json['seccompProfile']),
-        'supplementalGroups': !exists(json, 'supplementalGroups') ? undefined : json['supplementalGroups'],
-        'sysctls': !exists(json, 'sysctls') ? undefined : ((json['sysctls'] as Array<any>).map(IoK8sApiCoreV1SysctlFromJSON)),
-        'windowsOptions': !exists(json, 'windowsOptions') ? undefined : IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON(json['windowsOptions']),
+        'appArmorProfile': json['appArmorProfile'] == null ? undefined : IoK8sApiCoreV1AppArmorProfileFromJSON(json['appArmorProfile']),
+        'fsGroup': json['fsGroup'] == null ? undefined : json['fsGroup'],
+        'fsGroupChangePolicy': json['fsGroupChangePolicy'] == null ? undefined : json['fsGroupChangePolicy'],
+        'runAsGroup': json['runAsGroup'] == null ? undefined : json['runAsGroup'],
+        'runAsNonRoot': json['runAsNonRoot'] == null ? undefined : json['runAsNonRoot'],
+        'runAsUser': json['runAsUser'] == null ? undefined : json['runAsUser'],
+        'seLinuxChangePolicy': json['seLinuxChangePolicy'] == null ? undefined : json['seLinuxChangePolicy'],
+        'seLinuxOptions': json['seLinuxOptions'] == null ? undefined : IoK8sApiCoreV1SELinuxOptionsFromJSON(json['seLinuxOptions']),
+        'seccompProfile': json['seccompProfile'] == null ? undefined : IoK8sApiCoreV1SeccompProfileFromJSON(json['seccompProfile']),
+        'supplementalGroups': json['supplementalGroups'] == null ? undefined : json['supplementalGroups'],
+        'supplementalGroupsPolicy': json['supplementalGroupsPolicy'] == null ? undefined : json['supplementalGroupsPolicy'],
+        'sysctls': json['sysctls'] == null ? undefined : ((json['sysctls'] as Array<any>).map(IoK8sApiCoreV1SysctlFromJSON)),
+        'windowsOptions': json['windowsOptions'] == null ? undefined : IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON(json['windowsOptions']),
     };
 }
 
-export function IoK8sApiCoreV1PodSecurityContextToJSON(value?: IoK8sApiCoreV1PodSecurityContext | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodSecurityContextToJSON(json: any): IoK8sApiCoreV1PodSecurityContext {
+    return IoK8sApiCoreV1PodSecurityContextToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodSecurityContextToJSONTyped(value?: IoK8sApiCoreV1PodSecurityContext | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsGroup': value.fsGroup,
-        'fsGroupChangePolicy': value.fsGroupChangePolicy,
-        'runAsGroup': value.runAsGroup,
-        'runAsNonRoot': value.runAsNonRoot,
-        'runAsUser': value.runAsUser,
-        'seLinuxOptions': IoK8sApiCoreV1SELinuxOptionsToJSON(value.seLinuxOptions),
-        'seccompProfile': IoK8sApiCoreV1SeccompProfileToJSON(value.seccompProfile),
-        'supplementalGroups': value.supplementalGroups,
-        'sysctls': value.sysctls === undefined ? undefined : ((value.sysctls as Array<any>).map(IoK8sApiCoreV1SysctlToJSON)),
-        'windowsOptions': IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON(value.windowsOptions),
+        'appArmorProfile': IoK8sApiCoreV1AppArmorProfileToJSON(value['appArmorProfile']),
+        'fsGroup': value['fsGroup'],
+        'fsGroupChangePolicy': value['fsGroupChangePolicy'],
+        'runAsGroup': value['runAsGroup'],
+        'runAsNonRoot': value['runAsNonRoot'],
+        'runAsUser': value['runAsUser'],
+        'seLinuxChangePolicy': value['seLinuxChangePolicy'],
+        'seLinuxOptions': IoK8sApiCoreV1SELinuxOptionsToJSON(value['seLinuxOptions']),
+        'seccompProfile': IoK8sApiCoreV1SeccompProfileToJSON(value['seccompProfile']),
+        'supplementalGroups': value['supplementalGroups'],
+        'supplementalGroupsPolicy': value['supplementalGroupsPolicy'],
+        'sysctls': value['sysctls'] == null ? undefined : ((value['sysctls'] as Array<any>).map(IoK8sApiCoreV1SysctlToJSON)),
+        'windowsOptions': IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON(value['windowsOptions']),
     };
 }
 

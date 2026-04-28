@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1CertConfig } from './V1CertConfig';
 import {
     V1CertConfigFromJSON,
     V1CertConfigFromJSONTyped,
     V1CertConfigToJSON,
+    V1CertConfigToJSONTyped,
 } from './V1CertConfig';
 
 /**
@@ -61,10 +62,8 @@ export interface V1KubeVirtSelfSignConfiguration {
 /**
  * Check if a given object implements the V1KubeVirtSelfSignConfiguration interface.
  */
-export function instanceOfV1KubeVirtSelfSignConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KubeVirtSelfSignConfiguration(value: object): value is V1KubeVirtSelfSignConfiguration {
+    return true;
 }
 
 export function V1KubeVirtSelfSignConfigurationFromJSON(json: any): V1KubeVirtSelfSignConfiguration {
@@ -72,33 +71,35 @@ export function V1KubeVirtSelfSignConfigurationFromJSON(json: any): V1KubeVirtSe
 }
 
 export function V1KubeVirtSelfSignConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtSelfSignConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ca': !exists(json, 'ca') ? undefined : V1CertConfigFromJSON(json['ca']),
-        'caOverlapInterval': !exists(json, 'caOverlapInterval') ? undefined : json['caOverlapInterval'],
-        'caRotateInterval': !exists(json, 'caRotateInterval') ? undefined : json['caRotateInterval'],
-        'certRotateInterval': !exists(json, 'certRotateInterval') ? undefined : json['certRotateInterval'],
-        'server': !exists(json, 'server') ? undefined : V1CertConfigFromJSON(json['server']),
+        'ca': json['ca'] == null ? undefined : V1CertConfigFromJSON(json['ca']),
+        'caOverlapInterval': json['caOverlapInterval'] == null ? undefined : json['caOverlapInterval'],
+        'caRotateInterval': json['caRotateInterval'] == null ? undefined : json['caRotateInterval'],
+        'certRotateInterval': json['certRotateInterval'] == null ? undefined : json['certRotateInterval'],
+        'server': json['server'] == null ? undefined : V1CertConfigFromJSON(json['server']),
     };
 }
 
-export function V1KubeVirtSelfSignConfigurationToJSON(value?: V1KubeVirtSelfSignConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtSelfSignConfigurationToJSON(json: any): V1KubeVirtSelfSignConfiguration {
+    return V1KubeVirtSelfSignConfigurationToJSONTyped(json, false);
+}
+
+export function V1KubeVirtSelfSignConfigurationToJSONTyped(value?: V1KubeVirtSelfSignConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ca': V1CertConfigToJSON(value.ca),
-        'caOverlapInterval': value.caOverlapInterval,
-        'caRotateInterval': value.caRotateInterval,
-        'certRotateInterval': value.certRotateInterval,
-        'server': V1CertConfigToJSON(value.server),
+        'ca': V1CertConfigToJSON(value['ca']),
+        'caOverlapInterval': value['caOverlapInterval'],
+        'caRotateInterval': value['caRotateInterval'],
+        'certRotateInterval': value['certRotateInterval'],
+        'server': V1CertConfigToJSON(value['server']),
     };
 }
 

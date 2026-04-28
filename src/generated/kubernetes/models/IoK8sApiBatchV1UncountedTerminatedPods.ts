@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
  * @export
@@ -24,22 +24,20 @@ export interface IoK8sApiBatchV1UncountedTerminatedPods {
      * @type {Array<string>}
      * @memberof IoK8sApiBatchV1UncountedTerminatedPods
      */
-    failed?: string[];
+    failed?: Array<string>;
     /**
      * succeeded holds UIDs of succeeded Pods.
      * @type {Array<string>}
      * @memberof IoK8sApiBatchV1UncountedTerminatedPods
      */
-    succeeded?: string[];
+    succeeded?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiBatchV1UncountedTerminatedPods interface.
  */
-export function instanceOfIoK8sApiBatchV1UncountedTerminatedPods(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1UncountedTerminatedPods(value: object): value is IoK8sApiBatchV1UncountedTerminatedPods {
+    return true;
 }
 
 export function IoK8sApiBatchV1UncountedTerminatedPodsFromJSON(json: any): IoK8sApiBatchV1UncountedTerminatedPods {
@@ -47,27 +45,29 @@ export function IoK8sApiBatchV1UncountedTerminatedPodsFromJSON(json: any): IoK8s
 }
 
 export function IoK8sApiBatchV1UncountedTerminatedPodsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1UncountedTerminatedPods {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'failed': !exists(json, 'failed') ? undefined : json['failed'],
-        'succeeded': !exists(json, 'succeeded') ? undefined : json['succeeded'],
+        'failed': json['failed'] == null ? undefined : json['failed'],
+        'succeeded': json['succeeded'] == null ? undefined : json['succeeded'],
     };
 }
 
-export function IoK8sApiBatchV1UncountedTerminatedPodsToJSON(value?: IoK8sApiBatchV1UncountedTerminatedPods | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1UncountedTerminatedPodsToJSON(json: any): IoK8sApiBatchV1UncountedTerminatedPods {
+    return IoK8sApiBatchV1UncountedTerminatedPodsToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1UncountedTerminatedPodsToJSONTyped(value?: IoK8sApiBatchV1UncountedTerminatedPods | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'failed': value.failed,
-        'succeeded': value.succeeded,
+        'failed': value['failed'],
+        'succeeded': value['succeeded'],
     };
 }
 

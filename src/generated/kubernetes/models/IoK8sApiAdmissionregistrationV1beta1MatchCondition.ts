@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAdmissionregistrationV1beta1MatchCondition {
     /**
-     * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+     * expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
      * 
      * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
      *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
@@ -34,7 +34,7 @@ export interface IoK8sApiAdmissionregistrationV1beta1MatchCondition {
      */
     expression: string;
     /**
-     * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+     * name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
      * 
      * Required.
      * @type {string}
@@ -46,12 +46,10 @@ export interface IoK8sApiAdmissionregistrationV1beta1MatchCondition {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1beta1MatchCondition interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1beta1MatchCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "expression" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1beta1MatchCondition(value: object): value is IoK8sApiAdmissionregistrationV1beta1MatchCondition {
+    if (!('expression' in value) || value['expression'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1beta1MatchConditionFromJSON(json: any): IoK8sApiAdmissionregistrationV1beta1MatchCondition {
@@ -59,7 +57,7 @@ export function IoK8sApiAdmissionregistrationV1beta1MatchConditionFromJSON(json:
 }
 
 export function IoK8sApiAdmissionregistrationV1beta1MatchConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1beta1MatchCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -69,17 +67,19 @@ export function IoK8sApiAdmissionregistrationV1beta1MatchConditionFromJSONTyped(
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1beta1MatchConditionToJSON(value?: IoK8sApiAdmissionregistrationV1beta1MatchCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1beta1MatchConditionToJSON(json: any): IoK8sApiAdmissionregistrationV1beta1MatchCondition {
+    return IoK8sApiAdmissionregistrationV1beta1MatchConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1beta1MatchConditionToJSONTyped(value?: IoK8sApiAdmissionregistrationV1beta1MatchCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'expression': value.expression,
-        'name': value.name,
+        'expression': value['expression'],
+        'name': value['name'],
     };
 }
 

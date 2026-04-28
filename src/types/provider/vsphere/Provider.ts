@@ -11,6 +11,8 @@ export interface VSphereProvider extends OpenshiftResource {
   apiVersion: string;
   // Product         string       `json:"product"`
   product: string;
+  // InstanceUuid    string       `json:"instanceUuid"`
+  instanceUuid: string;
   // DatacenterCount int64        `json:"datacenterCount"`
   datacenterCount: number;
   // ClusterCount    int64        `json:"clusterCount"`

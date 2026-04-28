@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NodeSelectorRequirement } from './IoK8sApiCoreV1NodeSelectorRequirement';
 import {
     IoK8sApiCoreV1NodeSelectorRequirementFromJSON,
     IoK8sApiCoreV1NodeSelectorRequirementFromJSONTyped,
     IoK8sApiCoreV1NodeSelectorRequirementToJSON,
+    IoK8sApiCoreV1NodeSelectorRequirementToJSONTyped,
 } from './IoK8sApiCoreV1NodeSelectorRequirement';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiCoreV1NodeSelectorTerm {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeSelectorTerm interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeSelectorTerm(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeSelectorTerm(value: object): value is IoK8sApiCoreV1NodeSelectorTerm {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeSelectorTermFromJSON(json: any): IoK8sApiCoreV1NodeSelectorTerm {
@@ -54,27 +53,29 @@ export function IoK8sApiCoreV1NodeSelectorTermFromJSON(json: any): IoK8sApiCoreV
 }
 
 export function IoK8sApiCoreV1NodeSelectorTermFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeSelectorTerm {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'matchExpressions': !exists(json, 'matchExpressions') ? undefined : ((json['matchExpressions'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementFromJSON)),
-        'matchFields': !exists(json, 'matchFields') ? undefined : ((json['matchFields'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementFromJSON)),
+        'matchExpressions': json['matchExpressions'] == null ? undefined : ((json['matchExpressions'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementFromJSON)),
+        'matchFields': json['matchFields'] == null ? undefined : ((json['matchFields'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1NodeSelectorTermToJSON(value?: IoK8sApiCoreV1NodeSelectorTerm | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeSelectorTermToJSON(json: any): IoK8sApiCoreV1NodeSelectorTerm {
+    return IoK8sApiCoreV1NodeSelectorTermToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeSelectorTermToJSONTyped(value?: IoK8sApiCoreV1NodeSelectorTerm | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'matchExpressions': value.matchExpressions === undefined ? undefined : ((value.matchExpressions as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementToJSON)),
-        'matchFields': value.matchFields === undefined ? undefined : ((value.matchFields as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementToJSON)),
+        'matchExpressions': value['matchExpressions'] == null ? undefined : ((value['matchExpressions'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementToJSON)),
+        'matchFields': value['matchFields'] == null ? undefined : ((value['matchFields'] as Array<any>).map(IoK8sApiCoreV1NodeSelectorRequirementToJSON)),
     };
 }
 

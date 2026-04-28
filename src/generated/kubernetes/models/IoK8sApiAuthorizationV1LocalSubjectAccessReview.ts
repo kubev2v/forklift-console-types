@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAuthorizationV1SubjectAccessReviewSpec } from './IoK8sApiAuthorizationV1SubjectAccessReviewSpec';
-import {
-    IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSON,
-    IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSONTyped,
-    IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSON,
-} from './IoK8sApiAuthorizationV1SubjectAccessReviewSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthorizationV1SubjectAccessReviewStatus } from './IoK8sApiAuthorizationV1SubjectAccessReviewStatus';
 import {
     IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSON,
     IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSONTyped,
     IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSON,
+    IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSONTyped,
 } from './IoK8sApiAuthorizationV1SubjectAccessReviewStatus';
+import type { IoK8sApiAuthorizationV1SubjectAccessReviewSpec } from './IoK8sApiAuthorizationV1SubjectAccessReviewSpec';
+import {
+    IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSON,
+    IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSONTyped,
+    IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSON,
+    IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSONTyped,
+} from './IoK8sApiAuthorizationV1SubjectAccessReviewSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,11 +76,9 @@ export interface IoK8sApiAuthorizationV1LocalSubjectAccessReview {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1LocalSubjectAccessReview interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1LocalSubjectAccessReview(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1LocalSubjectAccessReview(value: object): value is IoK8sApiAuthorizationV1LocalSubjectAccessReview {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1LocalSubjectAccessReviewFromJSON(json: any): IoK8sApiAuthorizationV1LocalSubjectAccessReview {
@@ -85,33 +86,35 @@ export function IoK8sApiAuthorizationV1LocalSubjectAccessReviewFromJSON(json: an
 }
 
 export function IoK8sApiAuthorizationV1LocalSubjectAccessReviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1LocalSubjectAccessReview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiAuthorizationV1SubjectAccessReviewSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSON(json['status']),
+        'status': json['status'] == null ? undefined : IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAuthorizationV1LocalSubjectAccessReviewToJSON(value?: IoK8sApiAuthorizationV1LocalSubjectAccessReview | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1LocalSubjectAccessReviewToJSON(json: any): IoK8sApiAuthorizationV1LocalSubjectAccessReview {
+    return IoK8sApiAuthorizationV1LocalSubjectAccessReviewToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1LocalSubjectAccessReviewToJSONTyped(value?: IoK8sApiAuthorizationV1LocalSubjectAccessReview | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSON(value.spec),
-        'status': IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAuthorizationV1SubjectAccessReviewSpecToJSON(value['spec']),
+        'status': IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSON(value['status']),
     };
 }
 

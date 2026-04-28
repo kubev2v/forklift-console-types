@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "groupVersion" in value;
-    isInstance = isInstance && "version" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery(value: object): value is IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery {
+    if (!('groupVersion' in value) || value['groupVersion'] === undefined) return false;
+    if (!('version' in value) || value['version'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery {
@@ -49,7 +47,7 @@ export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSON(j
 }
 
 export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSONTy
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON(value?: IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON(json: any): IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery {
+    return IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1GroupVersionForDiscovery | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'groupVersion': value.groupVersion,
-        'version': value.version,
+        'groupVersion': value['groupVersion'],
+        'version': value['version'],
     };
 }
 

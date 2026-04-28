@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiRbacV1RoleRef } from './IoK8sApiRbacV1RoleRef';
 import {
     IoK8sApiRbacV1RoleRefFromJSON,
     IoK8sApiRbacV1RoleRefFromJSONTyped,
     IoK8sApiRbacV1RoleRefToJSON,
+    IoK8sApiRbacV1RoleRefToJSONTyped,
 } from './IoK8sApiRbacV1RoleRef';
 import type { IoK8sApiRbacV1Subject } from './IoK8sApiRbacV1Subject';
 import {
     IoK8sApiRbacV1SubjectFromJSON,
     IoK8sApiRbacV1SubjectFromJSONTyped,
     IoK8sApiRbacV1SubjectToJSON,
+    IoK8sApiRbacV1SubjectToJSONTyped,
 } from './IoK8sApiRbacV1Subject';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,11 +76,9 @@ export interface IoK8sApiRbacV1RoleBinding {
 /**
  * Check if a given object implements the IoK8sApiRbacV1RoleBinding interface.
  */
-export function instanceOfIoK8sApiRbacV1RoleBinding(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "roleRef" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1RoleBinding(value: object): value is IoK8sApiRbacV1RoleBinding {
+    if (!('roleRef' in value) || value['roleRef'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiRbacV1RoleBindingFromJSON(json: any): IoK8sApiRbacV1RoleBinding {
@@ -85,33 +86,35 @@ export function IoK8sApiRbacV1RoleBindingFromJSON(json: any): IoK8sApiRbacV1Role
 }
 
 export function IoK8sApiRbacV1RoleBindingFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1RoleBinding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'roleRef': IoK8sApiRbacV1RoleRefFromJSON(json['roleRef']),
-        'subjects': !exists(json, 'subjects') ? undefined : ((json['subjects'] as Array<any>).map(IoK8sApiRbacV1SubjectFromJSON)),
+        'subjects': json['subjects'] == null ? undefined : ((json['subjects'] as Array<any>).map(IoK8sApiRbacV1SubjectFromJSON)),
     };
 }
 
-export function IoK8sApiRbacV1RoleBindingToJSON(value?: IoK8sApiRbacV1RoleBinding | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1RoleBindingToJSON(json: any): IoK8sApiRbacV1RoleBinding {
+    return IoK8sApiRbacV1RoleBindingToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1RoleBindingToJSONTyped(value?: IoK8sApiRbacV1RoleBinding | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'roleRef': IoK8sApiRbacV1RoleRefToJSON(value.roleRef),
-        'subjects': value.subjects === undefined ? undefined : ((value.subjects as Array<any>).map(IoK8sApiRbacV1SubjectToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'roleRef': IoK8sApiRbacV1RoleRefToJSON(value['roleRef']),
+        'subjects': value['subjects'] == null ? undefined : ((value['subjects'] as Array<any>).map(IoK8sApiRbacV1SubjectToJSON)),
     };
 }
 

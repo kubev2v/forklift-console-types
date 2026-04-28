@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * EmptyDisk represents a temporary disk which shares the vmis lifecycle.
  * @export
@@ -57,20 +57,18 @@ export interface V1EmptyDiskSource {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1EmptyDiskSource
      */
-    capacity: string;
+    capacity: object;
 }
 
 /**
  * Check if a given object implements the V1EmptyDiskSource interface.
  */
-export function instanceOfV1EmptyDiskSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "capacity" in value;
-
-    return isInstance;
+export function instanceOfV1EmptyDiskSource(value: object): value is V1EmptyDiskSource {
+    if (!('capacity' in value) || value['capacity'] === undefined) return false;
+    return true;
 }
 
 export function V1EmptyDiskSourceFromJSON(json: any): V1EmptyDiskSource {
@@ -78,7 +76,7 @@ export function V1EmptyDiskSourceFromJSON(json: any): V1EmptyDiskSource {
 }
 
 export function V1EmptyDiskSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1EmptyDiskSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -87,16 +85,18 @@ export function V1EmptyDiskSourceFromJSONTyped(json: any, ignoreDiscriminator: b
     };
 }
 
-export function V1EmptyDiskSourceToJSON(value?: V1EmptyDiskSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1EmptyDiskSourceToJSON(json: any): V1EmptyDiskSource {
+    return V1EmptyDiskSourceToJSONTyped(json, false);
+}
+
+export function V1EmptyDiskSourceToJSONTyped(value?: V1EmptyDiskSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'capacity': value.capacity,
+        'capacity': value['capacity'],
     };
 }
 

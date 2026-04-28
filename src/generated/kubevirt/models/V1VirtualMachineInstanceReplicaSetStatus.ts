@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1VirtualMachineInstanceReplicaSetCondition } from './V1VirtualMachineInstanceReplicaSetCondition';
 import {
     V1VirtualMachineInstanceReplicaSetConditionFromJSON,
     V1VirtualMachineInstanceReplicaSetConditionFromJSONTyped,
     V1VirtualMachineInstanceReplicaSetConditionToJSON,
+    V1VirtualMachineInstanceReplicaSetConditionToJSONTyped,
 } from './V1VirtualMachineInstanceReplicaSetCondition';
 
 /**
@@ -55,10 +56,8 @@ export interface V1VirtualMachineInstanceReplicaSetStatus {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceReplicaSetStatus interface.
  */
-export function instanceOfV1VirtualMachineInstanceReplicaSetStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceReplicaSetStatus(value: object): value is V1VirtualMachineInstanceReplicaSetStatus {
+    return true;
 }
 
 export function V1VirtualMachineInstanceReplicaSetStatusFromJSON(json: any): V1VirtualMachineInstanceReplicaSetStatus {
@@ -66,31 +65,33 @@ export function V1VirtualMachineInstanceReplicaSetStatusFromJSON(json: any): V1V
 }
 
 export function V1VirtualMachineInstanceReplicaSetStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceReplicaSetStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(V1VirtualMachineInstanceReplicaSetConditionFromJSON)),
-        'labelSelector': !exists(json, 'labelSelector') ? undefined : json['labelSelector'],
-        'readyReplicas': !exists(json, 'readyReplicas') ? undefined : json['readyReplicas'],
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1VirtualMachineInstanceReplicaSetConditionFromJSON)),
+        'labelSelector': json['labelSelector'] == null ? undefined : json['labelSelector'],
+        'readyReplicas': json['readyReplicas'] == null ? undefined : json['readyReplicas'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
     };
 }
 
-export function V1VirtualMachineInstanceReplicaSetStatusToJSON(value?: V1VirtualMachineInstanceReplicaSetStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceReplicaSetStatusToJSON(json: any): V1VirtualMachineInstanceReplicaSetStatus {
+    return V1VirtualMachineInstanceReplicaSetStatusToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceReplicaSetStatusToJSONTyped(value?: V1VirtualMachineInstanceReplicaSetStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(V1VirtualMachineInstanceReplicaSetConditionToJSON)),
-        'labelSelector': value.labelSelector,
-        'readyReplicas': value.readyReplicas,
-        'replicas': value.replicas,
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1VirtualMachineInstanceReplicaSetConditionToJSON)),
+        'labelSelector': value['labelSelector'],
+        'readyReplicas': value['readyReplicas'],
+        'replicas': value['replicas'],
     };
 }
 

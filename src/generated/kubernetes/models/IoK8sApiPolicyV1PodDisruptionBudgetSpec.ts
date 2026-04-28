@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -54,8 +55,6 @@ export interface IoK8sApiPolicyV1PodDisruptionBudgetSpec {
      * AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
      * 
      * Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
-     * 
-     * This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
      * @type {string}
      * @memberof IoK8sApiPolicyV1PodDisruptionBudgetSpec
      */
@@ -65,10 +64,8 @@ export interface IoK8sApiPolicyV1PodDisruptionBudgetSpec {
 /**
  * Check if a given object implements the IoK8sApiPolicyV1PodDisruptionBudgetSpec interface.
  */
-export function instanceOfIoK8sApiPolicyV1PodDisruptionBudgetSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiPolicyV1PodDisruptionBudgetSpec(value: object): value is IoK8sApiPolicyV1PodDisruptionBudgetSpec {
+    return true;
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudgetSpec {
@@ -76,31 +73,33 @@ export function IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiPolicyV1PodDisruptionBudgetSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'maxUnavailable': !exists(json, 'maxUnavailable') ? undefined : json['maxUnavailable'],
-        'minAvailable': !exists(json, 'minAvailable') ? undefined : json['minAvailable'],
-        'selector': !exists(json, 'selector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'unhealthyPodEvictionPolicy': !exists(json, 'unhealthyPodEvictionPolicy') ? undefined : json['unhealthyPodEvictionPolicy'],
+        'maxUnavailable': json['maxUnavailable'] == null ? undefined : json['maxUnavailable'],
+        'minAvailable': json['minAvailable'] == null ? undefined : json['minAvailable'],
+        'selector': json['selector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
+        'unhealthyPodEvictionPolicy': json['unhealthyPodEvictionPolicy'] == null ? undefined : json['unhealthyPodEvictionPolicy'],
     };
 }
 
-export function IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSON(value?: IoK8sApiPolicyV1PodDisruptionBudgetSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudgetSpec {
+    return IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSONTyped(value?: IoK8sApiPolicyV1PodDisruptionBudgetSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'maxUnavailable': value.maxUnavailable,
-        'minAvailable': value.minAvailable,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'unhealthyPodEvictionPolicy': value.unhealthyPodEvictionPolicy,
+        'maxUnavailable': value['maxUnavailable'],
+        'minAvailable': value['minAvailable'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'unhealthyPodEvictionPolicy': value['unhealthyPodEvictionPolicy'],
     };
 }
 

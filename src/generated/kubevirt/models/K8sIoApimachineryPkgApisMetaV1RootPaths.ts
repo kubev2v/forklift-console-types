@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * RootPaths lists the paths available at root. For example: "/healthz", "/apis".
  * @export
@@ -30,11 +30,9 @@ export interface K8sIoApimachineryPkgApisMetaV1RootPaths {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1RootPaths interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1RootPaths(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "paths" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1RootPaths(value: object): value is K8sIoApimachineryPkgApisMetaV1RootPaths {
+    if (!('paths' in value) || value['paths'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1RootPathsFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1RootPaths {
@@ -42,7 +40,7 @@ export function K8sIoApimachineryPkgApisMetaV1RootPathsFromJSON(json: any): K8sI
 }
 
 export function K8sIoApimachineryPkgApisMetaV1RootPathsFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1RootPaths {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function K8sIoApimachineryPkgApisMetaV1RootPathsFromJSONTyped(json: any, 
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1RootPathsToJSON(value?: K8sIoApimachineryPkgApisMetaV1RootPaths | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1RootPathsToJSON(json: any): K8sIoApimachineryPkgApisMetaV1RootPaths {
+    return K8sIoApimachineryPkgApisMetaV1RootPathsToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1RootPathsToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1RootPaths | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'paths': value.paths,
+        'paths': value['paths'],
     };
 }
 

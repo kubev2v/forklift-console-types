@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaProps } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaProps';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaProps';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation {
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidationFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation {
@@ -48,25 +47,27 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceV
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'openAPIV3Schema': !exists(json, 'openAPIV3Schema') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsFromJSON(json['openAPIV3Schema']),
+        'openAPIV3Schema': json['openAPIV3Schema'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsFromJSON(json['openAPIV3Schema']),
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidationToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidationToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidationToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidationToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceValidation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'openAPIV3Schema': IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsToJSON(value.openAPIV3Schema),
+        'openAPIV3Schema': IoK8sApiextensionsApiserverPkgApisApiextensionsV1JSONSchemaPropsToJSON(value['openAPIV3Schema']),
     };
 }
 

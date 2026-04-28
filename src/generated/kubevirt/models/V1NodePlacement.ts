@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1Affinity } from './K8sIoApiCoreV1Affinity';
 import {
     K8sIoApiCoreV1AffinityFromJSON,
     K8sIoApiCoreV1AffinityFromJSONTyped,
     K8sIoApiCoreV1AffinityToJSON,
+    K8sIoApiCoreV1AffinityToJSONTyped,
 } from './K8sIoApiCoreV1Affinity';
 import type { K8sIoApiCoreV1Toleration } from './K8sIoApiCoreV1Toleration';
 import {
     K8sIoApiCoreV1TolerationFromJSON,
     K8sIoApiCoreV1TolerationFromJSONTyped,
     K8sIoApiCoreV1TolerationToJSON,
+    K8sIoApiCoreV1TolerationToJSONTyped,
 } from './K8sIoApiCoreV1Toleration';
 
 /**
@@ -55,10 +57,8 @@ export interface V1NodePlacement {
 /**
  * Check if a given object implements the V1NodePlacement interface.
  */
-export function instanceOfV1NodePlacement(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1NodePlacement(value: object): value is V1NodePlacement {
+    return true;
 }
 
 export function V1NodePlacementFromJSON(json: any): V1NodePlacement {
@@ -66,29 +66,31 @@ export function V1NodePlacementFromJSON(json: any): V1NodePlacement {
 }
 
 export function V1NodePlacementFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1NodePlacement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'affinity': !exists(json, 'affinity') ? undefined : K8sIoApiCoreV1AffinityFromJSON(json['affinity']),
-        'nodeSelector': !exists(json, 'nodeSelector') ? undefined : json['nodeSelector'],
-        'tolerations': !exists(json, 'tolerations') ? undefined : ((json['tolerations'] as Array<any>).map(K8sIoApiCoreV1TolerationFromJSON)),
+        'affinity': json['affinity'] == null ? undefined : K8sIoApiCoreV1AffinityFromJSON(json['affinity']),
+        'nodeSelector': json['nodeSelector'] == null ? undefined : json['nodeSelector'],
+        'tolerations': json['tolerations'] == null ? undefined : ((json['tolerations'] as Array<any>).map(K8sIoApiCoreV1TolerationFromJSON)),
     };
 }
 
-export function V1NodePlacementToJSON(value?: V1NodePlacement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1NodePlacementToJSON(json: any): V1NodePlacement {
+    return V1NodePlacementToJSONTyped(json, false);
+}
+
+export function V1NodePlacementToJSONTyped(value?: V1NodePlacement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'affinity': K8sIoApiCoreV1AffinityToJSON(value.affinity),
-        'nodeSelector': value.nodeSelector,
-        'tolerations': value.tolerations === undefined ? undefined : ((value.tolerations as Array<any>).map(K8sIoApiCoreV1TolerationToJSON)),
+        'affinity': K8sIoApiCoreV1AffinityToJSON(value['affinity']),
+        'nodeSelector': value['nodeSelector'],
+        'tolerations': value['tolerations'] == null ? undefined : ((value['tolerations'] as Array<any>).map(K8sIoApiCoreV1TolerationToJSON)),
     };
 }
 

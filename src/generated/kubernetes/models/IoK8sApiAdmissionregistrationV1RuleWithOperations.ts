@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
  * @export
@@ -20,27 +20,27 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAdmissionregistrationV1RuleWithOperations {
     /**
-     * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+     * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1RuleWithOperations
      */
-    apiGroups?: string[];
+    apiGroups?: Array<string>;
     /**
-     * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+     * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1RuleWithOperations
      */
     apiVersions?: Array<string>;
     /**
-     * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+     * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1RuleWithOperations
      */
     operations?: Array<string>;
     /**
-     * Resources is a list of resources this rule applies to.
+     * resources is a list of resources this rule applies to.
      * 
-     * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. means all resources and their subresources.
+     * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. 'star/scale' means all scale subresources. 'star/*' means all resources and their subresources.
      * 
      * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
      * 
@@ -60,10 +60,8 @@ export interface IoK8sApiAdmissionregistrationV1RuleWithOperations {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1RuleWithOperations interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1RuleWithOperations(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1RuleWithOperations(value: object): value is IoK8sApiAdmissionregistrationV1RuleWithOperations {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSON(json: any): IoK8sApiAdmissionregistrationV1RuleWithOperations {
@@ -71,33 +69,35 @@ export function IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSON(json: 
 }
 
 export function IoK8sApiAdmissionregistrationV1RuleWithOperationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1RuleWithOperations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroups': !exists(json, 'apiGroups') ? undefined : json['apiGroups'],
-        'apiVersions': !exists(json, 'apiVersions') ? undefined : json['apiVersions'],
-        'operations': !exists(json, 'operations') ? undefined : json['operations'],
-        'resources': !exists(json, 'resources') ? undefined : json['resources'],
-        'scope': !exists(json, 'scope') ? undefined : json['scope'],
+        'apiGroups': json['apiGroups'] == null ? undefined : json['apiGroups'],
+        'apiVersions': json['apiVersions'] == null ? undefined : json['apiVersions'],
+        'operations': json['operations'] == null ? undefined : json['operations'],
+        'resources': json['resources'] == null ? undefined : json['resources'],
+        'scope': json['scope'] == null ? undefined : json['scope'],
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSON(value?: IoK8sApiAdmissionregistrationV1RuleWithOperations | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSON(json: any): IoK8sApiAdmissionregistrationV1RuleWithOperations {
+    return IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1RuleWithOperationsToJSONTyped(value?: IoK8sApiAdmissionregistrationV1RuleWithOperations | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroups': value.apiGroups,
-        'apiVersions': value.apiVersions,
-        'operations': value.operations,
-        'resources': value.resources,
-        'scope': value.scope,
+        'apiGroups': value['apiGroups'],
+        'apiVersions': value['apiVersions'],
+        'operations': value['operations'],
+        'resources': value['resources'],
+        'scope': value['scope'],
     };
 }
 

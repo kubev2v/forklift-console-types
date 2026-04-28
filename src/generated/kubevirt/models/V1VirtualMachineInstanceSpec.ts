@@ -12,61 +12,84 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { V1Network } from './V1Network';
+import {
+    V1NetworkFromJSON,
+    V1NetworkFromJSONTyped,
+    V1NetworkToJSON,
+    V1NetworkToJSONTyped,
+} from './V1Network';
+import type { V1Volume } from './V1Volume';
+import {
+    V1VolumeFromJSON,
+    V1VolumeFromJSONTyped,
+    V1VolumeToJSON,
+    V1VolumeToJSONTyped,
+} from './V1Volume';
+import type { V1UtilityVolume } from './V1UtilityVolume';
+import {
+    V1UtilityVolumeFromJSON,
+    V1UtilityVolumeFromJSONTyped,
+    V1UtilityVolumeToJSON,
+    V1UtilityVolumeToJSONTyped,
+} from './V1UtilityVolume';
 import type { K8sIoApiCoreV1Affinity } from './K8sIoApiCoreV1Affinity';
 import {
     K8sIoApiCoreV1AffinityFromJSON,
     K8sIoApiCoreV1AffinityFromJSONTyped,
     K8sIoApiCoreV1AffinityToJSON,
+    K8sIoApiCoreV1AffinityToJSONTyped,
 } from './K8sIoApiCoreV1Affinity';
+import type { K8sIoApiCoreV1TopologySpreadConstraint } from './K8sIoApiCoreV1TopologySpreadConstraint';
+import {
+    K8sIoApiCoreV1TopologySpreadConstraintFromJSON,
+    K8sIoApiCoreV1TopologySpreadConstraintFromJSONTyped,
+    K8sIoApiCoreV1TopologySpreadConstraintToJSON,
+    K8sIoApiCoreV1TopologySpreadConstraintToJSONTyped,
+} from './K8sIoApiCoreV1TopologySpreadConstraint';
+import type { V1Probe } from './V1Probe';
+import {
+    V1ProbeFromJSON,
+    V1ProbeFromJSONTyped,
+    V1ProbeToJSON,
+    V1ProbeToJSONTyped,
+} from './V1Probe';
+import type { V1AccessCredential } from './V1AccessCredential';
+import {
+    V1AccessCredentialFromJSON,
+    V1AccessCredentialFromJSONTyped,
+    V1AccessCredentialToJSON,
+    V1AccessCredentialToJSONTyped,
+} from './V1AccessCredential';
 import type { K8sIoApiCoreV1PodDNSConfig } from './K8sIoApiCoreV1PodDNSConfig';
 import {
     K8sIoApiCoreV1PodDNSConfigFromJSON,
     K8sIoApiCoreV1PodDNSConfigFromJSONTyped,
     K8sIoApiCoreV1PodDNSConfigToJSON,
+    K8sIoApiCoreV1PodDNSConfigToJSONTyped,
 } from './K8sIoApiCoreV1PodDNSConfig';
 import type { K8sIoApiCoreV1Toleration } from './K8sIoApiCoreV1Toleration';
 import {
     K8sIoApiCoreV1TolerationFromJSON,
     K8sIoApiCoreV1TolerationFromJSONTyped,
     K8sIoApiCoreV1TolerationToJSON,
+    K8sIoApiCoreV1TolerationToJSONTyped,
 } from './K8sIoApiCoreV1Toleration';
-import type { K8sIoApiCoreV1TopologySpreadConstraint } from './K8sIoApiCoreV1TopologySpreadConstraint';
-import {
-    K8sIoApiCoreV1TopologySpreadConstraintFromJSON,
-    K8sIoApiCoreV1TopologySpreadConstraintFromJSONTyped,
-    K8sIoApiCoreV1TopologySpreadConstraintToJSON,
-} from './K8sIoApiCoreV1TopologySpreadConstraint';
-import type { V1AccessCredential } from './V1AccessCredential';
-import {
-    V1AccessCredentialFromJSON,
-    V1AccessCredentialFromJSONTyped,
-    V1AccessCredentialToJSON,
-} from './V1AccessCredential';
 import type { V1DomainSpec } from './V1DomainSpec';
 import {
     V1DomainSpecFromJSON,
     V1DomainSpecFromJSONTyped,
     V1DomainSpecToJSON,
+    V1DomainSpecToJSONTyped,
 } from './V1DomainSpec';
-import type { V1Network } from './V1Network';
+import type { K8sIoApiCoreV1PodResourceClaim } from './K8sIoApiCoreV1PodResourceClaim';
 import {
-    V1NetworkFromJSON,
-    V1NetworkFromJSONTyped,
-    V1NetworkToJSON,
-} from './V1Network';
-import type { V1Probe } from './V1Probe';
-import {
-    V1ProbeFromJSON,
-    V1ProbeFromJSONTyped,
-    V1ProbeToJSON,
-} from './V1Probe';
-import type { V1Volume } from './V1Volume';
-import {
-    V1VolumeFromJSON,
-    V1VolumeFromJSONTyped,
-    V1VolumeToJSON,
-} from './V1Volume';
+    K8sIoApiCoreV1PodResourceClaimFromJSON,
+    K8sIoApiCoreV1PodResourceClaimFromJSONTyped,
+    K8sIoApiCoreV1PodResourceClaimToJSON,
+    K8sIoApiCoreV1PodResourceClaimToJSONTyped,
+} from './K8sIoApiCoreV1PodResourceClaim';
 
 /**
  * VirtualMachineInstanceSpec is a description of a VirtualMachineInstance.
@@ -117,7 +140,7 @@ export interface V1VirtualMachineInstanceSpec {
      */
     domain: V1DomainSpec;
     /**
-     * EvictionStrategy describes the strategy to follow when a node drain occurs. The possible options are: - "None": No action will be taken, according to the specified 'RunStrategy' the VirtualMachine will be restarted or shutdown. - "LiveMigrate": the VirtualMachineInstance will be migrated instead of being shutdown. - "LiveMigrateIfPossible": the same as "LiveMigrate" but only if the VirtualMachine is Live-Migratable, otherwise it will behave as "None". - "External": the VirtualMachineInstance will be protected by a PDB and `vmi.Status.EvacuationNodeName` will be set on eviction. This is mainly useful for cluster-api-provider-kubevirt (capk) which needs a way for VMI's to be blocked from eviction, yet signal capk that eviction has been called on the VMI so the capk controller can handle tearing the VMI down. Details can be found in the commit description https://github.com/kubevirt/kubevirt/commit/c1d77face705c8b126696bac9a3ee3825f27f1fa.
+     * EvictionStrategy describes the strategy to follow when a node drain occurs. The possible options are: - "None": No action will be taken, according to the specified 'RunStrategy' the VirtualMachine will be restarted or shutdown. - "LiveMigrate": the VirtualMachineInstance will be migrated instead of being shutdown. - "LiveMigrateIfPossible": the same as "LiveMigrate" but only if the VirtualMachine is Live-Migratable, otherwise it will behave as "None". - "External": the VirtualMachineInstance will be protected and `vmi.Status.EvacuationNodeName` will be set on eviction. This is mainly useful for cluster-api-provider-kubevirt (capk) which needs a way for VMI's to be blocked from eviction, yet signal capk that eviction has been called on the VMI so the capk controller can handle tearing the VMI down. Details can be found in the commit description https://github.com/kubevirt/kubevirt/commit/c1d77face705c8b126696bac9a3ee3825f27f1fa.
      * @type {string}
      * @memberof V1VirtualMachineInstanceSpec
      */
@@ -159,6 +182,16 @@ export interface V1VirtualMachineInstanceSpec {
      */
     readinessProbe?: V1Probe;
     /**
+     * ResourceClaims define which ResourceClaims must be allocated and reserved before the VMI, hence virt-launcher pod is allowed to start. The resources will be made available to the domain which consumes them by name.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate in kubernetes
+     *  https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/
+     * This field should only be configured if one of the feature-gates GPUsWithDRA or HostDevicesWithDRA is enabled. This feature is in alpha.
+     * @type {Array<K8sIoApiCoreV1PodResourceClaim>}
+     * @memberof V1VirtualMachineInstanceSpec
+     */
+    resourceClaims?: Array<K8sIoApiCoreV1PodResourceClaim>;
+    /**
      * If specified, the VMI will be dispatched by specified scheduler. If not specified, the VMI will be dispatched by default scheduler.
      * @type {string}
      * @memberof V1VirtualMachineInstanceSpec
@@ -195,6 +228,12 @@ export interface V1VirtualMachineInstanceSpec {
      */
     topologySpreadConstraints?: Array<K8sIoApiCoreV1TopologySpreadConstraint>;
     /**
+     * List of utility volumes that can be mounted to the vmi virt-launcher pod without having a matching disk in the domain. Used to collect data for various operational workflows.
+     * @type {Array<V1UtilityVolume>}
+     * @memberof V1VirtualMachineInstanceSpec
+     */
+    utilityVolumes?: Array<V1UtilityVolume>;
+    /**
      * List of volumes that can be mounted by disks belonging to the vmi.
      * @type {Array<V1Volume>}
      * @memberof V1VirtualMachineInstanceSpec
@@ -218,11 +257,9 @@ export type V1VirtualMachineInstanceSpecDnsPolicyEnum = typeof V1VirtualMachineI
 /**
  * Check if a given object implements the V1VirtualMachineInstanceSpec interface.
  */
-export function instanceOfV1VirtualMachineInstanceSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "domain" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceSpec(value: object): value is V1VirtualMachineInstanceSpec {
+    if (!('domain' in value) || value['domain'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceSpecFromJSON(json: any): V1VirtualMachineInstanceSpec {
@@ -230,63 +267,69 @@ export function V1VirtualMachineInstanceSpecFromJSON(json: any): V1VirtualMachin
 }
 
 export function V1VirtualMachineInstanceSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessCredentials': !exists(json, 'accessCredentials') ? undefined : ((json['accessCredentials'] as Array<any>).map(V1AccessCredentialFromJSON)),
-        'affinity': !exists(json, 'affinity') ? undefined : K8sIoApiCoreV1AffinityFromJSON(json['affinity']),
-        'architecture': !exists(json, 'architecture') ? undefined : json['architecture'],
-        'dnsConfig': !exists(json, 'dnsConfig') ? undefined : K8sIoApiCoreV1PodDNSConfigFromJSON(json['dnsConfig']),
-        'dnsPolicy': !exists(json, 'dnsPolicy') ? undefined : json['dnsPolicy'],
+        'accessCredentials': json['accessCredentials'] == null ? undefined : ((json['accessCredentials'] as Array<any>).map(V1AccessCredentialFromJSON)),
+        'affinity': json['affinity'] == null ? undefined : K8sIoApiCoreV1AffinityFromJSON(json['affinity']),
+        'architecture': json['architecture'] == null ? undefined : json['architecture'],
+        'dnsConfig': json['dnsConfig'] == null ? undefined : K8sIoApiCoreV1PodDNSConfigFromJSON(json['dnsConfig']),
+        'dnsPolicy': json['dnsPolicy'] == null ? undefined : json['dnsPolicy'],
         'domain': V1DomainSpecFromJSON(json['domain']),
-        'evictionStrategy': !exists(json, 'evictionStrategy') ? undefined : json['evictionStrategy'],
-        'hostname': !exists(json, 'hostname') ? undefined : json['hostname'],
-        'livenessProbe': !exists(json, 'livenessProbe') ? undefined : V1ProbeFromJSON(json['livenessProbe']),
-        'networks': !exists(json, 'networks') ? undefined : ((json['networks'] as Array<any>).map(V1NetworkFromJSON)),
-        'nodeSelector': !exists(json, 'nodeSelector') ? undefined : json['nodeSelector'],
-        'priorityClassName': !exists(json, 'priorityClassName') ? undefined : json['priorityClassName'],
-        'readinessProbe': !exists(json, 'readinessProbe') ? undefined : V1ProbeFromJSON(json['readinessProbe']),
-        'schedulerName': !exists(json, 'schedulerName') ? undefined : json['schedulerName'],
-        'startStrategy': !exists(json, 'startStrategy') ? undefined : json['startStrategy'],
-        'subdomain': !exists(json, 'subdomain') ? undefined : json['subdomain'],
-        'terminationGracePeriodSeconds': !exists(json, 'terminationGracePeriodSeconds') ? undefined : json['terminationGracePeriodSeconds'],
-        'tolerations': !exists(json, 'tolerations') ? undefined : ((json['tolerations'] as Array<any>).map(K8sIoApiCoreV1TolerationFromJSON)),
-        'topologySpreadConstraints': !exists(json, 'topologySpreadConstraints') ? undefined : ((json['topologySpreadConstraints'] as Array<any>).map(K8sIoApiCoreV1TopologySpreadConstraintFromJSON)),
-        'volumes': !exists(json, 'volumes') ? undefined : ((json['volumes'] as Array<any>).map(V1VolumeFromJSON)),
+        'evictionStrategy': json['evictionStrategy'] == null ? undefined : json['evictionStrategy'],
+        'hostname': json['hostname'] == null ? undefined : json['hostname'],
+        'livenessProbe': json['livenessProbe'] == null ? undefined : V1ProbeFromJSON(json['livenessProbe']),
+        'networks': json['networks'] == null ? undefined : ((json['networks'] as Array<any>).map(V1NetworkFromJSON)),
+        'nodeSelector': json['nodeSelector'] == null ? undefined : json['nodeSelector'],
+        'priorityClassName': json['priorityClassName'] == null ? undefined : json['priorityClassName'],
+        'readinessProbe': json['readinessProbe'] == null ? undefined : V1ProbeFromJSON(json['readinessProbe']),
+        'resourceClaims': json['resourceClaims'] == null ? undefined : ((json['resourceClaims'] as Array<any>).map(K8sIoApiCoreV1PodResourceClaimFromJSON)),
+        'schedulerName': json['schedulerName'] == null ? undefined : json['schedulerName'],
+        'startStrategy': json['startStrategy'] == null ? undefined : json['startStrategy'],
+        'subdomain': json['subdomain'] == null ? undefined : json['subdomain'],
+        'terminationGracePeriodSeconds': json['terminationGracePeriodSeconds'] == null ? undefined : json['terminationGracePeriodSeconds'],
+        'tolerations': json['tolerations'] == null ? undefined : ((json['tolerations'] as Array<any>).map(K8sIoApiCoreV1TolerationFromJSON)),
+        'topologySpreadConstraints': json['topologySpreadConstraints'] == null ? undefined : ((json['topologySpreadConstraints'] as Array<any>).map(K8sIoApiCoreV1TopologySpreadConstraintFromJSON)),
+        'utilityVolumes': json['utilityVolumes'] == null ? undefined : ((json['utilityVolumes'] as Array<any>).map(V1UtilityVolumeFromJSON)),
+        'volumes': json['volumes'] == null ? undefined : ((json['volumes'] as Array<any>).map(V1VolumeFromJSON)),
     };
 }
 
-export function V1VirtualMachineInstanceSpecToJSON(value?: V1VirtualMachineInstanceSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceSpecToJSON(json: any): V1VirtualMachineInstanceSpec {
+    return V1VirtualMachineInstanceSpecToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceSpecToJSONTyped(value?: V1VirtualMachineInstanceSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'accessCredentials': value.accessCredentials === undefined ? undefined : ((value.accessCredentials as Array<any>).map(V1AccessCredentialToJSON)),
-        'affinity': K8sIoApiCoreV1AffinityToJSON(value.affinity),
-        'architecture': value.architecture,
-        'dnsConfig': K8sIoApiCoreV1PodDNSConfigToJSON(value.dnsConfig),
-        'dnsPolicy': value.dnsPolicy,
-        'domain': V1DomainSpecToJSON(value.domain),
-        'evictionStrategy': value.evictionStrategy,
-        'hostname': value.hostname,
-        'livenessProbe': V1ProbeToJSON(value.livenessProbe),
-        'networks': value.networks === undefined ? undefined : ((value.networks as Array<any>).map(V1NetworkToJSON)),
-        'nodeSelector': value.nodeSelector,
-        'priorityClassName': value.priorityClassName,
-        'readinessProbe': V1ProbeToJSON(value.readinessProbe),
-        'schedulerName': value.schedulerName,
-        'startStrategy': value.startStrategy,
-        'subdomain': value.subdomain,
-        'terminationGracePeriodSeconds': value.terminationGracePeriodSeconds,
-        'tolerations': value.tolerations === undefined ? undefined : ((value.tolerations as Array<any>).map(K8sIoApiCoreV1TolerationToJSON)),
-        'topologySpreadConstraints': value.topologySpreadConstraints === undefined ? undefined : ((value.topologySpreadConstraints as Array<any>).map(K8sIoApiCoreV1TopologySpreadConstraintToJSON)),
-        'volumes': value.volumes === undefined ? undefined : ((value.volumes as Array<any>).map(V1VolumeToJSON)),
+        'accessCredentials': value['accessCredentials'] == null ? undefined : ((value['accessCredentials'] as Array<any>).map(V1AccessCredentialToJSON)),
+        'affinity': K8sIoApiCoreV1AffinityToJSON(value['affinity']),
+        'architecture': value['architecture'],
+        'dnsConfig': K8sIoApiCoreV1PodDNSConfigToJSON(value['dnsConfig']),
+        'dnsPolicy': value['dnsPolicy'],
+        'domain': V1DomainSpecToJSON(value['domain']),
+        'evictionStrategy': value['evictionStrategy'],
+        'hostname': value['hostname'],
+        'livenessProbe': V1ProbeToJSON(value['livenessProbe']),
+        'networks': value['networks'] == null ? undefined : ((value['networks'] as Array<any>).map(V1NetworkToJSON)),
+        'nodeSelector': value['nodeSelector'],
+        'priorityClassName': value['priorityClassName'],
+        'readinessProbe': V1ProbeToJSON(value['readinessProbe']),
+        'resourceClaims': value['resourceClaims'] == null ? undefined : ((value['resourceClaims'] as Array<any>).map(K8sIoApiCoreV1PodResourceClaimToJSON)),
+        'schedulerName': value['schedulerName'],
+        'startStrategy': value['startStrategy'],
+        'subdomain': value['subdomain'],
+        'terminationGracePeriodSeconds': value['terminationGracePeriodSeconds'],
+        'tolerations': value['tolerations'] == null ? undefined : ((value['tolerations'] as Array<any>).map(K8sIoApiCoreV1TolerationToJSON)),
+        'topologySpreadConstraints': value['topologySpreadConstraints'] == null ? undefined : ((value['topologySpreadConstraints'] as Array<any>).map(K8sIoApiCoreV1TopologySpreadConstraintToJSON)),
+        'utilityVolumes': value['utilityVolumes'] == null ? undefined : ((value['utilityVolumes'] as Array<any>).map(V1UtilityVolumeToJSON)),
+        'volumes': value['volumes'] == null ? undefined : ((value['volumes'] as Array<any>).map(V1VolumeToJSON)),
     };
 }
 

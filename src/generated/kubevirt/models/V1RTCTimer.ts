@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,10 +42,8 @@ export interface V1RTCTimer {
 /**
  * Check if a given object implements the V1RTCTimer interface.
  */
-export function instanceOfV1RTCTimer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1RTCTimer(value: object): value is V1RTCTimer {
+    return true;
 }
 
 export function V1RTCTimerFromJSON(json: any): V1RTCTimer {
@@ -53,29 +51,31 @@ export function V1RTCTimerFromJSON(json: any): V1RTCTimer {
 }
 
 export function V1RTCTimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1RTCTimer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'present': !exists(json, 'present') ? undefined : json['present'],
-        'tickPolicy': !exists(json, 'tickPolicy') ? undefined : json['tickPolicy'],
-        'track': !exists(json, 'track') ? undefined : json['track'],
+        'present': json['present'] == null ? undefined : json['present'],
+        'tickPolicy': json['tickPolicy'] == null ? undefined : json['tickPolicy'],
+        'track': json['track'] == null ? undefined : json['track'],
     };
 }
 
-export function V1RTCTimerToJSON(value?: V1RTCTimer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1RTCTimerToJSON(json: any): V1RTCTimer {
+    return V1RTCTimerToJSONTyped(json, false);
+}
+
+export function V1RTCTimerToJSONTyped(value?: V1RTCTimer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'present': value.present,
-        'tickPolicy': value.tickPolicy,
-        'track': value.track,
+        'present': value['present'],
+        'tickPolicy': value['tickPolicy'],
+        'track': value['track'],
     };
 }
 

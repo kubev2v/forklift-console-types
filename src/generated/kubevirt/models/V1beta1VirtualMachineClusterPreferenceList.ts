@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
-import {
-    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
-    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1ListMeta';
+import { mapValues } from '../../runtime';
 import type { V1beta1VirtualMachineClusterPreference } from './V1beta1VirtualMachineClusterPreference';
 import {
     V1beta1VirtualMachineClusterPreferenceFromJSON,
     V1beta1VirtualMachineClusterPreferenceFromJSONTyped,
     V1beta1VirtualMachineClusterPreferenceToJSON,
+    V1beta1VirtualMachineClusterPreferenceToJSONTyped,
 } from './V1beta1VirtualMachineClusterPreference';
+import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
+import {
+    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 
 /**
  * VirtualMachineClusterPreferenceList is a list of VirtualMachineClusterPreference resources.
@@ -61,11 +63,9 @@ export interface V1beta1VirtualMachineClusterPreferenceList {
 /**
  * Check if a given object implements the V1beta1VirtualMachineClusterPreferenceList interface.
  */
-export function instanceOfV1beta1VirtualMachineClusterPreferenceList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1beta1VirtualMachineClusterPreferenceList(value: object): value is V1beta1VirtualMachineClusterPreferenceList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1VirtualMachineClusterPreferenceListFromJSON(json: any): V1beta1VirtualMachineClusterPreferenceList {
@@ -73,31 +73,33 @@ export function V1beta1VirtualMachineClusterPreferenceListFromJSON(json: any): V
 }
 
 export function V1beta1VirtualMachineClusterPreferenceListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1VirtualMachineClusterPreferenceList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1beta1VirtualMachineClusterPreferenceFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1beta1VirtualMachineClusterPreferenceListToJSON(value?: V1beta1VirtualMachineClusterPreferenceList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1VirtualMachineClusterPreferenceListToJSON(json: any): V1beta1VirtualMachineClusterPreferenceList {
+    return V1beta1VirtualMachineClusterPreferenceListToJSONTyped(json, false);
+}
+
+export function V1beta1VirtualMachineClusterPreferenceListToJSONTyped(value?: V1beta1VirtualMachineClusterPreferenceList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1beta1VirtualMachineClusterPreferenceToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1beta1VirtualMachineClusterPreferenceToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

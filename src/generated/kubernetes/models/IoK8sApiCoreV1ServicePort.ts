@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServicePort contains information on service's port.
  * @export
@@ -69,11 +69,9 @@ export interface IoK8sApiCoreV1ServicePort {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ServicePort interface.
  */
-export function instanceOfIoK8sApiCoreV1ServicePort(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ServicePort(value: object): value is IoK8sApiCoreV1ServicePort {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ServicePortFromJSON(json: any): IoK8sApiCoreV1ServicePort {
@@ -81,35 +79,37 @@ export function IoK8sApiCoreV1ServicePortFromJSON(json: any): IoK8sApiCoreV1Serv
 }
 
 export function IoK8sApiCoreV1ServicePortFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ServicePort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'appProtocol': !exists(json, 'appProtocol') ? undefined : json['appProtocol'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'nodePort': !exists(json, 'nodePort') ? undefined : json['nodePort'],
+        'appProtocol': json['appProtocol'] == null ? undefined : json['appProtocol'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'nodePort': json['nodePort'] == null ? undefined : json['nodePort'],
         'port': json['port'],
-        'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
-        'targetPort': !exists(json, 'targetPort') ? undefined : json['targetPort'],
+        'protocol': json['protocol'] == null ? undefined : json['protocol'],
+        'targetPort': json['targetPort'] == null ? undefined : json['targetPort'],
     };
 }
 
-export function IoK8sApiCoreV1ServicePortToJSON(value?: IoK8sApiCoreV1ServicePort | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ServicePortToJSON(json: any): IoK8sApiCoreV1ServicePort {
+    return IoK8sApiCoreV1ServicePortToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ServicePortToJSONTyped(value?: IoK8sApiCoreV1ServicePort | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'appProtocol': value.appProtocol,
-        'name': value.name,
-        'nodePort': value.nodePort,
-        'port': value.port,
-        'protocol': value.protocol,
-        'targetPort': value.targetPort,
+        'appProtocol': value['appProtocol'],
+        'name': value['name'],
+        'nodePort': value['nodePort'],
+        'port': value['port'],
+        'protocol': value['protocol'],
+        'targetPort': value['targetPort'],
     };
 }
 

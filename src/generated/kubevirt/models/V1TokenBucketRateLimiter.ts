@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,12 +36,10 @@ export interface V1TokenBucketRateLimiter {
 /**
  * Check if a given object implements the V1TokenBucketRateLimiter interface.
  */
-export function instanceOfV1TokenBucketRateLimiter(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "burst" in value;
-    isInstance = isInstance && "qps" in value;
-
-    return isInstance;
+export function instanceOfV1TokenBucketRateLimiter(value: object): value is V1TokenBucketRateLimiter {
+    if (!('burst' in value) || value['burst'] === undefined) return false;
+    if (!('qps' in value) || value['qps'] === undefined) return false;
+    return true;
 }
 
 export function V1TokenBucketRateLimiterFromJSON(json: any): V1TokenBucketRateLimiter {
@@ -49,7 +47,7 @@ export function V1TokenBucketRateLimiterFromJSON(json: any): V1TokenBucketRateLi
 }
 
 export function V1TokenBucketRateLimiterFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1TokenBucketRateLimiter {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function V1TokenBucketRateLimiterFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function V1TokenBucketRateLimiterToJSON(value?: V1TokenBucketRateLimiter | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1TokenBucketRateLimiterToJSON(json: any): V1TokenBucketRateLimiter {
+    return V1TokenBucketRateLimiterToJSONTyped(json, false);
+}
+
+export function V1TokenBucketRateLimiterToJSONTyped(value?: V1TokenBucketRateLimiter | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'burst': value.burst,
-        'qps': value.qps,
+        'burst': value['burst'],
+        'qps': value['qps'],
     };
 }
 

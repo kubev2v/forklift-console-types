@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiFlowcontrolV1NonResourcePolicyRule } from './IoK8sApiFlowcontrolV1NonResourcePolicyRule';
-import {
-    IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSON,
-    IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSONTyped,
-    IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSON,
-} from './IoK8sApiFlowcontrolV1NonResourcePolicyRule';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1ResourcePolicyRule } from './IoK8sApiFlowcontrolV1ResourcePolicyRule';
 import {
     IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSON,
     IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSONTyped,
     IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSON,
+    IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSONTyped,
 } from './IoK8sApiFlowcontrolV1ResourcePolicyRule';
 import type { IoK8sApiFlowcontrolV1Subject } from './IoK8sApiFlowcontrolV1Subject';
 import {
     IoK8sApiFlowcontrolV1SubjectFromJSON,
     IoK8sApiFlowcontrolV1SubjectFromJSONTyped,
     IoK8sApiFlowcontrolV1SubjectToJSON,
+    IoK8sApiFlowcontrolV1SubjectToJSONTyped,
 } from './IoK8sApiFlowcontrolV1Subject';
+import type { IoK8sApiFlowcontrolV1NonResourcePolicyRule } from './IoK8sApiFlowcontrolV1NonResourcePolicyRule';
+import {
+    IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSON,
+    IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSONTyped,
+    IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSON,
+    IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSONTyped,
+} from './IoK8sApiFlowcontrolV1NonResourcePolicyRule';
 
 /**
  * PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
@@ -61,11 +64,9 @@ export interface IoK8sApiFlowcontrolV1PolicyRulesWithSubjects {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1PolicyRulesWithSubjects interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1PolicyRulesWithSubjects(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "subjects" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1PolicyRulesWithSubjects(value: object): value is IoK8sApiFlowcontrolV1PolicyRulesWithSubjects {
+    if (!('subjects' in value) || value['subjects'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSON(json: any): IoK8sApiFlowcontrolV1PolicyRulesWithSubjects {
@@ -73,29 +74,31 @@ export function IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSON(json: any):
 }
 
 export function IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1PolicyRulesWithSubjects {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nonResourceRules': !exists(json, 'nonResourceRules') ? undefined : ((json['nonResourceRules'] as Array<any>).map(IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSON)),
-        'resourceRules': !exists(json, 'resourceRules') ? undefined : ((json['resourceRules'] as Array<any>).map(IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSON)),
+        'nonResourceRules': json['nonResourceRules'] == null ? undefined : ((json['nonResourceRules'] as Array<any>).map(IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSON)),
+        'resourceRules': json['resourceRules'] == null ? undefined : ((json['resourceRules'] as Array<any>).map(IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSON)),
         'subjects': ((json['subjects'] as Array<any>).map(IoK8sApiFlowcontrolV1SubjectFromJSON)),
     };
 }
 
-export function IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSON(value?: IoK8sApiFlowcontrolV1PolicyRulesWithSubjects | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSON(json: any): IoK8sApiFlowcontrolV1PolicyRulesWithSubjects {
+    return IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1PolicyRulesWithSubjectsToJSONTyped(value?: IoK8sApiFlowcontrolV1PolicyRulesWithSubjects | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nonResourceRules': value.nonResourceRules === undefined ? undefined : ((value.nonResourceRules as Array<any>).map(IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSON)),
-        'resourceRules': value.resourceRules === undefined ? undefined : ((value.resourceRules as Array<any>).map(IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSON)),
-        'subjects': ((value.subjects as Array<any>).map(IoK8sApiFlowcontrolV1SubjectToJSON)),
+        'nonResourceRules': value['nonResourceRules'] == null ? undefined : ((value['nonResourceRules'] as Array<any>).map(IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSON)),
+        'resourceRules': value['resourceRules'] == null ? undefined : ((value['resourceRules'] as Array<any>).map(IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSON)),
+        'subjects': ((value['subjects'] as Array<any>).map(IoK8sApiFlowcontrolV1SubjectToJSON)),
     };
 }
 

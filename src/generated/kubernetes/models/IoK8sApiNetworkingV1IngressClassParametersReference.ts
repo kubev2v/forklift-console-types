@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
  * @export
@@ -54,12 +54,10 @@ export interface IoK8sApiNetworkingV1IngressClassParametersReference {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressClassParametersReference interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressClassParametersReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressClassParametersReference(value: object): value is IoK8sApiNetworkingV1IngressClassParametersReference {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSON(json: any): IoK8sApiNetworkingV1IngressClassParametersReference {
@@ -67,33 +65,35 @@ export function IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSON(json
 }
 
 export function IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressClassParametersReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroup': !exists(json, 'apiGroup') ? undefined : json['apiGroup'],
+        'apiGroup': json['apiGroup'] == null ? undefined : json['apiGroup'],
         'kind': json['kind'],
         'name': json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
-        'scope': !exists(json, 'scope') ? undefined : json['scope'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
+        'scope': json['scope'] == null ? undefined : json['scope'],
     };
 }
 
-export function IoK8sApiNetworkingV1IngressClassParametersReferenceToJSON(value?: IoK8sApiNetworkingV1IngressClassParametersReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressClassParametersReferenceToJSON(json: any): IoK8sApiNetworkingV1IngressClassParametersReference {
+    return IoK8sApiNetworkingV1IngressClassParametersReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressClassParametersReferenceToJSONTyped(value?: IoK8sApiNetworkingV1IngressClassParametersReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroup': value.apiGroup,
-        'kind': value.kind,
-        'name': value.name,
-        'namespace': value.namespace,
-        'scope': value.scope,
+        'apiGroup': value['apiGroup'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'scope': value['scope'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1RESTClientConfiguration } from './V1RESTClientConfiguration';
 import {
     V1RESTClientConfigurationFromJSON,
     V1RESTClientConfigurationFromJSONTyped,
     V1RESTClientConfigurationToJSON,
+    V1RESTClientConfigurationToJSONTyped,
 } from './V1RESTClientConfiguration';
 
 /**
@@ -37,10 +38,8 @@ export interface V1ReloadableComponentConfiguration {
 /**
  * Check if a given object implements the V1ReloadableComponentConfiguration interface.
  */
-export function instanceOfV1ReloadableComponentConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ReloadableComponentConfiguration(value: object): value is V1ReloadableComponentConfiguration {
+    return true;
 }
 
 export function V1ReloadableComponentConfigurationFromJSON(json: any): V1ReloadableComponentConfiguration {
@@ -48,25 +47,27 @@ export function V1ReloadableComponentConfigurationFromJSON(json: any): V1Reloada
 }
 
 export function V1ReloadableComponentConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ReloadableComponentConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'restClient': !exists(json, 'restClient') ? undefined : V1RESTClientConfigurationFromJSON(json['restClient']),
+        'restClient': json['restClient'] == null ? undefined : V1RESTClientConfigurationFromJSON(json['restClient']),
     };
 }
 
-export function V1ReloadableComponentConfigurationToJSON(value?: V1ReloadableComponentConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ReloadableComponentConfigurationToJSON(json: any): V1ReloadableComponentConfiguration {
+    return V1ReloadableComponentConfigurationToJSONTyped(json, false);
+}
+
+export function V1ReloadableComponentConfigurationToJSONTyped(value?: V1ReloadableComponentConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'restClient': V1RESTClientConfigurationToJSON(value.restClient),
+        'restClient': V1RESTClientConfigurationToJSON(value['restClient']),
     };
 }
 

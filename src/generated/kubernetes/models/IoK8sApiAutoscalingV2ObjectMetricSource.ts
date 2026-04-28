@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAutoscalingV2CrossVersionObjectReference } from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
-import {
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON,
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped,
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON,
-} from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
-import type { IoK8sApiAutoscalingV2MetricIdentifier } from './IoK8sApiAutoscalingV2MetricIdentifier';
-import {
-    IoK8sApiAutoscalingV2MetricIdentifierFromJSON,
-    IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped,
-    IoK8sApiAutoscalingV2MetricIdentifierToJSON,
-} from './IoK8sApiAutoscalingV2MetricIdentifier';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricTarget } from './IoK8sApiAutoscalingV2MetricTarget';
 import {
     IoK8sApiAutoscalingV2MetricTargetFromJSON,
     IoK8sApiAutoscalingV2MetricTargetFromJSONTyped,
     IoK8sApiAutoscalingV2MetricTargetToJSON,
+    IoK8sApiAutoscalingV2MetricTargetToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricTarget';
+import type { IoK8sApiAutoscalingV2MetricIdentifier } from './IoK8sApiAutoscalingV2MetricIdentifier';
+import {
+    IoK8sApiAutoscalingV2MetricIdentifierFromJSON,
+    IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped,
+    IoK8sApiAutoscalingV2MetricIdentifierToJSON,
+    IoK8sApiAutoscalingV2MetricIdentifierToJSONTyped,
+} from './IoK8sApiAutoscalingV2MetricIdentifier';
+import type { IoK8sApiAutoscalingV2CrossVersionObjectReference } from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
+import {
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSONTyped,
+} from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
 
 /**
  * ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
@@ -61,13 +64,11 @@ export interface IoK8sApiAutoscalingV2ObjectMetricSource {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2ObjectMetricSource interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2ObjectMetricSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "describedObject" in value;
-    isInstance = isInstance && "metric" in value;
-    isInstance = isInstance && "target" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2ObjectMetricSource(value: object): value is IoK8sApiAutoscalingV2ObjectMetricSource {
+    if (!('describedObject' in value) || value['describedObject'] === undefined) return false;
+    if (!('metric' in value) || value['metric'] === undefined) return false;
+    if (!('target' in value) || value['target'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2ObjectMetricSourceFromJSON(json: any): IoK8sApiAutoscalingV2ObjectMetricSource {
@@ -75,7 +76,7 @@ export function IoK8sApiAutoscalingV2ObjectMetricSourceFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiAutoscalingV2ObjectMetricSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2ObjectMetricSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -86,18 +87,20 @@ export function IoK8sApiAutoscalingV2ObjectMetricSourceFromJSONTyped(json: any, 
     };
 }
 
-export function IoK8sApiAutoscalingV2ObjectMetricSourceToJSON(value?: IoK8sApiAutoscalingV2ObjectMetricSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2ObjectMetricSourceToJSON(json: any): IoK8sApiAutoscalingV2ObjectMetricSource {
+    return IoK8sApiAutoscalingV2ObjectMetricSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2ObjectMetricSourceToJSONTyped(value?: IoK8sApiAutoscalingV2ObjectMetricSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'describedObject': IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value.describedObject),
-        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value.metric),
-        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value.target),
+        'describedObject': IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value['describedObject']),
+        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value['metric']),
+        'target': IoK8sApiAutoscalingV2MetricTargetToJSON(value['target']),
     };
 }
 

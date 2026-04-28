@@ -50,7 +50,7 @@ components:
               enum:
                 - 'true'
                 - 'false'
-              description: 'Enable copy offload plugins (default: false)'
+              description: 'Enable copy offload plugins (default: true)'
             feature_ocp_live_migration:
               type: string
               enum:
@@ -83,6 +83,14 @@ components:
                 - 'true'
                 - 'false'
               description: 'Enable CLI download service (default: true)'
+            feature_vsphere_vmware_driver_removal:
+              type: string
+              enum:
+                - 'true'
+                - 'false'
+              description: >-
+                Run VMware driver removal scripts during Windows vSphere
+                conversion (default: false)
             controller_image_fqin:
               type: string
               description: Controller pod image
@@ -91,6 +99,10 @@ components:
               type: string
               description: Virt-v2v conversion image used by migration pods
               example: quay.io/kubev2v/forklift-virt-v2v:latest
+            virt_v2v_image_xfs_fqin:
+              type: string
+              description: Virt-v2v XFS conversion image used by migration pods
+              example: quay.io/kubev2v/forklift-virt-v2v-xfs:latest
             vddk_image:
               type: string
               description: VDDK image for VMware disk access
@@ -123,7 +135,7 @@ components:
               type: string
               description: OpenStack populator image
               example: quay.io/kubev2v/openstack-populator:latest
-            populator_vsphere_xcopy_volume_image_fqin:
+            populator_vsphere_copy_offload_image_fqin:
               type: string
               description: vSphere xcopy populator image
               example: quay.io/kubev2v/vsphere-populator:latest
@@ -282,12 +294,23 @@ components:
                 ConfigMap name for virt-customize configuration (default:
                 forklift-virt-customize)
               example: custom-virt-customize
+            controller_migration_service_account:
+              type: string
+              description: >-
+                Global default ServiceAccount for migration pods in the target
+                namespace. Overridden by Plan-level serviceAccount.
+              example: custom-migration-sa
             controller_max_vm_inflight:
               x-kubernetes-int-or-string: true
               description: 'Max concurrent VM migrations (default: 20)'
             controller_precopy_interval:
               x-kubernetes-int-or-string: true
               description: 'Precopy interval in minutes (default: 60)'
+            controller_blocker_grace_period_minutes:
+              x-kubernetes-int-or-string: true
+              description: >-
+                How long Critical/Error blocker conditions must persist before
+                failing an active migration, in minutes (default: 5)
             controller_host_lease_namespace:
               type: string
               description: 'Namespace for host lease objects (default: openshift-mtv)'
@@ -319,6 +342,25 @@ components:
             controller_max_parent_backing_retries:
               x-kubernetes-int-or-string: true
               description: 'Max retries when getting parent disks (default: 10)'
+            aap_url:
+              type: string
+              description: >-
+                Ansible Automation Platform base URL (e.g.
+                https://aap.example.com). Required for centralized AAP
+                connection together with aap_token_secret_name; omit when hooks
+                use spec.aap.url and spec.aap.tokenSecret.
+            aap_token_secret_name:
+              type: string
+              description: >-
+                Name of the Secret in the operator namespace containing the AAP
+                API Bearer token (data key: token). Required for centralized AAP
+                connection together with aap_url; omit when hooks use per-hook
+                spec.aap.url and tokenSecret.
+            aap_timeout:
+              x-kubernetes-int-or-string: true
+              description: >-
+                Default timeout in seconds for AAP HTTP calls and job polling
+                when Hook spec.deadline is 0 (optional).
             controller_vsphere_incremental_backup:
               type: string
               enum:
@@ -373,11 +415,27 @@ components:
               description: Don't request KVM for virt-v2v
             virt_v2v_extra_args:
               type: string
-              description: Additional arguments for virt-v2v
-              example: '--debug-overlays'
+              description: Additional arguments for virt-v2v conversion
+              example: '--parallel 4'
+            virt_v2v_inspector_extra_args:
+              type: string
+              description: Additional arguments for virt-v2v-inspector
+              example: '--root first'
             virt_v2v_extra_conf_config_map:
               type: string
               description: ConfigMap name containing extra virt-v2v configuration
+            virt_v2v_memsize:
+              type: integer
+              description: >-
+                Memory (in MB) allocated for the virt-v2v conversion appliance
+                (default: virt-v2v chooses)
+              example: 4096
+            virt_v2v_smp:
+              type: integer
+              description: >-
+                Number of virtual CPUs for the virt-v2v conversion appliance
+                (default: virt-v2v chooses)
+              example: 8
             hooks_container_limits_cpu:
               type: string
               description: 'Hooks CPU limit (default: 1000m)'
@@ -426,6 +484,18 @@ components:
               type: string
               description: 'HyperV memory request (default: 512Mi)'
               example: 300Mi
+            controller_hyperv_refresh_interval:
+              type: string
+              description: >-
+                HyperV inventory refresh interval as a Go duration (default:
+                10s)
+              example: 30s
+            controller_hyperv_validation_timeout:
+              type: string
+              description: >-
+                Timeout for HyperV SMB disk validation HTTP calls as a Go
+                duration (default: 30s)
+              example: 60s
             ova_proxy_container_limits_cpu:
               type: string
               description: 'OVA Proxy CPU limit (default: 1000m)'
@@ -522,23 +592,132 @@ components:
         metadata:
           type: object
         spec:
-          description: Hook specification.
+          description: >-
+            Hook specification.
+
+            Local hooks require spec.image (playbook is optional if the image
+            runs without an injected playbook).
+
+            AAP hooks require spec.aap (image/playbook omitted for execution).
+
+            Whether the spec is valid for execution is enforced by the hook and
+            plan controllers (not by CRD admission rules).
           properties:
+            aap:
+              description: >-
+                AAP (Ansible Automation Platform) configuration for remote job
+                execution.
+
+                When specified, the hook will trigger an AAP job template
+                instead of running a local playbook.
+              properties:
+                jobTemplateId:
+                  description: ID of the AAP job template to execute.
+                  type: integer
+                timeout:
+                  description: >-
+                    Optional timeout in seconds for polling the AAP job after
+                    launch. Overrides defaulting from spec.deadline and
+                    ForkliftController aap_timeout when non-zero behavior
+                    applies.
+                  format: int64
+                  type: integer
+                tokenSecret:
+                  description: >-
+                    Optional Secret reference for the AAP API token (key
+                    "token"). When set together with url, overrides
+
+                    ForkliftController aap_token_secret_name; the Secret is read
+                    from the migration plan namespace.
+                  properties:
+                    apiVersion:
+                      description: API version of the referent.
+                      type: string
+                    fieldPath:
+                      description: >-
+                        If referring to a piece of an object instead of an
+                        entire object, this string
+
+                        should contain a valid JSON/Go field access statement,
+                        such as desiredState.manifest.containers[2].
+
+                        For example, if the object reference is to a container
+                        within a pod, this would take on a value like:
+
+                        "spec.containers{name}" (where "name" refers to the name
+                        of the container that triggered
+
+                        the event) or if no container name is specified
+                        "spec.containers[2]" (container with
+
+                        index 2 in this pod). This syntax is chosen only to have
+                        some well-defined way of
+
+                        referencing a part of an object.
+                      type: string
+                    kind:
+                      description: >-
+                        Kind of the referent.
+
+                        More info:
+                        https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                      type: string
+                    name:
+                      description: >-
+                        Name of the referent.
+
+                        More info:
+                        https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                      type: string
+                    namespace:
+                      description: >-
+                        Namespace of the referent.
+
+                        More info:
+                        https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                      type: string
+                    resourceVersion:
+                      description: >-
+                        Specific resourceVersion to which this reference is
+                        made, if any.
+
+                        More info:
+                        https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                      type: string
+                    uid:
+                      description: >-
+                        UID of the referent.
+
+                        More info:
+                        https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                      type: string
+                  type: object
+                  x-kubernetes-map-type: atomic
+                url:
+                  description: >-
+                    Optional per-hook AAP base URL. When set together with
+                    tokenSecret, overrides ForkliftController aap_url.
+                  type: string
+              required:
+                - jobTemplateId
+              type: object
             deadline:
               description: Hook deadline in seconds.
               format: int64
               type: integer
             image:
-              description: Image to run.
+              description: >-
+                Image to run the hook workload (required for local hooks; omit
+                for AAP hooks).
               type: string
             playbook:
-              description: A base64 encoded Ansible playbook.
+              description: >-
+                A base64 encoded Ansible playbook (optional for local hooks;
+                when set, ansible-runner is used).
               type: string
             serviceAccount:
               description: Service account.
               type: string
-          required:
-            - image
           type: object
         status:
           description: Hook status.
@@ -837,6 +1016,230 @@ components:
               type: integer
           type: object
       type: object
+    v1beta1HyperVProviderServer:
+      properties:
+        apiVersion:
+          description: >-
+            APIVersion defines the versioned schema of this representation of an
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
+            https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+          type: string
+        kind:
+          description: >-
+            Kind is a string value representing the REST resource this object
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
+            https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: >-
+            HyperVProviderServerSpec defines the desired state of
+            HyperVProviderServer.
+          properties:
+            provider:
+              description: Provider reference.
+              properties:
+                apiVersion:
+                  description: API version of the referent.
+                  type: string
+                fieldPath:
+                  description: >-
+                    If referring to a piece of an object instead of an entire
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
+                  type: string
+                kind:
+                  description: >-
+                    Kind of the referent.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                  type: string
+                name:
+                  description: >-
+                    Name of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                  type: string
+                namespace:
+                  description: >-
+                    Namespace of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                  type: string
+                resourceVersion:
+                  description: >-
+                    Specific resourceVersion to which this reference is made, if
+                    any.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                  type: string
+                uid:
+                  description: >-
+                    UID of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                  type: string
+              type: object
+              x-kubernetes-map-type: atomic
+          required:
+            - provider
+          type: object
+        status:
+          description: >-
+            HyperVProviderServerStatus defines the observed state of
+            HyperVProviderServer.
+          properties:
+            conditions:
+              description: List of conditions.
+              items:
+                description: Condition
+                properties:
+                  category:
+                    description: The condition category.
+                    type: string
+                  durable:
+                    description: The condition is durable - never un-staged.
+                    type: boolean
+                  items:
+                    description: A list of items referenced in the `Message`.
+                    items:
+                      type: string
+                    type: array
+                  lastTransitionTime:
+                    description: When the last status transition occurred.
+                    format: date-time
+                    type: string
+                  message:
+                    description: The human readable description of the condition.
+                    type: string
+                  reason:
+                    description: The reason for the condition or transition.
+                    type: string
+                  status:
+                    description: The condition status [true,false].
+                    type: string
+                  suggestion:
+                    description: A suggested action or resolution for the condition.
+                    type: string
+                  type:
+                    description: The condition type.
+                    type: string
+                required:
+                  - category
+                  - lastTransitionTime
+                  - status
+                  - type
+                type: object
+              type: array
+            phase:
+              description: Phase of the HyperV provider server.
+              type: string
+            service:
+              description: Service reference.
+              properties:
+                apiVersion:
+                  description: API version of the referent.
+                  type: string
+                fieldPath:
+                  description: >-
+                    If referring to a piece of an object instead of an entire
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
+                  type: string
+                kind:
+                  description: >-
+                    Kind of the referent.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                  type: string
+                name:
+                  description: >-
+                    Name of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                  type: string
+                namespace:
+                  description: >-
+                    Namespace of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                  type: string
+                resourceVersion:
+                  description: >-
+                    Specific resourceVersion to which this reference is made, if
+                    any.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                  type: string
+                uid:
+                  description: >-
+                    UID of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                  type: string
+              type: object
+              x-kubernetes-map-type: atomic
+          type: object
+      type: object
     v1beta1Migration:
       properties:
         apiVersion:
@@ -1104,6 +1507,40 @@ components:
                       Note: If the Plan-level option is set to true, the
                       VM-level option will be ignored.
                     type: boolean
+                  detectedBootDisk:
+                    description: >-
+                      Boot disk index (0-based) detected by virt-v2v. nil means
+                      undetected.
+                    type: integer
+                  enableNestedVirtualization:
+                    description: >-
+                      EnableNestedVirtualization controls whether nested
+                      virtualization CPU features (vmx/svm)
+
+                      are requested on the target VM. This overrides both the
+                      plan-level setting and the
+
+                      source VM's configuration.
+
+
+                      - nil (default): Falls back to the plan-level
+                      enableNestedVirtualization value.
+
+                      - true: Request nested virtualization for this VM. CPU
+                      features vmx and svm are added
+                        with policy "optional" -- the VM will have nested virtualization only if the host
+                        hardware supports it. This is a best-effort hint, not a guarantee.
+                      - false: Explicitly disable nested virtualization for this
+                      VM. CPU features vmx and svm
+                        are added with policy "disable", preventing nested virtualization regardless of host
+                        capability.
+
+                      Both vmx and svm are added together so the VM is portable
+                      across Intel and AMD hosts.
+
+                      The "optional" policy activates only the feature the host
+                      CPU supports; the other is ignored.
+                    type: boolean
                   error:
                     description: Errors
                     properties:
@@ -1280,6 +1717,20 @@ components:
                         type: string
                     type: object
                     x-kubernetes-map-type: atomic
+                  migrateSharedDisks:
+                    description: >-
+                      MigrateSharedDisks controls whether shared disks are
+                      included in the migration for this VM.
+
+                      When nil (default), the plan-level migrateSharedDisks
+                      value is used.
+
+                      When explicitly set to true, shared disks are migrated for
+                      this VM.
+
+                      When explicitly set to false, shared disks are skipped for
+                      this VM.
+                    type: boolean
                   name:
                     description: |-
                       An object Name.
@@ -1472,6 +1923,22 @@ components:
                   pvcNameTemplate:
                     description: "PVCNameTemplate is a template for generating PVC names for VM disks.\nGenerated names must be valid DNS-1123 labels (lowercase alphanumerics, '-' allowed, max 63 chars).\nIt follows Go template syntax and has access to provider-specific variables.\n\nCommon variables (all providers):\n  - .VmName: name of the VM in the source cluster (original source name)\n  - .TargetVmName: final VM name in the target cluster (may equal .VmName if no rename/normalization)\n  - .PlanName: name of the migration plan\n  - .DiskIndex: initial volume index of the disk\n\nVMware (vSphere) specific variables:\n  - .WinDriveLetter: Windows drive letter (lowercase, if applicable, e.g. \"c\", requires guest agent)\n  - .RootDiskIndex: index of the root disk\n  - .Shared: true if the volume is shared by multiple VMs, false otherwise\n  - .FileName: name of the file in the source provider (filename includes the .vmdk suffix)\n\nOpenShift specific variables:\n  - .SourcePVCName: name of the PVC in the source cluster\n  - .SourcePVCNamespace: namespace of the PVC in the source cluster\n\nNote:\n  This template overrides the plan level template.\nExamples:\n  \"{{.TargetVmName}}-disk-{{.DiskIndex}}\"\n  \"{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}\" (VMware)\n  \"{{.TargetVmName}}-{{.SourcePVCName}}\" (OpenShift)\nSee:\n\t https://github.com/kubev2v/forklift/tree/main/pkg/templateutil for template functions."
                     type: string
+                  rdmAsLun:
+                    description: >-
+                      RDMAsLun controls whether RDM (Raw Device Mapping) disks
+                      from VMware should be
+
+                      mapped as LUN devices in the target KubeVirt VM instead of
+                      regular disk devices.
+
+                      When nil (default), the plan-level rdmAsLun value is used.
+
+                      When explicitly set to true, RDM disks are attached using
+                      lun: {} for this VM.
+
+                      When explicitly set to false, RDM disks are attached as
+                      regular disks for this VM.
+                    type: boolean
                   restorePowerState:
                     description: Source VM power state before migration.
                     type: string
@@ -2023,6 +2490,227 @@ components:
           type: object
       required:
         - spec
+      type: object
+    v1beta1OVAProviderServer:
+      properties:
+        apiVersion:
+          description: >-
+            APIVersion defines the versioned schema of this representation of an
+            object.
+
+            Servers should convert recognized schemas to the latest internal
+            value, and
+
+            may reject unrecognized values.
+
+            More info:
+            https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+          type: string
+        kind:
+          description: >-
+            Kind is a string value representing the REST resource this object
+            represents.
+
+            Servers may infer this from the endpoint the client submits requests
+            to.
+
+            Cannot be updated.
+
+            In CamelCase.
+
+            More info:
+            https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            provider:
+              description: Reference to a Provider resource.
+              properties:
+                apiVersion:
+                  description: API version of the referent.
+                  type: string
+                fieldPath:
+                  description: >-
+                    If referring to a piece of an object instead of an entire
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
+                  type: string
+                kind:
+                  description: >-
+                    Kind of the referent.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                  type: string
+                name:
+                  description: >-
+                    Name of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                  type: string
+                namespace:
+                  description: >-
+                    Namespace of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                  type: string
+                resourceVersion:
+                  description: >-
+                    Specific resourceVersion to which this reference is made, if
+                    any.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                  type: string
+                uid:
+                  description: >-
+                    UID of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                  type: string
+              type: object
+              x-kubernetes-map-type: atomic
+              x-kubernetes-validations:
+                - message: spec.provider is immutable
+                  rule: oldSelf == null || oldSelf.name == '' || self == oldSelf
+          required:
+            - provider
+          type: object
+        status:
+          properties:
+            conditions:
+              description: List of conditions.
+              items:
+                description: Condition
+                properties:
+                  category:
+                    description: The condition category.
+                    type: string
+                  durable:
+                    description: The condition is durable - never un-staged.
+                    type: boolean
+                  items:
+                    description: A list of items referenced in the `Message`.
+                    items:
+                      type: string
+                    type: array
+                  lastTransitionTime:
+                    description: When the last status transition occurred.
+                    format: date-time
+                    type: string
+                  message:
+                    description: The human readable description of the condition.
+                    type: string
+                  reason:
+                    description: The reason for the condition or transition.
+                    type: string
+                  status:
+                    description: The condition status [true,false].
+                    type: string
+                  suggestion:
+                    description: A suggested action or resolution for the condition.
+                    type: string
+                  type:
+                    description: The condition type.
+                    type: string
+                required:
+                  - category
+                  - lastTransitionTime
+                  - status
+                  - type
+                type: object
+              type: array
+            phase:
+              description: Current life cycle phase of the OVA server.
+              type: string
+            service:
+              description: Reference to Service resource
+              properties:
+                apiVersion:
+                  description: API version of the referent.
+                  type: string
+                fieldPath:
+                  description: >-
+                    If referring to a piece of an object instead of an entire
+                    object, this string
+
+                    should contain a valid JSON/Go field access statement, such
+                    as desiredState.manifest.containers[2].
+
+                    For example, if the object reference is to a container
+                    within a pod, this would take on a value like:
+
+                    "spec.containers{name}" (where "name" refers to the name of
+                    the container that triggered
+
+                    the event) or if no container name is specified
+                    "spec.containers[2]" (container with
+
+                    index 2 in this pod). This syntax is chosen only to have
+                    some well-defined way of
+
+                    referencing a part of an object.
+                  type: string
+                kind:
+                  description: >-
+                    Kind of the referent.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+                  type: string
+                name:
+                  description: >-
+                    Name of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                  type: string
+                namespace:
+                  description: >-
+                    Namespace of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+                  type: string
+                resourceVersion:
+                  description: >-
+                    Specific resourceVersion to which this reference is made, if
+                    any.
+
+                    More info:
+                    https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+                  type: string
+                uid:
+                  description: >-
+                    UID of the referent.
+
+                    More info:
+                    https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+                  type: string
+              type: object
+              x-kubernetes-map-type: atomic
+          type: object
       type: object
     v1beta1OvirtVolumePopulator:
       properties:
@@ -3886,6 +4574,7 @@ components:
                   - If migration fails the conversion pod will remain present even if this option is enabled.
               type: boolean
             deleteVmOnFailMigration:
+              default: true
               description: >-
                 DeleteVmOnFailMigration controls whether the target VM created
                 by this Plan is deleted when a migration fails.
@@ -3911,6 +4600,33 @@ components:
             diskBus:
               description: 'Deprecated: this field will be deprecated in 2.8.'
               type: string
+            enableNestedVirtualization:
+              description: >-
+                EnableNestedVirtualization controls whether nested
+                virtualization CPU features (vmx for Intel,
+
+                svm for AMD) are requested on the target VM.
+
+
+                - nil (default): Auto-detect from the source VM settings. If the
+                source had nested
+                  virtualization enabled, the target will request it; otherwise no CPU feature is added.
+                - true: Request nested virtualization on the target VM
+                (overrides source settings).
+                  Both vmx and svm CPU features are added with policy "optional", meaning the VM will
+                  have nested virtualization only if the underlying host hardware supports it.
+                  This does NOT guarantee nested virtualization; it is a best-effort hint to the hypervisor.
+                - false: Explicitly disable nested virtualization on the target
+                VM (overrides source settings).
+                  Both vmx and svm CPU features are added with policy "disable", unconditionally preventing
+                  nested virtualization regardless of host capability.
+
+                Both vmx and svm are added together so the VM is portable across
+                Intel and AMD hosts.
+
+                The "optional" policy activates only the feature the host CPU
+                supports; the other is ignored.
+              type: boolean
             installLegacyDrivers:
               description: >-
                 InstallLegacyDrivers determines whether to install legacy
@@ -4290,8 +5006,30 @@ components:
                     **DANGER**: May cause conflicts if the generated name is not unique
 
                 OpenShift:
-                  - This field is ignored. The template output is always used as the exact PVC name.
-                  - Default template "{{.SourcePVCName}}" preserves source PVC names which are typically unique.
+                  - Supported when a custom pvcNameTemplate is set (plan-level or VM-level).
+                  - When no custom template is set, the default "{{.SourcePVCName}}" always uses exact names
+                    regardless of this field.
+                  - true: Template output is used as generateName prefix, Kubernetes adds a random suffix
+                  - false: Template output is used as the exact PVC name
+              type: boolean
+            rdmAsLun:
+              description: >-
+                RDMAsLun controls whether RDM (Raw Device Mapping) disks from
+                VMware should be
+
+                mapped as LUN devices in the target KubeVirt VM instead of
+                regular disk devices.
+
+                When true, RDM disks are attached using lun: {} which allows the
+                guest to execute
+
+                arbitrary SCSI command passthrough (SGIO).
+
+                This is useful when the source VM uses RDM disks for
+                applications that require
+
+                direct SCSI access, such as shared storage clusters or database
+                applications.
               type: boolean
             runPreflightInspection:
               default: true
@@ -4305,6 +5043,20 @@ components:
 
                 - false: No inspection is performed before disk transfer.
               type: boolean
+            serviceAccount:
+              description: >-
+                ServiceAccount is the name of the ServiceAccount to use for
+                migration
+
+                pods in the target namespace. Overrides the global setting.
+
+                If empty, falls back to ForkliftController's
+                controller_migration_service_account,
+
+                then to the namespace default.
+              maxLength: 253
+              pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+              type: string
             skipGuestConversion:
               default: false
               description: Determines if the plan should skip the guest conversion.
@@ -6013,6 +6765,19 @@ components:
                 - false: Use high-performance VirtIO devices (requires VirtIO
                 drivers already installed in source VM)
               type: boolean
+            virtV2vImage:
+              description: >-
+                VirtV2vImage overrides the global virt-v2v container image for
+                this plan.
+
+                When set, virt-v2v pods created by this plan will use this image
+                instead
+
+                of the cluster-wide VIRT_V2V_IMAGE setting.
+
+                Use this to run different virt-v2v builds for specific migration
+                scenarios
+              type: string
             vms:
               description: List of VMs.
               items:
@@ -6037,6 +6802,35 @@ components:
 
                       Note: If the Plan-level option is set to true, the
                       VM-level option will be ignored.
+                    type: boolean
+                  enableNestedVirtualization:
+                    description: >-
+                      EnableNestedVirtualization controls whether nested
+                      virtualization CPU features (vmx/svm)
+
+                      are requested on the target VM. This overrides both the
+                      plan-level setting and the
+
+                      source VM's configuration.
+
+
+                      - nil (default): Falls back to the plan-level
+                      enableNestedVirtualization value.
+
+                      - true: Request nested virtualization for this VM. CPU
+                      features vmx and svm are added
+                        with policy "optional" -- the VM will have nested virtualization only if the host
+                        hardware supports it. This is a best-effort hint, not a guarantee.
+                      - false: Explicitly disable nested virtualization for this
+                      VM. CPU features vmx and svm
+                        are added with policy "disable", preventing nested virtualization regardless of host
+                        capability.
+
+                      Both vmx and svm are added together so the VM is portable
+                      across Intel and AMD hosts.
+
+                      The "optional" policy activates only the feature the host
+                      CPU supports; the other is ignored.
                     type: boolean
                   hooks:
                     description: Enable hooks.
@@ -6196,6 +6990,20 @@ components:
                         type: string
                     type: object
                     x-kubernetes-map-type: atomic
+                  migrateSharedDisks:
+                    description: >-
+                      MigrateSharedDisks controls whether shared disks are
+                      included in the migration for this VM.
+
+                      When nil (default), the plan-level migrateSharedDisks
+                      value is used.
+
+                      When explicitly set to true, shared disks are migrated for
+                      this VM.
+
+                      When explicitly set to false, shared disks are skipped for
+                      this VM.
+                    type: boolean
                   name:
                     description: |-
                       An object Name.
@@ -6251,6 +7059,22 @@ components:
                   pvcNameTemplate:
                     description: "PVCNameTemplate is a template for generating PVC names for VM disks.\nGenerated names must be valid DNS-1123 labels (lowercase alphanumerics, '-' allowed, max 63 chars).\nIt follows Go template syntax and has access to provider-specific variables.\n\nCommon variables (all providers):\n  - .VmName: name of the VM in the source cluster (original source name)\n  - .TargetVmName: final VM name in the target cluster (may equal .VmName if no rename/normalization)\n  - .PlanName: name of the migration plan\n  - .DiskIndex: initial volume index of the disk\n\nVMware (vSphere) specific variables:\n  - .WinDriveLetter: Windows drive letter (lowercase, if applicable, e.g. \"c\", requires guest agent)\n  - .RootDiskIndex: index of the root disk\n  - .Shared: true if the volume is shared by multiple VMs, false otherwise\n  - .FileName: name of the file in the source provider (filename includes the .vmdk suffix)\n\nOpenShift specific variables:\n  - .SourcePVCName: name of the PVC in the source cluster\n  - .SourcePVCNamespace: namespace of the PVC in the source cluster\n\nNote:\n  This template overrides the plan level template.\nExamples:\n  \"{{.TargetVmName}}-disk-{{.DiskIndex}}\"\n  \"{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}\" (VMware)\n  \"{{.TargetVmName}}-{{.SourcePVCName}}\" (OpenShift)\nSee:\n\t https://github.com/kubev2v/forklift/tree/main/pkg/templateutil for template functions."
                     type: string
+                  rdmAsLun:
+                    description: >-
+                      RDMAsLun controls whether RDM (Raw Device Mapping) disks
+                      from VMware should be
+
+                      mapped as LUN devices in the target KubeVirt VM instead of
+                      regular disk devices.
+
+                      When nil (default), the plan-level rdmAsLun value is used.
+
+                      When explicitly set to true, RDM disks are attached using
+                      lun: {} for this VM.
+
+                      When explicitly set to false, RDM disks are attached as
+                      regular disks for this VM.
+                    type: boolean
                   rootDisk:
                     description: Choose the primary disk the VM boots from
                     type: string
@@ -6335,6 +7159,24 @@ components:
 
                 Deprecated: this field will be deprecated in 2.10. Use Type
                 instead.
+              type: boolean
+            xfsCompatibility:
+              default: false
+              description: >-
+                XfsCompatibility overrides the global virt-v2v container image
+                for this plan.
+
+                When set, virt-v2v pods created by this plan will use the XFS
+                compatible image
+
+                VIRT_V2V_IMAGE_XFS instead of the cluster-wide VIRT_V2V_IMAGE
+                setting.
+
+                Use this to enable XFSv4 compatibility mode for specific plan.
+
+                Warning: Enabling XFSv4 support will drop support for BTRFS for
+                the specific plan. Ensure that the plan only selects VMs with
+                supported filesystem.
               type: boolean
           required:
             - map
@@ -6704,6 +7546,40 @@ components:
                           Note: If the Plan-level option is set to true, the
                           VM-level option will be ignored.
                         type: boolean
+                      detectedBootDisk:
+                        description: >-
+                          Boot disk index (0-based) detected by virt-v2v. nil
+                          means undetected.
+                        type: integer
+                      enableNestedVirtualization:
+                        description: >-
+                          EnableNestedVirtualization controls whether nested
+                          virtualization CPU features (vmx/svm)
+
+                          are requested on the target VM. This overrides both
+                          the plan-level setting and the
+
+                          source VM's configuration.
+
+
+                          - nil (default): Falls back to the plan-level
+                          enableNestedVirtualization value.
+
+                          - true: Request nested virtualization for this VM. CPU
+                          features vmx and svm are added
+                            with policy "optional" -- the VM will have nested virtualization only if the host
+                            hardware supports it. This is a best-effort hint, not a guarantee.
+                          - false: Explicitly disable nested virtualization for
+                          this VM. CPU features vmx and svm
+                            are added with policy "disable", preventing nested virtualization regardless of host
+                            capability.
+
+                          Both vmx and svm are added together so the VM is
+                          portable across Intel and AMD hosts.
+
+                          The "optional" policy activates only the feature the
+                          host CPU supports; the other is ignored.
+                        type: boolean
                       error:
                         description: Errors
                         properties:
@@ -6883,6 +7759,20 @@ components:
                             type: string
                         type: object
                         x-kubernetes-map-type: atomic
+                      migrateSharedDisks:
+                        description: >-
+                          MigrateSharedDisks controls whether shared disks are
+                          included in the migration for this VM.
+
+                          When nil (default), the plan-level migrateSharedDisks
+                          value is used.
+
+                          When explicitly set to true, shared disks are migrated
+                          for this VM.
+
+                          When explicitly set to false, shared disks are skipped
+                          for this VM.
+                        type: boolean
                       name:
                         description: |-
                           An object Name.
@@ -7075,6 +7965,23 @@ components:
                       pvcNameTemplate:
                         description: "PVCNameTemplate is a template for generating PVC names for VM disks.\nGenerated names must be valid DNS-1123 labels (lowercase alphanumerics, '-' allowed, max 63 chars).\nIt follows Go template syntax and has access to provider-specific variables.\n\nCommon variables (all providers):\n  - .VmName: name of the VM in the source cluster (original source name)\n  - .TargetVmName: final VM name in the target cluster (may equal .VmName if no rename/normalization)\n  - .PlanName: name of the migration plan\n  - .DiskIndex: initial volume index of the disk\n\nVMware (vSphere) specific variables:\n  - .WinDriveLetter: Windows drive letter (lowercase, if applicable, e.g. \"c\", requires guest agent)\n  - .RootDiskIndex: index of the root disk\n  - .Shared: true if the volume is shared by multiple VMs, false otherwise\n  - .FileName: name of the file in the source provider (filename includes the .vmdk suffix)\n\nOpenShift specific variables:\n  - .SourcePVCName: name of the PVC in the source cluster\n  - .SourcePVCNamespace: namespace of the PVC in the source cluster\n\nNote:\n  This template overrides the plan level template.\nExamples:\n  \"{{.TargetVmName}}-disk-{{.DiskIndex}}\"\n  \"{{if eq .DiskIndex .RootDiskIndex}}root{{else}}data{{end}}-{{.DiskIndex}}\" (VMware)\n  \"{{.TargetVmName}}-{{.SourcePVCName}}\" (OpenShift)\nSee:\n\t https://github.com/kubev2v/forklift/tree/main/pkg/templateutil for template functions."
                         type: string
+                      rdmAsLun:
+                        description: >-
+                          RDMAsLun controls whether RDM (Raw Device Mapping)
+                          disks from VMware should be
+
+                          mapped as LUN devices in the target KubeVirt VM
+                          instead of regular disk devices.
+
+                          When nil (default), the plan-level rdmAsLun value is
+                          used.
+
+                          When explicitly set to true, RDM disks are attached
+                          using lun: {} for this VM.
+
+                          When explicitly set to false, RDM disks are attached
+                          as regular disks for this VM.
+                        type: boolean
                       restorePowerState:
                         description: Source VM power state before migration.
                         type: string
@@ -7371,6 +8278,11 @@ components:
               type: integer
             phase:
               description: Current life cycle phase of the provider.
+              type: string
+            secretResourceVersion:
+              description: |-
+                The ResourceVersion of the secret referenced by this provider.
+                Used to detect when credentials have been rotated.
               type: string
             service:
               description: Provider service reference

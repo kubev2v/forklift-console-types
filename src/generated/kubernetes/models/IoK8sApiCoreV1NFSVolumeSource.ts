@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
  * @export
@@ -42,12 +42,10 @@ export interface IoK8sApiCoreV1NFSVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NFSVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1NFSVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-    isInstance = isInstance && "server" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NFSVolumeSource(value: object): value is IoK8sApiCoreV1NFSVolumeSource {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    if (!('server' in value) || value['server'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NFSVolumeSourceFromJSON(json: any): IoK8sApiCoreV1NFSVolumeSource {
@@ -55,29 +53,31 @@ export function IoK8sApiCoreV1NFSVolumeSourceFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1NFSVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NFSVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'path': json['path'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
         'server': json['server'],
     };
 }
 
-export function IoK8sApiCoreV1NFSVolumeSourceToJSON(value?: IoK8sApiCoreV1NFSVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NFSVolumeSourceToJSON(json: any): IoK8sApiCoreV1NFSVolumeSource {
+    return IoK8sApiCoreV1NFSVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NFSVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1NFSVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'path': value.path,
-        'readOnly': value.readOnly,
-        'server': value.server,
+        'path': value['path'],
+        'readOnly': value['readOnly'],
+        'server': value['server'],
     };
 }
 

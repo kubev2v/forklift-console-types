@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1ArchSpecificConfiguration } from './V1ArchSpecificConfiguration';
 import {
     V1ArchSpecificConfigurationFromJSON,
     V1ArchSpecificConfigurationFromJSONTyped,
     V1ArchSpecificConfigurationToJSON,
+    V1ArchSpecificConfigurationToJSONTyped,
 } from './V1ArchSpecificConfiguration';
 
 /**
@@ -50,15 +51,19 @@ export interface V1ArchConfiguration {
      * @memberof V1ArchConfiguration
      */
     ppc64le?: V1ArchSpecificConfiguration;
+    /**
+     * 
+     * @type {V1ArchSpecificConfiguration}
+     * @memberof V1ArchConfiguration
+     */
+    s390x?: V1ArchSpecificConfiguration;
 }
 
 /**
  * Check if a given object implements the V1ArchConfiguration interface.
  */
-export function instanceOfV1ArchConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ArchConfiguration(value: object): value is V1ArchConfiguration {
+    return true;
 }
 
 export function V1ArchConfigurationFromJSON(json: any): V1ArchConfiguration {
@@ -66,31 +71,35 @@ export function V1ArchConfigurationFromJSON(json: any): V1ArchConfiguration {
 }
 
 export function V1ArchConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ArchConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'amd64': !exists(json, 'amd64') ? undefined : V1ArchSpecificConfigurationFromJSON(json['amd64']),
-        'arm64': !exists(json, 'arm64') ? undefined : V1ArchSpecificConfigurationFromJSON(json['arm64']),
-        'defaultArchitecture': !exists(json, 'defaultArchitecture') ? undefined : json['defaultArchitecture'],
-        'ppc64le': !exists(json, 'ppc64le') ? undefined : V1ArchSpecificConfigurationFromJSON(json['ppc64le']),
+        'amd64': json['amd64'] == null ? undefined : V1ArchSpecificConfigurationFromJSON(json['amd64']),
+        'arm64': json['arm64'] == null ? undefined : V1ArchSpecificConfigurationFromJSON(json['arm64']),
+        'defaultArchitecture': json['defaultArchitecture'] == null ? undefined : json['defaultArchitecture'],
+        'ppc64le': json['ppc64le'] == null ? undefined : V1ArchSpecificConfigurationFromJSON(json['ppc64le']),
+        's390x': json['s390x'] == null ? undefined : V1ArchSpecificConfigurationFromJSON(json['s390x']),
     };
 }
 
-export function V1ArchConfigurationToJSON(value?: V1ArchConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ArchConfigurationToJSON(json: any): V1ArchConfiguration {
+    return V1ArchConfigurationToJSONTyped(json, false);
+}
+
+export function V1ArchConfigurationToJSONTyped(value?: V1ArchConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'amd64': V1ArchSpecificConfigurationToJSON(value.amd64),
-        'arm64': V1ArchSpecificConfigurationToJSON(value.arm64),
-        'defaultArchitecture': value.defaultArchitecture,
-        'ppc64le': V1ArchSpecificConfigurationToJSON(value.ppc64le),
+        'amd64': V1ArchSpecificConfigurationToJSON(value['amd64']),
+        'arm64': V1ArchSpecificConfigurationToJSON(value['arm64']),
+        'defaultArchitecture': value['defaultArchitecture'],
+        'ppc64le': V1ArchSpecificConfigurationToJSON(value['ppc64le']),
+        's390x': V1ArchSpecificConfigurationToJSON(value['s390x']),
     };
 }
 

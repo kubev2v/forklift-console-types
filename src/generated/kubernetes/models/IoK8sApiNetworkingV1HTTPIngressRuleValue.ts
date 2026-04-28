@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1HTTPIngressPath } from './IoK8sApiNetworkingV1HTTPIngressPath';
 import {
     IoK8sApiNetworkingV1HTTPIngressPathFromJSON,
     IoK8sApiNetworkingV1HTTPIngressPathFromJSONTyped,
     IoK8sApiNetworkingV1HTTPIngressPathToJSON,
+    IoK8sApiNetworkingV1HTTPIngressPathToJSONTyped,
 } from './IoK8sApiNetworkingV1HTTPIngressPath';
 
 /**
@@ -37,11 +38,9 @@ export interface IoK8sApiNetworkingV1HTTPIngressRuleValue {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1HTTPIngressRuleValue interface.
  */
-export function instanceOfIoK8sApiNetworkingV1HTTPIngressRuleValue(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "paths" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1HTTPIngressRuleValue(value: object): value is IoK8sApiNetworkingV1HTTPIngressRuleValue {
+    if (!('paths' in value) || value['paths'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSON(json: any): IoK8sApiNetworkingV1HTTPIngressRuleValue {
@@ -49,7 +48,7 @@ export function IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSON(json: any): IoK
 }
 
 export function IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1HTTPIngressRuleValue {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function IoK8sApiNetworkingV1HTTPIngressRuleValueFromJSONTyped(json: any,
     };
 }
 
-export function IoK8sApiNetworkingV1HTTPIngressRuleValueToJSON(value?: IoK8sApiNetworkingV1HTTPIngressRuleValue | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1HTTPIngressRuleValueToJSON(json: any): IoK8sApiNetworkingV1HTTPIngressRuleValue {
+    return IoK8sApiNetworkingV1HTTPIngressRuleValueToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1HTTPIngressRuleValueToJSONTyped(value?: IoK8sApiNetworkingV1HTTPIngressRuleValue | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'paths': ((value.paths as Array<any>).map(IoK8sApiNetworkingV1HTTPIngressPathToJSON)),
+        'paths': ((value['paths'] as Array<any>).map(IoK8sApiNetworkingV1HTTPIngressPathToJSON)),
     };
 }
 

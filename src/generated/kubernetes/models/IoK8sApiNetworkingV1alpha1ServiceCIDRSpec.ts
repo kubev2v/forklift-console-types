@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 /**
  * ServiceCIDRSpec define the CIDRs the user wants to use for allocating ClusterIPs for Services.
  * @export

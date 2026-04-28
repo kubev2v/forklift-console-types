@@ -12,22 +12,24 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
 import {
     IoK8sApiCoreV1ObjectReferenceFromJSON,
     IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1ObjectReferenceToJSON,
+    IoK8sApiCoreV1ObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1ObjectReference';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
- * Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
+ * Binding ties one object to another; for example, a pod is bound to a node by a scheduler.
  * @export
  * @interface IoK8sApiCoreV1Binding
  */
@@ -61,11 +63,9 @@ export interface IoK8sApiCoreV1Binding {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Binding interface.
  */
-export function instanceOfIoK8sApiCoreV1Binding(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "target" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Binding(value: object): value is IoK8sApiCoreV1Binding {
+    if (!('target' in value) || value['target'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1BindingFromJSON(json: any): IoK8sApiCoreV1Binding {
@@ -73,31 +73,33 @@ export function IoK8sApiCoreV1BindingFromJSON(json: any): IoK8sApiCoreV1Binding 
 }
 
 export function IoK8sApiCoreV1BindingFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Binding {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'target': IoK8sApiCoreV1ObjectReferenceFromJSON(json['target']),
     };
 }
 
-export function IoK8sApiCoreV1BindingToJSON(value?: IoK8sApiCoreV1Binding | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1BindingToJSON(json: any): IoK8sApiCoreV1Binding {
+    return IoK8sApiCoreV1BindingToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1BindingToJSONTyped(value?: IoK8sApiCoreV1Binding | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'target': IoK8sApiCoreV1ObjectReferenceToJSON(value.target),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'target': IoK8sApiCoreV1ObjectReferenceToJSON(value['target']),
     };
 }
 

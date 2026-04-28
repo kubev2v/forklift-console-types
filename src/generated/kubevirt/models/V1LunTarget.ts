@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,10 +42,8 @@ export interface V1LunTarget {
 /**
  * Check if a given object implements the V1LunTarget interface.
  */
-export function instanceOfV1LunTarget(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1LunTarget(value: object): value is V1LunTarget {
+    return true;
 }
 
 export function V1LunTargetFromJSON(json: any): V1LunTarget {
@@ -53,29 +51,31 @@ export function V1LunTargetFromJSON(json: any): V1LunTarget {
 }
 
 export function V1LunTargetFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1LunTarget {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'bus': !exists(json, 'bus') ? undefined : json['bus'],
-        'readonly': !exists(json, 'readonly') ? undefined : json['readonly'],
-        'reservation': !exists(json, 'reservation') ? undefined : json['reservation'],
+        'bus': json['bus'] == null ? undefined : json['bus'],
+        'readonly': json['readonly'] == null ? undefined : json['readonly'],
+        'reservation': json['reservation'] == null ? undefined : json['reservation'],
     };
 }
 
-export function V1LunTargetToJSON(value?: V1LunTarget | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1LunTargetToJSON(json: any): V1LunTarget {
+    return V1LunTargetToJSONTyped(json, false);
+}
+
+export function V1LunTargetToJSONTyped(value?: V1LunTarget | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'bus': value.bus,
-        'readonly': value.readonly,
-        'reservation': value.reservation,
+        'bus': value['bus'],
+        'readonly': value['readonly'],
+        'reservation': value['reservation'],
     };
 }
 

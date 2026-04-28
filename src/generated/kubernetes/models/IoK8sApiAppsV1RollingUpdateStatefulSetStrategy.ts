@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiAppsV1RollingUpdateStatefulSetStrategy {
 /**
  * Check if a given object implements the IoK8sApiAppsV1RollingUpdateStatefulSetStrategy interface.
  */
-export function instanceOfIoK8sApiAppsV1RollingUpdateStatefulSetStrategy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1RollingUpdateStatefulSetStrategy(value: object): value is IoK8sApiAppsV1RollingUpdateStatefulSetStrategy {
+    return true;
 }
 
 export function IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSON(json: any): IoK8sApiAppsV1RollingUpdateStatefulSetStrategy {
@@ -47,27 +45,29 @@ export function IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSON(json: any
 }
 
 export function IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1RollingUpdateStatefulSetStrategy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'maxUnavailable': !exists(json, 'maxUnavailable') ? undefined : json['maxUnavailable'],
-        'partition': !exists(json, 'partition') ? undefined : json['partition'],
+        'maxUnavailable': json['maxUnavailable'] == null ? undefined : json['maxUnavailable'],
+        'partition': json['partition'] == null ? undefined : json['partition'],
     };
 }
 
-export function IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSON(value?: IoK8sApiAppsV1RollingUpdateStatefulSetStrategy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSON(json: any): IoK8sApiAppsV1RollingUpdateStatefulSetStrategy {
+    return IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSONTyped(value?: IoK8sApiAppsV1RollingUpdateStatefulSetStrategy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'maxUnavailable': value.maxUnavailable,
-        'partition': value.partition,
+        'maxUnavailable': value['maxUnavailable'],
+        'partition': value['partition'],
     };
 }
 

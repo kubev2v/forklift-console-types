@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * KubeVirtWorkloadUpdateStrategy defines options related to updating a KubeVirt install
  * @export
@@ -46,10 +46,8 @@ export interface V1KubeVirtWorkloadUpdateStrategy {
 /**
  * Check if a given object implements the V1KubeVirtWorkloadUpdateStrategy interface.
  */
-export function instanceOfV1KubeVirtWorkloadUpdateStrategy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KubeVirtWorkloadUpdateStrategy(value: object): value is V1KubeVirtWorkloadUpdateStrategy {
+    return true;
 }
 
 export function V1KubeVirtWorkloadUpdateStrategyFromJSON(json: any): V1KubeVirtWorkloadUpdateStrategy {
@@ -57,29 +55,31 @@ export function V1KubeVirtWorkloadUpdateStrategyFromJSON(json: any): V1KubeVirtW
 }
 
 export function V1KubeVirtWorkloadUpdateStrategyFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtWorkloadUpdateStrategy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'batchEvictionInterval': !exists(json, 'batchEvictionInterval') ? undefined : json['batchEvictionInterval'],
-        'batchEvictionSize': !exists(json, 'batchEvictionSize') ? undefined : json['batchEvictionSize'],
-        'workloadUpdateMethods': !exists(json, 'workloadUpdateMethods') ? undefined : json['workloadUpdateMethods'],
+        'batchEvictionInterval': json['batchEvictionInterval'] == null ? undefined : json['batchEvictionInterval'],
+        'batchEvictionSize': json['batchEvictionSize'] == null ? undefined : json['batchEvictionSize'],
+        'workloadUpdateMethods': json['workloadUpdateMethods'] == null ? undefined : json['workloadUpdateMethods'],
     };
 }
 
-export function V1KubeVirtWorkloadUpdateStrategyToJSON(value?: V1KubeVirtWorkloadUpdateStrategy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtWorkloadUpdateStrategyToJSON(json: any): V1KubeVirtWorkloadUpdateStrategy {
+    return V1KubeVirtWorkloadUpdateStrategyToJSONTyped(json, false);
+}
+
+export function V1KubeVirtWorkloadUpdateStrategyToJSONTyped(value?: V1KubeVirtWorkloadUpdateStrategy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'batchEvictionInterval': value.batchEvictionInterval,
-        'batchEvictionSize': value.batchEvictionSize,
-        'workloadUpdateMethods': value.workloadUpdateMethods,
+        'batchEvictionInterval': value['batchEvictionInterval'],
+        'batchEvictionSize': value['batchEvictionSize'],
+        'workloadUpdateMethods': value['workloadUpdateMethods'],
     };
 }
 

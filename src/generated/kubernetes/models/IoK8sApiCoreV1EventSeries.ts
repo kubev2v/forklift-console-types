@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
  * @export
@@ -30,16 +30,14 @@ export interface IoK8sApiCoreV1EventSeries {
      * @type {Date}
      * @memberof IoK8sApiCoreV1EventSeries
      */
-    lastObservedTime?: string;
+    lastObservedTime?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1EventSeries interface.
  */
-export function instanceOfIoK8sApiCoreV1EventSeries(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EventSeries(value: object): value is IoK8sApiCoreV1EventSeries {
+    return true;
 }
 
 export function IoK8sApiCoreV1EventSeriesFromJSON(json: any): IoK8sApiCoreV1EventSeries {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1EventSeriesFromJSON(json: any): IoK8sApiCoreV1Even
 }
 
 export function IoK8sApiCoreV1EventSeriesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EventSeries {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'count': !exists(json, 'count') ? undefined : json['count'],
-        'lastObservedTime': !exists(json, 'lastObservedTime') ? undefined : json['lastObservedTime'],
+        'count': json['count'] == null ? undefined : json['count'],
+        'lastObservedTime': json['lastObservedTime'] == null ? undefined : (new Date(json['lastObservedTime'])),
     };
 }
 
-export function IoK8sApiCoreV1EventSeriesToJSON(value?: IoK8sApiCoreV1EventSeries | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EventSeriesToJSON(json: any): IoK8sApiCoreV1EventSeries {
+    return IoK8sApiCoreV1EventSeriesToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EventSeriesToJSONTyped(value?: IoK8sApiCoreV1EventSeries | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'count': value.count,
-        'lastObservedTime': value.lastObservedTime === undefined ? undefined : (value.lastObservedTime),
+        'count': value['count'],
+        'lastObservedTime': value['lastObservedTime'] == null ? undefined : ((value['lastObservedTime']).toISOString()),
     };
 }
 

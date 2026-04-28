@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ObjectMeta } from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
 import type { V1beta1VirtualMachinePreferenceSpec } from './V1beta1VirtualMachinePreferenceSpec';
 import {
     V1beta1VirtualMachinePreferenceSpecFromJSON,
     V1beta1VirtualMachinePreferenceSpecFromJSONTyped,
     V1beta1VirtualMachinePreferenceSpecToJSON,
+    V1beta1VirtualMachinePreferenceSpecToJSONTyped,
 } from './V1beta1VirtualMachinePreferenceSpec';
 
 /**
@@ -61,11 +63,9 @@ export interface V1beta1VirtualMachineClusterPreference {
 /**
  * Check if a given object implements the V1beta1VirtualMachineClusterPreference interface.
  */
-export function instanceOfV1beta1VirtualMachineClusterPreference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfV1beta1VirtualMachineClusterPreference(value: object): value is V1beta1VirtualMachineClusterPreference {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1VirtualMachineClusterPreferenceFromJSON(json: any): V1beta1VirtualMachineClusterPreference {
@@ -73,31 +73,33 @@ export function V1beta1VirtualMachineClusterPreferenceFromJSON(json: any): V1bet
 }
 
 export function V1beta1VirtualMachineClusterPreferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1VirtualMachineClusterPreference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': V1beta1VirtualMachinePreferenceSpecFromJSON(json['spec']),
     };
 }
 
-export function V1beta1VirtualMachineClusterPreferenceToJSON(value?: V1beta1VirtualMachineClusterPreference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1VirtualMachineClusterPreferenceToJSON(json: any): V1beta1VirtualMachineClusterPreference {
+    return V1beta1VirtualMachineClusterPreferenceToJSONTyped(json, false);
+}
+
+export function V1beta1VirtualMachineClusterPreferenceToJSONTyped(value?: V1beta1VirtualMachineClusterPreference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': V1beta1VirtualMachinePreferenceSpecToJSON(value.spec),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': V1beta1VirtualMachinePreferenceSpecToJSON(value['spec']),
     };
 }
 

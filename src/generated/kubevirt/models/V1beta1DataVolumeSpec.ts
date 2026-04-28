@@ -12,37 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1PersistentVolumeClaimSpec } from './K8sIoApiCoreV1PersistentVolumeClaimSpec';
 import {
     K8sIoApiCoreV1PersistentVolumeClaimSpecFromJSON,
     K8sIoApiCoreV1PersistentVolumeClaimSpecFromJSONTyped,
     K8sIoApiCoreV1PersistentVolumeClaimSpecToJSON,
+    K8sIoApiCoreV1PersistentVolumeClaimSpecToJSONTyped,
 } from './K8sIoApiCoreV1PersistentVolumeClaimSpec';
-import type { V1beta1DataVolumeCheckpoint } from './V1beta1DataVolumeCheckpoint';
-import {
-    V1beta1DataVolumeCheckpointFromJSON,
-    V1beta1DataVolumeCheckpointFromJSONTyped,
-    V1beta1DataVolumeCheckpointToJSON,
-} from './V1beta1DataVolumeCheckpoint';
 import type { V1beta1DataVolumeSource } from './V1beta1DataVolumeSource';
 import {
     V1beta1DataVolumeSourceFromJSON,
     V1beta1DataVolumeSourceFromJSONTyped,
     V1beta1DataVolumeSourceToJSON,
+    V1beta1DataVolumeSourceToJSONTyped,
 } from './V1beta1DataVolumeSource';
-import type { V1beta1DataVolumeSourceRef } from './V1beta1DataVolumeSourceRef';
-import {
-    V1beta1DataVolumeSourceRefFromJSON,
-    V1beta1DataVolumeSourceRefFromJSONTyped,
-    V1beta1DataVolumeSourceRefToJSON,
-} from './V1beta1DataVolumeSourceRef';
 import type { V1beta1StorageSpec } from './V1beta1StorageSpec';
 import {
     V1beta1StorageSpecFromJSON,
     V1beta1StorageSpecFromJSONTyped,
     V1beta1StorageSpecToJSON,
+    V1beta1StorageSpecToJSONTyped,
 } from './V1beta1StorageSpec';
+import type { V1beta1DataVolumeSourceRef } from './V1beta1DataVolumeSourceRef';
+import {
+    V1beta1DataVolumeSourceRefFromJSON,
+    V1beta1DataVolumeSourceRefFromJSONTyped,
+    V1beta1DataVolumeSourceRefToJSON,
+    V1beta1DataVolumeSourceRefToJSONTyped,
+} from './V1beta1DataVolumeSourceRef';
+import type { V1beta1DataVolumeCheckpoint } from './V1beta1DataVolumeCheckpoint';
+import {
+    V1beta1DataVolumeCheckpointFromJSON,
+    V1beta1DataVolumeCheckpointFromJSONTyped,
+    V1beta1DataVolumeCheckpointToJSON,
+    V1beta1DataVolumeCheckpointToJSONTyped,
+} from './V1beta1DataVolumeCheckpoint';
 
 /**
  * DataVolumeSpec defines the DataVolume type specification
@@ -109,10 +114,8 @@ export interface V1beta1DataVolumeSpec {
 /**
  * Check if a given object implements the V1beta1DataVolumeSpec interface.
  */
-export function instanceOfV1beta1DataVolumeSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeSpec(value: object): value is V1beta1DataVolumeSpec {
+    return true;
 }
 
 export function V1beta1DataVolumeSpecFromJSON(json: any): V1beta1DataVolumeSpec {
@@ -120,41 +123,43 @@ export function V1beta1DataVolumeSpecFromJSON(json: any): V1beta1DataVolumeSpec 
 }
 
 export function V1beta1DataVolumeSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'checkpoints': !exists(json, 'checkpoints') ? undefined : ((json['checkpoints'] as Array<any>).map(V1beta1DataVolumeCheckpointFromJSON)),
-        'contentType': !exists(json, 'contentType') ? undefined : json['contentType'],
-        'finalCheckpoint': !exists(json, 'finalCheckpoint') ? undefined : json['finalCheckpoint'],
-        'preallocation': !exists(json, 'preallocation') ? undefined : json['preallocation'],
-        'priorityClassName': !exists(json, 'priorityClassName') ? undefined : json['priorityClassName'],
-        'pvc': !exists(json, 'pvc') ? undefined : K8sIoApiCoreV1PersistentVolumeClaimSpecFromJSON(json['pvc']),
-        'source': !exists(json, 'source') ? undefined : V1beta1DataVolumeSourceFromJSON(json['source']),
-        'sourceRef': !exists(json, 'sourceRef') ? undefined : V1beta1DataVolumeSourceRefFromJSON(json['sourceRef']),
-        'storage': !exists(json, 'storage') ? undefined : V1beta1StorageSpecFromJSON(json['storage']),
+        'checkpoints': json['checkpoints'] == null ? undefined : ((json['checkpoints'] as Array<any>).map(V1beta1DataVolumeCheckpointFromJSON)),
+        'contentType': json['contentType'] == null ? undefined : json['contentType'],
+        'finalCheckpoint': json['finalCheckpoint'] == null ? undefined : json['finalCheckpoint'],
+        'preallocation': json['preallocation'] == null ? undefined : json['preallocation'],
+        'priorityClassName': json['priorityClassName'] == null ? undefined : json['priorityClassName'],
+        'pvc': json['pvc'] == null ? undefined : K8sIoApiCoreV1PersistentVolumeClaimSpecFromJSON(json['pvc']),
+        'source': json['source'] == null ? undefined : V1beta1DataVolumeSourceFromJSON(json['source']),
+        'sourceRef': json['sourceRef'] == null ? undefined : V1beta1DataVolumeSourceRefFromJSON(json['sourceRef']),
+        'storage': json['storage'] == null ? undefined : V1beta1StorageSpecFromJSON(json['storage']),
     };
 }
 
-export function V1beta1DataVolumeSpecToJSON(value?: V1beta1DataVolumeSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeSpecToJSON(json: any): V1beta1DataVolumeSpec {
+    return V1beta1DataVolumeSpecToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeSpecToJSONTyped(value?: V1beta1DataVolumeSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'checkpoints': value.checkpoints === undefined ? undefined : ((value.checkpoints as Array<any>).map(V1beta1DataVolumeCheckpointToJSON)),
-        'contentType': value.contentType,
-        'finalCheckpoint': value.finalCheckpoint,
-        'preallocation': value.preallocation,
-        'priorityClassName': value.priorityClassName,
-        'pvc': K8sIoApiCoreV1PersistentVolumeClaimSpecToJSON(value.pvc),
-        'source': V1beta1DataVolumeSourceToJSON(value.source),
-        'sourceRef': V1beta1DataVolumeSourceRefToJSON(value.sourceRef),
-        'storage': V1beta1StorageSpecToJSON(value.storage),
+        'checkpoints': value['checkpoints'] == null ? undefined : ((value['checkpoints'] as Array<any>).map(V1beta1DataVolumeCheckpointToJSON)),
+        'contentType': value['contentType'],
+        'finalCheckpoint': value['finalCheckpoint'],
+        'preallocation': value['preallocation'],
+        'priorityClassName': value['priorityClassName'],
+        'pvc': K8sIoApiCoreV1PersistentVolumeClaimSpecToJSON(value['pvc']),
+        'source': V1beta1DataVolumeSourceToJSON(value['source']),
+        'sourceRef': V1beta1DataVolumeSourceRefToJSON(value['sourceRef']),
+        'storage': V1beta1StorageSpecToJSON(value['storage']),
     };
 }
 

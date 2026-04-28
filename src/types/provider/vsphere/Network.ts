@@ -9,6 +9,8 @@ export interface VSphereNetwork extends TypedVSphereResource {
   variant: string;
   // DVSwitch *model.Ref      `json:"dvSwitch,omitempty"`
   dvSwitch?: Ref;
+  // VlanId   string          `json:"vlanId"`
+  vlanId: string;
   // Host     []model.DVSHost `json:"host"`
   host: VSphereDVSHost[];
   // Tag      string          `json:"tag,omitempty"`

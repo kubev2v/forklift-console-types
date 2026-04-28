@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1Disk } from './V1Disk';
-import {
-    V1DiskFromJSON,
-    V1DiskFromJSONTyped,
-    V1DiskToJSON,
-} from './V1Disk';
+import { mapValues } from '../../runtime';
 import type { V1HotplugVolumeSource } from './V1HotplugVolumeSource';
 import {
     V1HotplugVolumeSourceFromJSON,
     V1HotplugVolumeSourceFromJSONTyped,
     V1HotplugVolumeSourceToJSON,
+    V1HotplugVolumeSourceToJSONTyped,
 } from './V1HotplugVolumeSource';
+import type { V1Disk } from './V1Disk';
+import {
+    V1DiskFromJSON,
+    V1DiskFromJSONTyped,
+    V1DiskToJSON,
+    V1DiskToJSONTyped,
+} from './V1Disk';
 
 /**
  * AddVolumeOptions is provided when dynamically hot plugging a volume and disk
@@ -61,13 +63,11 @@ export interface V1AddVolumeOptions {
 /**
  * Check if a given object implements the V1AddVolumeOptions interface.
  */
-export function instanceOfV1AddVolumeOptions(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "disk" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "volumeSource" in value;
-
-    return isInstance;
+export function instanceOfV1AddVolumeOptions(value: object): value is V1AddVolumeOptions {
+    if (!('disk' in value) || value['disk'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('volumeSource' in value) || value['volumeSource'] === undefined) return false;
+    return true;
 }
 
 export function V1AddVolumeOptionsFromJSON(json: any): V1AddVolumeOptions {
@@ -75,31 +75,33 @@ export function V1AddVolumeOptionsFromJSON(json: any): V1AddVolumeOptions {
 }
 
 export function V1AddVolumeOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1AddVolumeOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'disk': V1DiskFromJSON(json['disk']),
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
         'name': json['name'],
         'volumeSource': V1HotplugVolumeSourceFromJSON(json['volumeSource']),
     };
 }
 
-export function V1AddVolumeOptionsToJSON(value?: V1AddVolumeOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1AddVolumeOptionsToJSON(json: any): V1AddVolumeOptions {
+    return V1AddVolumeOptionsToJSONTyped(json, false);
+}
+
+export function V1AddVolumeOptionsToJSONTyped(value?: V1AddVolumeOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'disk': V1DiskToJSON(value.disk),
-        'dryRun': value.dryRun,
-        'name': value.name,
-        'volumeSource': V1HotplugVolumeSourceToJSON(value.volumeSource),
+        'disk': V1DiskToJSON(value['disk']),
+        'dryRun': value['dryRun'],
+        'name': value['name'],
+        'volumeSource': V1HotplugVolumeSourceToJSON(value['volumeSource']),
     };
 }
 

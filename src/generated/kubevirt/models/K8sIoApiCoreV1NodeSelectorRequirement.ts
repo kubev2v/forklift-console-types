@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
  * @export
@@ -65,12 +65,10 @@ export type K8sIoApiCoreV1NodeSelectorRequirementOperatorEnum = typeof K8sIoApiC
 /**
  * Check if a given object implements the K8sIoApiCoreV1NodeSelectorRequirement interface.
  */
-export function instanceOfK8sIoApiCoreV1NodeSelectorRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-    isInstance = isInstance && "operator" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1NodeSelectorRequirement(value: object): value is K8sIoApiCoreV1NodeSelectorRequirement {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    if (!('operator' in value) || value['operator'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1NodeSelectorRequirementFromJSON(json: any): K8sIoApiCoreV1NodeSelectorRequirement {
@@ -78,29 +76,31 @@ export function K8sIoApiCoreV1NodeSelectorRequirementFromJSON(json: any): K8sIoA
 }
 
 export function K8sIoApiCoreV1NodeSelectorRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1NodeSelectorRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'key': json['key'],
         'operator': json['operator'],
-        'values': !exists(json, 'values') ? undefined : json['values'],
+        'values': json['values'] == null ? undefined : json['values'],
     };
 }
 
-export function K8sIoApiCoreV1NodeSelectorRequirementToJSON(value?: K8sIoApiCoreV1NodeSelectorRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1NodeSelectorRequirementToJSON(json: any): K8sIoApiCoreV1NodeSelectorRequirement {
+    return K8sIoApiCoreV1NodeSelectorRequirementToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1NodeSelectorRequirementToJSONTyped(value?: K8sIoApiCoreV1NodeSelectorRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'operator': value.operator,
-        'values': value.values,
+        'key': value['key'],
+        'operator': value['operator'],
+        'values': value['values'],
     };
 }
 

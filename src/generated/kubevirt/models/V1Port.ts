@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Port represents a port to expose from the virtual machine. Default protocol TCP. The port field is mandatory
  * @export
@@ -42,11 +42,9 @@ export interface V1Port {
 /**
  * Check if a given object implements the V1Port interface.
  */
-export function instanceOfV1Port(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfV1Port(value: object): value is V1Port {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function V1PortFromJSON(json: any): V1Port {
@@ -54,29 +52,31 @@ export function V1PortFromJSON(json: any): V1Port {
 }
 
 export function V1PortFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Port {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'name': json['name'] == null ? undefined : json['name'],
         'port': json['port'],
-        'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
+        'protocol': json['protocol'] == null ? undefined : json['protocol'],
     };
 }
 
-export function V1PortToJSON(value?: V1Port | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PortToJSON(json: any): V1Port {
+    return V1PortToJSONTyped(json, false);
+}
+
+export function V1PortToJSONTyped(value?: V1Port | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'port': value.port,
-        'protocol': value.protocol,
+        'name': value['name'],
+        'port': value['port'],
+        'protocol': value['protocol'],
     };
 }
 

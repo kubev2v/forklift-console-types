@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressClassParametersReference } from './IoK8sApiNetworkingV1IngressClassParametersReference';
 import {
     IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSON,
     IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSONTyped,
     IoK8sApiNetworkingV1IngressClassParametersReferenceToJSON,
+    IoK8sApiNetworkingV1IngressClassParametersReferenceToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressClassParametersReference';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiNetworkingV1IngressClassSpec {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressClassSpec interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressClassSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressClassSpec(value: object): value is IoK8sApiNetworkingV1IngressClassSpec {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressClassSpecFromJSON(json: any): IoK8sApiNetworkingV1IngressClassSpec {
@@ -54,27 +53,29 @@ export function IoK8sApiNetworkingV1IngressClassSpecFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApiNetworkingV1IngressClassSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressClassSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'controller': !exists(json, 'controller') ? undefined : json['controller'],
-        'parameters': !exists(json, 'parameters') ? undefined : IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSON(json['parameters']),
+        'controller': json['controller'] == null ? undefined : json['controller'],
+        'parameters': json['parameters'] == null ? undefined : IoK8sApiNetworkingV1IngressClassParametersReferenceFromJSON(json['parameters']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressClassSpecToJSON(value?: IoK8sApiNetworkingV1IngressClassSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressClassSpecToJSON(json: any): IoK8sApiNetworkingV1IngressClassSpec {
+    return IoK8sApiNetworkingV1IngressClassSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressClassSpecToJSONTyped(value?: IoK8sApiNetworkingV1IngressClassSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'controller': value.controller,
-        'parameters': IoK8sApiNetworkingV1IngressClassParametersReferenceToJSON(value.parameters),
+        'controller': value['controller'],
+        'parameters': IoK8sApiNetworkingV1IngressClassParametersReferenceToJSON(value['parameters']),
     };
 }
 

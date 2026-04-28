@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * LogVerbosity sets log verbosity level of  various components
  * @export
@@ -55,15 +55,19 @@ export interface V1LogVerbosity {
      * @memberof V1LogVerbosity
      */
     virtOperator?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof V1LogVerbosity
+     */
+    virtSynchronizationController?: number;
 }
 
 /**
  * Check if a given object implements the V1LogVerbosity interface.
  */
-export function instanceOfV1LogVerbosity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1LogVerbosity(value: object): value is V1LogVerbosity {
+    return true;
 }
 
 export function V1LogVerbosityFromJSON(json: any): V1LogVerbosity {
@@ -71,35 +75,39 @@ export function V1LogVerbosityFromJSON(json: any): V1LogVerbosity {
 }
 
 export function V1LogVerbosityFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1LogVerbosity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nodeVerbosity': !exists(json, 'nodeVerbosity') ? undefined : json['nodeVerbosity'],
-        'virtAPI': !exists(json, 'virtAPI') ? undefined : json['virtAPI'],
-        'virtController': !exists(json, 'virtController') ? undefined : json['virtController'],
-        'virtHandler': !exists(json, 'virtHandler') ? undefined : json['virtHandler'],
-        'virtLauncher': !exists(json, 'virtLauncher') ? undefined : json['virtLauncher'],
-        'virtOperator': !exists(json, 'virtOperator') ? undefined : json['virtOperator'],
+        'nodeVerbosity': json['nodeVerbosity'] == null ? undefined : json['nodeVerbosity'],
+        'virtAPI': json['virtAPI'] == null ? undefined : json['virtAPI'],
+        'virtController': json['virtController'] == null ? undefined : json['virtController'],
+        'virtHandler': json['virtHandler'] == null ? undefined : json['virtHandler'],
+        'virtLauncher': json['virtLauncher'] == null ? undefined : json['virtLauncher'],
+        'virtOperator': json['virtOperator'] == null ? undefined : json['virtOperator'],
+        'virtSynchronizationController': json['virtSynchronizationController'] == null ? undefined : json['virtSynchronizationController'],
     };
 }
 
-export function V1LogVerbosityToJSON(value?: V1LogVerbosity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1LogVerbosityToJSON(json: any): V1LogVerbosity {
+    return V1LogVerbosityToJSONTyped(json, false);
+}
+
+export function V1LogVerbosityToJSONTyped(value?: V1LogVerbosity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nodeVerbosity': value.nodeVerbosity,
-        'virtAPI': value.virtAPI,
-        'virtController': value.virtController,
-        'virtHandler': value.virtHandler,
-        'virtLauncher': value.virtLauncher,
-        'virtOperator': value.virtOperator,
+        'nodeVerbosity': value['nodeVerbosity'],
+        'virtAPI': value['virtAPI'],
+        'virtController': value['virtController'],
+        'virtHandler': value['virtHandler'],
+        'virtLauncher': value['virtLauncher'],
+        'virtOperator': value['virtOperator'],
+        'virtSynchronizationController': value['virtSynchronizationController'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { V1alpha1VirtualMachineExportManifest } from './V1alpha1VirtualMachineExportManifest';
 import {
     V1alpha1VirtualMachineExportManifestFromJSON,

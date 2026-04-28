@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
-import {
-    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
-    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1ListMeta';
+import { mapValues } from '../../runtime';
 import type { V1alpha1MigrationPolicy } from './V1alpha1MigrationPolicy';
 import {
     V1alpha1MigrationPolicyFromJSON,
     V1alpha1MigrationPolicyFromJSONTyped,
     V1alpha1MigrationPolicyToJSON,
+    V1alpha1MigrationPolicyToJSONTyped,
 } from './V1alpha1MigrationPolicy';
+import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
+import {
+    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 
 /**
  * MigrationPolicyList is a list of MigrationPolicy
@@ -61,11 +63,9 @@ export interface V1alpha1MigrationPolicyList {
 /**
  * Check if a given object implements the V1alpha1MigrationPolicyList interface.
  */
-export function instanceOfV1alpha1MigrationPolicyList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1alpha1MigrationPolicyList(value: object): value is V1alpha1MigrationPolicyList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1alpha1MigrationPolicyListFromJSON(json: any): V1alpha1MigrationPolicyList {
@@ -73,31 +73,33 @@ export function V1alpha1MigrationPolicyListFromJSON(json: any): V1alpha1Migratio
 }
 
 export function V1alpha1MigrationPolicyListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1alpha1MigrationPolicyList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1alpha1MigrationPolicyFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1alpha1MigrationPolicyListToJSON(value?: V1alpha1MigrationPolicyList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1alpha1MigrationPolicyListToJSON(json: any): V1alpha1MigrationPolicyList {
+    return V1alpha1MigrationPolicyListToJSONTyped(json, false);
+}
+
+export function V1alpha1MigrationPolicyListToJSONTyped(value?: V1alpha1MigrationPolicyList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1alpha1MigrationPolicyToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1alpha1MigrationPolicyToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1DiskVerification } from './V1DiskVerification';
-import {
-    V1DiskVerificationFromJSON,
-    V1DiskVerificationFromJSONTyped,
-    V1DiskVerificationToJSON,
-} from './V1DiskVerification';
+import { mapValues } from '../../runtime';
 import type { V1LogVerbosity } from './V1LogVerbosity';
 import {
     V1LogVerbosityFromJSON,
     V1LogVerbosityFromJSONTyped,
     V1LogVerbosityToJSON,
+    V1LogVerbosityToJSONTyped,
 } from './V1LogVerbosity';
+import type { V1DiskVerification } from './V1DiskVerification';
+import {
+    V1DiskVerificationFromJSON,
+    V1DiskVerificationFromJSONTyped,
+    V1DiskVerificationToJSON,
+    V1DiskVerificationToJSONTyped,
+} from './V1DiskVerification';
 
 /**
  * DeveloperConfiguration holds developer options
@@ -33,11 +35,23 @@ import {
  */
 export interface V1DeveloperConfiguration {
     /**
+     * Enable the ability to pprof profile KubeVirt control plane
+     * @type {boolean}
+     * @memberof V1DeveloperConfiguration
+     */
+    clusterProfiler?: boolean;
+    /**
      * For each requested virtual CPU, CPUAllocationRatio defines how much physical CPU to request per VMI from the hosting node. The value is in fraction of a CPU thread (or core on non-hyperthreaded nodes). For example, a value of 1 means 1 physical CPU thread per VMI CPU thread. A value of 100 would be 1% of a physical thread allocated for each requested VMI thread. This option has no effect on VMIs that request dedicated CPUs. More information at: https://kubevirt.io/user-guide/operations/node_overcommit/#node-cpu-allocation-ratio Defaults to 10
      * @type {number}
      * @memberof V1DeveloperConfiguration
      */
     cpuAllocationRatio?: number;
+    /**
+     * DisabledFeatureGates specifies a list of experimental feature gates to disable. A feature gate must not appear in both FeatureGates and DisabledFeatureGates.
+     * @type {Array<string>}
+     * @memberof V1DeveloperConfiguration
+     */
+    disabledFeatureGates?: Array<string>;
     /**
      * 
      * @type {V1DiskVerification}
@@ -45,7 +59,7 @@ export interface V1DeveloperConfiguration {
      */
     diskVerification?: V1DiskVerification;
     /**
-     * FeatureGates is the list of experimental features to enable. Defaults to none
+     * FeatureGates specifies a list of experimental feature gates to enable. Defaults to none. A feature gate must not appear in both FeatureGates and DisabledFeatureGates.
      * @type {Array<string>}
      * @memberof V1DeveloperConfiguration
      */
@@ -97,10 +111,8 @@ export interface V1DeveloperConfiguration {
 /**
  * Check if a given object implements the V1DeveloperConfiguration interface.
  */
-export function instanceOfV1DeveloperConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1DeveloperConfiguration(value: object): value is V1DeveloperConfiguration {
+    return true;
 }
 
 export function V1DeveloperConfigurationFromJSON(json: any): V1DeveloperConfiguration {
@@ -108,43 +120,49 @@ export function V1DeveloperConfigurationFromJSON(json: any): V1DeveloperConfigur
 }
 
 export function V1DeveloperConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1DeveloperConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'cpuAllocationRatio': !exists(json, 'cpuAllocationRatio') ? undefined : json['cpuAllocationRatio'],
-        'diskVerification': !exists(json, 'diskVerification') ? undefined : V1DiskVerificationFromJSON(json['diskVerification']),
-        'featureGates': !exists(json, 'featureGates') ? undefined : json['featureGates'],
-        'logVerbosity': !exists(json, 'logVerbosity') ? undefined : V1LogVerbosityFromJSON(json['logVerbosity']),
-        'memoryOvercommit': !exists(json, 'memoryOvercommit') ? undefined : json['memoryOvercommit'],
-        'minimumClusterTSCFrequency': !exists(json, 'minimumClusterTSCFrequency') ? undefined : json['minimumClusterTSCFrequency'],
-        'minimumReservePVCBytes': !exists(json, 'minimumReservePVCBytes') ? undefined : json['minimumReservePVCBytes'],
-        'nodeSelectors': !exists(json, 'nodeSelectors') ? undefined : json['nodeSelectors'],
-        'pvcTolerateLessSpaceUpToPercent': !exists(json, 'pvcTolerateLessSpaceUpToPercent') ? undefined : json['pvcTolerateLessSpaceUpToPercent'],
-        'useEmulation': !exists(json, 'useEmulation') ? undefined : json['useEmulation'],
+        'clusterProfiler': json['clusterProfiler'] == null ? undefined : json['clusterProfiler'],
+        'cpuAllocationRatio': json['cpuAllocationRatio'] == null ? undefined : json['cpuAllocationRatio'],
+        'disabledFeatureGates': json['disabledFeatureGates'] == null ? undefined : json['disabledFeatureGates'],
+        'diskVerification': json['diskVerification'] == null ? undefined : V1DiskVerificationFromJSON(json['diskVerification']),
+        'featureGates': json['featureGates'] == null ? undefined : json['featureGates'],
+        'logVerbosity': json['logVerbosity'] == null ? undefined : V1LogVerbosityFromJSON(json['logVerbosity']),
+        'memoryOvercommit': json['memoryOvercommit'] == null ? undefined : json['memoryOvercommit'],
+        'minimumClusterTSCFrequency': json['minimumClusterTSCFrequency'] == null ? undefined : json['minimumClusterTSCFrequency'],
+        'minimumReservePVCBytes': json['minimumReservePVCBytes'] == null ? undefined : json['minimumReservePVCBytes'],
+        'nodeSelectors': json['nodeSelectors'] == null ? undefined : json['nodeSelectors'],
+        'pvcTolerateLessSpaceUpToPercent': json['pvcTolerateLessSpaceUpToPercent'] == null ? undefined : json['pvcTolerateLessSpaceUpToPercent'],
+        'useEmulation': json['useEmulation'] == null ? undefined : json['useEmulation'],
     };
 }
 
-export function V1DeveloperConfigurationToJSON(value?: V1DeveloperConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DeveloperConfigurationToJSON(json: any): V1DeveloperConfiguration {
+    return V1DeveloperConfigurationToJSONTyped(json, false);
+}
+
+export function V1DeveloperConfigurationToJSONTyped(value?: V1DeveloperConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'cpuAllocationRatio': value.cpuAllocationRatio,
-        'diskVerification': V1DiskVerificationToJSON(value.diskVerification),
-        'featureGates': value.featureGates,
-        'logVerbosity': V1LogVerbosityToJSON(value.logVerbosity),
-        'memoryOvercommit': value.memoryOvercommit,
-        'minimumClusterTSCFrequency': value.minimumClusterTSCFrequency,
-        'minimumReservePVCBytes': value.minimumReservePVCBytes,
-        'nodeSelectors': value.nodeSelectors,
-        'pvcTolerateLessSpaceUpToPercent': value.pvcTolerateLessSpaceUpToPercent,
-        'useEmulation': value.useEmulation,
+        'clusterProfiler': value['clusterProfiler'],
+        'cpuAllocationRatio': value['cpuAllocationRatio'],
+        'disabledFeatureGates': value['disabledFeatureGates'],
+        'diskVerification': V1DiskVerificationToJSON(value['diskVerification']),
+        'featureGates': value['featureGates'],
+        'logVerbosity': V1LogVerbosityToJSON(value['logVerbosity']),
+        'memoryOvercommit': value['memoryOvercommit'],
+        'minimumClusterTSCFrequency': value['minimumClusterTSCFrequency'],
+        'minimumReservePVCBytes': value['minimumReservePVCBytes'],
+        'nodeSelectors': value['nodeSelectors'],
+        'pvcTolerateLessSpaceUpToPercent': value['pvcTolerateLessSpaceUpToPercent'],
+        'useEmulation': value['useEmulation'],
     };
 }
 

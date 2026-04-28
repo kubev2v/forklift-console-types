@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1ObjectMeta } from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
-import {
-    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON,
-    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
+import { mapValues } from '../../runtime';
 import type { V1beta1DataVolumeSpec } from './V1beta1DataVolumeSpec';
 import {
     V1beta1DataVolumeSpecFromJSON,
     V1beta1DataVolumeSpecFromJSONTyped,
     V1beta1DataVolumeSpecToJSON,
+    V1beta1DataVolumeSpecToJSONTyped,
 } from './V1beta1DataVolumeSpec';
+import type { K8sIoApimachineryPkgApisMetaV1ObjectMeta } from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
+import {
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
  * 
@@ -67,11 +69,9 @@ export interface V1DataVolumeTemplateSpec {
 /**
  * Check if a given object implements the V1DataVolumeTemplateSpec interface.
  */
-export function instanceOfV1DataVolumeTemplateSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfV1DataVolumeTemplateSpec(value: object): value is V1DataVolumeTemplateSpec {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function V1DataVolumeTemplateSpecFromJSON(json: any): V1DataVolumeTemplateSpec {
@@ -79,33 +79,35 @@ export function V1DataVolumeTemplateSpecFromJSON(json: any): V1DataVolumeTemplat
 }
 
 export function V1DataVolumeTemplateSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1DataVolumeTemplateSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': V1beta1DataVolumeSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : json['status'],
+        'status': json['status'] == null ? undefined : json['status'],
     };
 }
 
-export function V1DataVolumeTemplateSpecToJSON(value?: V1DataVolumeTemplateSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DataVolumeTemplateSpecToJSON(json: any): V1DataVolumeTemplateSpec {
+    return V1DataVolumeTemplateSpecToJSONTyped(json, false);
+}
+
+export function V1DataVolumeTemplateSpecToJSONTyped(value?: V1DataVolumeTemplateSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': V1beta1DataVolumeSpecToJSON(value.spec),
-        'status': value.status,
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': V1beta1DataVolumeSpecToJSON(value['spec']),
+        'status': value['status'],
     };
 }
 

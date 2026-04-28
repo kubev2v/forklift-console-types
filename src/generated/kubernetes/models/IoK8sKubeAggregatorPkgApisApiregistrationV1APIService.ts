@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import type { IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpec } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpec';
 import {
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecFromJSON,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecFromJSONTyped,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecToJSON,
+    IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecToJSONTyped,
 } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpec';
 import type { IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus';
 import {
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJSON,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJSONTyped,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSON,
+    IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSONTyped,
 } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sKubeAggregatorPkgApisApiregistrationV1APIService {
 /**
  * Check if a given object implements the IoK8sKubeAggregatorPkgApisApiregistrationV1APIService interface.
  */
-export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1APIService(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1APIService(value: object): value is IoK8sKubeAggregatorPkgApisApiregistrationV1APIService {
+    return true;
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceFromJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1APIService {
@@ -84,33 +85,35 @@ export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceFromJSON(js
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sKubeAggregatorPkgApisApiregistrationV1APIService {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSON(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1APIService | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1APIService {
+    return IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSONTyped(json, false);
+}
+
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSONTyped(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1APIService | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecToJSON(value.spec),
-        'status': IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceSpecToJSON(value['spec']),
+        'status': IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSON(value['status']),
     };
 }
 

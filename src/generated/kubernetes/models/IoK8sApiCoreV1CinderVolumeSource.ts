@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LocalObjectReference } from './IoK8sApiCoreV1LocalObjectReference';
 import {
     IoK8sApiCoreV1LocalObjectReferenceFromJSON,
     IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1LocalObjectReferenceToJSON,
+    IoK8sApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1LocalObjectReference';
 
 /**
@@ -55,11 +56,9 @@ export interface IoK8sApiCoreV1CinderVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1CinderVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1CinderVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "volumeID" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1CinderVolumeSource(value: object): value is IoK8sApiCoreV1CinderVolumeSource {
+    if (!('volumeID' in value) || value['volumeID'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1CinderVolumeSourceFromJSON(json: any): IoK8sApiCoreV1CinderVolumeSource {
@@ -67,31 +66,33 @@ export function IoK8sApiCoreV1CinderVolumeSourceFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1CinderVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1CinderVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'secretRef': json['secretRef'] == null ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
         'volumeID': json['volumeID'],
     };
 }
 
-export function IoK8sApiCoreV1CinderVolumeSourceToJSON(value?: IoK8sApiCoreV1CinderVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1CinderVolumeSourceToJSON(json: any): IoK8sApiCoreV1CinderVolumeSource {
+    return IoK8sApiCoreV1CinderVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1CinderVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1CinderVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'readOnly': value.readOnly,
-        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value.secretRef),
-        'volumeID': value.volumeID,
+        'fsType': value['fsType'],
+        'readOnly': value['readOnly'],
+        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value['secretRef']),
+        'volumeID': value['volumeID'],
     };
 }
 

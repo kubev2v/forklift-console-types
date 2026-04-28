@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
  * @export
@@ -84,10 +84,8 @@ export type K8sIoApiCoreV1TolerationOperatorEnum = typeof K8sIoApiCoreV1Tolerati
 /**
  * Check if a given object implements the K8sIoApiCoreV1Toleration interface.
  */
-export function instanceOfK8sIoApiCoreV1Toleration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1Toleration(value: object): value is K8sIoApiCoreV1Toleration {
+    return true;
 }
 
 export function K8sIoApiCoreV1TolerationFromJSON(json: any): K8sIoApiCoreV1Toleration {
@@ -95,33 +93,35 @@ export function K8sIoApiCoreV1TolerationFromJSON(json: any): K8sIoApiCoreV1Toler
 }
 
 export function K8sIoApiCoreV1TolerationFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1Toleration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'effect': !exists(json, 'effect') ? undefined : json['effect'],
-        'key': !exists(json, 'key') ? undefined : json['key'],
-        'operator': !exists(json, 'operator') ? undefined : json['operator'],
-        'tolerationSeconds': !exists(json, 'tolerationSeconds') ? undefined : json['tolerationSeconds'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'effect': json['effect'] == null ? undefined : json['effect'],
+        'key': json['key'] == null ? undefined : json['key'],
+        'operator': json['operator'] == null ? undefined : json['operator'],
+        'tolerationSeconds': json['tolerationSeconds'] == null ? undefined : json['tolerationSeconds'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function K8sIoApiCoreV1TolerationToJSON(value?: K8sIoApiCoreV1Toleration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1TolerationToJSON(json: any): K8sIoApiCoreV1Toleration {
+    return K8sIoApiCoreV1TolerationToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1TolerationToJSONTyped(value?: K8sIoApiCoreV1Toleration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'effect': value.effect,
-        'key': value.key,
-        'operator': value.operator,
-        'tolerationSeconds': value.tolerationSeconds,
-        'value': value.value,
+        'effect': value['effect'],
+        'key': value['key'],
+        'operator': value['operator'],
+        'tolerationSeconds': value['tolerationSeconds'],
+        'value': value['value'],
     };
 }
 

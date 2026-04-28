@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1VirtualMachineInstanceFileSystem } from './V1VirtualMachineInstanceFileSystem';
 import {
     V1VirtualMachineInstanceFileSystemFromJSON,
     V1VirtualMachineInstanceFileSystemFromJSONTyped,
     V1VirtualMachineInstanceFileSystemToJSON,
+    V1VirtualMachineInstanceFileSystemToJSONTyped,
 } from './V1VirtualMachineInstanceFileSystem';
 
 /**
@@ -37,11 +38,9 @@ export interface V1VirtualMachineInstanceFileSystemInfo {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceFileSystemInfo interface.
  */
-export function instanceOfV1VirtualMachineInstanceFileSystemInfo(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "disks" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceFileSystemInfo(value: object): value is V1VirtualMachineInstanceFileSystemInfo {
+    if (!('disks' in value) || value['disks'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceFileSystemInfoFromJSON(json: any): V1VirtualMachineInstanceFileSystemInfo {
@@ -49,7 +48,7 @@ export function V1VirtualMachineInstanceFileSystemInfoFromJSON(json: any): V1Vir
 }
 
 export function V1VirtualMachineInstanceFileSystemInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceFileSystemInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -58,16 +57,18 @@ export function V1VirtualMachineInstanceFileSystemInfoFromJSONTyped(json: any, i
     };
 }
 
-export function V1VirtualMachineInstanceFileSystemInfoToJSON(value?: V1VirtualMachineInstanceFileSystemInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceFileSystemInfoToJSON(json: any): V1VirtualMachineInstanceFileSystemInfo {
+    return V1VirtualMachineInstanceFileSystemInfoToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceFileSystemInfoToJSONTyped(value?: V1VirtualMachineInstanceFileSystemInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'disks': ((value.disks as Array<any>).map(V1VirtualMachineInstanceFileSystemToJSON)),
+        'disks': ((value['disks'] as Array<any>).map(V1VirtualMachineInstanceFileSystemToJSON)),
     };
 }
 

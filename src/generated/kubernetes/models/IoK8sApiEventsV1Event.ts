@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1EventSource } from './IoK8sApiCoreV1EventSource';
 import {
     IoK8sApiCoreV1EventSourceFromJSON,
     IoK8sApiCoreV1EventSourceFromJSONTyped,
     IoK8sApiCoreV1EventSourceToJSON,
+    IoK8sApiCoreV1EventSourceToJSONTyped,
 } from './IoK8sApiCoreV1EventSource';
-import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
-import {
-    IoK8sApiCoreV1ObjectReferenceFromJSON,
-    IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
-    IoK8sApiCoreV1ObjectReferenceToJSON,
-} from './IoK8sApiCoreV1ObjectReference';
 import type { IoK8sApiEventsV1EventSeries } from './IoK8sApiEventsV1EventSeries';
 import {
     IoK8sApiEventsV1EventSeriesFromJSON,
     IoK8sApiEventsV1EventSeriesFromJSONTyped,
     IoK8sApiEventsV1EventSeriesToJSON,
+    IoK8sApiEventsV1EventSeriesToJSONTyped,
 } from './IoK8sApiEventsV1EventSeries';
+import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
+import {
+    IoK8sApiCoreV1ObjectReferenceFromJSON,
+    IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
+    IoK8sApiCoreV1ObjectReferenceToJSON,
+    IoK8sApiCoreV1ObjectReferenceToJSONTyped,
+} from './IoK8sApiCoreV1ObjectReference';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -67,13 +71,13 @@ export interface IoK8sApiEventsV1Event {
      * @type {Date}
      * @memberof IoK8sApiEventsV1Event
      */
-    deprecatedFirstTimestamp?: string;
+    deprecatedFirstTimestamp?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiEventsV1Event
      */
-    deprecatedLastTimestamp?: string;
+    deprecatedLastTimestamp?: Date;
     /**
      * 
      * @type {IoK8sApiCoreV1EventSource}
@@ -85,7 +89,7 @@ export interface IoK8sApiEventsV1Event {
      * @type {Date}
      * @memberof IoK8sApiEventsV1Event
      */
-    eventTime: string;
+    eventTime: Date;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * @type {string}
@@ -151,11 +155,9 @@ export interface IoK8sApiEventsV1Event {
 /**
  * Check if a given object implements the IoK8sApiEventsV1Event interface.
  */
-export function instanceOfIoK8sApiEventsV1Event(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "eventTime" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiEventsV1Event(value: object): value is IoK8sApiEventsV1Event {
+    if (!('eventTime' in value) || value['eventTime'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiEventsV1EventFromJSON(json: any): IoK8sApiEventsV1Event {
@@ -163,57 +165,59 @@ export function IoK8sApiEventsV1EventFromJSON(json: any): IoK8sApiEventsV1Event 
 }
 
 export function IoK8sApiEventsV1EventFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiEventsV1Event {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'action': !exists(json, 'action') ? undefined : json['action'],
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'deprecatedCount': !exists(json, 'deprecatedCount') ? undefined : json['deprecatedCount'],
-        'deprecatedFirstTimestamp': !exists(json, 'deprecatedFirstTimestamp') ? undefined : json['deprecatedFirstTimestamp'],
-        'deprecatedLastTimestamp': !exists(json, 'deprecatedLastTimestamp') ? undefined : json['deprecatedLastTimestamp'],
-        'deprecatedSource': !exists(json, 'deprecatedSource') ? undefined : IoK8sApiCoreV1EventSourceFromJSON(json['deprecatedSource']),
-        'eventTime': json['eventTime'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'note': !exists(json, 'note') ? undefined : json['note'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'regarding': !exists(json, 'regarding') ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['regarding']),
-        'related': !exists(json, 'related') ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['related']),
-        'reportingController': !exists(json, 'reportingController') ? undefined : json['reportingController'],
-        'reportingInstance': !exists(json, 'reportingInstance') ? undefined : json['reportingInstance'],
-        'series': !exists(json, 'series') ? undefined : IoK8sApiEventsV1EventSeriesFromJSON(json['series']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'action': json['action'] == null ? undefined : json['action'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'deprecatedCount': json['deprecatedCount'] == null ? undefined : json['deprecatedCount'],
+        'deprecatedFirstTimestamp': json['deprecatedFirstTimestamp'] == null ? undefined : (new Date(json['deprecatedFirstTimestamp'])),
+        'deprecatedLastTimestamp': json['deprecatedLastTimestamp'] == null ? undefined : (new Date(json['deprecatedLastTimestamp'])),
+        'deprecatedSource': json['deprecatedSource'] == null ? undefined : IoK8sApiCoreV1EventSourceFromJSON(json['deprecatedSource']),
+        'eventTime': (new Date(json['eventTime'])),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'note': json['note'] == null ? undefined : json['note'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'regarding': json['regarding'] == null ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['regarding']),
+        'related': json['related'] == null ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['related']),
+        'reportingController': json['reportingController'] == null ? undefined : json['reportingController'],
+        'reportingInstance': json['reportingInstance'] == null ? undefined : json['reportingInstance'],
+        'series': json['series'] == null ? undefined : IoK8sApiEventsV1EventSeriesFromJSON(json['series']),
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiEventsV1EventToJSON(value?: IoK8sApiEventsV1Event | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiEventsV1EventToJSON(json: any): IoK8sApiEventsV1Event {
+    return IoK8sApiEventsV1EventToJSONTyped(json, false);
+}
+
+export function IoK8sApiEventsV1EventToJSONTyped(value?: IoK8sApiEventsV1Event | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'action': value.action,
-        'apiVersion': value.apiVersion,
-        'deprecatedCount': value.deprecatedCount,
-        'deprecatedFirstTimestamp': value.deprecatedFirstTimestamp === undefined ? undefined : (value.deprecatedFirstTimestamp),
-        'deprecatedLastTimestamp': value.deprecatedLastTimestamp === undefined ? undefined : (value.deprecatedLastTimestamp),
-        'deprecatedSource': IoK8sApiCoreV1EventSourceToJSON(value.deprecatedSource),
-        'eventTime': (value.eventTime),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'note': value.note,
-        'reason': value.reason,
-        'regarding': IoK8sApiCoreV1ObjectReferenceToJSON(value.regarding),
-        'related': IoK8sApiCoreV1ObjectReferenceToJSON(value.related),
-        'reportingController': value.reportingController,
-        'reportingInstance': value.reportingInstance,
-        'series': IoK8sApiEventsV1EventSeriesToJSON(value.series),
-        'type': value.type,
+        'action': value['action'],
+        'apiVersion': value['apiVersion'],
+        'deprecatedCount': value['deprecatedCount'],
+        'deprecatedFirstTimestamp': value['deprecatedFirstTimestamp'] == null ? undefined : ((value['deprecatedFirstTimestamp']).toISOString()),
+        'deprecatedLastTimestamp': value['deprecatedLastTimestamp'] == null ? undefined : ((value['deprecatedLastTimestamp']).toISOString()),
+        'deprecatedSource': IoK8sApiCoreV1EventSourceToJSON(value['deprecatedSource']),
+        'eventTime': ((value['eventTime']).toISOString()),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'note': value['note'],
+        'reason': value['reason'],
+        'regarding': IoK8sApiCoreV1ObjectReferenceToJSON(value['regarding']),
+        'related': IoK8sApiCoreV1ObjectReferenceToJSON(value['related']),
+        'reportingController': value['reportingController'],
+        'reportingInstance': value['reportingInstance'],
+        'series': IoK8sApiEventsV1EventSeriesToJSON(value['series']),
+        'type': value['type'],
     };
 }
 

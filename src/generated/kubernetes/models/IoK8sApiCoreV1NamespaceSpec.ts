@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NamespaceSpec describes the attributes on a Namespace.
  * @export
@@ -24,16 +24,14 @@ export interface IoK8sApiCoreV1NamespaceSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1NamespaceSpec
      */
-    finalizers?: string[];
+    finalizers?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1NamespaceSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1NamespaceSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NamespaceSpec(value: object): value is IoK8sApiCoreV1NamespaceSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1NamespaceSpecFromJSON(json: any): IoK8sApiCoreV1NamespaceSpec {
@@ -41,25 +39,27 @@ export function IoK8sApiCoreV1NamespaceSpecFromJSON(json: any): IoK8sApiCoreV1Na
 }
 
 export function IoK8sApiCoreV1NamespaceSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NamespaceSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'finalizers': !exists(json, 'finalizers') ? undefined : json['finalizers'],
+        'finalizers': json['finalizers'] == null ? undefined : json['finalizers'],
     };
 }
 
-export function IoK8sApiCoreV1NamespaceSpecToJSON(value?: IoK8sApiCoreV1NamespaceSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NamespaceSpecToJSON(json: any): IoK8sApiCoreV1NamespaceSpec {
+    return IoK8sApiCoreV1NamespaceSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NamespaceSpecToJSONTyped(value?: IoK8sApiCoreV1NamespaceSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'finalizers': value.finalizers,
+        'finalizers': value['finalizers'],
     };
 }
 

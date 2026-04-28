@@ -12,9 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
- * EndpointPort is a tuple that describes a single port.
+ * EndpointPort is a tuple that describes a single port. Deprecated: This API is deprecated in v1.33+.
  * @export
  * @interface IoK8sApiCoreV1EndpointPort
  */
@@ -57,11 +57,9 @@ export interface IoK8sApiCoreV1EndpointPort {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EndpointPort interface.
  */
-export function instanceOfIoK8sApiCoreV1EndpointPort(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EndpointPort(value: object): value is IoK8sApiCoreV1EndpointPort {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1EndpointPortFromJSON(json: any): IoK8sApiCoreV1EndpointPort {
@@ -69,31 +67,33 @@ export function IoK8sApiCoreV1EndpointPortFromJSON(json: any): IoK8sApiCoreV1End
 }
 
 export function IoK8sApiCoreV1EndpointPortFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EndpointPort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'appProtocol': !exists(json, 'appProtocol') ? undefined : json['appProtocol'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
+        'appProtocol': json['appProtocol'] == null ? undefined : json['appProtocol'],
+        'name': json['name'] == null ? undefined : json['name'],
         'port': json['port'],
-        'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
+        'protocol': json['protocol'] == null ? undefined : json['protocol'],
     };
 }
 
-export function IoK8sApiCoreV1EndpointPortToJSON(value?: IoK8sApiCoreV1EndpointPort | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EndpointPortToJSON(json: any): IoK8sApiCoreV1EndpointPort {
+    return IoK8sApiCoreV1EndpointPortToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EndpointPortToJSONTyped(value?: IoK8sApiCoreV1EndpointPort | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'appProtocol': value.appProtocol,
-        'name': value.name,
-        'port': value.port,
-        'protocol': value.protocol,
+        'appProtocol': value['appProtocol'],
+        'name': value['name'],
+        'port': value['port'],
+        'protocol': value['protocol'],
     };
 }
 

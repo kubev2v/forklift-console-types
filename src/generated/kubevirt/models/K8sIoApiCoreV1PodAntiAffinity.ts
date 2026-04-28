@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1PodAffinityTerm } from './K8sIoApiCoreV1PodAffinityTerm';
 import {
     K8sIoApiCoreV1PodAffinityTermFromJSON,
     K8sIoApiCoreV1PodAffinityTermFromJSONTyped,
     K8sIoApiCoreV1PodAffinityTermToJSON,
+    K8sIoApiCoreV1PodAffinityTermToJSONTyped,
 } from './K8sIoApiCoreV1PodAffinityTerm';
 import type { K8sIoApiCoreV1WeightedPodAffinityTerm } from './K8sIoApiCoreV1WeightedPodAffinityTerm';
 import {
     K8sIoApiCoreV1WeightedPodAffinityTermFromJSON,
     K8sIoApiCoreV1WeightedPodAffinityTermFromJSONTyped,
     K8sIoApiCoreV1WeightedPodAffinityTermToJSON,
+    K8sIoApiCoreV1WeightedPodAffinityTermToJSONTyped,
 } from './K8sIoApiCoreV1WeightedPodAffinityTerm';
 
 /**
@@ -33,7 +35,7 @@ import {
  */
 export interface K8sIoApiCoreV1PodAntiAffinity {
     /**
-     * The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+     * The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and subtracting "weight" from the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
      * @type {Array<K8sIoApiCoreV1WeightedPodAffinityTerm>}
      * @memberof K8sIoApiCoreV1PodAntiAffinity
      */
@@ -49,10 +51,8 @@ export interface K8sIoApiCoreV1PodAntiAffinity {
 /**
  * Check if a given object implements the K8sIoApiCoreV1PodAntiAffinity interface.
  */
-export function instanceOfK8sIoApiCoreV1PodAntiAffinity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1PodAntiAffinity(value: object): value is K8sIoApiCoreV1PodAntiAffinity {
+    return true;
 }
 
 export function K8sIoApiCoreV1PodAntiAffinityFromJSON(json: any): K8sIoApiCoreV1PodAntiAffinity {
@@ -60,27 +60,29 @@ export function K8sIoApiCoreV1PodAntiAffinityFromJSON(json: any): K8sIoApiCoreV1
 }
 
 export function K8sIoApiCoreV1PodAntiAffinityFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1PodAntiAffinity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'preferredDuringSchedulingIgnoredDuringExecution': !exists(json, 'preferredDuringSchedulingIgnoredDuringExecution') ? undefined : ((json['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(K8sIoApiCoreV1WeightedPodAffinityTermFromJSON)),
-        'requiredDuringSchedulingIgnoredDuringExecution': !exists(json, 'requiredDuringSchedulingIgnoredDuringExecution') ? undefined : ((json['requiredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(K8sIoApiCoreV1PodAffinityTermFromJSON)),
+        'preferredDuringSchedulingIgnoredDuringExecution': json['preferredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((json['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(K8sIoApiCoreV1WeightedPodAffinityTermFromJSON)),
+        'requiredDuringSchedulingIgnoredDuringExecution': json['requiredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((json['requiredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(K8sIoApiCoreV1PodAffinityTermFromJSON)),
     };
 }
 
-export function K8sIoApiCoreV1PodAntiAffinityToJSON(value?: K8sIoApiCoreV1PodAntiAffinity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1PodAntiAffinityToJSON(json: any): K8sIoApiCoreV1PodAntiAffinity {
+    return K8sIoApiCoreV1PodAntiAffinityToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1PodAntiAffinityToJSONTyped(value?: K8sIoApiCoreV1PodAntiAffinity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preferredDuringSchedulingIgnoredDuringExecution': value.preferredDuringSchedulingIgnoredDuringExecution === undefined ? undefined : ((value.preferredDuringSchedulingIgnoredDuringExecution as Array<any>).map(K8sIoApiCoreV1WeightedPodAffinityTermToJSON)),
-        'requiredDuringSchedulingIgnoredDuringExecution': value.requiredDuringSchedulingIgnoredDuringExecution === undefined ? undefined : ((value.requiredDuringSchedulingIgnoredDuringExecution as Array<any>).map(K8sIoApiCoreV1PodAffinityTermToJSON)),
+        'preferredDuringSchedulingIgnoredDuringExecution': value['preferredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((value['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(K8sIoApiCoreV1WeightedPodAffinityTermToJSON)),
+        'requiredDuringSchedulingIgnoredDuringExecution': value['requiredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((value['requiredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(K8sIoApiCoreV1PodAffinityTermToJSON)),
     };
 }
 

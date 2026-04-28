@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ResourceClaim references one entry in PodSpec.ResourceClaims.
  * @export
@@ -25,16 +25,20 @@ export interface IoK8sApiCoreV1ResourceClaim {
      * @memberof IoK8sApiCoreV1ResourceClaim
      */
     name: string;
+    /**
+     * Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1ResourceClaim
+     */
+    request?: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ResourceClaim interface.
  */
-export function instanceOfIoK8sApiCoreV1ResourceClaim(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ResourceClaim(value: object): value is IoK8sApiCoreV1ResourceClaim {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ResourceClaimFromJSON(json: any): IoK8sApiCoreV1ResourceClaim {
@@ -42,25 +46,29 @@ export function IoK8sApiCoreV1ResourceClaimFromJSON(json: any): IoK8sApiCoreV1Re
 }
 
 export function IoK8sApiCoreV1ResourceClaimFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ResourceClaim {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
+        'request': json['request'] == null ? undefined : json['request'],
     };
 }
 
-export function IoK8sApiCoreV1ResourceClaimToJSON(value?: IoK8sApiCoreV1ResourceClaim | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ResourceClaimToJSON(json: any): IoK8sApiCoreV1ResourceClaim {
+    return IoK8sApiCoreV1ResourceClaimToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ResourceClaimToJSONTyped(value?: IoK8sApiCoreV1ResourceClaim | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
+        'name': value['name'],
+        'request': value['request'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1APIGroup } from './IoK8sApimachineryPkgApisMetaV1APIGroup';
 import {
     IoK8sApimachineryPkgApisMetaV1APIGroupFromJSON,
     IoK8sApimachineryPkgApisMetaV1APIGroupFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1APIGroupToJSON,
+    IoK8sApimachineryPkgApisMetaV1APIGroupToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1APIGroup';
 
 /**
@@ -49,11 +50,9 @@ export interface IoK8sApimachineryPkgApisMetaV1APIGroupList {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1APIGroupList interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1APIGroupList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "groups" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1APIGroupList(value: object): value is IoK8sApimachineryPkgApisMetaV1APIGroupList {
+    if (!('groups' in value) || value['groups'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1APIGroupListFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1APIGroupList {
@@ -61,29 +60,31 @@ export function IoK8sApimachineryPkgApisMetaV1APIGroupListFromJSON(json: any): I
 }
 
 export function IoK8sApimachineryPkgApisMetaV1APIGroupListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1APIGroupList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'groups': ((json['groups'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1APIGroupFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1APIGroupListToJSON(value?: IoK8sApimachineryPkgApisMetaV1APIGroupList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1APIGroupListToJSON(json: any): IoK8sApimachineryPkgApisMetaV1APIGroupList {
+    return IoK8sApimachineryPkgApisMetaV1APIGroupListToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1APIGroupListToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1APIGroupList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'groups': ((value.groups as Array<any>).map(IoK8sApimachineryPkgApisMetaV1APIGroupToJSON)),
-        'kind': value.kind,
+        'apiVersion': value['apiVersion'],
+        'groups': ((value['groups'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1APIGroupToJSON)),
+        'kind': value['kind'],
     };
 }
 

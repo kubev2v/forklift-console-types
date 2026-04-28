@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -98,11 +99,9 @@ export interface IoK8sApiAppsV1ControllerRevision {
 /**
  * Check if a given object implements the IoK8sApiAppsV1ControllerRevision interface.
  */
-export function instanceOfIoK8sApiAppsV1ControllerRevision(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "revision" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1ControllerRevision(value: object): value is IoK8sApiAppsV1ControllerRevision {
+    if (!('revision' in value) || value['revision'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1ControllerRevisionFromJSON(json: any): IoK8sApiAppsV1ControllerRevision {
@@ -110,33 +109,35 @@ export function IoK8sApiAppsV1ControllerRevisionFromJSON(json: any): IoK8sApiApp
 }
 
 export function IoK8sApiAppsV1ControllerRevisionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1ControllerRevision {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'data': !exists(json, 'data') ? undefined : json['data'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'data': json['data'] == null ? undefined : json['data'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'revision': json['revision'],
     };
 }
 
-export function IoK8sApiAppsV1ControllerRevisionToJSON(value?: IoK8sApiAppsV1ControllerRevision | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1ControllerRevisionToJSON(json: any): IoK8sApiAppsV1ControllerRevision {
+    return IoK8sApiAppsV1ControllerRevisionToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1ControllerRevisionToJSONTyped(value?: IoK8sApiAppsV1ControllerRevision | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'data': value.data,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'revision': value.revision,
+        'apiVersion': value['apiVersion'],
+        'data': value['data'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'revision': value['revision'],
     };
 }
 

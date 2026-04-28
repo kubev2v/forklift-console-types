@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec } from './IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec';
 import {
     IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecFromJSON,
     IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecFromJSONTyped,
     IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSON,
+    IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSONTyped,
 } from './IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -65,11 +67,9 @@ export interface IoK8sApiCertificatesV1alpha1ClusterTrustBundle {
 /**
  * Check if a given object implements the IoK8sApiCertificatesV1alpha1ClusterTrustBundle interface.
  */
-export function instanceOfIoK8sApiCertificatesV1alpha1ClusterTrustBundle(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCertificatesV1alpha1ClusterTrustBundle(value: object): value is IoK8sApiCertificatesV1alpha1ClusterTrustBundle {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleFromJSON(json: any): IoK8sApiCertificatesV1alpha1ClusterTrustBundle {
@@ -77,31 +77,33 @@ export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleFromJSON(json: any
 }
 
 export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCertificatesV1alpha1ClusterTrustBundle {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleToJSON(value?: IoK8sApiCertificatesV1alpha1ClusterTrustBundle | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleToJSON(json: any): IoK8sApiCertificatesV1alpha1ClusterTrustBundle {
+    return IoK8sApiCertificatesV1alpha1ClusterTrustBundleToJSONTyped(json, false);
+}
+
+export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleToJSONTyped(value?: IoK8sApiCertificatesV1alpha1ClusterTrustBundle | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSON(value.spec),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSON(value['spec']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
  * @export
@@ -42,12 +42,10 @@ export interface K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-    isInstance = isInstance && "operator" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement(value: object): value is K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    if (!('operator' in value) || value['operator'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement {
@@ -55,29 +53,31 @@ export function K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementFromJSON(j
 }
 
 export function K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'key': json['key'],
         'operator': json['operator'],
-        'values': !exists(json, 'values') ? undefined : json['values'],
+        'values': json['values'] == null ? undefined : json['values'],
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementToJSON(value?: K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementToJSON(json: any): K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement {
+    return K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirementToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1LabelSelectorRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'operator': value.operator,
-        'values': value.values,
+        'key': value['key'],
+        'operator': value['operator'],
+        'values': value['values'],
     };
 }
 

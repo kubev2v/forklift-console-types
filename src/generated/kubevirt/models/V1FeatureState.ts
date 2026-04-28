@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents if a feature is enabled or disabled.
  * @export
@@ -30,10 +30,8 @@ export interface V1FeatureState {
 /**
  * Check if a given object implements the V1FeatureState interface.
  */
-export function instanceOfV1FeatureState(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1FeatureState(value: object): value is V1FeatureState {
+    return true;
 }
 
 export function V1FeatureStateFromJSON(json: any): V1FeatureState {
@@ -41,25 +39,27 @@ export function V1FeatureStateFromJSON(json: any): V1FeatureState {
 }
 
 export function V1FeatureStateFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1FeatureState {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
     };
 }
 
-export function V1FeatureStateToJSON(value?: V1FeatureState | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FeatureStateToJSON(json: any): V1FeatureState {
+    return V1FeatureStateToJSONTyped(json, false);
+}
+
+export function V1FeatureStateToJSONTyped(value?: V1FeatureState | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'enabled': value.enabled,
+        'enabled': value['enabled'],
     };
 }
 

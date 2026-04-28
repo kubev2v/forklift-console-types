@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1PodAffinityTerm } from './IoK8sApiCoreV1PodAffinityTerm';
-import {
-    IoK8sApiCoreV1PodAffinityTermFromJSON,
-    IoK8sApiCoreV1PodAffinityTermFromJSONTyped,
-    IoK8sApiCoreV1PodAffinityTermToJSON,
-} from './IoK8sApiCoreV1PodAffinityTerm';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1WeightedPodAffinityTerm } from './IoK8sApiCoreV1WeightedPodAffinityTerm';
 import {
     IoK8sApiCoreV1WeightedPodAffinityTermFromJSON,
     IoK8sApiCoreV1WeightedPodAffinityTermFromJSONTyped,
     IoK8sApiCoreV1WeightedPodAffinityTermToJSON,
+    IoK8sApiCoreV1WeightedPodAffinityTermToJSONTyped,
 } from './IoK8sApiCoreV1WeightedPodAffinityTerm';
+import type { IoK8sApiCoreV1PodAffinityTerm } from './IoK8sApiCoreV1PodAffinityTerm';
+import {
+    IoK8sApiCoreV1PodAffinityTermFromJSON,
+    IoK8sApiCoreV1PodAffinityTermFromJSONTyped,
+    IoK8sApiCoreV1PodAffinityTermToJSON,
+    IoK8sApiCoreV1PodAffinityTermToJSONTyped,
+} from './IoK8sApiCoreV1PodAffinityTerm';
 
 /**
  * Pod affinity is a group of inter pod affinity scheduling rules.
@@ -49,10 +51,8 @@ export interface IoK8sApiCoreV1PodAffinity {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodAffinity interface.
  */
-export function instanceOfIoK8sApiCoreV1PodAffinity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodAffinity(value: object): value is IoK8sApiCoreV1PodAffinity {
+    return true;
 }
 
 export function IoK8sApiCoreV1PodAffinityFromJSON(json: any): IoK8sApiCoreV1PodAffinity {
@@ -60,27 +60,29 @@ export function IoK8sApiCoreV1PodAffinityFromJSON(json: any): IoK8sApiCoreV1PodA
 }
 
 export function IoK8sApiCoreV1PodAffinityFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodAffinity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'preferredDuringSchedulingIgnoredDuringExecution': !exists(json, 'preferredDuringSchedulingIgnoredDuringExecution') ? undefined : ((json['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1WeightedPodAffinityTermFromJSON)),
-        'requiredDuringSchedulingIgnoredDuringExecution': !exists(json, 'requiredDuringSchedulingIgnoredDuringExecution') ? undefined : ((json['requiredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1PodAffinityTermFromJSON)),
+        'preferredDuringSchedulingIgnoredDuringExecution': json['preferredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((json['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1WeightedPodAffinityTermFromJSON)),
+        'requiredDuringSchedulingIgnoredDuringExecution': json['requiredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((json['requiredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1PodAffinityTermFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1PodAffinityToJSON(value?: IoK8sApiCoreV1PodAffinity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodAffinityToJSON(json: any): IoK8sApiCoreV1PodAffinity {
+    return IoK8sApiCoreV1PodAffinityToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodAffinityToJSONTyped(value?: IoK8sApiCoreV1PodAffinity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preferredDuringSchedulingIgnoredDuringExecution': value.preferredDuringSchedulingIgnoredDuringExecution === undefined ? undefined : ((value.preferredDuringSchedulingIgnoredDuringExecution as Array<any>).map(IoK8sApiCoreV1WeightedPodAffinityTermToJSON)),
-        'requiredDuringSchedulingIgnoredDuringExecution': value.requiredDuringSchedulingIgnoredDuringExecution === undefined ? undefined : ((value.requiredDuringSchedulingIgnoredDuringExecution as Array<any>).map(IoK8sApiCoreV1PodAffinityTermToJSON)),
+        'preferredDuringSchedulingIgnoredDuringExecution': value['preferredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((value['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1WeightedPodAffinityTermToJSON)),
+        'requiredDuringSchedulingIgnoredDuringExecution': value['requiredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((value['requiredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1PodAffinityTermToJSON)),
     };
 }
 

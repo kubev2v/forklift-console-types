@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiRbacV1ClusterRole } from './IoK8sApiRbacV1ClusterRole';
-import {
-    IoK8sApiRbacV1ClusterRoleFromJSON,
-    IoK8sApiRbacV1ClusterRoleFromJSONTyped,
-    IoK8sApiRbacV1ClusterRoleToJSON,
-} from './IoK8sApiRbacV1ClusterRole';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import type { IoK8sApiRbacV1ClusterRole } from './IoK8sApiRbacV1ClusterRole';
+import {
+    IoK8sApiRbacV1ClusterRoleFromJSON,
+    IoK8sApiRbacV1ClusterRoleFromJSONTyped,
+    IoK8sApiRbacV1ClusterRoleToJSON,
+    IoK8sApiRbacV1ClusterRoleToJSONTyped,
+} from './IoK8sApiRbacV1ClusterRole';
 
 /**
  * ClusterRoleList is a collection of ClusterRoles
@@ -61,11 +63,9 @@ export interface IoK8sApiRbacV1ClusterRoleList {
 /**
  * Check if a given object implements the IoK8sApiRbacV1ClusterRoleList interface.
  */
-export function instanceOfIoK8sApiRbacV1ClusterRoleList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1ClusterRoleList(value: object): value is IoK8sApiRbacV1ClusterRoleList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiRbacV1ClusterRoleListFromJSON(json: any): IoK8sApiRbacV1ClusterRoleList {
@@ -73,31 +73,33 @@ export function IoK8sApiRbacV1ClusterRoleListFromJSON(json: any): IoK8sApiRbacV1
 }
 
 export function IoK8sApiRbacV1ClusterRoleListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1ClusterRoleList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiRbacV1ClusterRoleFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiRbacV1ClusterRoleListToJSON(value?: IoK8sApiRbacV1ClusterRoleList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1ClusterRoleListToJSON(json: any): IoK8sApiRbacV1ClusterRoleList {
+    return IoK8sApiRbacV1ClusterRoleListToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1ClusterRoleListToJSONTyped(value?: IoK8sApiRbacV1ClusterRoleList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiRbacV1ClusterRoleToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiRbacV1ClusterRoleToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

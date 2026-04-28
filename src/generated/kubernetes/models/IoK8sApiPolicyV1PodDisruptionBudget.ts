@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiPolicyV1PodDisruptionBudgetSpec } from './IoK8sApiPolicyV1PodDisruptionBudgetSpec';
 import {
     IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSON,
     IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSONTyped,
     IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSON,
+    IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSONTyped,
 } from './IoK8sApiPolicyV1PodDisruptionBudgetSpec';
 import type { IoK8sApiPolicyV1PodDisruptionBudgetStatus } from './IoK8sApiPolicyV1PodDisruptionBudgetStatus';
 import {
     IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSON,
     IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSONTyped,
     IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSON,
+    IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSONTyped,
 } from './IoK8sApiPolicyV1PodDisruptionBudgetStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sApiPolicyV1PodDisruptionBudget {
 /**
  * Check if a given object implements the IoK8sApiPolicyV1PodDisruptionBudget interface.
  */
-export function instanceOfIoK8sApiPolicyV1PodDisruptionBudget(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiPolicyV1PodDisruptionBudget(value: object): value is IoK8sApiPolicyV1PodDisruptionBudget {
+    return true;
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetFromJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudget {
@@ -84,33 +85,35 @@ export function IoK8sApiPolicyV1PodDisruptionBudgetFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiPolicyV1PodDisruptionBudget {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiPolicyV1PodDisruptionBudgetSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiPolicyV1PodDisruptionBudgetToJSON(value?: IoK8sApiPolicyV1PodDisruptionBudget | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiPolicyV1PodDisruptionBudgetToJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudget {
+    return IoK8sApiPolicyV1PodDisruptionBudgetToJSONTyped(json, false);
+}
+
+export function IoK8sApiPolicyV1PodDisruptionBudgetToJSONTyped(value?: IoK8sApiPolicyV1PodDisruptionBudget | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSON(value.spec),
-        'status': IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiPolicyV1PodDisruptionBudgetSpecToJSON(value['spec']),
+        'status': IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSON(value['status']),
     };
 }
 

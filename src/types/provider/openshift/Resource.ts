@@ -15,6 +15,9 @@ export interface OpenshiftResource {
   // self link.
   // SelfLink string `json:"selfLink"`
   selfLink: string;
+  // self path.
+  // Path string `json:"path,omitempty"`
+  path?: string;
   // forklift ID
   id: string;
 }

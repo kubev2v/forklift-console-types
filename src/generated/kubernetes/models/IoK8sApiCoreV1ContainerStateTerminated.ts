@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ContainerStateTerminated is a terminated state of a container.
  * @export
@@ -36,7 +36,7 @@ export interface IoK8sApiCoreV1ContainerStateTerminated {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ContainerStateTerminated
      */
-    finishedAt?: string;
+    finishedAt?: Date;
     /**
      * Message regarding the last termination of the container
      * @type {string}
@@ -60,17 +60,15 @@ export interface IoK8sApiCoreV1ContainerStateTerminated {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ContainerStateTerminated
      */
-    startedAt?: string;
+    startedAt?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerStateTerminated interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerStateTerminated(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "exitCode" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerStateTerminated(value: object): value is IoK8sApiCoreV1ContainerStateTerminated {
+    if (!('exitCode' in value) || value['exitCode'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerStateTerminatedFromJSON(json: any): IoK8sApiCoreV1ContainerStateTerminated {
@@ -78,37 +76,39 @@ export function IoK8sApiCoreV1ContainerStateTerminatedFromJSON(json: any): IoK8s
 }
 
 export function IoK8sApiCoreV1ContainerStateTerminatedFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerStateTerminated {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'containerID': !exists(json, 'containerID') ? undefined : json['containerID'],
+        'containerID': json['containerID'] == null ? undefined : json['containerID'],
         'exitCode': json['exitCode'],
-        'finishedAt': !exists(json, 'finishedAt') ? undefined : json['finishedAt'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'signal': !exists(json, 'signal') ? undefined : json['signal'],
-        'startedAt': !exists(json, 'startedAt') ? undefined : json['startedAt'],
+        'finishedAt': json['finishedAt'] == null ? undefined : (new Date(json['finishedAt'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'signal': json['signal'] == null ? undefined : json['signal'],
+        'startedAt': json['startedAt'] == null ? undefined : (new Date(json['startedAt'])),
     };
 }
 
-export function IoK8sApiCoreV1ContainerStateTerminatedToJSON(value?: IoK8sApiCoreV1ContainerStateTerminated | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerStateTerminatedToJSON(json: any): IoK8sApiCoreV1ContainerStateTerminated {
+    return IoK8sApiCoreV1ContainerStateTerminatedToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerStateTerminatedToJSONTyped(value?: IoK8sApiCoreV1ContainerStateTerminated | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'containerID': value.containerID,
-        'exitCode': value.exitCode,
-        'finishedAt': value.finishedAt === undefined ? undefined : (value.finishedAt),
-        'message': value.message,
-        'reason': value.reason,
-        'signal': value.signal,
-        'startedAt': value.startedAt === undefined ? undefined : (value.startedAt),
+        'containerID': value['containerID'],
+        'exitCode': value['exitCode'],
+        'finishedAt': value['finishedAt'] == null ? undefined : ((value['finishedAt']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'signal': value['signal'],
+        'startedAt': value['startedAt'] == null ? undefined : ((value['startedAt']).toISOString()),
     };
 }
 
