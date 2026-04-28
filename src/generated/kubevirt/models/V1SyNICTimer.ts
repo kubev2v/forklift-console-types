@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1FeatureState } from './V1FeatureState';
 import {
     V1FeatureStateFromJSON,
     V1FeatureStateFromJSONTyped,
     V1FeatureStateToJSON,
+    V1FeatureStateToJSONTyped,
 } from './V1FeatureState';
 
 /**
@@ -33,7 +34,7 @@ export interface V1SyNICTimer {
      */
     direct?: V1FeatureState;
     /**
-     * 
+     * Enabled determines if the feature should be enabled or disabled on the guest. Defaults to true.
      * @type {boolean}
      * @memberof V1SyNICTimer
      */
@@ -43,10 +44,8 @@ export interface V1SyNICTimer {
 /**
  * Check if a given object implements the V1SyNICTimer interface.
  */
-export function instanceOfV1SyNICTimer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SyNICTimer(value: object): value is V1SyNICTimer {
+    return true;
 }
 
 export function V1SyNICTimerFromJSON(json: any): V1SyNICTimer {
@@ -54,27 +53,29 @@ export function V1SyNICTimerFromJSON(json: any): V1SyNICTimer {
 }
 
 export function V1SyNICTimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SyNICTimer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'direct': !exists(json, 'direct') ? undefined : V1FeatureStateFromJSON(json['direct']),
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
+        'direct': json['direct'] == null ? undefined : V1FeatureStateFromJSON(json['direct']),
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
     };
 }
 
-export function V1SyNICTimerToJSON(value?: V1SyNICTimer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SyNICTimerToJSON(json: any): V1SyNICTimer {
+    return V1SyNICTimerToJSONTyped(json, false);
+}
+
+export function V1SyNICTimerToJSONTyped(value?: V1SyNICTimer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'direct': V1FeatureStateToJSON(value.direct),
-        'enabled': value.enabled,
+        'direct': V1FeatureStateToJSON(value['direct']),
+        'enabled': value['enabled'],
     };
 }
 

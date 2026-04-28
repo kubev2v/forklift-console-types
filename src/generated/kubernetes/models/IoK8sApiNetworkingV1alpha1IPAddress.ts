@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiNetworkingV1alpha1IPAddressSpec } from './IoK8sApiNetworkingV1alpha1IPAddressSpec';
 import {
     IoK8sApiNetworkingV1alpha1IPAddressSpecFromJSON,

@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiCoreV1TCPSocketAction } from './IoK8sApiCoreV1TCPSocketAction';
+import {
+    IoK8sApiCoreV1TCPSocketActionFromJSON,
+    IoK8sApiCoreV1TCPSocketActionFromJSONTyped,
+    IoK8sApiCoreV1TCPSocketActionToJSON,
+    IoK8sApiCoreV1TCPSocketActionToJSONTyped,
+} from './IoK8sApiCoreV1TCPSocketAction';
 import type { IoK8sApiCoreV1ExecAction } from './IoK8sApiCoreV1ExecAction';
 import {
     IoK8sApiCoreV1ExecActionFromJSON,
     IoK8sApiCoreV1ExecActionFromJSONTyped,
     IoK8sApiCoreV1ExecActionToJSON,
+    IoK8sApiCoreV1ExecActionToJSONTyped,
 } from './IoK8sApiCoreV1ExecAction';
 import type { IoK8sApiCoreV1GRPCAction } from './IoK8sApiCoreV1GRPCAction';
 import {
     IoK8sApiCoreV1GRPCActionFromJSON,
     IoK8sApiCoreV1GRPCActionFromJSONTyped,
     IoK8sApiCoreV1GRPCActionToJSON,
+    IoK8sApiCoreV1GRPCActionToJSONTyped,
 } from './IoK8sApiCoreV1GRPCAction';
 import type { IoK8sApiCoreV1HTTPGetAction } from './IoK8sApiCoreV1HTTPGetAction';
 import {
     IoK8sApiCoreV1HTTPGetActionFromJSON,
     IoK8sApiCoreV1HTTPGetActionFromJSONTyped,
     IoK8sApiCoreV1HTTPGetActionToJSON,
+    IoK8sApiCoreV1HTTPGetActionToJSONTyped,
 } from './IoK8sApiCoreV1HTTPGetAction';
-import type { IoK8sApiCoreV1TCPSocketAction } from './IoK8sApiCoreV1TCPSocketAction';
-import {
-    IoK8sApiCoreV1TCPSocketActionFromJSON,
-    IoK8sApiCoreV1TCPSocketActionFromJSONTyped,
-    IoK8sApiCoreV1TCPSocketActionToJSON,
-} from './IoK8sApiCoreV1TCPSocketAction';
 
 /**
  * Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
@@ -109,10 +113,8 @@ export interface IoK8sApiCoreV1Probe {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Probe interface.
  */
-export function instanceOfIoK8sApiCoreV1Probe(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Probe(value: object): value is IoK8sApiCoreV1Probe {
+    return true;
 }
 
 export function IoK8sApiCoreV1ProbeFromJSON(json: any): IoK8sApiCoreV1Probe {
@@ -120,43 +122,45 @@ export function IoK8sApiCoreV1ProbeFromJSON(json: any): IoK8sApiCoreV1Probe {
 }
 
 export function IoK8sApiCoreV1ProbeFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Probe {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'exec': !exists(json, 'exec') ? undefined : IoK8sApiCoreV1ExecActionFromJSON(json['exec']),
-        'failureThreshold': !exists(json, 'failureThreshold') ? undefined : json['failureThreshold'],
-        'grpc': !exists(json, 'grpc') ? undefined : IoK8sApiCoreV1GRPCActionFromJSON(json['grpc']),
-        'httpGet': !exists(json, 'httpGet') ? undefined : IoK8sApiCoreV1HTTPGetActionFromJSON(json['httpGet']),
-        'initialDelaySeconds': !exists(json, 'initialDelaySeconds') ? undefined : json['initialDelaySeconds'],
-        'periodSeconds': !exists(json, 'periodSeconds') ? undefined : json['periodSeconds'],
-        'successThreshold': !exists(json, 'successThreshold') ? undefined : json['successThreshold'],
-        'tcpSocket': !exists(json, 'tcpSocket') ? undefined : IoK8sApiCoreV1TCPSocketActionFromJSON(json['tcpSocket']),
-        'terminationGracePeriodSeconds': !exists(json, 'terminationGracePeriodSeconds') ? undefined : json['terminationGracePeriodSeconds'],
-        'timeoutSeconds': !exists(json, 'timeoutSeconds') ? undefined : json['timeoutSeconds'],
+        'exec': json['exec'] == null ? undefined : IoK8sApiCoreV1ExecActionFromJSON(json['exec']),
+        'failureThreshold': json['failureThreshold'] == null ? undefined : json['failureThreshold'],
+        'grpc': json['grpc'] == null ? undefined : IoK8sApiCoreV1GRPCActionFromJSON(json['grpc']),
+        'httpGet': json['httpGet'] == null ? undefined : IoK8sApiCoreV1HTTPGetActionFromJSON(json['httpGet']),
+        'initialDelaySeconds': json['initialDelaySeconds'] == null ? undefined : json['initialDelaySeconds'],
+        'periodSeconds': json['periodSeconds'] == null ? undefined : json['periodSeconds'],
+        'successThreshold': json['successThreshold'] == null ? undefined : json['successThreshold'],
+        'tcpSocket': json['tcpSocket'] == null ? undefined : IoK8sApiCoreV1TCPSocketActionFromJSON(json['tcpSocket']),
+        'terminationGracePeriodSeconds': json['terminationGracePeriodSeconds'] == null ? undefined : json['terminationGracePeriodSeconds'],
+        'timeoutSeconds': json['timeoutSeconds'] == null ? undefined : json['timeoutSeconds'],
     };
 }
 
-export function IoK8sApiCoreV1ProbeToJSON(value?: IoK8sApiCoreV1Probe | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ProbeToJSON(json: any): IoK8sApiCoreV1Probe {
+    return IoK8sApiCoreV1ProbeToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ProbeToJSONTyped(value?: IoK8sApiCoreV1Probe | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'exec': IoK8sApiCoreV1ExecActionToJSON(value.exec),
-        'failureThreshold': value.failureThreshold,
-        'grpc': IoK8sApiCoreV1GRPCActionToJSON(value.grpc),
-        'httpGet': IoK8sApiCoreV1HTTPGetActionToJSON(value.httpGet),
-        'initialDelaySeconds': value.initialDelaySeconds,
-        'periodSeconds': value.periodSeconds,
-        'successThreshold': value.successThreshold,
-        'tcpSocket': IoK8sApiCoreV1TCPSocketActionToJSON(value.tcpSocket),
-        'terminationGracePeriodSeconds': value.terminationGracePeriodSeconds,
-        'timeoutSeconds': value.timeoutSeconds,
+        'exec': IoK8sApiCoreV1ExecActionToJSON(value['exec']),
+        'failureThreshold': value['failureThreshold'],
+        'grpc': IoK8sApiCoreV1GRPCActionToJSON(value['grpc']),
+        'httpGet': IoK8sApiCoreV1HTTPGetActionToJSON(value['httpGet']),
+        'initialDelaySeconds': value['initialDelaySeconds'],
+        'periodSeconds': value['periodSeconds'],
+        'successThreshold': value['successThreshold'],
+        'tcpSocket': IoK8sApiCoreV1TCPSocketActionToJSON(value['tcpSocket']),
+        'terminationGracePeriodSeconds': value['terminationGracePeriodSeconds'],
+        'timeoutSeconds': value['timeoutSeconds'],
     };
 }
 

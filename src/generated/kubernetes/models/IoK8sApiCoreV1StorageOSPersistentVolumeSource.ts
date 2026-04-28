@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
 import {
     IoK8sApiCoreV1ObjectReferenceFromJSON,
     IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1ObjectReferenceToJSON,
+    IoK8sApiCoreV1ObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1ObjectReference';
 
 /**
@@ -61,10 +62,8 @@ export interface IoK8sApiCoreV1StorageOSPersistentVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1StorageOSPersistentVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1StorageOSPersistentVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1StorageOSPersistentVolumeSource(value: object): value is IoK8sApiCoreV1StorageOSPersistentVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1StorageOSPersistentVolumeSourceFromJSON(json: any): IoK8sApiCoreV1StorageOSPersistentVolumeSource {
@@ -72,33 +71,35 @@ export function IoK8sApiCoreV1StorageOSPersistentVolumeSourceFromJSON(json: any)
 }
 
 export function IoK8sApiCoreV1StorageOSPersistentVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1StorageOSPersistentVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['secretRef']),
-        'volumeName': !exists(json, 'volumeName') ? undefined : json['volumeName'],
-        'volumeNamespace': !exists(json, 'volumeNamespace') ? undefined : json['volumeNamespace'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'secretRef': json['secretRef'] == null ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['secretRef']),
+        'volumeName': json['volumeName'] == null ? undefined : json['volumeName'],
+        'volumeNamespace': json['volumeNamespace'] == null ? undefined : json['volumeNamespace'],
     };
 }
 
-export function IoK8sApiCoreV1StorageOSPersistentVolumeSourceToJSON(value?: IoK8sApiCoreV1StorageOSPersistentVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1StorageOSPersistentVolumeSourceToJSON(json: any): IoK8sApiCoreV1StorageOSPersistentVolumeSource {
+    return IoK8sApiCoreV1StorageOSPersistentVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1StorageOSPersistentVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1StorageOSPersistentVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'readOnly': value.readOnly,
-        'secretRef': IoK8sApiCoreV1ObjectReferenceToJSON(value.secretRef),
-        'volumeName': value.volumeName,
-        'volumeNamespace': value.volumeNamespace,
+        'fsType': value['fsType'],
+        'readOnly': value['readOnly'],
+        'secretRef': IoK8sApiCoreV1ObjectReferenceToJSON(value['secretRef']),
+        'volumeName': value['volumeName'],
+        'volumeNamespace': value['volumeNamespace'],
     };
 }
 

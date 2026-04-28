@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1LocalObjectReference } from './K8sIoApiCoreV1LocalObjectReference';
 import {
     K8sIoApiCoreV1LocalObjectReferenceFromJSON,
     K8sIoApiCoreV1LocalObjectReferenceFromJSONTyped,
     K8sIoApiCoreV1LocalObjectReferenceToJSON,
+    K8sIoApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './K8sIoApiCoreV1LocalObjectReference';
 
 /**
@@ -43,10 +44,8 @@ export interface V1SysprepSource {
 /**
  * Check if a given object implements the V1SysprepSource interface.
  */
-export function instanceOfV1SysprepSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SysprepSource(value: object): value is V1SysprepSource {
+    return true;
 }
 
 export function V1SysprepSourceFromJSON(json: any): V1SysprepSource {
@@ -54,27 +53,29 @@ export function V1SysprepSourceFromJSON(json: any): V1SysprepSource {
 }
 
 export function V1SysprepSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SysprepSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'configMap': !exists(json, 'configMap') ? undefined : K8sIoApiCoreV1LocalObjectReferenceFromJSON(json['configMap']),
-        'secret': !exists(json, 'secret') ? undefined : K8sIoApiCoreV1LocalObjectReferenceFromJSON(json['secret']),
+        'configMap': json['configMap'] == null ? undefined : K8sIoApiCoreV1LocalObjectReferenceFromJSON(json['configMap']),
+        'secret': json['secret'] == null ? undefined : K8sIoApiCoreV1LocalObjectReferenceFromJSON(json['secret']),
     };
 }
 
-export function V1SysprepSourceToJSON(value?: V1SysprepSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SysprepSourceToJSON(json: any): V1SysprepSource {
+    return V1SysprepSourceToJSONTyped(json, false);
+}
+
+export function V1SysprepSourceToJSONTyped(value?: V1SysprepSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'configMap': K8sIoApiCoreV1LocalObjectReferenceToJSON(value.configMap),
-        'secret': K8sIoApiCoreV1LocalObjectReferenceToJSON(value.secret),
+        'configMap': K8sIoApiCoreV1LocalObjectReferenceToJSON(value['configMap']),
+        'secret': K8sIoApiCoreV1LocalObjectReferenceToJSON(value['secret']),
     };
 }
 

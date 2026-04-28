@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ModifyVolumeStatus } from './IoK8sApiCoreV1ModifyVolumeStatus';
 import {
     IoK8sApiCoreV1ModifyVolumeStatusFromJSON,
     IoK8sApiCoreV1ModifyVolumeStatusFromJSONTyped,
     IoK8sApiCoreV1ModifyVolumeStatusToJSON,
+    IoK8sApiCoreV1ModifyVolumeStatusToJSONTyped,
 } from './IoK8sApiCoreV1ModifyVolumeStatus';
 import type { IoK8sApiCoreV1PersistentVolumeClaimCondition } from './IoK8sApiCoreV1PersistentVolumeClaimCondition';
 import {
     IoK8sApiCoreV1PersistentVolumeClaimConditionFromJSON,
     IoK8sApiCoreV1PersistentVolumeClaimConditionFromJSONTyped,
     IoK8sApiCoreV1PersistentVolumeClaimConditionToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimConditionToJSONTyped,
 } from './IoK8sApiCoreV1PersistentVolumeClaimCondition';
 
 /**
@@ -37,7 +39,7 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimStatus {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1PersistentVolumeClaimStatus
      */
-    accessModes?: string[];
+    accessModes?: Array<string>;
     /**
      * allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
      * 	* Un-prefixed keys:
@@ -67,8 +69,6 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimStatus {
      * When this field is not set, it means that no resize operation is in progress for the given PVC.
      * 
      * A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-     * 
-     * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
      * @type {{ [key: string]: string; }}
      * @memberof IoK8sApiCoreV1PersistentVolumeClaimStatus
      */
@@ -83,8 +83,6 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimStatus {
      * Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
      * 
      * A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
-     * 
-     * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
      * @type {{ [key: string]: string; }}
      * @memberof IoK8sApiCoreV1PersistentVolumeClaimStatus
      */
@@ -102,7 +100,7 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimStatus {
      */
     conditions?: Array<IoK8sApiCoreV1PersistentVolumeClaimCondition>;
     /**
-     * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim This is an alpha field and requires enabling VolumeAttributesClass feature.
+     * currentVolumeAttributesClassName is the current name of the VolumeAttributesClass the PVC is using. When unset, there is no VolumeAttributeClass applied to this PersistentVolumeClaim
      * @type {string}
      * @memberof IoK8sApiCoreV1PersistentVolumeClaimStatus
      */
@@ -124,10 +122,8 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PersistentVolumeClaimStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimStatus(value: object): value is IoK8sApiCoreV1PersistentVolumeClaimStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimStatus {
@@ -135,39 +131,41 @@ export function IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSON(json: any): Io
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PersistentVolumeClaimStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessModes': !exists(json, 'accessModes') ? undefined : json['accessModes'],
-        'allocatedResourceStatuses': !exists(json, 'allocatedResourceStatuses') ? undefined : json['allocatedResourceStatuses'],
-        'allocatedResources': !exists(json, 'allocatedResources') ? undefined : json['allocatedResources'],
-        'capacity': !exists(json, 'capacity') ? undefined : json['capacity'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimConditionFromJSON)),
-        'currentVolumeAttributesClassName': !exists(json, 'currentVolumeAttributesClassName') ? undefined : json['currentVolumeAttributesClassName'],
-        'modifyVolumeStatus': !exists(json, 'modifyVolumeStatus') ? undefined : IoK8sApiCoreV1ModifyVolumeStatusFromJSON(json['modifyVolumeStatus']),
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
+        'accessModes': json['accessModes'] == null ? undefined : json['accessModes'],
+        'allocatedResourceStatuses': json['allocatedResourceStatuses'] == null ? undefined : json['allocatedResourceStatuses'],
+        'allocatedResources': json['allocatedResources'] == null ? undefined : json['allocatedResources'],
+        'capacity': json['capacity'] == null ? undefined : json['capacity'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimConditionFromJSON)),
+        'currentVolumeAttributesClassName': json['currentVolumeAttributesClassName'] == null ? undefined : json['currentVolumeAttributesClassName'],
+        'modifyVolumeStatus': json['modifyVolumeStatus'] == null ? undefined : IoK8sApiCoreV1ModifyVolumeStatusFromJSON(json['modifyVolumeStatus']),
+        'phase': json['phase'] == null ? undefined : json['phase'],
     };
 }
 
-export function IoK8sApiCoreV1PersistentVolumeClaimStatusToJSON(value?: IoK8sApiCoreV1PersistentVolumeClaimStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PersistentVolumeClaimStatusToJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimStatus {
+    return IoK8sApiCoreV1PersistentVolumeClaimStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PersistentVolumeClaimStatusToJSONTyped(value?: IoK8sApiCoreV1PersistentVolumeClaimStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'accessModes': value.accessModes,
-        'allocatedResourceStatuses': value.allocatedResourceStatuses,
-        'allocatedResources': value.allocatedResources,
-        'capacity': value.capacity,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimConditionToJSON)),
-        'currentVolumeAttributesClassName': value.currentVolumeAttributesClassName,
-        'modifyVolumeStatus': IoK8sApiCoreV1ModifyVolumeStatusToJSON(value.modifyVolumeStatus),
-        'phase': value.phase,
+        'accessModes': value['accessModes'],
+        'allocatedResourceStatuses': value['allocatedResourceStatuses'],
+        'allocatedResources': value['allocatedResources'],
+        'capacity': value['capacity'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimConditionToJSON)),
+        'currentVolumeAttributesClassName': value['currentVolumeAttributesClassName'],
+        'modifyVolumeStatus': IoK8sApiCoreV1ModifyVolumeStatusToJSON(value['modifyVolumeStatus']),
+        'phase': value['phase'],
     };
 }
 

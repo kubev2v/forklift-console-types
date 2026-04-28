@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiNetworkingV1alpha1ParentReference } from './IoK8sApiNetworkingV1alpha1ParentReference';
 import {
     IoK8sApiNetworkingV1alpha1ParentReferenceFromJSON,

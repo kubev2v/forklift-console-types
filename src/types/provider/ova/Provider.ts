@@ -15,8 +15,8 @@ export interface OvaProvider extends OpenshiftResource {
   vmCount: number;
   // NetworkCount    int64        `json:"networkCount"`
   networkCount: number;
-  // DatastoreCount  int64        `json:"datastoreCount"`
-  DiskCount: number;
+  // DiskCount    int64        `json:"diskCount"`
+  diskCount: number;
   // StorageCount  int64        `json:"storageCount"`
   storageCount: number;
 }

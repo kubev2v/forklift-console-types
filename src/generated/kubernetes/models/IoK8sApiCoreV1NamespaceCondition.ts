@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NamespaceCondition contains details about state of namespace.
  * @export
@@ -24,15 +24,15 @@ export interface IoK8sApiCoreV1NamespaceCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1NamespaceCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
-     * 
+     * Human-readable message indicating details about last transition.
      * @type {string}
      * @memberof IoK8sApiCoreV1NamespaceCondition
      */
     message?: string;
     /**
-     * 
+     * Unique, one-word, CamelCase reason for the condition's last transition.
      * @type {string}
      * @memberof IoK8sApiCoreV1NamespaceCondition
      */
@@ -54,12 +54,10 @@ export interface IoK8sApiCoreV1NamespaceCondition {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NamespaceCondition interface.
  */
-export function instanceOfIoK8sApiCoreV1NamespaceCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NamespaceCondition(value: object): value is IoK8sApiCoreV1NamespaceCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NamespaceConditionFromJSON(json: any): IoK8sApiCoreV1NamespaceCondition {
@@ -67,33 +65,35 @@ export function IoK8sApiCoreV1NamespaceConditionFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1NamespaceConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NamespaceCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1NamespaceConditionToJSON(value?: IoK8sApiCoreV1NamespaceCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NamespaceConditionToJSON(json: any): IoK8sApiCoreV1NamespaceCondition {
+    return IoK8sApiCoreV1NamespaceConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NamespaceConditionToJSONTyped(value?: IoK8sApiCoreV1NamespaceCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

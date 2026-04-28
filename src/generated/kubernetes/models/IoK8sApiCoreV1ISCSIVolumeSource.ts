@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LocalObjectReference } from './IoK8sApiCoreV1LocalObjectReference';
 import {
     IoK8sApiCoreV1LocalObjectReferenceFromJSON,
     IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1LocalObjectReferenceToJSON,
+    IoK8sApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1LocalObjectReference';
 
 /**
@@ -73,7 +74,7 @@ export interface IoK8sApiCoreV1ISCSIVolumeSource {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ISCSIVolumeSource
      */
-    portals?: string[];
+    portals?: Array<string>;
     /**
      * readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
      * @type {boolean}
@@ -97,13 +98,11 @@ export interface IoK8sApiCoreV1ISCSIVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ISCSIVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1ISCSIVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "iqn" in value;
-    isInstance = isInstance && "lun" in value;
-    isInstance = isInstance && "targetPortal" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ISCSIVolumeSource(value: object): value is IoK8sApiCoreV1ISCSIVolumeSource {
+    if (!('iqn' in value) || value['iqn'] === undefined) return false;
+    if (!('lun' in value) || value['lun'] === undefined) return false;
+    if (!('targetPortal' in value) || value['targetPortal'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ISCSIVolumeSourceFromJSON(json: any): IoK8sApiCoreV1ISCSIVolumeSource {
@@ -111,45 +110,47 @@ export function IoK8sApiCoreV1ISCSIVolumeSourceFromJSON(json: any): IoK8sApiCore
 }
 
 export function IoK8sApiCoreV1ISCSIVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ISCSIVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'chapAuthDiscovery': !exists(json, 'chapAuthDiscovery') ? undefined : json['chapAuthDiscovery'],
-        'chapAuthSession': !exists(json, 'chapAuthSession') ? undefined : json['chapAuthSession'],
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'initiatorName': !exists(json, 'initiatorName') ? undefined : json['initiatorName'],
+        'chapAuthDiscovery': json['chapAuthDiscovery'] == null ? undefined : json['chapAuthDiscovery'],
+        'chapAuthSession': json['chapAuthSession'] == null ? undefined : json['chapAuthSession'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'initiatorName': json['initiatorName'] == null ? undefined : json['initiatorName'],
         'iqn': json['iqn'],
-        'iscsiInterface': !exists(json, 'iscsiInterface') ? undefined : json['iscsiInterface'],
+        'iscsiInterface': json['iscsiInterface'] == null ? undefined : json['iscsiInterface'],
         'lun': json['lun'],
-        'portals': !exists(json, 'portals') ? undefined : json['portals'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
+        'portals': json['portals'] == null ? undefined : json['portals'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'secretRef': json['secretRef'] == null ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
         'targetPortal': json['targetPortal'],
     };
 }
 
-export function IoK8sApiCoreV1ISCSIVolumeSourceToJSON(value?: IoK8sApiCoreV1ISCSIVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ISCSIVolumeSourceToJSON(json: any): IoK8sApiCoreV1ISCSIVolumeSource {
+    return IoK8sApiCoreV1ISCSIVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ISCSIVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1ISCSIVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'chapAuthDiscovery': value.chapAuthDiscovery,
-        'chapAuthSession': value.chapAuthSession,
-        'fsType': value.fsType,
-        'initiatorName': value.initiatorName,
-        'iqn': value.iqn,
-        'iscsiInterface': value.iscsiInterface,
-        'lun': value.lun,
-        'portals': value.portals,
-        'readOnly': value.readOnly,
-        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value.secretRef),
-        'targetPortal': value.targetPortal,
+        'chapAuthDiscovery': value['chapAuthDiscovery'],
+        'chapAuthSession': value['chapAuthSession'],
+        'fsType': value['fsType'],
+        'initiatorName': value['initiatorName'],
+        'iqn': value['iqn'],
+        'iscsiInterface': value['iscsiInterface'],
+        'lun': value['lun'],
+        'portals': value['portals'],
+        'readOnly': value['readOnly'],
+        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value['secretRef']),
+        'targetPortal': value['targetPortal'],
     };
 }
 

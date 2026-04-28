@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1BlockSize } from './V1BlockSize';
-import {
-    V1BlockSizeFromJSON,
-    V1BlockSizeFromJSONTyped,
-    V1BlockSizeToJSON,
-} from './V1BlockSize';
-import type { V1CDRomTarget } from './V1CDRomTarget';
-import {
-    V1CDRomTargetFromJSON,
-    V1CDRomTargetFromJSONTyped,
-    V1CDRomTargetToJSON,
-} from './V1CDRomTarget';
+import { mapValues } from '../../runtime';
 import type { V1DiskTarget } from './V1DiskTarget';
 import {
     V1DiskTargetFromJSON,
     V1DiskTargetFromJSONTyped,
     V1DiskTargetToJSON,
+    V1DiskTargetToJSONTyped,
 } from './V1DiskTarget';
 import type { V1LunTarget } from './V1LunTarget';
 import {
     V1LunTargetFromJSON,
     V1LunTargetFromJSONTyped,
     V1LunTargetToJSON,
+    V1LunTargetToJSONTyped,
 } from './V1LunTarget';
+import type { V1BlockSize } from './V1BlockSize';
+import {
+    V1BlockSizeFromJSON,
+    V1BlockSizeFromJSONTyped,
+    V1BlockSizeToJSON,
+    V1BlockSizeToJSONTyped,
+} from './V1BlockSize';
+import type { V1CDRomTarget } from './V1CDRomTarget';
+import {
+    V1CDRomTargetFromJSON,
+    V1CDRomTargetFromJSONTyped,
+    V1CDRomTargetToJSON,
+    V1CDRomTargetToJSONTyped,
+} from './V1CDRomTarget';
 
 /**
  * 
@@ -57,7 +61,7 @@ export interface V1Disk {
      */
     bootOrder?: number;
     /**
-     * Cache specifies which kvm disk cache mode should be used. Supported values are: CacheNone, CacheWriteThrough.
+     * Cache specifies which kvm disk cache mode should be used. Supported values are: none: Guest I/O not cached on the host, but may be kept in a disk cache. writethrough: Guest I/O cached on the host but written through to the physical medium. Slowest but with most guarantees. writeback: Guest I/O cached on the host. Defaults to none if the storage supports O_DIRECT, otherwise writethrough.
      * @type {string}
      * @memberof V1Disk
      */
@@ -68,6 +72,12 @@ export interface V1Disk {
      * @memberof V1Disk
      */
     cdrom?: V1CDRomTarget;
+    /**
+     * ChangedBlockTracking indicates this disk should have CBT option Defaults to false.
+     * @type {boolean}
+     * @memberof V1Disk
+     */
+    changedBlockTracking?: boolean;
     /**
      * dedicatedIOThread indicates this disk should have an exclusive IO Thread. Enabling this implies useIOThreads = true. Defaults to false.
      * @type {boolean}
@@ -127,11 +137,9 @@ export interface V1Disk {
 /**
  * Check if a given object implements the V1Disk interface.
  */
-export function instanceOfV1Disk(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfV1Disk(value: object): value is V1Disk {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function V1DiskFromJSON(json: any): V1Disk {
@@ -139,49 +147,53 @@ export function V1DiskFromJSON(json: any): V1Disk {
 }
 
 export function V1DiskFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Disk {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'blockSize': !exists(json, 'blockSize') ? undefined : V1BlockSizeFromJSON(json['blockSize']),
-        'bootOrder': !exists(json, 'bootOrder') ? undefined : json['bootOrder'],
-        'cache': !exists(json, 'cache') ? undefined : json['cache'],
-        'cdrom': !exists(json, 'cdrom') ? undefined : V1CDRomTargetFromJSON(json['cdrom']),
-        'dedicatedIOThread': !exists(json, 'dedicatedIOThread') ? undefined : json['dedicatedIOThread'],
-        'disk': !exists(json, 'disk') ? undefined : V1DiskTargetFromJSON(json['disk']),
-        'errorPolicy': !exists(json, 'errorPolicy') ? undefined : json['errorPolicy'],
-        'io': !exists(json, 'io') ? undefined : json['io'],
-        'lun': !exists(json, 'lun') ? undefined : V1LunTargetFromJSON(json['lun']),
+        'blockSize': json['blockSize'] == null ? undefined : V1BlockSizeFromJSON(json['blockSize']),
+        'bootOrder': json['bootOrder'] == null ? undefined : json['bootOrder'],
+        'cache': json['cache'] == null ? undefined : json['cache'],
+        'cdrom': json['cdrom'] == null ? undefined : V1CDRomTargetFromJSON(json['cdrom']),
+        'changedBlockTracking': json['changedBlockTracking'] == null ? undefined : json['changedBlockTracking'],
+        'dedicatedIOThread': json['dedicatedIOThread'] == null ? undefined : json['dedicatedIOThread'],
+        'disk': json['disk'] == null ? undefined : V1DiskTargetFromJSON(json['disk']),
+        'errorPolicy': json['errorPolicy'] == null ? undefined : json['errorPolicy'],
+        'io': json['io'] == null ? undefined : json['io'],
+        'lun': json['lun'] == null ? undefined : V1LunTargetFromJSON(json['lun']),
         'name': json['name'],
-        'serial': !exists(json, 'serial') ? undefined : json['serial'],
-        'shareable': !exists(json, 'shareable') ? undefined : json['shareable'],
-        'tag': !exists(json, 'tag') ? undefined : json['tag'],
+        'serial': json['serial'] == null ? undefined : json['serial'],
+        'shareable': json['shareable'] == null ? undefined : json['shareable'],
+        'tag': json['tag'] == null ? undefined : json['tag'],
     };
 }
 
-export function V1DiskToJSON(value?: V1Disk | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DiskToJSON(json: any): V1Disk {
+    return V1DiskToJSONTyped(json, false);
+}
+
+export function V1DiskToJSONTyped(value?: V1Disk | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'blockSize': V1BlockSizeToJSON(value.blockSize),
-        'bootOrder': value.bootOrder,
-        'cache': value.cache,
-        'cdrom': V1CDRomTargetToJSON(value.cdrom),
-        'dedicatedIOThread': value.dedicatedIOThread,
-        'disk': V1DiskTargetToJSON(value.disk),
-        'errorPolicy': value.errorPolicy,
-        'io': value.io,
-        'lun': V1LunTargetToJSON(value.lun),
-        'name': value.name,
-        'serial': value.serial,
-        'shareable': value.shareable,
-        'tag': value.tag,
+        'blockSize': V1BlockSizeToJSON(value['blockSize']),
+        'bootOrder': value['bootOrder'],
+        'cache': value['cache'],
+        'cdrom': V1CDRomTargetToJSON(value['cdrom']),
+        'changedBlockTracking': value['changedBlockTracking'],
+        'dedicatedIOThread': value['dedicatedIOThread'],
+        'disk': V1DiskTargetToJSON(value['disk']),
+        'errorPolicy': value['errorPolicy'],
+        'io': value['io'],
+        'lun': V1LunTargetToJSON(value['lun']),
+        'name': value['name'],
+        'serial': value['serial'],
+        'shareable': value['shareable'],
+        'tag': value['tag'],
     };
 }
 

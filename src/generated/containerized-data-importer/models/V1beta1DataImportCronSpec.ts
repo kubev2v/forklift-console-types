@@ -57,6 +57,12 @@ export interface V1beta1DataImportCronSpec {
      */
     schedule: string;
     /**
+     * ServiceAccountName is the name of the ServiceAccount for creating DataVolumes.
+     * @type {string}
+     * @memberof V1beta1DataImportCronSpec
+     */
+    serviceAccountName?: string;
+    /**
      * 
      * @type {V1beta1DataVolume}
      * @memberof V1beta1DataImportCronSpec
@@ -89,6 +95,7 @@ export function V1beta1DataImportCronSpecFromJSONTyped(json: any, ignoreDiscrimi
         'managedDataSource': json['managedDataSource'],
         'retentionPolicy': json['retentionPolicy'] == null ? undefined : json['retentionPolicy'],
         'schedule': json['schedule'],
+        'serviceAccountName': json['serviceAccountName'] == null ? undefined : json['serviceAccountName'],
         'template': V1beta1DataVolumeFromJSON(json['template']),
     };
 }
@@ -104,6 +111,7 @@ export function V1beta1DataImportCronSpecToJSON(value?: V1beta1DataImportCronSpe
         'managedDataSource': value['managedDataSource'],
         'retentionPolicy': value['retentionPolicy'],
         'schedule': value['schedule'],
+        'serviceAccountName': value['serviceAccountName'],
         'template': V1beta1DataVolumeToJSON(value['template']),
     };
 }

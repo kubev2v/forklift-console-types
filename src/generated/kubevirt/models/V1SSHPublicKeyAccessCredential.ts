@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1SSHPublicKeyAccessCredentialPropagationMethod } from './V1SSHPublicKeyAccessCredentialPropagationMethod';
 import {
     V1SSHPublicKeyAccessCredentialPropagationMethodFromJSON,
     V1SSHPublicKeyAccessCredentialPropagationMethodFromJSONTyped,
     V1SSHPublicKeyAccessCredentialPropagationMethodToJSON,
+    V1SSHPublicKeyAccessCredentialPropagationMethodToJSONTyped,
 } from './V1SSHPublicKeyAccessCredentialPropagationMethod';
 import type { V1SSHPublicKeyAccessCredentialSource } from './V1SSHPublicKeyAccessCredentialSource';
 import {
     V1SSHPublicKeyAccessCredentialSourceFromJSON,
     V1SSHPublicKeyAccessCredentialSourceFromJSONTyped,
     V1SSHPublicKeyAccessCredentialSourceToJSON,
+    V1SSHPublicKeyAccessCredentialSourceToJSONTyped,
 } from './V1SSHPublicKeyAccessCredentialSource';
 
 /**
@@ -49,12 +51,10 @@ export interface V1SSHPublicKeyAccessCredential {
 /**
  * Check if a given object implements the V1SSHPublicKeyAccessCredential interface.
  */
-export function instanceOfV1SSHPublicKeyAccessCredential(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "propagationMethod" in value;
-    isInstance = isInstance && "source" in value;
-
-    return isInstance;
+export function instanceOfV1SSHPublicKeyAccessCredential(value: object): value is V1SSHPublicKeyAccessCredential {
+    if (!('propagationMethod' in value) || value['propagationMethod'] === undefined) return false;
+    if (!('source' in value) || value['source'] === undefined) return false;
+    return true;
 }
 
 export function V1SSHPublicKeyAccessCredentialFromJSON(json: any): V1SSHPublicKeyAccessCredential {
@@ -62,7 +62,7 @@ export function V1SSHPublicKeyAccessCredentialFromJSON(json: any): V1SSHPublicKe
 }
 
 export function V1SSHPublicKeyAccessCredentialFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SSHPublicKeyAccessCredential {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -72,17 +72,19 @@ export function V1SSHPublicKeyAccessCredentialFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function V1SSHPublicKeyAccessCredentialToJSON(value?: V1SSHPublicKeyAccessCredential | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SSHPublicKeyAccessCredentialToJSON(json: any): V1SSHPublicKeyAccessCredential {
+    return V1SSHPublicKeyAccessCredentialToJSONTyped(json, false);
+}
+
+export function V1SSHPublicKeyAccessCredentialToJSONTyped(value?: V1SSHPublicKeyAccessCredential | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'propagationMethod': V1SSHPublicKeyAccessCredentialPropagationMethodToJSON(value.propagationMethod),
-        'source': V1SSHPublicKeyAccessCredentialSourceToJSON(value.source),
+        'propagationMethod': V1SSHPublicKeyAccessCredentialPropagationMethodToJSON(value['propagationMethod']),
+        'source': V1SSHPublicKeyAccessCredentialSourceToJSON(value['source']),
     };
 }
 

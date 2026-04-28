@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DiskVerification holds container disks verification limits
  * @export
@@ -57,20 +57,18 @@ export interface V1DiskVerification {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1DiskVerification
      */
-    memoryLimit: string;
+    memoryLimit: object;
 }
 
 /**
  * Check if a given object implements the V1DiskVerification interface.
  */
-export function instanceOfV1DiskVerification(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "memoryLimit" in value;
-
-    return isInstance;
+export function instanceOfV1DiskVerification(value: object): value is V1DiskVerification {
+    if (!('memoryLimit' in value) || value['memoryLimit'] === undefined) return false;
+    return true;
 }
 
 export function V1DiskVerificationFromJSON(json: any): V1DiskVerification {
@@ -78,7 +76,7 @@ export function V1DiskVerificationFromJSON(json: any): V1DiskVerification {
 }
 
 export function V1DiskVerificationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1DiskVerification {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -87,16 +85,18 @@ export function V1DiskVerificationFromJSONTyped(json: any, ignoreDiscriminator: 
     };
 }
 
-export function V1DiskVerificationToJSON(value?: V1DiskVerification | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DiskVerificationToJSON(json: any): V1DiskVerification {
+    return V1DiskVerificationToJSONTyped(json, false);
+}
+
+export function V1DiskVerificationToJSONTyped(value?: V1DiskVerification | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'memoryLimit': value.memoryLimit,
+        'memoryLimit': value['memoryLimit'],
     };
 }
 

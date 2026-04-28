@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1TopologySelectorLabelRequirement } from './IoK8sApiCoreV1TopologySelectorLabelRequirement';
 import {
     IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSON,
     IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSONTyped,
     IoK8sApiCoreV1TopologySelectorLabelRequirementToJSON,
+    IoK8sApiCoreV1TopologySelectorLabelRequirementToJSONTyped,
 } from './IoK8sApiCoreV1TopologySelectorLabelRequirement';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1TopologySelectorTerm {
 /**
  * Check if a given object implements the IoK8sApiCoreV1TopologySelectorTerm interface.
  */
-export function instanceOfIoK8sApiCoreV1TopologySelectorTerm(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1TopologySelectorTerm(value: object): value is IoK8sApiCoreV1TopologySelectorTerm {
+    return true;
 }
 
 export function IoK8sApiCoreV1TopologySelectorTermFromJSON(json: any): IoK8sApiCoreV1TopologySelectorTerm {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1TopologySelectorTermFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1TopologySelectorTermFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1TopologySelectorTerm {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'matchLabelExpressions': !exists(json, 'matchLabelExpressions') ? undefined : ((json['matchLabelExpressions'] as Array<any>).map(IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSON)),
+        'matchLabelExpressions': json['matchLabelExpressions'] == null ? undefined : ((json['matchLabelExpressions'] as Array<any>).map(IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1TopologySelectorTermToJSON(value?: IoK8sApiCoreV1TopologySelectorTerm | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1TopologySelectorTermToJSON(json: any): IoK8sApiCoreV1TopologySelectorTerm {
+    return IoK8sApiCoreV1TopologySelectorTermToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1TopologySelectorTermToJSONTyped(value?: IoK8sApiCoreV1TopologySelectorTerm | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'matchLabelExpressions': value.matchLabelExpressions === undefined ? undefined : ((value.matchLabelExpressions as Array<any>).map(IoK8sApiCoreV1TopologySelectorLabelRequirementToJSON)),
+        'matchLabelExpressions': value['matchLabelExpressions'] == null ? undefined : ((value['matchLabelExpressions'] as Array<any>).map(IoK8sApiCoreV1TopologySelectorLabelRequirementToJSON)),
     };
 }
 

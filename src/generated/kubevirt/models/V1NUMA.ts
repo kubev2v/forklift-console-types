@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1NUMA {
 /**
  * Check if a given object implements the V1NUMA interface.
  */
-export function instanceOfV1NUMA(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1NUMA(value: object): value is V1NUMA {
+    return true;
 }
 
 export function V1NUMAFromJSON(json: any): V1NUMA {
@@ -41,25 +39,27 @@ export function V1NUMAFromJSON(json: any): V1NUMA {
 }
 
 export function V1NUMAFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1NUMA {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'guestMappingPassthrough': !exists(json, 'guestMappingPassthrough') ? undefined : json['guestMappingPassthrough'],
+        'guestMappingPassthrough': json['guestMappingPassthrough'] == null ? undefined : json['guestMappingPassthrough'],
     };
 }
 
-export function V1NUMAToJSON(value?: V1NUMA | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1NUMAToJSON(json: any): V1NUMA {
+    return V1NUMAToJSONTyped(json, false);
+}
+
+export function V1NUMAToJSONTyped(value?: V1NUMA | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'guestMappingPassthrough': value.guestMappingPassthrough,
+        'guestMappingPassthrough': value['guestMappingPassthrough'],
     };
 }
 

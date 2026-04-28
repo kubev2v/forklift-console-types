@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
  * @export
@@ -38,11 +38,9 @@ export interface IoK8sApiCoreV1SeccompProfile {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SeccompProfile interface.
  */
-export function instanceOfIoK8sApiCoreV1SeccompProfile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SeccompProfile(value: object): value is IoK8sApiCoreV1SeccompProfile {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1SeccompProfileFromJSON(json: any): IoK8sApiCoreV1SeccompProfile {
@@ -50,27 +48,29 @@ export function IoK8sApiCoreV1SeccompProfileFromJSON(json: any): IoK8sApiCoreV1S
 }
 
 export function IoK8sApiCoreV1SeccompProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SeccompProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'localhostProfile': !exists(json, 'localhostProfile') ? undefined : json['localhostProfile'],
+        'localhostProfile': json['localhostProfile'] == null ? undefined : json['localhostProfile'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1SeccompProfileToJSON(value?: IoK8sApiCoreV1SeccompProfile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SeccompProfileToJSON(json: any): IoK8sApiCoreV1SeccompProfile {
+    return IoK8sApiCoreV1SeccompProfileToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SeccompProfileToJSONTyped(value?: IoK8sApiCoreV1SeccompProfile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'localhostProfile': value.localhostProfile,
-        'type': value.type,
+        'localhostProfile': value['localhostProfile'],
+        'type': value['type'],
     };
 }
 

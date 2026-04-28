@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1CPUFeature } from './V1CPUFeature';
 import {
     V1CPUFeatureFromJSON,
     V1CPUFeatureFromJSONTyped,
     V1CPUFeatureToJSON,
+    V1CPUFeatureToJSONTyped,
 } from './V1CPUFeature';
 import type { V1NUMA } from './V1NUMA';
 import {
     V1NUMAFromJSON,
     V1NUMAFromJSONTyped,
     V1NUMAToJSON,
+    V1NUMAToJSONTyped,
 } from './V1NUMA';
 import type { V1Realtime } from './V1Realtime';
 import {
     V1RealtimeFromJSON,
     V1RealtimeFromJSONTyped,
     V1RealtimeToJSON,
+    V1RealtimeToJSONTyped,
 } from './V1Realtime';
 
 /**
@@ -103,10 +106,8 @@ export interface V1CPU {
 /**
  * Check if a given object implements the V1CPU interface.
  */
-export function instanceOfV1CPU(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1CPU(value: object): value is V1CPU {
+    return true;
 }
 
 export function V1CPUFromJSON(json: any): V1CPU {
@@ -114,43 +115,45 @@ export function V1CPUFromJSON(json: any): V1CPU {
 }
 
 export function V1CPUFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CPU {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'cores': !exists(json, 'cores') ? undefined : json['cores'],
-        'dedicatedCpuPlacement': !exists(json, 'dedicatedCpuPlacement') ? undefined : json['dedicatedCpuPlacement'],
-        'features': !exists(json, 'features') ? undefined : ((json['features'] as Array<any>).map(V1CPUFeatureFromJSON)),
-        'isolateEmulatorThread': !exists(json, 'isolateEmulatorThread') ? undefined : json['isolateEmulatorThread'],
-        'maxSockets': !exists(json, 'maxSockets') ? undefined : json['maxSockets'],
-        'model': !exists(json, 'model') ? undefined : json['model'],
-        'numa': !exists(json, 'numa') ? undefined : V1NUMAFromJSON(json['numa']),
-        'realtime': !exists(json, 'realtime') ? undefined : V1RealtimeFromJSON(json['realtime']),
-        'sockets': !exists(json, 'sockets') ? undefined : json['sockets'],
-        'threads': !exists(json, 'threads') ? undefined : json['threads'],
+        'cores': json['cores'] == null ? undefined : json['cores'],
+        'dedicatedCpuPlacement': json['dedicatedCpuPlacement'] == null ? undefined : json['dedicatedCpuPlacement'],
+        'features': json['features'] == null ? undefined : ((json['features'] as Array<any>).map(V1CPUFeatureFromJSON)),
+        'isolateEmulatorThread': json['isolateEmulatorThread'] == null ? undefined : json['isolateEmulatorThread'],
+        'maxSockets': json['maxSockets'] == null ? undefined : json['maxSockets'],
+        'model': json['model'] == null ? undefined : json['model'],
+        'numa': json['numa'] == null ? undefined : V1NUMAFromJSON(json['numa']),
+        'realtime': json['realtime'] == null ? undefined : V1RealtimeFromJSON(json['realtime']),
+        'sockets': json['sockets'] == null ? undefined : json['sockets'],
+        'threads': json['threads'] == null ? undefined : json['threads'],
     };
 }
 
-export function V1CPUToJSON(value?: V1CPU | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CPUToJSON(json: any): V1CPU {
+    return V1CPUToJSONTyped(json, false);
+}
+
+export function V1CPUToJSONTyped(value?: V1CPU | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'cores': value.cores,
-        'dedicatedCpuPlacement': value.dedicatedCpuPlacement,
-        'features': value.features === undefined ? undefined : ((value.features as Array<any>).map(V1CPUFeatureToJSON)),
-        'isolateEmulatorThread': value.isolateEmulatorThread,
-        'maxSockets': value.maxSockets,
-        'model': value.model,
-        'numa': V1NUMAToJSON(value.numa),
-        'realtime': V1RealtimeToJSON(value.realtime),
-        'sockets': value.sockets,
-        'threads': value.threads,
+        'cores': value['cores'],
+        'dedicatedCpuPlacement': value['dedicatedCpuPlacement'],
+        'features': value['features'] == null ? undefined : ((value['features'] as Array<any>).map(V1CPUFeatureToJSON)),
+        'isolateEmulatorThread': value['isolateEmulatorThread'],
+        'maxSockets': value['maxSockets'],
+        'model': value['model'],
+        'numa': V1NUMAToJSON(value['numa']),
+        'realtime': V1RealtimeToJSON(value['realtime']),
+        'sockets': value['sockets'],
+        'threads': value['threads'],
     };
 }
 

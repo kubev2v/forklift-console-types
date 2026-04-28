@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoordinationV1LeaseSpec } from './IoK8sApiCoordinationV1LeaseSpec';
 import {
     IoK8sApiCoordinationV1LeaseSpecFromJSON,
     IoK8sApiCoordinationV1LeaseSpecFromJSONTyped,
     IoK8sApiCoordinationV1LeaseSpecToJSON,
+    IoK8sApiCoordinationV1LeaseSpecToJSONTyped,
 } from './IoK8sApiCoordinationV1LeaseSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -61,10 +63,8 @@ export interface IoK8sApiCoordinationV1Lease {
 /**
  * Check if a given object implements the IoK8sApiCoordinationV1Lease interface.
  */
-export function instanceOfIoK8sApiCoordinationV1Lease(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoordinationV1Lease(value: object): value is IoK8sApiCoordinationV1Lease {
+    return true;
 }
 
 export function IoK8sApiCoordinationV1LeaseFromJSON(json: any): IoK8sApiCoordinationV1Lease {
@@ -72,31 +72,33 @@ export function IoK8sApiCoordinationV1LeaseFromJSON(json: any): IoK8sApiCoordina
 }
 
 export function IoK8sApiCoordinationV1LeaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoordinationV1Lease {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoordinationV1LeaseSpecFromJSON(json['spec']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoordinationV1LeaseSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiCoordinationV1LeaseToJSON(value?: IoK8sApiCoordinationV1Lease | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoordinationV1LeaseToJSON(json: any): IoK8sApiCoordinationV1Lease {
+    return IoK8sApiCoordinationV1LeaseToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoordinationV1LeaseToJSONTyped(value?: IoK8sApiCoordinationV1Lease | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoordinationV1LeaseSpecToJSON(value.spec),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoordinationV1LeaseSpecToJSON(value['spec']),
     };
 }
 

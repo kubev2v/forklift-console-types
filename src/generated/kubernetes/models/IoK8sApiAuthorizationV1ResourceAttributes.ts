@@ -12,7 +12,22 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiAuthorizationV1FieldSelectorAttributes } from './IoK8sApiAuthorizationV1FieldSelectorAttributes';
+import {
+    IoK8sApiAuthorizationV1FieldSelectorAttributesFromJSON,
+    IoK8sApiAuthorizationV1FieldSelectorAttributesFromJSONTyped,
+    IoK8sApiAuthorizationV1FieldSelectorAttributesToJSON,
+    IoK8sApiAuthorizationV1FieldSelectorAttributesToJSONTyped,
+} from './IoK8sApiAuthorizationV1FieldSelectorAttributes';
+import type { IoK8sApiAuthorizationV1LabelSelectorAttributes } from './IoK8sApiAuthorizationV1LabelSelectorAttributes';
+import {
+    IoK8sApiAuthorizationV1LabelSelectorAttributesFromJSON,
+    IoK8sApiAuthorizationV1LabelSelectorAttributesFromJSONTyped,
+    IoK8sApiAuthorizationV1LabelSelectorAttributesToJSON,
+    IoK8sApiAuthorizationV1LabelSelectorAttributesToJSONTyped,
+} from './IoK8sApiAuthorizationV1LabelSelectorAttributes';
+
 /**
  * ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
  * @export
@@ -20,43 +35,55 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthorizationV1ResourceAttributes {
     /**
-     * Group is the API Group of the Resource.  "*" means all.
+     * 
+     * @type {IoK8sApiAuthorizationV1FieldSelectorAttributes}
+     * @memberof IoK8sApiAuthorizationV1ResourceAttributes
+     */
+    fieldSelector?: IoK8sApiAuthorizationV1FieldSelectorAttributes;
+    /**
+     * group is the API Group of the Resource.  "*" means all.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
     group?: string;
     /**
-     * Name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
+     * 
+     * @type {IoK8sApiAuthorizationV1LabelSelectorAttributes}
+     * @memberof IoK8sApiAuthorizationV1ResourceAttributes
+     */
+    labelSelector?: IoK8sApiAuthorizationV1LabelSelectorAttributes;
+    /**
+     * name is the name of the resource being requested for a "get" or deleted for a "delete". "" (empty) means all.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
     name?: string;
     /**
-     * Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+     * namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
     namespace?: string;
     /**
-     * Resource is one of the existing resource types.  "*" means all.
+     * resource is one of the existing resource types.  "*" means all.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
     resource?: string;
     /**
-     * Subresource is one of the existing resource types.  "" means none.
+     * subresource is one of the existing resource types.  "" means none.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
     subresource?: string;
     /**
-     * Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+     * verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
     verb?: string;
     /**
-     * Version is the API Version of the Resource.  "*" means all.
+     * version is the API Version of the Resource.  "*" means all.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1ResourceAttributes
      */
@@ -66,10 +93,8 @@ export interface IoK8sApiAuthorizationV1ResourceAttributes {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1ResourceAttributes interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1ResourceAttributes(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1ResourceAttributes(value: object): value is IoK8sApiAuthorizationV1ResourceAttributes {
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1ResourceAttributesFromJSON(json: any): IoK8sApiAuthorizationV1ResourceAttributes {
@@ -77,37 +102,43 @@ export function IoK8sApiAuthorizationV1ResourceAttributesFromJSON(json: any): Io
 }
 
 export function IoK8sApiAuthorizationV1ResourceAttributesFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1ResourceAttributes {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'group': !exists(json, 'group') ? undefined : json['group'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
-        'resource': !exists(json, 'resource') ? undefined : json['resource'],
-        'subresource': !exists(json, 'subresource') ? undefined : json['subresource'],
-        'verb': !exists(json, 'verb') ? undefined : json['verb'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
+        'fieldSelector': json['fieldSelector'] == null ? undefined : IoK8sApiAuthorizationV1FieldSelectorAttributesFromJSON(json['fieldSelector']),
+        'group': json['group'] == null ? undefined : json['group'],
+        'labelSelector': json['labelSelector'] == null ? undefined : IoK8sApiAuthorizationV1LabelSelectorAttributesFromJSON(json['labelSelector']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
+        'resource': json['resource'] == null ? undefined : json['resource'],
+        'subresource': json['subresource'] == null ? undefined : json['subresource'],
+        'verb': json['verb'] == null ? undefined : json['verb'],
+        'version': json['version'] == null ? undefined : json['version'],
     };
 }
 
-export function IoK8sApiAuthorizationV1ResourceAttributesToJSON(value?: IoK8sApiAuthorizationV1ResourceAttributes | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1ResourceAttributesToJSON(json: any): IoK8sApiAuthorizationV1ResourceAttributes {
+    return IoK8sApiAuthorizationV1ResourceAttributesToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1ResourceAttributesToJSONTyped(value?: IoK8sApiAuthorizationV1ResourceAttributes | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'group': value.group,
-        'name': value.name,
-        'namespace': value.namespace,
-        'resource': value.resource,
-        'subresource': value.subresource,
-        'verb': value.verb,
-        'version': value.version,
+        'fieldSelector': IoK8sApiAuthorizationV1FieldSelectorAttributesToJSON(value['fieldSelector']),
+        'group': value['group'],
+        'labelSelector': IoK8sApiAuthorizationV1LabelSelectorAttributesToJSON(value['labelSelector']),
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'resource': value['resource'],
+        'subresource': value['subresource'],
+        'verb': value['verb'],
+        'version': value['version'],
     };
 }
 

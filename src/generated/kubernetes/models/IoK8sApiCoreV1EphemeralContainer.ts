@@ -12,67 +12,84 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ContainerPort } from './IoK8sApiCoreV1ContainerPort';
-import {
-    IoK8sApiCoreV1ContainerPortFromJSON,
-    IoK8sApiCoreV1ContainerPortFromJSONTyped,
-    IoK8sApiCoreV1ContainerPortToJSON,
-} from './IoK8sApiCoreV1ContainerPort';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ContainerResizePolicy } from './IoK8sApiCoreV1ContainerResizePolicy';
 import {
     IoK8sApiCoreV1ContainerResizePolicyFromJSON,
     IoK8sApiCoreV1ContainerResizePolicyFromJSONTyped,
     IoK8sApiCoreV1ContainerResizePolicyToJSON,
+    IoK8sApiCoreV1ContainerResizePolicyToJSONTyped,
 } from './IoK8sApiCoreV1ContainerResizePolicy';
-import type { IoK8sApiCoreV1EnvFromSource } from './IoK8sApiCoreV1EnvFromSource';
+import type { IoK8sApiCoreV1ContainerRestartRule } from './IoK8sApiCoreV1ContainerRestartRule';
 import {
-    IoK8sApiCoreV1EnvFromSourceFromJSON,
-    IoK8sApiCoreV1EnvFromSourceFromJSONTyped,
-    IoK8sApiCoreV1EnvFromSourceToJSON,
-} from './IoK8sApiCoreV1EnvFromSource';
-import type { IoK8sApiCoreV1EnvVar } from './IoK8sApiCoreV1EnvVar';
-import {
-    IoK8sApiCoreV1EnvVarFromJSON,
-    IoK8sApiCoreV1EnvVarFromJSONTyped,
-    IoK8sApiCoreV1EnvVarToJSON,
-} from './IoK8sApiCoreV1EnvVar';
+    IoK8sApiCoreV1ContainerRestartRuleFromJSON,
+    IoK8sApiCoreV1ContainerRestartRuleFromJSONTyped,
+    IoK8sApiCoreV1ContainerRestartRuleToJSON,
+    IoK8sApiCoreV1ContainerRestartRuleToJSONTyped,
+} from './IoK8sApiCoreV1ContainerRestartRule';
 import type { IoK8sApiCoreV1Lifecycle } from './IoK8sApiCoreV1Lifecycle';
 import {
     IoK8sApiCoreV1LifecycleFromJSON,
     IoK8sApiCoreV1LifecycleFromJSONTyped,
     IoK8sApiCoreV1LifecycleToJSON,
+    IoK8sApiCoreV1LifecycleToJSONTyped,
 } from './IoK8sApiCoreV1Lifecycle';
-import type { IoK8sApiCoreV1Probe } from './IoK8sApiCoreV1Probe';
+import type { IoK8sApiCoreV1ContainerPort } from './IoK8sApiCoreV1ContainerPort';
 import {
-    IoK8sApiCoreV1ProbeFromJSON,
-    IoK8sApiCoreV1ProbeFromJSONTyped,
-    IoK8sApiCoreV1ProbeToJSON,
-} from './IoK8sApiCoreV1Probe';
+    IoK8sApiCoreV1ContainerPortFromJSON,
+    IoK8sApiCoreV1ContainerPortFromJSONTyped,
+    IoK8sApiCoreV1ContainerPortToJSON,
+    IoK8sApiCoreV1ContainerPortToJSONTyped,
+} from './IoK8sApiCoreV1ContainerPort';
 import type { IoK8sApiCoreV1ResourceRequirements } from './IoK8sApiCoreV1ResourceRequirements';
 import {
     IoK8sApiCoreV1ResourceRequirementsFromJSON,
     IoK8sApiCoreV1ResourceRequirementsFromJSONTyped,
     IoK8sApiCoreV1ResourceRequirementsToJSON,
+    IoK8sApiCoreV1ResourceRequirementsToJSONTyped,
 } from './IoK8sApiCoreV1ResourceRequirements';
+import type { IoK8sApiCoreV1VolumeMount } from './IoK8sApiCoreV1VolumeMount';
+import {
+    IoK8sApiCoreV1VolumeMountFromJSON,
+    IoK8sApiCoreV1VolumeMountFromJSONTyped,
+    IoK8sApiCoreV1VolumeMountToJSON,
+    IoK8sApiCoreV1VolumeMountToJSONTyped,
+} from './IoK8sApiCoreV1VolumeMount';
+import type { IoK8sApiCoreV1Probe } from './IoK8sApiCoreV1Probe';
+import {
+    IoK8sApiCoreV1ProbeFromJSON,
+    IoK8sApiCoreV1ProbeFromJSONTyped,
+    IoK8sApiCoreV1ProbeToJSON,
+    IoK8sApiCoreV1ProbeToJSONTyped,
+} from './IoK8sApiCoreV1Probe';
 import type { IoK8sApiCoreV1SecurityContext } from './IoK8sApiCoreV1SecurityContext';
 import {
     IoK8sApiCoreV1SecurityContextFromJSON,
     IoK8sApiCoreV1SecurityContextFromJSONTyped,
     IoK8sApiCoreV1SecurityContextToJSON,
+    IoK8sApiCoreV1SecurityContextToJSONTyped,
 } from './IoK8sApiCoreV1SecurityContext';
 import type { IoK8sApiCoreV1VolumeDevice } from './IoK8sApiCoreV1VolumeDevice';
 import {
     IoK8sApiCoreV1VolumeDeviceFromJSON,
     IoK8sApiCoreV1VolumeDeviceFromJSONTyped,
     IoK8sApiCoreV1VolumeDeviceToJSON,
+    IoK8sApiCoreV1VolumeDeviceToJSONTyped,
 } from './IoK8sApiCoreV1VolumeDevice';
-import type { IoK8sApiCoreV1VolumeMount } from './IoK8sApiCoreV1VolumeMount';
+import type { IoK8sApiCoreV1EnvVar } from './IoK8sApiCoreV1EnvVar';
 import {
-    IoK8sApiCoreV1VolumeMountFromJSON,
-    IoK8sApiCoreV1VolumeMountFromJSONTyped,
-    IoK8sApiCoreV1VolumeMountToJSON,
-} from './IoK8sApiCoreV1VolumeMount';
+    IoK8sApiCoreV1EnvVarFromJSON,
+    IoK8sApiCoreV1EnvVarFromJSONTyped,
+    IoK8sApiCoreV1EnvVarToJSON,
+    IoK8sApiCoreV1EnvVarToJSONTyped,
+} from './IoK8sApiCoreV1EnvVar';
+import type { IoK8sApiCoreV1EnvFromSource } from './IoK8sApiCoreV1EnvFromSource';
+import {
+    IoK8sApiCoreV1EnvFromSourceFromJSON,
+    IoK8sApiCoreV1EnvFromSourceFromJSONTyped,
+    IoK8sApiCoreV1EnvFromSourceToJSON,
+    IoK8sApiCoreV1EnvFromSourceToJSONTyped,
+} from './IoK8sApiCoreV1EnvFromSource';
 
 /**
  * An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
@@ -87,13 +104,13 @@ export interface IoK8sApiCoreV1EphemeralContainer {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1EphemeralContainer
      */
-    args?: string[];
+    args?: Array<string>;
     /**
      * Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1EphemeralContainer
      */
-    command?: string[];
+    command?: Array<string>;
     /**
      * List of environment variables to set in the container. Cannot be updated.
      * @type {Array<IoK8sApiCoreV1EnvVar>}
@@ -101,7 +118,7 @@ export interface IoK8sApiCoreV1EphemeralContainer {
      */
     env?: Array<IoK8sApiCoreV1EnvVar>;
     /**
-     * List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+     * List of sources to populate environment variables in the container. The keys defined within a source may consist of any printable ASCII characters except '='. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
      * @type {Array<IoK8sApiCoreV1EnvFromSource>}
      * @memberof IoK8sApiCoreV1EphemeralContainer
      */
@@ -161,11 +178,17 @@ export interface IoK8sApiCoreV1EphemeralContainer {
      */
     resources?: IoK8sApiCoreV1ResourceRequirements;
     /**
-     * Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * Restart policy for the container to manage the restart behavior of each container within a pod. You cannot set this field on ephemeral containers.
      * @type {string}
      * @memberof IoK8sApiCoreV1EphemeralContainer
      */
     restartPolicy?: string;
+    /**
+     * Represents a list of rules to be checked to determine if the container should be restarted on exit. You cannot set this field on ephemeral containers.
+     * @type {Array<IoK8sApiCoreV1ContainerRestartRule>}
+     * @memberof IoK8sApiCoreV1EphemeralContainer
+     */
+    restartPolicyRules?: Array<IoK8sApiCoreV1ContainerRestartRule>;
     /**
      * 
      * @type {IoK8sApiCoreV1SecurityContext}
@@ -239,11 +262,9 @@ export interface IoK8sApiCoreV1EphemeralContainer {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EphemeralContainer interface.
  */
-export function instanceOfIoK8sApiCoreV1EphemeralContainer(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EphemeralContainer(value: object): value is IoK8sApiCoreV1EphemeralContainer {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1EphemeralContainerFromJSON(json: any): IoK8sApiCoreV1EphemeralContainer {
@@ -251,73 +272,77 @@ export function IoK8sApiCoreV1EphemeralContainerFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1EphemeralContainerFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EphemeralContainer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'args': !exists(json, 'args') ? undefined : json['args'],
-        'command': !exists(json, 'command') ? undefined : json['command'],
-        'env': !exists(json, 'env') ? undefined : ((json['env'] as Array<any>).map(IoK8sApiCoreV1EnvVarFromJSON)),
-        'envFrom': !exists(json, 'envFrom') ? undefined : ((json['envFrom'] as Array<any>).map(IoK8sApiCoreV1EnvFromSourceFromJSON)),
-        'image': !exists(json, 'image') ? undefined : json['image'],
-        'imagePullPolicy': !exists(json, 'imagePullPolicy') ? undefined : json['imagePullPolicy'],
-        'lifecycle': !exists(json, 'lifecycle') ? undefined : IoK8sApiCoreV1LifecycleFromJSON(json['lifecycle']),
-        'livenessProbe': !exists(json, 'livenessProbe') ? undefined : IoK8sApiCoreV1ProbeFromJSON(json['livenessProbe']),
+        'args': json['args'] == null ? undefined : json['args'],
+        'command': json['command'] == null ? undefined : json['command'],
+        'env': json['env'] == null ? undefined : ((json['env'] as Array<any>).map(IoK8sApiCoreV1EnvVarFromJSON)),
+        'envFrom': json['envFrom'] == null ? undefined : ((json['envFrom'] as Array<any>).map(IoK8sApiCoreV1EnvFromSourceFromJSON)),
+        'image': json['image'] == null ? undefined : json['image'],
+        'imagePullPolicy': json['imagePullPolicy'] == null ? undefined : json['imagePullPolicy'],
+        'lifecycle': json['lifecycle'] == null ? undefined : IoK8sApiCoreV1LifecycleFromJSON(json['lifecycle']),
+        'livenessProbe': json['livenessProbe'] == null ? undefined : IoK8sApiCoreV1ProbeFromJSON(json['livenessProbe']),
         'name': json['name'],
-        'ports': !exists(json, 'ports') ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1ContainerPortFromJSON)),
-        'readinessProbe': !exists(json, 'readinessProbe') ? undefined : IoK8sApiCoreV1ProbeFromJSON(json['readinessProbe']),
-        'resizePolicy': !exists(json, 'resizePolicy') ? undefined : ((json['resizePolicy'] as Array<any>).map(IoK8sApiCoreV1ContainerResizePolicyFromJSON)),
-        'resources': !exists(json, 'resources') ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
-        'restartPolicy': !exists(json, 'restartPolicy') ? undefined : json['restartPolicy'],
-        'securityContext': !exists(json, 'securityContext') ? undefined : IoK8sApiCoreV1SecurityContextFromJSON(json['securityContext']),
-        'startupProbe': !exists(json, 'startupProbe') ? undefined : IoK8sApiCoreV1ProbeFromJSON(json['startupProbe']),
-        'stdin': !exists(json, 'stdin') ? undefined : json['stdin'],
-        'stdinOnce': !exists(json, 'stdinOnce') ? undefined : json['stdinOnce'],
-        'targetContainerName': !exists(json, 'targetContainerName') ? undefined : json['targetContainerName'],
-        'terminationMessagePath': !exists(json, 'terminationMessagePath') ? undefined : json['terminationMessagePath'],
-        'terminationMessagePolicy': !exists(json, 'terminationMessagePolicy') ? undefined : json['terminationMessagePolicy'],
-        'tty': !exists(json, 'tty') ? undefined : json['tty'],
-        'volumeDevices': !exists(json, 'volumeDevices') ? undefined : ((json['volumeDevices'] as Array<any>).map(IoK8sApiCoreV1VolumeDeviceFromJSON)),
-        'volumeMounts': !exists(json, 'volumeMounts') ? undefined : ((json['volumeMounts'] as Array<any>).map(IoK8sApiCoreV1VolumeMountFromJSON)),
-        'workingDir': !exists(json, 'workingDir') ? undefined : json['workingDir'],
+        'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1ContainerPortFromJSON)),
+        'readinessProbe': json['readinessProbe'] == null ? undefined : IoK8sApiCoreV1ProbeFromJSON(json['readinessProbe']),
+        'resizePolicy': json['resizePolicy'] == null ? undefined : ((json['resizePolicy'] as Array<any>).map(IoK8sApiCoreV1ContainerResizePolicyFromJSON)),
+        'resources': json['resources'] == null ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
+        'restartPolicy': json['restartPolicy'] == null ? undefined : json['restartPolicy'],
+        'restartPolicyRules': json['restartPolicyRules'] == null ? undefined : ((json['restartPolicyRules'] as Array<any>).map(IoK8sApiCoreV1ContainerRestartRuleFromJSON)),
+        'securityContext': json['securityContext'] == null ? undefined : IoK8sApiCoreV1SecurityContextFromJSON(json['securityContext']),
+        'startupProbe': json['startupProbe'] == null ? undefined : IoK8sApiCoreV1ProbeFromJSON(json['startupProbe']),
+        'stdin': json['stdin'] == null ? undefined : json['stdin'],
+        'stdinOnce': json['stdinOnce'] == null ? undefined : json['stdinOnce'],
+        'targetContainerName': json['targetContainerName'] == null ? undefined : json['targetContainerName'],
+        'terminationMessagePath': json['terminationMessagePath'] == null ? undefined : json['terminationMessagePath'],
+        'terminationMessagePolicy': json['terminationMessagePolicy'] == null ? undefined : json['terminationMessagePolicy'],
+        'tty': json['tty'] == null ? undefined : json['tty'],
+        'volumeDevices': json['volumeDevices'] == null ? undefined : ((json['volumeDevices'] as Array<any>).map(IoK8sApiCoreV1VolumeDeviceFromJSON)),
+        'volumeMounts': json['volumeMounts'] == null ? undefined : ((json['volumeMounts'] as Array<any>).map(IoK8sApiCoreV1VolumeMountFromJSON)),
+        'workingDir': json['workingDir'] == null ? undefined : json['workingDir'],
     };
 }
 
-export function IoK8sApiCoreV1EphemeralContainerToJSON(value?: IoK8sApiCoreV1EphemeralContainer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EphemeralContainerToJSON(json: any): IoK8sApiCoreV1EphemeralContainer {
+    return IoK8sApiCoreV1EphemeralContainerToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EphemeralContainerToJSONTyped(value?: IoK8sApiCoreV1EphemeralContainer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'args': value.args,
-        'command': value.command,
-        'env': value.env === undefined ? undefined : ((value.env as Array<any>).map(IoK8sApiCoreV1EnvVarToJSON)),
-        'envFrom': value.envFrom === undefined ? undefined : ((value.envFrom as Array<any>).map(IoK8sApiCoreV1EnvFromSourceToJSON)),
-        'image': value.image,
-        'imagePullPolicy': value.imagePullPolicy,
-        'lifecycle': IoK8sApiCoreV1LifecycleToJSON(value.lifecycle),
-        'livenessProbe': IoK8sApiCoreV1ProbeToJSON(value.livenessProbe),
-        'name': value.name,
-        'ports': value.ports === undefined ? undefined : ((value.ports as Array<any>).map(IoK8sApiCoreV1ContainerPortToJSON)),
-        'readinessProbe': IoK8sApiCoreV1ProbeToJSON(value.readinessProbe),
-        'resizePolicy': value.resizePolicy === undefined ? undefined : ((value.resizePolicy as Array<any>).map(IoK8sApiCoreV1ContainerResizePolicyToJSON)),
-        'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value.resources),
-        'restartPolicy': value.restartPolicy,
-        'securityContext': IoK8sApiCoreV1SecurityContextToJSON(value.securityContext),
-        'startupProbe': IoK8sApiCoreV1ProbeToJSON(value.startupProbe),
-        'stdin': value.stdin,
-        'stdinOnce': value.stdinOnce,
-        'targetContainerName': value.targetContainerName,
-        'terminationMessagePath': value.terminationMessagePath,
-        'terminationMessagePolicy': value.terminationMessagePolicy,
-        'tty': value.tty,
-        'volumeDevices': value.volumeDevices === undefined ? undefined : ((value.volumeDevices as Array<any>).map(IoK8sApiCoreV1VolumeDeviceToJSON)),
-        'volumeMounts': value.volumeMounts === undefined ? undefined : ((value.volumeMounts as Array<any>).map(IoK8sApiCoreV1VolumeMountToJSON)),
-        'workingDir': value.workingDir,
+        'args': value['args'],
+        'command': value['command'],
+        'env': value['env'] == null ? undefined : ((value['env'] as Array<any>).map(IoK8sApiCoreV1EnvVarToJSON)),
+        'envFrom': value['envFrom'] == null ? undefined : ((value['envFrom'] as Array<any>).map(IoK8sApiCoreV1EnvFromSourceToJSON)),
+        'image': value['image'],
+        'imagePullPolicy': value['imagePullPolicy'],
+        'lifecycle': IoK8sApiCoreV1LifecycleToJSON(value['lifecycle']),
+        'livenessProbe': IoK8sApiCoreV1ProbeToJSON(value['livenessProbe']),
+        'name': value['name'],
+        'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(IoK8sApiCoreV1ContainerPortToJSON)),
+        'readinessProbe': IoK8sApiCoreV1ProbeToJSON(value['readinessProbe']),
+        'resizePolicy': value['resizePolicy'] == null ? undefined : ((value['resizePolicy'] as Array<any>).map(IoK8sApiCoreV1ContainerResizePolicyToJSON)),
+        'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value['resources']),
+        'restartPolicy': value['restartPolicy'],
+        'restartPolicyRules': value['restartPolicyRules'] == null ? undefined : ((value['restartPolicyRules'] as Array<any>).map(IoK8sApiCoreV1ContainerRestartRuleToJSON)),
+        'securityContext': IoK8sApiCoreV1SecurityContextToJSON(value['securityContext']),
+        'startupProbe': IoK8sApiCoreV1ProbeToJSON(value['startupProbe']),
+        'stdin': value['stdin'],
+        'stdinOnce': value['stdinOnce'],
+        'targetContainerName': value['targetContainerName'],
+        'terminationMessagePath': value['terminationMessagePath'],
+        'terminationMessagePolicy': value['terminationMessagePolicy'],
+        'tty': value['tty'],
+        'volumeDevices': value['volumeDevices'] == null ? undefined : ((value['volumeDevices'] as Array<any>).map(IoK8sApiCoreV1VolumeDeviceToJSON)),
+        'volumeMounts': value['volumeMounts'] == null ? undefined : ((value['volumeMounts'] as Array<any>).map(IoK8sApiCoreV1VolumeMountToJSON)),
+        'workingDir': value['workingDir'],
     };
 }
 

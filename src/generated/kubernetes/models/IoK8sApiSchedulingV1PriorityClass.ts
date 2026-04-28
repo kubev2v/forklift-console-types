@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -67,17 +68,14 @@ export interface IoK8sApiSchedulingV1PriorityClass {
      * @type {number}
      * @memberof IoK8sApiSchedulingV1PriorityClass
      */
-    value: number;
+    value?: number;
 }
 
 /**
  * Check if a given object implements the IoK8sApiSchedulingV1PriorityClass interface.
  */
-export function instanceOfIoK8sApiSchedulingV1PriorityClass(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiSchedulingV1PriorityClass(value: object): value is IoK8sApiSchedulingV1PriorityClass {
+    return true;
 }
 
 export function IoK8sApiSchedulingV1PriorityClassFromJSON(json: any): IoK8sApiSchedulingV1PriorityClass {
@@ -85,37 +83,39 @@ export function IoK8sApiSchedulingV1PriorityClassFromJSON(json: any): IoK8sApiSc
 }
 
 export function IoK8sApiSchedulingV1PriorityClassFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiSchedulingV1PriorityClass {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'globalDefault': !exists(json, 'globalDefault') ? undefined : json['globalDefault'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'preemptionPolicy': !exists(json, 'preemptionPolicy') ? undefined : json['preemptionPolicy'],
-        'value': json['value'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'globalDefault': json['globalDefault'] == null ? undefined : json['globalDefault'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'preemptionPolicy': json['preemptionPolicy'] == null ? undefined : json['preemptionPolicy'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function IoK8sApiSchedulingV1PriorityClassToJSON(value?: IoK8sApiSchedulingV1PriorityClass | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiSchedulingV1PriorityClassToJSON(json: any): IoK8sApiSchedulingV1PriorityClass {
+    return IoK8sApiSchedulingV1PriorityClassToJSONTyped(json, false);
+}
+
+export function IoK8sApiSchedulingV1PriorityClassToJSONTyped(value?: IoK8sApiSchedulingV1PriorityClass | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'description': value.description,
-        'globalDefault': value.globalDefault,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'preemptionPolicy': value.preemptionPolicy,
-        'value': value.value,
+        'apiVersion': value['apiVersion'],
+        'description': value['description'],
+        'globalDefault': value['globalDefault'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'preemptionPolicy': value['preemptionPolicy'],
+        'value': value['value'],
     };
 }
 

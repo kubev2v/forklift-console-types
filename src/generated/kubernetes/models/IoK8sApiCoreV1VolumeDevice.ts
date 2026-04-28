@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * volumeDevice describes a mapping of a raw block device within a container.
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApiCoreV1VolumeDevice {
 /**
  * Check if a given object implements the IoK8sApiCoreV1VolumeDevice interface.
  */
-export function instanceOfIoK8sApiCoreV1VolumeDevice(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "devicePath" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1VolumeDevice(value: object): value is IoK8sApiCoreV1VolumeDevice {
+    if (!('devicePath' in value) || value['devicePath'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1VolumeDeviceFromJSON(json: any): IoK8sApiCoreV1VolumeDevice {
@@ -49,7 +47,7 @@ export function IoK8sApiCoreV1VolumeDeviceFromJSON(json: any): IoK8sApiCoreV1Vol
 }
 
 export function IoK8sApiCoreV1VolumeDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1VolumeDevice {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiCoreV1VolumeDeviceFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function IoK8sApiCoreV1VolumeDeviceToJSON(value?: IoK8sApiCoreV1VolumeDevice | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VolumeDeviceToJSON(json: any): IoK8sApiCoreV1VolumeDevice {
+    return IoK8sApiCoreV1VolumeDeviceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VolumeDeviceToJSONTyped(value?: IoK8sApiCoreV1VolumeDevice | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'devicePath': value.devicePath,
-        'name': value.name,
+        'devicePath': value['devicePath'],
+        'name': value['name'],
     };
 }
 

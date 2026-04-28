@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ContainerPort represents a network port in a single container.
  * @export
@@ -54,11 +54,9 @@ export interface IoK8sApiCoreV1ContainerPort {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerPort interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerPort(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "containerPort" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerPort(value: object): value is IoK8sApiCoreV1ContainerPort {
+    if (!('containerPort' in value) || value['containerPort'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerPortFromJSON(json: any): IoK8sApiCoreV1ContainerPort {
@@ -66,33 +64,35 @@ export function IoK8sApiCoreV1ContainerPortFromJSON(json: any): IoK8sApiCoreV1Co
 }
 
 export function IoK8sApiCoreV1ContainerPortFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerPort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'containerPort': json['containerPort'],
-        'hostIP': !exists(json, 'hostIP') ? undefined : json['hostIP'],
-        'hostPort': !exists(json, 'hostPort') ? undefined : json['hostPort'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
+        'hostIP': json['hostIP'] == null ? undefined : json['hostIP'],
+        'hostPort': json['hostPort'] == null ? undefined : json['hostPort'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'protocol': json['protocol'] == null ? undefined : json['protocol'],
     };
 }
 
-export function IoK8sApiCoreV1ContainerPortToJSON(value?: IoK8sApiCoreV1ContainerPort | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerPortToJSON(json: any): IoK8sApiCoreV1ContainerPort {
+    return IoK8sApiCoreV1ContainerPortToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerPortToJSONTyped(value?: IoK8sApiCoreV1ContainerPort | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'containerPort': value.containerPort,
-        'hostIP': value.hostIP,
-        'hostPort': value.hostPort,
-        'name': value.name,
-        'protocol': value.protocol,
+        'containerPort': value['containerPort'],
+        'hostIP': value['hostIP'],
+        'hostPort': value['hostPort'],
+        'name': value['name'],
+        'protocol': value['protocol'],
     };
 }
 

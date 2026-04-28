@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1GenerationStatus } from './V1GenerationStatus';
 import {
     V1GenerationStatusFromJSON,
     V1GenerationStatusFromJSONTyped,
     V1GenerationStatusToJSON,
+    V1GenerationStatusToJSONTyped,
 } from './V1GenerationStatus';
 import type { V1KubeVirtCondition } from './V1KubeVirtCondition';
 import {
     V1KubeVirtConditionFromJSON,
     V1KubeVirtConditionFromJSONTyped,
     V1KubeVirtConditionToJSON,
+    V1KubeVirtConditionToJSONTyped,
 } from './V1KubeVirtCondition';
 
 /**
@@ -100,6 +102,12 @@ export interface V1KubeVirtStatus {
     phase?: string;
     /**
      * 
+     * @type {Array<string>}
+     * @memberof V1KubeVirtStatus
+     */
+    synchronizationAddresses?: Array<string>;
+    /**
+     * 
      * @type {string}
      * @memberof V1KubeVirtStatus
      */
@@ -127,10 +135,8 @@ export interface V1KubeVirtStatus {
 /**
  * Check if a given object implements the V1KubeVirtStatus interface.
  */
-export function instanceOfV1KubeVirtStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KubeVirtStatus(value: object): value is V1KubeVirtStatus {
+    return true;
 }
 
 export function V1KubeVirtStatusFromJSON(json: any): V1KubeVirtStatus {
@@ -138,53 +144,57 @@ export function V1KubeVirtStatusFromJSON(json: any): V1KubeVirtStatus {
 }
 
 export function V1KubeVirtStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(V1KubeVirtConditionFromJSON)),
-        'defaultArchitecture': !exists(json, 'defaultArchitecture') ? undefined : json['defaultArchitecture'],
-        'generations': !exists(json, 'generations') ? undefined : ((json['generations'] as Array<any>).map(V1GenerationStatusFromJSON)),
-        'observedDeploymentConfig': !exists(json, 'observedDeploymentConfig') ? undefined : json['observedDeploymentConfig'],
-        'observedDeploymentID': !exists(json, 'observedDeploymentID') ? undefined : json['observedDeploymentID'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
-        'observedKubeVirtRegistry': !exists(json, 'observedKubeVirtRegistry') ? undefined : json['observedKubeVirtRegistry'],
-        'observedKubeVirtVersion': !exists(json, 'observedKubeVirtVersion') ? undefined : json['observedKubeVirtVersion'],
-        'operatorVersion': !exists(json, 'operatorVersion') ? undefined : json['operatorVersion'],
-        'outdatedVirtualMachineInstanceWorkloads': !exists(json, 'outdatedVirtualMachineInstanceWorkloads') ? undefined : json['outdatedVirtualMachineInstanceWorkloads'],
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'targetDeploymentConfig': !exists(json, 'targetDeploymentConfig') ? undefined : json['targetDeploymentConfig'],
-        'targetDeploymentID': !exists(json, 'targetDeploymentID') ? undefined : json['targetDeploymentID'],
-        'targetKubeVirtRegistry': !exists(json, 'targetKubeVirtRegistry') ? undefined : json['targetKubeVirtRegistry'],
-        'targetKubeVirtVersion': !exists(json, 'targetKubeVirtVersion') ? undefined : json['targetKubeVirtVersion'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1KubeVirtConditionFromJSON)),
+        'defaultArchitecture': json['defaultArchitecture'] == null ? undefined : json['defaultArchitecture'],
+        'generations': json['generations'] == null ? undefined : ((json['generations'] as Array<any>).map(V1GenerationStatusFromJSON)),
+        'observedDeploymentConfig': json['observedDeploymentConfig'] == null ? undefined : json['observedDeploymentConfig'],
+        'observedDeploymentID': json['observedDeploymentID'] == null ? undefined : json['observedDeploymentID'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'observedKubeVirtRegistry': json['observedKubeVirtRegistry'] == null ? undefined : json['observedKubeVirtRegistry'],
+        'observedKubeVirtVersion': json['observedKubeVirtVersion'] == null ? undefined : json['observedKubeVirtVersion'],
+        'operatorVersion': json['operatorVersion'] == null ? undefined : json['operatorVersion'],
+        'outdatedVirtualMachineInstanceWorkloads': json['outdatedVirtualMachineInstanceWorkloads'] == null ? undefined : json['outdatedVirtualMachineInstanceWorkloads'],
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'synchronizationAddresses': json['synchronizationAddresses'] == null ? undefined : json['synchronizationAddresses'],
+        'targetDeploymentConfig': json['targetDeploymentConfig'] == null ? undefined : json['targetDeploymentConfig'],
+        'targetDeploymentID': json['targetDeploymentID'] == null ? undefined : json['targetDeploymentID'],
+        'targetKubeVirtRegistry': json['targetKubeVirtRegistry'] == null ? undefined : json['targetKubeVirtRegistry'],
+        'targetKubeVirtVersion': json['targetKubeVirtVersion'] == null ? undefined : json['targetKubeVirtVersion'],
     };
 }
 
-export function V1KubeVirtStatusToJSON(value?: V1KubeVirtStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtStatusToJSON(json: any): V1KubeVirtStatus {
+    return V1KubeVirtStatusToJSONTyped(json, false);
+}
+
+export function V1KubeVirtStatusToJSONTyped(value?: V1KubeVirtStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(V1KubeVirtConditionToJSON)),
-        'defaultArchitecture': value.defaultArchitecture,
-        'generations': value.generations === undefined ? undefined : ((value.generations as Array<any>).map(V1GenerationStatusToJSON)),
-        'observedDeploymentConfig': value.observedDeploymentConfig,
-        'observedDeploymentID': value.observedDeploymentID,
-        'observedGeneration': value.observedGeneration,
-        'observedKubeVirtRegistry': value.observedKubeVirtRegistry,
-        'observedKubeVirtVersion': value.observedKubeVirtVersion,
-        'operatorVersion': value.operatorVersion,
-        'outdatedVirtualMachineInstanceWorkloads': value.outdatedVirtualMachineInstanceWorkloads,
-        'phase': value.phase,
-        'targetDeploymentConfig': value.targetDeploymentConfig,
-        'targetDeploymentID': value.targetDeploymentID,
-        'targetKubeVirtRegistry': value.targetKubeVirtRegistry,
-        'targetKubeVirtVersion': value.targetKubeVirtVersion,
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1KubeVirtConditionToJSON)),
+        'defaultArchitecture': value['defaultArchitecture'],
+        'generations': value['generations'] == null ? undefined : ((value['generations'] as Array<any>).map(V1GenerationStatusToJSON)),
+        'observedDeploymentConfig': value['observedDeploymentConfig'],
+        'observedDeploymentID': value['observedDeploymentID'],
+        'observedGeneration': value['observedGeneration'],
+        'observedKubeVirtRegistry': value['observedKubeVirtRegistry'],
+        'observedKubeVirtVersion': value['observedKubeVirtVersion'],
+        'operatorVersion': value['operatorVersion'],
+        'outdatedVirtualMachineInstanceWorkloads': value['outdatedVirtualMachineInstanceWorkloads'],
+        'phase': value['phase'],
+        'synchronizationAddresses': value['synchronizationAddresses'],
+        'targetDeploymentConfig': value['targetDeploymentConfig'],
+        'targetDeploymentID': value['targetDeploymentID'],
+        'targetKubeVirtRegistry': value['targetKubeVirtRegistry'],
+        'targetKubeVirtVersion': value['targetKubeVirtVersion'],
     };
 }
 

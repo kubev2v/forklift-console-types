@@ -12,12 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { V1VirtualMachineInstanceMigrationSourceState } from './V1VirtualMachineInstanceMigrationSourceState';
+import {
+    V1VirtualMachineInstanceMigrationSourceStateFromJSON,
+    V1VirtualMachineInstanceMigrationSourceStateFromJSONTyped,
+    V1VirtualMachineInstanceMigrationSourceStateToJSON,
+    V1VirtualMachineInstanceMigrationSourceStateToJSONTyped,
+} from './V1VirtualMachineInstanceMigrationSourceState';
+import type { V1VirtualMachineInstanceMigrationTargetState } from './V1VirtualMachineInstanceMigrationTargetState';
+import {
+    V1VirtualMachineInstanceMigrationTargetStateFromJSON,
+    V1VirtualMachineInstanceMigrationTargetStateFromJSONTyped,
+    V1VirtualMachineInstanceMigrationTargetStateToJSON,
+    V1VirtualMachineInstanceMigrationTargetStateToJSONTyped,
+} from './V1VirtualMachineInstanceMigrationTargetState';
 import type { V1MigrationConfiguration } from './V1MigrationConfiguration';
 import {
     V1MigrationConfigurationFromJSON,
     V1MigrationConfigurationFromJSONTyped,
     V1MigrationConfigurationToJSON,
+    V1MigrationConfigurationToJSONTyped,
 } from './V1MigrationConfiguration';
 
 /**
@@ -49,7 +64,7 @@ export interface V1VirtualMachineInstanceMigrationState {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    endTimestamp?: string;
+    endTimestamp?: Date;
     /**
      * Indicates that the migration failed
      * @type {boolean}
@@ -57,11 +72,23 @@ export interface V1VirtualMachineInstanceMigrationState {
      */
     failed?: boolean;
     /**
+     * Contains the reason why the migration failed
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    failureReason?: string;
+    /**
      * 
      * @type {V1MigrationConfiguration}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
     migrationConfiguration?: V1MigrationConfiguration;
+    /**
+     * The type of migration network, either 'pod' or 'migration'
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    migrationNetworkType?: string;
     /**
      * Name of the migration policy. If string is empty, no policy is matched
      * @type {string}
@@ -87,11 +114,29 @@ export interface V1VirtualMachineInstanceMigrationState {
      */
     sourceNode?: string;
     /**
+     * If the VMI being migrated uses persistent features (backend-storage), its source PVC name is saved here
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    sourcePersistentStatePVCName?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    sourcePod?: string;
+    /**
+     * 
+     * @type {V1VirtualMachineInstanceMigrationSourceState}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    sourceState?: V1VirtualMachineInstanceMigrationSourceState;
+    /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    startTimestamp?: string;
+    startTimestamp?: Date;
     /**
      * The UID of the target attachment pod for hotplug volumes
      * @type {string}
@@ -110,6 +155,48 @@ export interface V1VirtualMachineInstanceMigrationState {
      * @memberof V1VirtualMachineInstanceMigrationState
      */
     targetDirectMigrationNodePorts?: { [key: string]: number; };
+    /**
+     * Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
+     * 
+     * The serialization format is:
+     * 
+     * ``` <quantity>        ::= <signedNumber><suffix>
+     * 
+     * 	(Note that <suffix> may be empty, from the "" case in <decimalSI>.)
+     * 
+     * <digit>           ::= 0 | 1 | ... | 9 <digits>          ::= <digit> | <digit><digits> <number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> <sign>            ::= "+" | "-" <signedNumber>    ::= <number> | <sign><number> <suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> <binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei
+     * 
+     * 	(International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)
+     * 
+     * <decimalSI>       ::= m | "" | k | M | G | T | P | E
+     * 
+     * 	(Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)
+     * 
+     * <decimalExponent> ::= "e" <signedNumber> | "E" <signedNumber> ```
+     * 
+     * No matter which of the three exponent forms is used, no quantity may represent a number greater than 2^63-1 in magnitude, nor may it have more than 3 decimal places. Numbers larger or more precise will be capped or rounded up. (E.g.: 0.1m will rounded up to 1m.) This may be extended in the future if we require larger or smaller quantities.
+     * 
+     * When a Quantity is parsed from a string, it will remember the type of suffix it had, and will use the same type again when it is serialized.
+     * 
+     * Before serializing, Quantity will be put in "canonical form". This means that Exponent/suffix will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:
+     * 
+     * - No precision is lost - No fractional digits will be emitted - The exponent (or suffix) is as large as possible.
+     * 
+     * The sign will be omitted unless the number is negative.
+     * 
+     * Examples:
+     * 
+     * - 1.5 will be serialized as "1500m" - 1.5Gi will be serialized as "1536Mi"
+     * 
+     * Note that the quantity will NEVER be internally represented by a floating point number. That is the whole point of this exercise.
+     * 
+     * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
+     * 
+     * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
+     * @type {object}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    targetMemoryOverhead?: object;
     /**
      * The target node that the VMI is moving to
      * @type {string}
@@ -133,7 +220,7 @@ export interface V1VirtualMachineInstanceMigrationState {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    targetNodeDomainReadyTimestamp?: string;
+    targetNodeDomainReadyTimestamp?: Date;
     /**
      * If the VMI requires dedicated CPUs, this field will hold the numa topology on the target node
      * @type {string}
@@ -141,20 +228,30 @@ export interface V1VirtualMachineInstanceMigrationState {
      */
     targetNodeTopology?: string;
     /**
+     * If the VMI being migrated uses persistent features (backend-storage), its target PVC name is saved here
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    targetPersistentStatePVCName?: string;
+    /**
      * The target pod that the VMI is moving to
      * @type {string}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
     targetPod?: string;
+    /**
+     * 
+     * @type {V1VirtualMachineInstanceMigrationTargetState}
+     * @memberof V1VirtualMachineInstanceMigrationState
+     */
+    targetState?: V1VirtualMachineInstanceMigrationTargetState;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineInstanceMigrationState interface.
  */
-export function instanceOfV1VirtualMachineInstanceMigrationState(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceMigrationState(value: object): value is V1VirtualMachineInstanceMigrationState {
+    return true;
 }
 
 export function V1VirtualMachineInstanceMigrationStateFromJSON(json: any): V1VirtualMachineInstanceMigrationState {
@@ -162,63 +259,81 @@ export function V1VirtualMachineInstanceMigrationStateFromJSON(json: any): V1Vir
 }
 
 export function V1VirtualMachineInstanceMigrationStateFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceMigrationState {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'abortRequested': !exists(json, 'abortRequested') ? undefined : json['abortRequested'],
-        'abortStatus': !exists(json, 'abortStatus') ? undefined : json['abortStatus'],
-        'completed': !exists(json, 'completed') ? undefined : json['completed'],
-        'endTimestamp': !exists(json, 'endTimestamp') ? undefined : json['endTimestamp'],
-        'failed': !exists(json, 'failed') ? undefined : json['failed'],
-        'migrationConfiguration': !exists(json, 'migrationConfiguration') ? undefined : V1MigrationConfigurationFromJSON(json['migrationConfiguration']),
-        'migrationPolicyName': !exists(json, 'migrationPolicyName') ? undefined : json['migrationPolicyName'],
-        'migrationUid': !exists(json, 'migrationUid') ? undefined : json['migrationUid'],
-        'mode': !exists(json, 'mode') ? undefined : json['mode'],
-        'sourceNode': !exists(json, 'sourceNode') ? undefined : json['sourceNode'],
-        'startTimestamp': !exists(json, 'startTimestamp') ? undefined : json['startTimestamp'],
-        'targetAttachmentPodUID': !exists(json, 'targetAttachmentPodUID') ? undefined : json['targetAttachmentPodUID'],
-        'targetCPUSet': !exists(json, 'targetCPUSet') ? undefined : json['targetCPUSet'],
-        'targetDirectMigrationNodePorts': !exists(json, 'targetDirectMigrationNodePorts') ? undefined : json['targetDirectMigrationNodePorts'],
-        'targetNode': !exists(json, 'targetNode') ? undefined : json['targetNode'],
-        'targetNodeAddress': !exists(json, 'targetNodeAddress') ? undefined : json['targetNodeAddress'],
-        'targetNodeDomainDetected': !exists(json, 'targetNodeDomainDetected') ? undefined : json['targetNodeDomainDetected'],
-        'targetNodeDomainReadyTimestamp': !exists(json, 'targetNodeDomainReadyTimestamp') ? undefined : json['targetNodeDomainReadyTimestamp'],
-        'targetNodeTopology': !exists(json, 'targetNodeTopology') ? undefined : json['targetNodeTopology'],
-        'targetPod': !exists(json, 'targetPod') ? undefined : json['targetPod'],
+        'abortRequested': json['abortRequested'] == null ? undefined : json['abortRequested'],
+        'abortStatus': json['abortStatus'] == null ? undefined : json['abortStatus'],
+        'completed': json['completed'] == null ? undefined : json['completed'],
+        'endTimestamp': json['endTimestamp'] == null ? undefined : (new Date(json['endTimestamp'])),
+        'failed': json['failed'] == null ? undefined : json['failed'],
+        'failureReason': json['failureReason'] == null ? undefined : json['failureReason'],
+        'migrationConfiguration': json['migrationConfiguration'] == null ? undefined : V1MigrationConfigurationFromJSON(json['migrationConfiguration']),
+        'migrationNetworkType': json['migrationNetworkType'] == null ? undefined : json['migrationNetworkType'],
+        'migrationPolicyName': json['migrationPolicyName'] == null ? undefined : json['migrationPolicyName'],
+        'migrationUid': json['migrationUid'] == null ? undefined : json['migrationUid'],
+        'mode': json['mode'] == null ? undefined : json['mode'],
+        'sourceNode': json['sourceNode'] == null ? undefined : json['sourceNode'],
+        'sourcePersistentStatePVCName': json['sourcePersistentStatePVCName'] == null ? undefined : json['sourcePersistentStatePVCName'],
+        'sourcePod': json['sourcePod'] == null ? undefined : json['sourcePod'],
+        'sourceState': json['sourceState'] == null ? undefined : V1VirtualMachineInstanceMigrationSourceStateFromJSON(json['sourceState']),
+        'startTimestamp': json['startTimestamp'] == null ? undefined : (new Date(json['startTimestamp'])),
+        'targetAttachmentPodUID': json['targetAttachmentPodUID'] == null ? undefined : json['targetAttachmentPodUID'],
+        'targetCPUSet': json['targetCPUSet'] == null ? undefined : json['targetCPUSet'],
+        'targetDirectMigrationNodePorts': json['targetDirectMigrationNodePorts'] == null ? undefined : json['targetDirectMigrationNodePorts'],
+        'targetMemoryOverhead': json['targetMemoryOverhead'] == null ? undefined : json['targetMemoryOverhead'],
+        'targetNode': json['targetNode'] == null ? undefined : json['targetNode'],
+        'targetNodeAddress': json['targetNodeAddress'] == null ? undefined : json['targetNodeAddress'],
+        'targetNodeDomainDetected': json['targetNodeDomainDetected'] == null ? undefined : json['targetNodeDomainDetected'],
+        'targetNodeDomainReadyTimestamp': json['targetNodeDomainReadyTimestamp'] == null ? undefined : (new Date(json['targetNodeDomainReadyTimestamp'])),
+        'targetNodeTopology': json['targetNodeTopology'] == null ? undefined : json['targetNodeTopology'],
+        'targetPersistentStatePVCName': json['targetPersistentStatePVCName'] == null ? undefined : json['targetPersistentStatePVCName'],
+        'targetPod': json['targetPod'] == null ? undefined : json['targetPod'],
+        'targetState': json['targetState'] == null ? undefined : V1VirtualMachineInstanceMigrationTargetStateFromJSON(json['targetState']),
     };
 }
 
-export function V1VirtualMachineInstanceMigrationStateToJSON(value?: V1VirtualMachineInstanceMigrationState | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceMigrationStateToJSON(json: any): V1VirtualMachineInstanceMigrationState {
+    return V1VirtualMachineInstanceMigrationStateToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceMigrationStateToJSONTyped(value?: V1VirtualMachineInstanceMigrationState | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'abortRequested': value.abortRequested,
-        'abortStatus': value.abortStatus,
-        'completed': value.completed,
-        'endTimestamp': value.endTimestamp === undefined ? undefined : (value.endTimestamp),
-        'failed': value.failed,
-        'migrationConfiguration': V1MigrationConfigurationToJSON(value.migrationConfiguration),
-        'migrationPolicyName': value.migrationPolicyName,
-        'migrationUid': value.migrationUid,
-        'mode': value.mode,
-        'sourceNode': value.sourceNode,
-        'startTimestamp': value.startTimestamp === undefined ? undefined : (value.startTimestamp),
-        'targetAttachmentPodUID': value.targetAttachmentPodUID,
-        'targetCPUSet': value.targetCPUSet,
-        'targetDirectMigrationNodePorts': value.targetDirectMigrationNodePorts,
-        'targetNode': value.targetNode,
-        'targetNodeAddress': value.targetNodeAddress,
-        'targetNodeDomainDetected': value.targetNodeDomainDetected,
-        'targetNodeDomainReadyTimestamp': value.targetNodeDomainReadyTimestamp === undefined ? undefined : (value.targetNodeDomainReadyTimestamp),
-        'targetNodeTopology': value.targetNodeTopology,
-        'targetPod': value.targetPod,
+        'abortRequested': value['abortRequested'],
+        'abortStatus': value['abortStatus'],
+        'completed': value['completed'],
+        'endTimestamp': value['endTimestamp'] == null ? undefined : ((value['endTimestamp']).toISOString()),
+        'failed': value['failed'],
+        'failureReason': value['failureReason'],
+        'migrationConfiguration': V1MigrationConfigurationToJSON(value['migrationConfiguration']),
+        'migrationNetworkType': value['migrationNetworkType'],
+        'migrationPolicyName': value['migrationPolicyName'],
+        'migrationUid': value['migrationUid'],
+        'mode': value['mode'],
+        'sourceNode': value['sourceNode'],
+        'sourcePersistentStatePVCName': value['sourcePersistentStatePVCName'],
+        'sourcePod': value['sourcePod'],
+        'sourceState': V1VirtualMachineInstanceMigrationSourceStateToJSON(value['sourceState']),
+        'startTimestamp': value['startTimestamp'] == null ? undefined : ((value['startTimestamp']).toISOString()),
+        'targetAttachmentPodUID': value['targetAttachmentPodUID'],
+        'targetCPUSet': value['targetCPUSet'],
+        'targetDirectMigrationNodePorts': value['targetDirectMigrationNodePorts'],
+        'targetMemoryOverhead': value['targetMemoryOverhead'],
+        'targetNode': value['targetNode'],
+        'targetNodeAddress': value['targetNodeAddress'],
+        'targetNodeDomainDetected': value['targetNodeDomainDetected'],
+        'targetNodeDomainReadyTimestamp': value['targetNodeDomainReadyTimestamp'] == null ? undefined : ((value['targetNodeDomainReadyTimestamp']).toISOString()),
+        'targetNodeTopology': value['targetNodeTopology'],
+        'targetPersistentStatePVCName': value['targetPersistentStatePVCName'],
+        'targetPod': value['targetPod'],
+        'targetState': V1VirtualMachineInstanceMigrationTargetStateToJSON(value['targetState']),
     };
 }
 

@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAppsV1DeploymentSpec } from './IoK8sApiAppsV1DeploymentSpec';
-import {
-    IoK8sApiAppsV1DeploymentSpecFromJSON,
-    IoK8sApiAppsV1DeploymentSpecFromJSONTyped,
-    IoK8sApiAppsV1DeploymentSpecToJSON,
-} from './IoK8sApiAppsV1DeploymentSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1DeploymentStatus } from './IoK8sApiAppsV1DeploymentStatus';
 import {
     IoK8sApiAppsV1DeploymentStatusFromJSON,
     IoK8sApiAppsV1DeploymentStatusFromJSONTyped,
     IoK8sApiAppsV1DeploymentStatusToJSON,
+    IoK8sApiAppsV1DeploymentStatusToJSONTyped,
 } from './IoK8sApiAppsV1DeploymentStatus';
+import type { IoK8sApiAppsV1DeploymentSpec } from './IoK8sApiAppsV1DeploymentSpec';
+import {
+    IoK8sApiAppsV1DeploymentSpecFromJSON,
+    IoK8sApiAppsV1DeploymentSpecFromJSONTyped,
+    IoK8sApiAppsV1DeploymentSpecToJSON,
+    IoK8sApiAppsV1DeploymentSpecToJSONTyped,
+} from './IoK8sApiAppsV1DeploymentSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sApiAppsV1Deployment {
 /**
  * Check if a given object implements the IoK8sApiAppsV1Deployment interface.
  */
-export function instanceOfIoK8sApiAppsV1Deployment(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1Deployment(value: object): value is IoK8sApiAppsV1Deployment {
+    return true;
 }
 
 export function IoK8sApiAppsV1DeploymentFromJSON(json: any): IoK8sApiAppsV1Deployment {
@@ -84,33 +85,35 @@ export function IoK8sApiAppsV1DeploymentFromJSON(json: any): IoK8sApiAppsV1Deplo
 }
 
 export function IoK8sApiAppsV1DeploymentFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1Deployment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiAppsV1DeploymentSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAppsV1DeploymentStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiAppsV1DeploymentSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiAppsV1DeploymentStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAppsV1DeploymentToJSON(value?: IoK8sApiAppsV1Deployment | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DeploymentToJSON(json: any): IoK8sApiAppsV1Deployment {
+    return IoK8sApiAppsV1DeploymentToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DeploymentToJSONTyped(value?: IoK8sApiAppsV1Deployment | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAppsV1DeploymentSpecToJSON(value.spec),
-        'status': IoK8sApiAppsV1DeploymentStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAppsV1DeploymentSpecToJSON(value['spec']),
+        'status': IoK8sApiAppsV1DeploymentStatusToJSON(value['status']),
     };
 }
 

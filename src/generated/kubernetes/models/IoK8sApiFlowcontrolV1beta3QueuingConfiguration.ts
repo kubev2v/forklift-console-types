@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 /**
  * QueuingConfiguration holds the configuration parameters for queuing
  * @export

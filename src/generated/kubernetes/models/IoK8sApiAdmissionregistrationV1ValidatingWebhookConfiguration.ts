@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAdmissionregistrationV1ValidatingWebhook } from './IoK8sApiAdmissionregistrationV1ValidatingWebhook';
 import {
     IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSON,
     IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSONTyped,
     IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSON,
+    IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSONTyped,
 } from './IoK8sApiAdmissionregistrationV1ValidatingWebhook';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -51,7 +53,7 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration {
      */
     metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
     /**
-     * Webhooks is a list of webhooks and the affected resources and operations.
+     * webhooks is a list of webhooks and the affected resources and operations.
      * @type {Array<IoK8sApiAdmissionregistrationV1ValidatingWebhook>}
      * @memberof IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration
      */
@@ -61,10 +63,8 @@ export interface IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration(value: object): value is IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationFromJSON(json: any): IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration {
@@ -72,31 +72,33 @@ export function IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationFro
 }
 
 export function IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'webhooks': !exists(json, 'webhooks') ? undefined : ((json['webhooks'] as Array<any>).map(IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSON)),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'webhooks': json['webhooks'] == null ? undefined : ((json['webhooks'] as Array<any>).map(IoK8sApiAdmissionregistrationV1ValidatingWebhookFromJSON)),
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationToJSON(value?: IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationToJSON(json: any): IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration {
+    return IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1ValidatingWebhookConfigurationToJSONTyped(value?: IoK8sApiAdmissionregistrationV1ValidatingWebhookConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'webhooks': value.webhooks === undefined ? undefined : ((value.webhooks as Array<any>).map(IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'webhooks': value['webhooks'] == null ? undefined : ((value['webhooks'] as Array<any>).map(IoK8sApiAdmissionregistrationV1ValidatingWebhookToJSON)),
     };
 }
 

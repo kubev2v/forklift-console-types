@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1SEVPolicy } from './V1SEVPolicy';
 import {
     V1SEVPolicyFromJSON,
     V1SEVPolicyFromJSONTyped,
     V1SEVPolicyToJSON,
+    V1SEVPolicyToJSONTyped,
 } from './V1SEVPolicy';
 
 /**
@@ -55,10 +56,8 @@ export interface V1SEV {
 /**
  * Check if a given object implements the V1SEV interface.
  */
-export function instanceOfV1SEV(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SEV(value: object): value is V1SEV {
+    return true;
 }
 
 export function V1SEVFromJSON(json: any): V1SEV {
@@ -66,31 +65,33 @@ export function V1SEVFromJSON(json: any): V1SEV {
 }
 
 export function V1SEVFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SEV {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'attestation': !exists(json, 'attestation') ? undefined : json['attestation'],
-        'dhCert': !exists(json, 'dhCert') ? undefined : json['dhCert'],
-        'policy': !exists(json, 'policy') ? undefined : V1SEVPolicyFromJSON(json['policy']),
-        'session': !exists(json, 'session') ? undefined : json['session'],
+        'attestation': json['attestation'] == null ? undefined : json['attestation'],
+        'dhCert': json['dhCert'] == null ? undefined : json['dhCert'],
+        'policy': json['policy'] == null ? undefined : V1SEVPolicyFromJSON(json['policy']),
+        'session': json['session'] == null ? undefined : json['session'],
     };
 }
 
-export function V1SEVToJSON(value?: V1SEV | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SEVToJSON(json: any): V1SEV {
+    return V1SEVToJSONTyped(json, false);
+}
+
+export function V1SEVToJSONTyped(value?: V1SEV | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'attestation': value.attestation,
-        'dhCert': value.dhCert,
-        'policy': V1SEVPolicyToJSON(value.policy),
-        'session': value.session,
+        'attestation': value['attestation'],
+        'dhCert': value['dhCert'],
+        'policy': V1SEVPolicyToJSON(value['policy']),
+        'session': value['session'],
     };
 }
 

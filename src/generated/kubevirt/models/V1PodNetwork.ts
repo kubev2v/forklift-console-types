@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents the stock pod network interface.
  * @export
@@ -36,10 +36,8 @@ export interface V1PodNetwork {
 /**
  * Check if a given object implements the V1PodNetwork interface.
  */
-export function instanceOfV1PodNetwork(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1PodNetwork(value: object): value is V1PodNetwork {
+    return true;
 }
 
 export function V1PodNetworkFromJSON(json: any): V1PodNetwork {
@@ -47,27 +45,29 @@ export function V1PodNetworkFromJSON(json: any): V1PodNetwork {
 }
 
 export function V1PodNetworkFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PodNetwork {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'vmIPv6NetworkCIDR': !exists(json, 'vmIPv6NetworkCIDR') ? undefined : json['vmIPv6NetworkCIDR'],
-        'vmNetworkCIDR': !exists(json, 'vmNetworkCIDR') ? undefined : json['vmNetworkCIDR'],
+        'vmIPv6NetworkCIDR': json['vmIPv6NetworkCIDR'] == null ? undefined : json['vmIPv6NetworkCIDR'],
+        'vmNetworkCIDR': json['vmNetworkCIDR'] == null ? undefined : json['vmNetworkCIDR'],
     };
 }
 
-export function V1PodNetworkToJSON(value?: V1PodNetwork | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PodNetworkToJSON(json: any): V1PodNetwork {
+    return V1PodNetworkToJSONTyped(json, false);
+}
+
+export function V1PodNetworkToJSONTyped(value?: V1PodNetwork | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'vmIPv6NetworkCIDR': value.vmIPv6NetworkCIDR,
-        'vmNetworkCIDR': value.vmNetworkCIDR,
+        'vmIPv6NetworkCIDR': value['vmIPv6NetworkCIDR'],
+        'vmNetworkCIDR': value['vmNetworkCIDR'],
     };
 }
 

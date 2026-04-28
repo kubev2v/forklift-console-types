@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ClientIPConfig represents the configurations of Client IP based session affinity.
  * @export
@@ -30,10 +30,8 @@ export interface IoK8sApiCoreV1ClientIPConfig {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ClientIPConfig interface.
  */
-export function instanceOfIoK8sApiCoreV1ClientIPConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ClientIPConfig(value: object): value is IoK8sApiCoreV1ClientIPConfig {
+    return true;
 }
 
 export function IoK8sApiCoreV1ClientIPConfigFromJSON(json: any): IoK8sApiCoreV1ClientIPConfig {
@@ -41,25 +39,27 @@ export function IoK8sApiCoreV1ClientIPConfigFromJSON(json: any): IoK8sApiCoreV1C
 }
 
 export function IoK8sApiCoreV1ClientIPConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ClientIPConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'timeoutSeconds': !exists(json, 'timeoutSeconds') ? undefined : json['timeoutSeconds'],
+        'timeoutSeconds': json['timeoutSeconds'] == null ? undefined : json['timeoutSeconds'],
     };
 }
 
-export function IoK8sApiCoreV1ClientIPConfigToJSON(value?: IoK8sApiCoreV1ClientIPConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ClientIPConfigToJSON(json: any): IoK8sApiCoreV1ClientIPConfig {
+    return IoK8sApiCoreV1ClientIPConfigToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ClientIPConfigToJSONTyped(value?: IoK8sApiCoreV1ClientIPConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'timeoutSeconds': value.timeoutSeconds,
+        'timeoutSeconds': value['timeoutSeconds'],
     };
 }
 

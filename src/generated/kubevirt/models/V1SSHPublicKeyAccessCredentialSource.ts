@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1AccessCredentialSecretSource } from './V1AccessCredentialSecretSource';
 import {
     V1AccessCredentialSecretSourceFromJSON,
     V1AccessCredentialSecretSourceFromJSONTyped,
     V1AccessCredentialSecretSourceToJSON,
+    V1AccessCredentialSecretSourceToJSONTyped,
 } from './V1AccessCredentialSecretSource';
 
 /**
@@ -37,10 +38,8 @@ export interface V1SSHPublicKeyAccessCredentialSource {
 /**
  * Check if a given object implements the V1SSHPublicKeyAccessCredentialSource interface.
  */
-export function instanceOfV1SSHPublicKeyAccessCredentialSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SSHPublicKeyAccessCredentialSource(value: object): value is V1SSHPublicKeyAccessCredentialSource {
+    return true;
 }
 
 export function V1SSHPublicKeyAccessCredentialSourceFromJSON(json: any): V1SSHPublicKeyAccessCredentialSource {
@@ -48,25 +47,27 @@ export function V1SSHPublicKeyAccessCredentialSourceFromJSON(json: any): V1SSHPu
 }
 
 export function V1SSHPublicKeyAccessCredentialSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SSHPublicKeyAccessCredentialSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'secret': !exists(json, 'secret') ? undefined : V1AccessCredentialSecretSourceFromJSON(json['secret']),
+        'secret': json['secret'] == null ? undefined : V1AccessCredentialSecretSourceFromJSON(json['secret']),
     };
 }
 
-export function V1SSHPublicKeyAccessCredentialSourceToJSON(value?: V1SSHPublicKeyAccessCredentialSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SSHPublicKeyAccessCredentialSourceToJSON(json: any): V1SSHPublicKeyAccessCredentialSource {
+    return V1SSHPublicKeyAccessCredentialSourceToJSONTyped(json, false);
+}
+
+export function V1SSHPublicKeyAccessCredentialSourceToJSONTyped(value?: V1SSHPublicKeyAccessCredentialSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'secret': V1AccessCredentialSecretSourceToJSON(value.secret),
+        'secret': V1AccessCredentialSecretSourceToJSON(value['secret']),
     };
 }
 

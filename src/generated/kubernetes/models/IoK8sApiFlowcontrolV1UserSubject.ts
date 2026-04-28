@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * UserSubject holds detailed information for user-kind subject.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiFlowcontrolV1UserSubject {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1UserSubject interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1UserSubject(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1UserSubject(value: object): value is IoK8sApiFlowcontrolV1UserSubject {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1UserSubjectFromJSON(json: any): IoK8sApiFlowcontrolV1UserSubject {
@@ -42,7 +40,7 @@ export function IoK8sApiFlowcontrolV1UserSubjectFromJSON(json: any): IoK8sApiFlo
 }
 
 export function IoK8sApiFlowcontrolV1UserSubjectFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1UserSubject {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiFlowcontrolV1UserSubjectFromJSONTyped(json: any, ignoreD
     };
 }
 
-export function IoK8sApiFlowcontrolV1UserSubjectToJSON(value?: IoK8sApiFlowcontrolV1UserSubject | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1UserSubjectToJSON(json: any): IoK8sApiFlowcontrolV1UserSubject {
+    return IoK8sApiFlowcontrolV1UserSubjectToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1UserSubjectToJSONTyped(value?: IoK8sApiFlowcontrolV1UserSubject | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
+        'name': value['name'],
     };
 }
 

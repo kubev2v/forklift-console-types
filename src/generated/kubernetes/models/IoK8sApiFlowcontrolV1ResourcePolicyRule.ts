@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiFlowcontrolV1ResourcePolicyRule {
      * @type {Array<string>}
      * @memberof IoK8sApiFlowcontrolV1ResourcePolicyRule
      */
-    apiGroups: string[];
+    apiGroups: Array<string>;
     /**
      * `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
      * @type {boolean}
@@ -36,31 +36,29 @@ export interface IoK8sApiFlowcontrolV1ResourcePolicyRule {
      * @type {Array<string>}
      * @memberof IoK8sApiFlowcontrolV1ResourcePolicyRule
      */
-    namespaces?: string[];
+    namespaces?: Array<string>;
     /**
      * `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiFlowcontrolV1ResourcePolicyRule
      */
-    resources: string[];
+    resources: Array<string>;
     /**
      * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiFlowcontrolV1ResourcePolicyRule
      */
-    verbs: string[];
+    verbs: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1ResourcePolicyRule interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1ResourcePolicyRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "apiGroups" in value;
-    isInstance = isInstance && "resources" in value;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1ResourcePolicyRule(value: object): value is IoK8sApiFlowcontrolV1ResourcePolicyRule {
+    if (!('apiGroups' in value) || value['apiGroups'] === undefined) return false;
+    if (!('resources' in value) || value['resources'] === undefined) return false;
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSON(json: any): IoK8sApiFlowcontrolV1ResourcePolicyRule {
@@ -68,33 +66,35 @@ export function IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiFlowcontrolV1ResourcePolicyRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1ResourcePolicyRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'apiGroups': json['apiGroups'],
-        'clusterScope': !exists(json, 'clusterScope') ? undefined : json['clusterScope'],
-        'namespaces': !exists(json, 'namespaces') ? undefined : json['namespaces'],
+        'clusterScope': json['clusterScope'] == null ? undefined : json['clusterScope'],
+        'namespaces': json['namespaces'] == null ? undefined : json['namespaces'],
         'resources': json['resources'],
         'verbs': json['verbs'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSON(value?: IoK8sApiFlowcontrolV1ResourcePolicyRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSON(json: any): IoK8sApiFlowcontrolV1ResourcePolicyRule {
+    return IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1ResourcePolicyRuleToJSONTyped(value?: IoK8sApiFlowcontrolV1ResourcePolicyRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroups': value.apiGroups,
-        'clusterScope': value.clusterScope,
-        'namespaces': value.namespaces,
-        'resources': value.resources,
-        'verbs': value.verbs,
+        'apiGroups': value['apiGroups'],
+        'clusterScope': value['clusterScope'],
+        'namespaces': value['namespaces'],
+        'resources': value['resources'],
+        'verbs': value['verbs'],
     };
 }
 

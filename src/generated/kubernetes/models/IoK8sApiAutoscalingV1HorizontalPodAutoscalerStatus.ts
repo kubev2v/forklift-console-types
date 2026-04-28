@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * current status of a horizontal pod autoscaler
  * @export
@@ -42,7 +42,7 @@ export interface IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
      * @type {Date}
      * @memberof IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus
      */
-    lastScaleTime?: string;
+    lastScaleTime?: Date;
     /**
      * observedGeneration is the most recent generation observed by this autoscaler.
      * @type {number}
@@ -54,12 +54,10 @@ export interface IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus interface.
  */
-export function instanceOfIoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "currentReplicas" in value;
-    isInstance = isInstance && "desiredReplicas" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus(value: object): value is IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
+    if (!('currentReplicas' in value) || value['currentReplicas'] === undefined) return false;
+    if (!('desiredReplicas' in value) || value['desiredReplicas'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusFromJSON(json: any): IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
@@ -67,33 +65,35 @@ export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusFromJSON(json:
 }
 
 export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'currentCPUUtilizationPercentage': !exists(json, 'currentCPUUtilizationPercentage') ? undefined : json['currentCPUUtilizationPercentage'],
+        'currentCPUUtilizationPercentage': json['currentCPUUtilizationPercentage'] == null ? undefined : json['currentCPUUtilizationPercentage'],
         'currentReplicas': json['currentReplicas'],
         'desiredReplicas': json['desiredReplicas'],
-        'lastScaleTime': !exists(json, 'lastScaleTime') ? undefined : json['lastScaleTime'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
+        'lastScaleTime': json['lastScaleTime'] == null ? undefined : (new Date(json['lastScaleTime'])),
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
     };
 }
 
-export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusToJSON(value?: IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusToJSON(json: any): IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
+    return IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusToJSONTyped(value?: IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'currentCPUUtilizationPercentage': value.currentCPUUtilizationPercentage,
-        'currentReplicas': value.currentReplicas,
-        'desiredReplicas': value.desiredReplicas,
-        'lastScaleTime': value.lastScaleTime === undefined ? undefined : (value.lastScaleTime),
-        'observedGeneration': value.observedGeneration,
+        'currentCPUUtilizationPercentage': value['currentCPUUtilizationPercentage'],
+        'currentReplicas': value['currentReplicas'],
+        'desiredReplicas': value['desiredReplicas'],
+        'lastScaleTime': value['lastScaleTime'] == null ? undefined : ((value['lastScaleTime']).toISOString()),
+        'observedGeneration': value['observedGeneration'],
     };
 }
 

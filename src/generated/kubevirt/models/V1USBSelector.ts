@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,12 +36,10 @@ export interface V1USBSelector {
 /**
  * Check if a given object implements the V1USBSelector interface.
  */
-export function instanceOfV1USBSelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "product" in value;
-    isInstance = isInstance && "vendor" in value;
-
-    return isInstance;
+export function instanceOfV1USBSelector(value: object): value is V1USBSelector {
+    if (!('product' in value) || value['product'] === undefined) return false;
+    if (!('vendor' in value) || value['vendor'] === undefined) return false;
+    return true;
 }
 
 export function V1USBSelectorFromJSON(json: any): V1USBSelector {
@@ -49,7 +47,7 @@ export function V1USBSelectorFromJSON(json: any): V1USBSelector {
 }
 
 export function V1USBSelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1USBSelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function V1USBSelectorFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function V1USBSelectorToJSON(value?: V1USBSelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1USBSelectorToJSON(json: any): V1USBSelector {
+    return V1USBSelectorToJSONTyped(json, false);
+}
+
+export function V1USBSelectorToJSONTyped(value?: V1USBSelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'product': value.product,
-        'vendor': value.vendor,
+        'product': value['product'],
+        'vendor': value['vendor'],
     };
 }
 

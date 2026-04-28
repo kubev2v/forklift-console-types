@@ -12,12 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiDiscoveryV1ForNode } from './IoK8sApiDiscoveryV1ForNode';
+import {
+    IoK8sApiDiscoveryV1ForNodeFromJSON,
+    IoK8sApiDiscoveryV1ForNodeFromJSONTyped,
+    IoK8sApiDiscoveryV1ForNodeToJSON,
+    IoK8sApiDiscoveryV1ForNodeToJSONTyped,
+} from './IoK8sApiDiscoveryV1ForNode';
 import type { IoK8sApiDiscoveryV1ForZone } from './IoK8sApiDiscoveryV1ForZone';
 import {
     IoK8sApiDiscoveryV1ForZoneFromJSON,
     IoK8sApiDiscoveryV1ForZoneFromJSONTyped,
     IoK8sApiDiscoveryV1ForZoneToJSON,
+    IoK8sApiDiscoveryV1ForZoneToJSONTyped,
 } from './IoK8sApiDiscoveryV1ForZone';
 
 /**
@@ -27,7 +35,13 @@ import {
  */
 export interface IoK8sApiDiscoveryV1EndpointHints {
     /**
-     * forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
+     * forNodes indicates the node(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
+     * @type {Array<IoK8sApiDiscoveryV1ForNode>}
+     * @memberof IoK8sApiDiscoveryV1EndpointHints
+     */
+    forNodes?: Array<IoK8sApiDiscoveryV1ForNode>;
+    /**
+     * forZones indicates the zone(s) this endpoint should be consumed by when using topology aware routing. May contain a maximum of 8 entries.
      * @type {Array<IoK8sApiDiscoveryV1ForZone>}
      * @memberof IoK8sApiDiscoveryV1EndpointHints
      */
@@ -37,10 +51,8 @@ export interface IoK8sApiDiscoveryV1EndpointHints {
 /**
  * Check if a given object implements the IoK8sApiDiscoveryV1EndpointHints interface.
  */
-export function instanceOfIoK8sApiDiscoveryV1EndpointHints(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiDiscoveryV1EndpointHints(value: object): value is IoK8sApiDiscoveryV1EndpointHints {
+    return true;
 }
 
 export function IoK8sApiDiscoveryV1EndpointHintsFromJSON(json: any): IoK8sApiDiscoveryV1EndpointHints {
@@ -48,25 +60,29 @@ export function IoK8sApiDiscoveryV1EndpointHintsFromJSON(json: any): IoK8sApiDis
 }
 
 export function IoK8sApiDiscoveryV1EndpointHintsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiDiscoveryV1EndpointHints {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'forZones': !exists(json, 'forZones') ? undefined : ((json['forZones'] as Array<any>).map(IoK8sApiDiscoveryV1ForZoneFromJSON)),
+        'forNodes': json['forNodes'] == null ? undefined : ((json['forNodes'] as Array<any>).map(IoK8sApiDiscoveryV1ForNodeFromJSON)),
+        'forZones': json['forZones'] == null ? undefined : ((json['forZones'] as Array<any>).map(IoK8sApiDiscoveryV1ForZoneFromJSON)),
     };
 }
 
-export function IoK8sApiDiscoveryV1EndpointHintsToJSON(value?: IoK8sApiDiscoveryV1EndpointHints | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiDiscoveryV1EndpointHintsToJSON(json: any): IoK8sApiDiscoveryV1EndpointHints {
+    return IoK8sApiDiscoveryV1EndpointHintsToJSONTyped(json, false);
+}
+
+export function IoK8sApiDiscoveryV1EndpointHintsToJSONTyped(value?: IoK8sApiDiscoveryV1EndpointHints | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'forZones': value.forZones === undefined ? undefined : ((value.forZones as Array<any>).map(IoK8sApiDiscoveryV1ForZoneToJSON)),
+        'forNodes': value['forNodes'] == null ? undefined : ((value['forNodes'] as Array<any>).map(IoK8sApiDiscoveryV1ForNodeToJSON)),
+        'forZones': value['forZones'] == null ? undefined : ((value['forZones'] as Array<any>).map(IoK8sApiDiscoveryV1ForZoneToJSON)),
     };
 }
 

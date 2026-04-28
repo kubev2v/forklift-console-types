@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig';
 
 /**
@@ -37,17 +38,15 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConvers
      * @type {Array<string>}
      * @memberof IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion
      */
-    conversionReviewVersions: string[];
+    conversionReviewVersions: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "conversionReviewVersions" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion {
+    if (!('conversionReviewVersions' in value) || value['conversionReviewVersions'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion {
@@ -55,27 +54,29 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversi
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'clientConfig': !exists(json, 'clientConfig') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigFromJSON(json['clientConfig']),
+        'clientConfig': json['clientConfig'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigFromJSON(json['clientConfig']),
         'conversionReviewVersions': json['conversionReviewVersions'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'clientConfig': IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSON(value.clientConfig),
-        'conversionReviewVersions': value.conversionReviewVersions,
+        'clientConfig': IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSON(value['clientConfig']),
+        'conversionReviewVersions': value['conversionReviewVersions'],
     };
 }
 

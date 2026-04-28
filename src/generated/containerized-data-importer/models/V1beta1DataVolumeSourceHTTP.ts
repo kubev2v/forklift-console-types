@@ -26,6 +26,12 @@ export interface V1beta1DataVolumeSourceHTTP {
      */
     certConfigMap?: string;
     /**
+     * Checksum is the expected checksum of the file. Format: "algorithm:hash", e.g., "sha256:1234abcd..." or "md5:5678efgh..." Supported algorithms: md5, sha1, sha256, sha512 If specified, the importer will verify the downloaded content matches this checksum
+     * @type {string}
+     * @memberof V1beta1DataVolumeSourceHTTP
+     */
+    checksum?: string;
+    /**
      * ExtraHeaders is a list of strings containing extra headers to include with HTTP transfer requests
      * @type {Array<string>}
      * @memberof V1beta1DataVolumeSourceHTTP
@@ -70,6 +76,7 @@ export function V1beta1DataVolumeSourceHTTPFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
+        'checksum': json['checksum'] == null ? undefined : json['checksum'],
         'extraHeaders': json['extraHeaders'] == null ? undefined : json['extraHeaders'],
         'secretExtraHeaders': json['secretExtraHeaders'] == null ? undefined : json['secretExtraHeaders'],
         'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
@@ -84,6 +91,7 @@ export function V1beta1DataVolumeSourceHTTPToJSON(value?: V1beta1DataVolumeSourc
     return {
         
         'certConfigMap': value['certConfigMap'],
+        'checksum': value['checksum'],
         'extraHeaders': value['extraHeaders'],
         'secretExtraHeaders': value['secretExtraHeaders'],
         'secretRef': value['secretRef'],

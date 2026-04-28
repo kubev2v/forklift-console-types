@@ -10,5 +10,6 @@ export * from './Provider';
 export * from './Resource';
 export * from './StorageDomain';
 export * from './TreeNode';
+export * from './TypedResource';
 export * from './VM';
 // @endindex

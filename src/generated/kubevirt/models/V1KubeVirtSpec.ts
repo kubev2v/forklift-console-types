@@ -12,43 +12,49 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApiCoreV1LocalObjectReference } from './K8sIoApiCoreV1LocalObjectReference';
-import {
-    K8sIoApiCoreV1LocalObjectReferenceFromJSON,
-    K8sIoApiCoreV1LocalObjectReferenceFromJSONTyped,
-    K8sIoApiCoreV1LocalObjectReferenceToJSON,
-} from './K8sIoApiCoreV1LocalObjectReference';
+import { mapValues } from '../../runtime';
 import type { V1ComponentConfig } from './V1ComponentConfig';
 import {
     V1ComponentConfigFromJSON,
     V1ComponentConfigFromJSONTyped,
     V1ComponentConfigToJSON,
+    V1ComponentConfigToJSONTyped,
 } from './V1ComponentConfig';
-import type { V1CustomizeComponents } from './V1CustomizeComponents';
-import {
-    V1CustomizeComponentsFromJSON,
-    V1CustomizeComponentsFromJSONTyped,
-    V1CustomizeComponentsToJSON,
-} from './V1CustomizeComponents';
-import type { V1KubeVirtCertificateRotateStrategy } from './V1KubeVirtCertificateRotateStrategy';
-import {
-    V1KubeVirtCertificateRotateStrategyFromJSON,
-    V1KubeVirtCertificateRotateStrategyFromJSONTyped,
-    V1KubeVirtCertificateRotateStrategyToJSON,
-} from './V1KubeVirtCertificateRotateStrategy';
 import type { V1KubeVirtConfiguration } from './V1KubeVirtConfiguration';
 import {
     V1KubeVirtConfigurationFromJSON,
     V1KubeVirtConfigurationFromJSONTyped,
     V1KubeVirtConfigurationToJSON,
+    V1KubeVirtConfigurationToJSONTyped,
 } from './V1KubeVirtConfiguration';
 import type { V1KubeVirtWorkloadUpdateStrategy } from './V1KubeVirtWorkloadUpdateStrategy';
 import {
     V1KubeVirtWorkloadUpdateStrategyFromJSON,
     V1KubeVirtWorkloadUpdateStrategyFromJSONTyped,
     V1KubeVirtWorkloadUpdateStrategyToJSON,
+    V1KubeVirtWorkloadUpdateStrategyToJSONTyped,
 } from './V1KubeVirtWorkloadUpdateStrategy';
+import type { K8sIoApiCoreV1LocalObjectReference } from './K8sIoApiCoreV1LocalObjectReference';
+import {
+    K8sIoApiCoreV1LocalObjectReferenceFromJSON,
+    K8sIoApiCoreV1LocalObjectReferenceFromJSONTyped,
+    K8sIoApiCoreV1LocalObjectReferenceToJSON,
+    K8sIoApiCoreV1LocalObjectReferenceToJSONTyped,
+} from './K8sIoApiCoreV1LocalObjectReference';
+import type { V1CustomizeComponents } from './V1CustomizeComponents';
+import {
+    V1CustomizeComponentsFromJSON,
+    V1CustomizeComponentsFromJSONTyped,
+    V1CustomizeComponentsToJSON,
+    V1CustomizeComponentsToJSONTyped,
+} from './V1CustomizeComponents';
+import type { V1KubeVirtCertificateRotateStrategy } from './V1KubeVirtCertificateRotateStrategy';
+import {
+    V1KubeVirtCertificateRotateStrategyFromJSON,
+    V1KubeVirtCertificateRotateStrategyFromJSONTyped,
+    V1KubeVirtCertificateRotateStrategyToJSON,
+    V1KubeVirtCertificateRotateStrategyToJSONTyped,
+} from './V1KubeVirtCertificateRotateStrategy';
 
 /**
  * 
@@ -148,6 +154,12 @@ export interface V1KubeVirtSpec {
      */
     serviceMonitorNamespace?: string;
     /**
+     * Specify the port to listen on for VMI status synchronization traffic. Default is 9185
+     * @type {string}
+     * @memberof V1KubeVirtSpec
+     */
+    synchronizationPort?: string;
+    /**
      * Specifies if kubevirt can be deleted if workloads are still present. This is mainly a precaution to avoid accidental data loss
      * @type {string}
      * @memberof V1KubeVirtSpec
@@ -182,10 +194,8 @@ export type V1KubeVirtSpecImagePullPolicyEnum = typeof V1KubeVirtSpecImagePullPo
 /**
  * Check if a given object implements the V1KubeVirtSpec interface.
  */
-export function instanceOfV1KubeVirtSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KubeVirtSpec(value: object): value is V1KubeVirtSpec {
+    return true;
 }
 
 export function V1KubeVirtSpecFromJSON(json: any): V1KubeVirtSpec {
@@ -193,57 +203,61 @@ export function V1KubeVirtSpecFromJSON(json: any): V1KubeVirtSpec {
 }
 
 export function V1KubeVirtSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'certificateRotateStrategy': !exists(json, 'certificateRotateStrategy') ? undefined : V1KubeVirtCertificateRotateStrategyFromJSON(json['certificateRotateStrategy']),
-        '_configuration': !exists(json, 'configuration') ? undefined : V1KubeVirtConfigurationFromJSON(json['configuration']),
-        'customizeComponents': !exists(json, 'customizeComponents') ? undefined : V1CustomizeComponentsFromJSON(json['customizeComponents']),
-        'imagePullPolicy': !exists(json, 'imagePullPolicy') ? undefined : json['imagePullPolicy'],
-        'imagePullSecrets': !exists(json, 'imagePullSecrets') ? undefined : ((json['imagePullSecrets'] as Array<any>).map(K8sIoApiCoreV1LocalObjectReferenceFromJSON)),
-        'imageRegistry': !exists(json, 'imageRegistry') ? undefined : json['imageRegistry'],
-        'imageTag': !exists(json, 'imageTag') ? undefined : json['imageTag'],
-        'infra': !exists(json, 'infra') ? undefined : V1ComponentConfigFromJSON(json['infra']),
-        'monitorAccount': !exists(json, 'monitorAccount') ? undefined : json['monitorAccount'],
-        'monitorNamespace': !exists(json, 'monitorNamespace') ? undefined : json['monitorNamespace'],
-        'productComponent': !exists(json, 'productComponent') ? undefined : json['productComponent'],
-        'productName': !exists(json, 'productName') ? undefined : json['productName'],
-        'productVersion': !exists(json, 'productVersion') ? undefined : json['productVersion'],
-        'serviceMonitorNamespace': !exists(json, 'serviceMonitorNamespace') ? undefined : json['serviceMonitorNamespace'],
-        'uninstallStrategy': !exists(json, 'uninstallStrategy') ? undefined : json['uninstallStrategy'],
-        'workloadUpdateStrategy': !exists(json, 'workloadUpdateStrategy') ? undefined : V1KubeVirtWorkloadUpdateStrategyFromJSON(json['workloadUpdateStrategy']),
-        'workloads': !exists(json, 'workloads') ? undefined : V1ComponentConfigFromJSON(json['workloads']),
+        'certificateRotateStrategy': json['certificateRotateStrategy'] == null ? undefined : V1KubeVirtCertificateRotateStrategyFromJSON(json['certificateRotateStrategy']),
+        '_configuration': json['configuration'] == null ? undefined : V1KubeVirtConfigurationFromJSON(json['configuration']),
+        'customizeComponents': json['customizeComponents'] == null ? undefined : V1CustomizeComponentsFromJSON(json['customizeComponents']),
+        'imagePullPolicy': json['imagePullPolicy'] == null ? undefined : json['imagePullPolicy'],
+        'imagePullSecrets': json['imagePullSecrets'] == null ? undefined : ((json['imagePullSecrets'] as Array<any>).map(K8sIoApiCoreV1LocalObjectReferenceFromJSON)),
+        'imageRegistry': json['imageRegistry'] == null ? undefined : json['imageRegistry'],
+        'imageTag': json['imageTag'] == null ? undefined : json['imageTag'],
+        'infra': json['infra'] == null ? undefined : V1ComponentConfigFromJSON(json['infra']),
+        'monitorAccount': json['monitorAccount'] == null ? undefined : json['monitorAccount'],
+        'monitorNamespace': json['monitorNamespace'] == null ? undefined : json['monitorNamespace'],
+        'productComponent': json['productComponent'] == null ? undefined : json['productComponent'],
+        'productName': json['productName'] == null ? undefined : json['productName'],
+        'productVersion': json['productVersion'] == null ? undefined : json['productVersion'],
+        'serviceMonitorNamespace': json['serviceMonitorNamespace'] == null ? undefined : json['serviceMonitorNamespace'],
+        'synchronizationPort': json['synchronizationPort'] == null ? undefined : json['synchronizationPort'],
+        'uninstallStrategy': json['uninstallStrategy'] == null ? undefined : json['uninstallStrategy'],
+        'workloadUpdateStrategy': json['workloadUpdateStrategy'] == null ? undefined : V1KubeVirtWorkloadUpdateStrategyFromJSON(json['workloadUpdateStrategy']),
+        'workloads': json['workloads'] == null ? undefined : V1ComponentConfigFromJSON(json['workloads']),
     };
 }
 
-export function V1KubeVirtSpecToJSON(value?: V1KubeVirtSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtSpecToJSON(json: any): V1KubeVirtSpec {
+    return V1KubeVirtSpecToJSONTyped(json, false);
+}
+
+export function V1KubeVirtSpecToJSONTyped(value?: V1KubeVirtSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'certificateRotateStrategy': V1KubeVirtCertificateRotateStrategyToJSON(value.certificateRotateStrategy),
-        'configuration': V1KubeVirtConfigurationToJSON(value._configuration),
-        'customizeComponents': V1CustomizeComponentsToJSON(value.customizeComponents),
-        'imagePullPolicy': value.imagePullPolicy,
-        'imagePullSecrets': value.imagePullSecrets === undefined ? undefined : ((value.imagePullSecrets as Array<any>).map(K8sIoApiCoreV1LocalObjectReferenceToJSON)),
-        'imageRegistry': value.imageRegistry,
-        'imageTag': value.imageTag,
-        'infra': V1ComponentConfigToJSON(value.infra),
-        'monitorAccount': value.monitorAccount,
-        'monitorNamespace': value.monitorNamespace,
-        'productComponent': value.productComponent,
-        'productName': value.productName,
-        'productVersion': value.productVersion,
-        'serviceMonitorNamespace': value.serviceMonitorNamespace,
-        'uninstallStrategy': value.uninstallStrategy,
-        'workloadUpdateStrategy': V1KubeVirtWorkloadUpdateStrategyToJSON(value.workloadUpdateStrategy),
-        'workloads': V1ComponentConfigToJSON(value.workloads),
+        'certificateRotateStrategy': V1KubeVirtCertificateRotateStrategyToJSON(value['certificateRotateStrategy']),
+        'configuration': V1KubeVirtConfigurationToJSON(value['_configuration']),
+        'customizeComponents': V1CustomizeComponentsToJSON(value['customizeComponents']),
+        'imagePullPolicy': value['imagePullPolicy'],
+        'imagePullSecrets': value['imagePullSecrets'] == null ? undefined : ((value['imagePullSecrets'] as Array<any>).map(K8sIoApiCoreV1LocalObjectReferenceToJSON)),
+        'imageRegistry': value['imageRegistry'],
+        'imageTag': value['imageTag'],
+        'infra': V1ComponentConfigToJSON(value['infra']),
+        'monitorAccount': value['monitorAccount'],
+        'monitorNamespace': value['monitorNamespace'],
+        'productComponent': value['productComponent'],
+        'productName': value['productName'],
+        'productVersion': value['productVersion'],
+        'serviceMonitorNamespace': value['serviceMonitorNamespace'],
+        'synchronizationPort': value['synchronizationPort'],
+        'uninstallStrategy': value['uninstallStrategy'],
+        'workloadUpdateStrategy': V1KubeVirtWorkloadUpdateStrategyToJSON(value['workloadUpdateStrategy']),
+        'workloads': V1ComponentConfigToJSON(value['workloads']),
     };
 }
 

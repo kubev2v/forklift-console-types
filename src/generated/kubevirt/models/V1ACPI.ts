@@ -12,13 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
  * @interface V1ACPI
  */
 export interface V1ACPI {
+    /**
+     * Similar to SlicNameRef, another ACPI entry that is used in more recent Windows versions. The above points to the spec of MSDM too.
+     * @type {string}
+     * @memberof V1ACPI
+     */
+    msdmNameRef?: string;
     /**
      * SlicNameRef should match the volume name of a secret object. The data in the secret should be a binary blob that follows the ACPI SLIC standard, see: https://learn.microsoft.com/en-us/previous-versions/windows/hardware/design/dn653305(v=vs.85)
      * @type {string}
@@ -30,10 +36,8 @@ export interface V1ACPI {
 /**
  * Check if a given object implements the V1ACPI interface.
  */
-export function instanceOfV1ACPI(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ACPI(value: object): value is V1ACPI {
+    return true;
 }
 
 export function V1ACPIFromJSON(json: any): V1ACPI {
@@ -41,25 +45,29 @@ export function V1ACPIFromJSON(json: any): V1ACPI {
 }
 
 export function V1ACPIFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ACPI {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'slicNameRef': !exists(json, 'slicNameRef') ? undefined : json['slicNameRef'],
+        'msdmNameRef': json['msdmNameRef'] == null ? undefined : json['msdmNameRef'],
+        'slicNameRef': json['slicNameRef'] == null ? undefined : json['slicNameRef'],
     };
 }
 
-export function V1ACPIToJSON(value?: V1ACPI | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ACPIToJSON(json: any): V1ACPI {
+    return V1ACPIToJSONTyped(json, false);
+}
+
+export function V1ACPIToJSONTyped(value?: V1ACPI | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'slicNameRef': value.slicNameRef,
+        'msdmNameRef': value['msdmNameRef'],
+        'slicNameRef': value['slicNameRef'],
     };
 }
 

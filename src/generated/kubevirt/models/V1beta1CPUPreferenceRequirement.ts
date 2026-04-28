@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,11 +30,9 @@ export interface V1beta1CPUPreferenceRequirement {
 /**
  * Check if a given object implements the V1beta1CPUPreferenceRequirement interface.
  */
-export function instanceOfV1beta1CPUPreferenceRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "guest" in value;
-
-    return isInstance;
+export function instanceOfV1beta1CPUPreferenceRequirement(value: object): value is V1beta1CPUPreferenceRequirement {
+    if (!('guest' in value) || value['guest'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1CPUPreferenceRequirementFromJSON(json: any): V1beta1CPUPreferenceRequirement {
@@ -42,7 +40,7 @@ export function V1beta1CPUPreferenceRequirementFromJSON(json: any): V1beta1CPUPr
 }
 
 export function V1beta1CPUPreferenceRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1CPUPreferenceRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function V1beta1CPUPreferenceRequirementFromJSONTyped(json: any, ignoreDi
     };
 }
 
-export function V1beta1CPUPreferenceRequirementToJSON(value?: V1beta1CPUPreferenceRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1CPUPreferenceRequirementToJSON(json: any): V1beta1CPUPreferenceRequirement {
+    return V1beta1CPUPreferenceRequirementToJSONTyped(json, false);
+}
+
+export function V1beta1CPUPreferenceRequirementToJSONTyped(value?: V1beta1CPUPreferenceRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'guest': value.guest,
+        'guest': value['guest'],
     };
 }
 

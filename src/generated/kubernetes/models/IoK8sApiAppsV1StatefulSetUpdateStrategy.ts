@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1RollingUpdateStatefulSetStrategy } from './IoK8sApiAppsV1RollingUpdateStatefulSetStrategy';
 import {
     IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSON,
     IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSONTyped,
     IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSON,
+    IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSONTyped,
 } from './IoK8sApiAppsV1RollingUpdateStatefulSetStrategy';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiAppsV1StatefulSetUpdateStrategy {
 /**
  * Check if a given object implements the IoK8sApiAppsV1StatefulSetUpdateStrategy interface.
  */
-export function instanceOfIoK8sApiAppsV1StatefulSetUpdateStrategy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1StatefulSetUpdateStrategy(value: object): value is IoK8sApiAppsV1StatefulSetUpdateStrategy {
+    return true;
 }
 
 export function IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSON(json: any): IoK8sApiAppsV1StatefulSetUpdateStrategy {
@@ -54,27 +53,29 @@ export function IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1StatefulSetUpdateStrategy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'rollingUpdate': !exists(json, 'rollingUpdate') ? undefined : IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSON(json['rollingUpdate']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'rollingUpdate': json['rollingUpdate'] == null ? undefined : IoK8sApiAppsV1RollingUpdateStatefulSetStrategyFromJSON(json['rollingUpdate']),
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiAppsV1StatefulSetUpdateStrategyToJSON(value?: IoK8sApiAppsV1StatefulSetUpdateStrategy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1StatefulSetUpdateStrategyToJSON(json: any): IoK8sApiAppsV1StatefulSetUpdateStrategy {
+    return IoK8sApiAppsV1StatefulSetUpdateStrategyToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1StatefulSetUpdateStrategyToJSONTyped(value?: IoK8sApiAppsV1StatefulSetUpdateStrategy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'rollingUpdate': IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSON(value.rollingUpdate),
-        'type': value.type,
+        'rollingUpdate': IoK8sApiAppsV1RollingUpdateStatefulSetStrategyToJSON(value['rollingUpdate']),
+        'type': value['type'],
     };
 }
 

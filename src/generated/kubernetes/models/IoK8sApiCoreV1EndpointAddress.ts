@@ -12,16 +12,17 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
 import {
     IoK8sApiCoreV1ObjectReferenceFromJSON,
     IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1ObjectReferenceToJSON,
+    IoK8sApiCoreV1ObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1ObjectReference';
 
 /**
- * EndpointAddress is a tuple that describes single IP address.
+ * EndpointAddress is a tuple that describes single IP address. Deprecated: This API is deprecated in v1.33+.
  * @export
  * @interface IoK8sApiCoreV1EndpointAddress
  */
@@ -55,11 +56,9 @@ export interface IoK8sApiCoreV1EndpointAddress {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EndpointAddress interface.
  */
-export function instanceOfIoK8sApiCoreV1EndpointAddress(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "ip" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EndpointAddress(value: object): value is IoK8sApiCoreV1EndpointAddress {
+    if (!('ip' in value) || value['ip'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1EndpointAddressFromJSON(json: any): IoK8sApiCoreV1EndpointAddress {
@@ -67,31 +66,33 @@ export function IoK8sApiCoreV1EndpointAddressFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1EndpointAddressFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EndpointAddress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hostname': !exists(json, 'hostname') ? undefined : json['hostname'],
+        'hostname': json['hostname'] == null ? undefined : json['hostname'],
         'ip': json['ip'],
-        'nodeName': !exists(json, 'nodeName') ? undefined : json['nodeName'],
-        'targetRef': !exists(json, 'targetRef') ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['targetRef']),
+        'nodeName': json['nodeName'] == null ? undefined : json['nodeName'],
+        'targetRef': json['targetRef'] == null ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['targetRef']),
     };
 }
 
-export function IoK8sApiCoreV1EndpointAddressToJSON(value?: IoK8sApiCoreV1EndpointAddress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EndpointAddressToJSON(json: any): IoK8sApiCoreV1EndpointAddress {
+    return IoK8sApiCoreV1EndpointAddressToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EndpointAddressToJSONTyped(value?: IoK8sApiCoreV1EndpointAddress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hostname': value.hostname,
-        'ip': value.ip,
-        'nodeName': value.nodeName,
-        'targetRef': IoK8sApiCoreV1ObjectReferenceToJSON(value.targetRef),
+        'hostname': value['hostname'],
+        'ip': value['ip'],
+        'nodeName': value['nodeName'],
+        'targetRef': IoK8sApiCoreV1ObjectReferenceToJSON(value['targetRef']),
     };
 }
 

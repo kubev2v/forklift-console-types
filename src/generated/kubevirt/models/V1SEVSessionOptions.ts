@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SEVSessionOptions is used to provide SEV session parameters.
  * @export
@@ -36,10 +36,8 @@ export interface V1SEVSessionOptions {
 /**
  * Check if a given object implements the V1SEVSessionOptions interface.
  */
-export function instanceOfV1SEVSessionOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SEVSessionOptions(value: object): value is V1SEVSessionOptions {
+    return true;
 }
 
 export function V1SEVSessionOptionsFromJSON(json: any): V1SEVSessionOptions {
@@ -47,27 +45,29 @@ export function V1SEVSessionOptionsFromJSON(json: any): V1SEVSessionOptions {
 }
 
 export function V1SEVSessionOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SEVSessionOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dhCert': !exists(json, 'dhCert') ? undefined : json['dhCert'],
-        'session': !exists(json, 'session') ? undefined : json['session'],
+        'dhCert': json['dhCert'] == null ? undefined : json['dhCert'],
+        'session': json['session'] == null ? undefined : json['session'],
     };
 }
 
-export function V1SEVSessionOptionsToJSON(value?: V1SEVSessionOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SEVSessionOptionsToJSON(json: any): V1SEVSessionOptions {
+    return V1SEVSessionOptionsToJSONTyped(json, false);
+}
+
+export function V1SEVSessionOptionsToJSONTyped(value?: V1SEVSessionOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'dhCert': value.dhCert,
-        'session': value.session,
+        'dhCert': value['dhCert'],
+        'session': value['session'],
     };
 }
 

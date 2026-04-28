@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ExternalDocumentation allows referencing an external resource for extended documentation.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocume
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation {
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentationFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation {
@@ -47,27 +45,29 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumen
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'url': !exists(json, 'url') ? undefined : json['url'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'url': json['url'] == null ? undefined : json['url'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentationToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentationToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentationToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentationToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1ExternalDocumentation | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'description': value.description,
-        'url': value.url,
+        'description': value['description'],
+        'url': value['url'],
     };
 }
 

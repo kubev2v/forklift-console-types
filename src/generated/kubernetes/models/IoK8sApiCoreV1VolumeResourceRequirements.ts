@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VolumeResourceRequirements describes the storage resource requirements for a volume.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiCoreV1VolumeResourceRequirements {
 /**
  * Check if a given object implements the IoK8sApiCoreV1VolumeResourceRequirements interface.
  */
-export function instanceOfIoK8sApiCoreV1VolumeResourceRequirements(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1VolumeResourceRequirements(value: object): value is IoK8sApiCoreV1VolumeResourceRequirements {
+    return true;
 }
 
 export function IoK8sApiCoreV1VolumeResourceRequirementsFromJSON(json: any): IoK8sApiCoreV1VolumeResourceRequirements {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1VolumeResourceRequirementsFromJSON(json: any): IoK
 }
 
 export function IoK8sApiCoreV1VolumeResourceRequirementsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1VolumeResourceRequirements {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'limits': !exists(json, 'limits') ? undefined : json['limits'],
-        'requests': !exists(json, 'requests') ? undefined : json['requests'],
+        'limits': json['limits'] == null ? undefined : json['limits'],
+        'requests': json['requests'] == null ? undefined : json['requests'],
     };
 }
 
-export function IoK8sApiCoreV1VolumeResourceRequirementsToJSON(value?: IoK8sApiCoreV1VolumeResourceRequirements | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VolumeResourceRequirementsToJSON(json: any): IoK8sApiCoreV1VolumeResourceRequirements {
+    return IoK8sApiCoreV1VolumeResourceRequirementsToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VolumeResourceRequirementsToJSONTyped(value?: IoK8sApiCoreV1VolumeResourceRequirements | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'limits': value.limits,
-        'requests': value.requests,
+        'limits': value['limits'],
+        'requests': value['requests'],
     };
 }
 

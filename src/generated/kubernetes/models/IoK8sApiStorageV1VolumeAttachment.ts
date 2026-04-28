@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1VolumeAttachmentSpec } from './IoK8sApiStorageV1VolumeAttachmentSpec';
 import {
     IoK8sApiStorageV1VolumeAttachmentSpecFromJSON,
     IoK8sApiStorageV1VolumeAttachmentSpecFromJSONTyped,
     IoK8sApiStorageV1VolumeAttachmentSpecToJSON,
+    IoK8sApiStorageV1VolumeAttachmentSpecToJSONTyped,
 } from './IoK8sApiStorageV1VolumeAttachmentSpec';
-import type { IoK8sApiStorageV1VolumeAttachmentStatus } from './IoK8sApiStorageV1VolumeAttachmentStatus';
-import {
-    IoK8sApiStorageV1VolumeAttachmentStatusFromJSON,
-    IoK8sApiStorageV1VolumeAttachmentStatusFromJSONTyped,
-    IoK8sApiStorageV1VolumeAttachmentStatusToJSON,
-} from './IoK8sApiStorageV1VolumeAttachmentStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiStorageV1VolumeAttachmentStatus } from './IoK8sApiStorageV1VolumeAttachmentStatus';
+import {
+    IoK8sApiStorageV1VolumeAttachmentStatusFromJSON,
+    IoK8sApiStorageV1VolumeAttachmentStatusFromJSONTyped,
+    IoK8sApiStorageV1VolumeAttachmentStatusToJSON,
+    IoK8sApiStorageV1VolumeAttachmentStatusToJSONTyped,
+} from './IoK8sApiStorageV1VolumeAttachmentStatus';
 
 /**
  * VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
@@ -75,11 +78,9 @@ export interface IoK8sApiStorageV1VolumeAttachment {
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeAttachment interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeAttachment(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeAttachment(value: object): value is IoK8sApiStorageV1VolumeAttachment {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentFromJSON(json: any): IoK8sApiStorageV1VolumeAttachment {
@@ -87,33 +88,35 @@ export function IoK8sApiStorageV1VolumeAttachmentFromJSON(json: any): IoK8sApiSt
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeAttachment {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiStorageV1VolumeAttachmentSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiStorageV1VolumeAttachmentStatusFromJSON(json['status']),
+        'status': json['status'] == null ? undefined : IoK8sApiStorageV1VolumeAttachmentStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiStorageV1VolumeAttachmentToJSON(value?: IoK8sApiStorageV1VolumeAttachment | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeAttachmentToJSON(json: any): IoK8sApiStorageV1VolumeAttachment {
+    return IoK8sApiStorageV1VolumeAttachmentToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeAttachmentToJSONTyped(value?: IoK8sApiStorageV1VolumeAttachment | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiStorageV1VolumeAttachmentSpecToJSON(value.spec),
-        'status': IoK8sApiStorageV1VolumeAttachmentStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiStorageV1VolumeAttachmentSpecToJSON(value['spec']),
+        'status': IoK8sApiStorageV1VolumeAttachmentStatusToJSON(value['status']),
     };
 }
 

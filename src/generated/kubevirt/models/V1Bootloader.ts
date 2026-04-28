@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1BIOS } from './V1BIOS';
 import {
     V1BIOSFromJSON,
     V1BIOSFromJSONTyped,
     V1BIOSToJSON,
+    V1BIOSToJSONTyped,
 } from './V1BIOS';
 import type { V1EFI } from './V1EFI';
 import {
     V1EFIFromJSON,
     V1EFIFromJSONTyped,
     V1EFIToJSON,
+    V1EFIToJSONTyped,
 } from './V1EFI';
 
 /**
@@ -49,10 +51,8 @@ export interface V1Bootloader {
 /**
  * Check if a given object implements the V1Bootloader interface.
  */
-export function instanceOfV1Bootloader(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Bootloader(value: object): value is V1Bootloader {
+    return true;
 }
 
 export function V1BootloaderFromJSON(json: any): V1Bootloader {
@@ -60,27 +60,29 @@ export function V1BootloaderFromJSON(json: any): V1Bootloader {
 }
 
 export function V1BootloaderFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Bootloader {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'bios': !exists(json, 'bios') ? undefined : V1BIOSFromJSON(json['bios']),
-        'efi': !exists(json, 'efi') ? undefined : V1EFIFromJSON(json['efi']),
+        'bios': json['bios'] == null ? undefined : V1BIOSFromJSON(json['bios']),
+        'efi': json['efi'] == null ? undefined : V1EFIFromJSON(json['efi']),
     };
 }
 
-export function V1BootloaderToJSON(value?: V1Bootloader | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1BootloaderToJSON(json: any): V1Bootloader {
+    return V1BootloaderToJSONTyped(json, false);
+}
+
+export function V1BootloaderToJSONTyped(value?: V1Bootloader | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'bios': V1BIOSToJSON(value.bios),
-        'efi': V1EFIToJSON(value.efi),
+        'bios': V1BIOSToJSON(value['bios']),
+        'efi': V1EFIToJSON(value['efi']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PciHostDevice represents a host PCI device allowed for passthrough
  * @export
@@ -42,12 +42,10 @@ export interface V1PciHostDevice {
 /**
  * Check if a given object implements the V1PciHostDevice interface.
  */
-export function instanceOfV1PciHostDevice(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "pciVendorSelector" in value;
-    isInstance = isInstance && "resourceName" in value;
-
-    return isInstance;
+export function instanceOfV1PciHostDevice(value: object): value is V1PciHostDevice {
+    if (!('pciVendorSelector' in value) || value['pciVendorSelector'] === undefined) return false;
+    if (!('resourceName' in value) || value['resourceName'] === undefined) return false;
+    return true;
 }
 
 export function V1PciHostDeviceFromJSON(json: any): V1PciHostDevice {
@@ -55,29 +53,31 @@ export function V1PciHostDeviceFromJSON(json: any): V1PciHostDevice {
 }
 
 export function V1PciHostDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PciHostDevice {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'externalResourceProvider': !exists(json, 'externalResourceProvider') ? undefined : json['externalResourceProvider'],
+        'externalResourceProvider': json['externalResourceProvider'] == null ? undefined : json['externalResourceProvider'],
         'pciVendorSelector': json['pciVendorSelector'],
         'resourceName': json['resourceName'],
     };
 }
 
-export function V1PciHostDeviceToJSON(value?: V1PciHostDevice | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PciHostDeviceToJSON(json: any): V1PciHostDevice {
+    return V1PciHostDeviceToJSONTyped(json, false);
+}
+
+export function V1PciHostDeviceToJSONTyped(value?: V1PciHostDevice | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'externalResourceProvider': value.externalResourceProvider,
-        'pciVendorSelector': value.pciVendorSelector,
-        'resourceName': value.resourceName,
+        'externalResourceProvider': value['externalResourceProvider'],
+        'pciVendorSelector': value['pciVendorSelector'],
+        'resourceName': value['resourceName'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1HPETTimer {
 /**
  * Check if a given object implements the V1HPETTimer interface.
  */
-export function instanceOfV1HPETTimer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1HPETTimer(value: object): value is V1HPETTimer {
+    return true;
 }
 
 export function V1HPETTimerFromJSON(json: any): V1HPETTimer {
@@ -47,27 +45,29 @@ export function V1HPETTimerFromJSON(json: any): V1HPETTimer {
 }
 
 export function V1HPETTimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1HPETTimer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'present': !exists(json, 'present') ? undefined : json['present'],
-        'tickPolicy': !exists(json, 'tickPolicy') ? undefined : json['tickPolicy'],
+        'present': json['present'] == null ? undefined : json['present'],
+        'tickPolicy': json['tickPolicy'] == null ? undefined : json['tickPolicy'],
     };
 }
 
-export function V1HPETTimerToJSON(value?: V1HPETTimer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HPETTimerToJSON(json: any): V1HPETTimer {
+    return V1HPETTimerToJSONTyped(json, false);
+}
+
+export function V1HPETTimerToJSONTyped(value?: V1HPETTimer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'present': value.present,
-        'tickPolicy': value.tickPolicy,
+        'present': value['present'],
+        'tickPolicy': value['tickPolicy'],
     };
 }
 

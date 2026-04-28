@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PersistentVolumeStatus is the current status of a persistent volume.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiCoreV1PersistentVolumeStatus {
      * @type {Date}
      * @memberof IoK8sApiCoreV1PersistentVolumeStatus
      */
-    lastPhaseTransitionTime?: string;
+    lastPhaseTransitionTime?: Date;
     /**
      * message is a human-readable message indicating details about why the volume is in this state.
      * @type {string}
@@ -48,10 +48,8 @@ export interface IoK8sApiCoreV1PersistentVolumeStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PersistentVolumeStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1PersistentVolumeStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PersistentVolumeStatus(value: object): value is IoK8sApiCoreV1PersistentVolumeStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1PersistentVolumeStatusFromJSON(json: any): IoK8sApiCoreV1PersistentVolumeStatus {
@@ -59,31 +57,33 @@ export function IoK8sApiCoreV1PersistentVolumeStatusFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApiCoreV1PersistentVolumeStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PersistentVolumeStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastPhaseTransitionTime': !exists(json, 'lastPhaseTransitionTime') ? undefined : json['lastPhaseTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastPhaseTransitionTime': json['lastPhaseTransitionTime'] == null ? undefined : (new Date(json['lastPhaseTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
     };
 }
 
-export function IoK8sApiCoreV1PersistentVolumeStatusToJSON(value?: IoK8sApiCoreV1PersistentVolumeStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PersistentVolumeStatusToJSON(json: any): IoK8sApiCoreV1PersistentVolumeStatus {
+    return IoK8sApiCoreV1PersistentVolumeStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PersistentVolumeStatusToJSONTyped(value?: IoK8sApiCoreV1PersistentVolumeStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastPhaseTransitionTime': value.lastPhaseTransitionTime === undefined ? undefined : (value.lastPhaseTransitionTime),
-        'message': value.message,
-        'phase': value.phase,
-        'reason': value.reason,
+        'lastPhaseTransitionTime': value['lastPhaseTransitionTime'] == null ? undefined : ((value['lastPhaseTransitionTime']).toISOString()),
+        'message': value['message'],
+        'phase': value['phase'],
+        'reason': value['reason'],
     };
 }
 

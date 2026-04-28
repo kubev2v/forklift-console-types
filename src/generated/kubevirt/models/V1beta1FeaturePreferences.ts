@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1FeatureAPIC } from './V1FeatureAPIC';
 import {
     V1FeatureAPICFromJSON,
     V1FeatureAPICFromJSONTyped,
     V1FeatureAPICToJSON,
+    V1FeatureAPICToJSONTyped,
 } from './V1FeatureAPIC';
 import type { V1FeatureHyperv } from './V1FeatureHyperv';
 import {
     V1FeatureHypervFromJSON,
     V1FeatureHypervFromJSONTyped,
     V1FeatureHypervToJSON,
+    V1FeatureHypervToJSONTyped,
 } from './V1FeatureHyperv';
-import type { V1FeatureKVM } from './V1FeatureKVM';
-import {
-    V1FeatureKVMFromJSON,
-    V1FeatureKVMFromJSONTyped,
-    V1FeatureKVMToJSON,
-} from './V1FeatureKVM';
 import type { V1FeatureState } from './V1FeatureState';
 import {
     V1FeatureStateFromJSON,
     V1FeatureStateFromJSONTyped,
     V1FeatureStateToJSON,
+    V1FeatureStateToJSONTyped,
 } from './V1FeatureState';
+import type { V1FeatureKVM } from './V1FeatureKVM';
+import {
+    V1FeatureKVMFromJSON,
+    V1FeatureKVMFromJSONTyped,
+    V1FeatureKVMToJSON,
+    V1FeatureKVMToJSONTyped,
+} from './V1FeatureKVM';
 
 /**
  * FeaturePreferences contains various optional defaults for Features.
@@ -85,10 +89,8 @@ export interface V1beta1FeaturePreferences {
 /**
  * Check if a given object implements the V1beta1FeaturePreferences interface.
  */
-export function instanceOfV1beta1FeaturePreferences(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1FeaturePreferences(value: object): value is V1beta1FeaturePreferences {
+    return true;
 }
 
 export function V1beta1FeaturePreferencesFromJSON(json: any): V1beta1FeaturePreferences {
@@ -96,35 +98,37 @@ export function V1beta1FeaturePreferencesFromJSON(json: any): V1beta1FeaturePref
 }
 
 export function V1beta1FeaturePreferencesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1FeaturePreferences {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'preferredAcpi': !exists(json, 'preferredAcpi') ? undefined : V1FeatureStateFromJSON(json['preferredAcpi']),
-        'preferredApic': !exists(json, 'preferredApic') ? undefined : V1FeatureAPICFromJSON(json['preferredApic']),
-        'preferredHyperv': !exists(json, 'preferredHyperv') ? undefined : V1FeatureHypervFromJSON(json['preferredHyperv']),
-        'preferredKvm': !exists(json, 'preferredKvm') ? undefined : V1FeatureKVMFromJSON(json['preferredKvm']),
-        'preferredPvspinlock': !exists(json, 'preferredPvspinlock') ? undefined : V1FeatureStateFromJSON(json['preferredPvspinlock']),
-        'preferredSmm': !exists(json, 'preferredSmm') ? undefined : V1FeatureStateFromJSON(json['preferredSmm']),
+        'preferredAcpi': json['preferredAcpi'] == null ? undefined : V1FeatureStateFromJSON(json['preferredAcpi']),
+        'preferredApic': json['preferredApic'] == null ? undefined : V1FeatureAPICFromJSON(json['preferredApic']),
+        'preferredHyperv': json['preferredHyperv'] == null ? undefined : V1FeatureHypervFromJSON(json['preferredHyperv']),
+        'preferredKvm': json['preferredKvm'] == null ? undefined : V1FeatureKVMFromJSON(json['preferredKvm']),
+        'preferredPvspinlock': json['preferredPvspinlock'] == null ? undefined : V1FeatureStateFromJSON(json['preferredPvspinlock']),
+        'preferredSmm': json['preferredSmm'] == null ? undefined : V1FeatureStateFromJSON(json['preferredSmm']),
     };
 }
 
-export function V1beta1FeaturePreferencesToJSON(value?: V1beta1FeaturePreferences | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1FeaturePreferencesToJSON(json: any): V1beta1FeaturePreferences {
+    return V1beta1FeaturePreferencesToJSONTyped(json, false);
+}
+
+export function V1beta1FeaturePreferencesToJSONTyped(value?: V1beta1FeaturePreferences | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preferredAcpi': V1FeatureStateToJSON(value.preferredAcpi),
-        'preferredApic': V1FeatureAPICToJSON(value.preferredApic),
-        'preferredHyperv': V1FeatureHypervToJSON(value.preferredHyperv),
-        'preferredKvm': V1FeatureKVMToJSON(value.preferredKvm),
-        'preferredPvspinlock': V1FeatureStateToJSON(value.preferredPvspinlock),
-        'preferredSmm': V1FeatureStateToJSON(value.preferredSmm),
+        'preferredAcpi': V1FeatureStateToJSON(value['preferredAcpi']),
+        'preferredApic': V1FeatureAPICToJSON(value['preferredApic']),
+        'preferredHyperv': V1FeatureHypervToJSON(value['preferredHyperv']),
+        'preferredKvm': V1FeatureKVMToJSON(value['preferredKvm']),
+        'preferredPvspinlock': V1FeatureStateToJSON(value['preferredPvspinlock']),
+        'preferredSmm': V1FeatureStateToJSON(value['preferredSmm']),
     };
 }
 

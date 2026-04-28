@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -21,10 +21,10 @@ import { exists, mapValues } from '../../runtime';
 export interface V1ResourceRequirements {
     /**
      * Limits describes the maximum amount of compute resources allowed. Valid resource keys are "memory" and "cpu".
-     * @type {object}
+     * @type {{ [key: string]: object; }}
      * @memberof V1ResourceRequirements
      */
-    limits?: object;
+    limits?: { [key: string]: object; };
     /**
      * Don't ask the scheduler to take the guest-management overhead into account. Instead put the overhead only into the container's memory limit. This can lead to crashes if all memory is in use on a node. Defaults to false.
      * @type {boolean}
@@ -33,19 +33,17 @@ export interface V1ResourceRequirements {
     overcommitGuestOverhead?: boolean;
     /**
      * Requests is a description of the initial vmi resources. Valid resource keys are "memory" and "cpu".
-     * @type {object}
+     * @type {{ [key: string]: object; }}
      * @memberof V1ResourceRequirements
      */
-    requests?: object;
+    requests?: { [key: string]: object; };
 }
 
 /**
  * Check if a given object implements the V1ResourceRequirements interface.
  */
-export function instanceOfV1ResourceRequirements(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ResourceRequirements(value: object): value is V1ResourceRequirements {
+    return true;
 }
 
 export function V1ResourceRequirementsFromJSON(json: any): V1ResourceRequirements {
@@ -53,29 +51,31 @@ export function V1ResourceRequirementsFromJSON(json: any): V1ResourceRequirement
 }
 
 export function V1ResourceRequirementsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ResourceRequirements {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'limits': !exists(json, 'limits') ? undefined : json['limits'],
-        'overcommitGuestOverhead': !exists(json, 'overcommitGuestOverhead') ? undefined : json['overcommitGuestOverhead'],
-        'requests': !exists(json, 'requests') ? undefined : json['requests'],
+        'limits': json['limits'] == null ? undefined : json['limits'],
+        'overcommitGuestOverhead': json['overcommitGuestOverhead'] == null ? undefined : json['overcommitGuestOverhead'],
+        'requests': json['requests'] == null ? undefined : json['requests'],
     };
 }
 
-export function V1ResourceRequirementsToJSON(value?: V1ResourceRequirements | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ResourceRequirementsToJSON(json: any): V1ResourceRequirements {
+    return V1ResourceRequirementsToJSONTyped(json, false);
+}
+
+export function V1ResourceRequirementsToJSONTyped(value?: V1ResourceRequirements | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'limits': value.limits,
-        'overcommitGuestOverhead': value.overcommitGuestOverhead,
-        'requests': value.requests,
+        'limits': value['limits'],
+        'overcommitGuestOverhead': value['overcommitGuestOverhead'],
+        'requests': value['requests'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1StatefulSetCondition } from './IoK8sApiAppsV1StatefulSetCondition';
 import {
     IoK8sApiAppsV1StatefulSetConditionFromJSON,
     IoK8sApiAppsV1StatefulSetConditionFromJSONTyped,
     IoK8sApiAppsV1StatefulSetConditionToJSON,
+    IoK8sApiAppsV1StatefulSetConditionToJSONTyped,
 } from './IoK8sApiAppsV1StatefulSetCondition';
 
 /**
@@ -91,11 +92,9 @@ export interface IoK8sApiAppsV1StatefulSetStatus {
 /**
  * Check if a given object implements the IoK8sApiAppsV1StatefulSetStatus interface.
  */
-export function instanceOfIoK8sApiAppsV1StatefulSetStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "replicas" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1StatefulSetStatus(value: object): value is IoK8sApiAppsV1StatefulSetStatus {
+    if (!('replicas' in value) || value['replicas'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1StatefulSetStatusFromJSON(json: any): IoK8sApiAppsV1StatefulSetStatus {
@@ -103,43 +102,45 @@ export function IoK8sApiAppsV1StatefulSetStatusFromJSON(json: any): IoK8sApiApps
 }
 
 export function IoK8sApiAppsV1StatefulSetStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1StatefulSetStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'availableReplicas': !exists(json, 'availableReplicas') ? undefined : json['availableReplicas'],
-        'collisionCount': !exists(json, 'collisionCount') ? undefined : json['collisionCount'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAppsV1StatefulSetConditionFromJSON)),
-        'currentReplicas': !exists(json, 'currentReplicas') ? undefined : json['currentReplicas'],
-        'currentRevision': !exists(json, 'currentRevision') ? undefined : json['currentRevision'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
-        'readyReplicas': !exists(json, 'readyReplicas') ? undefined : json['readyReplicas'],
+        'availableReplicas': json['availableReplicas'] == null ? undefined : json['availableReplicas'],
+        'collisionCount': json['collisionCount'] == null ? undefined : json['collisionCount'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAppsV1StatefulSetConditionFromJSON)),
+        'currentReplicas': json['currentReplicas'] == null ? undefined : json['currentReplicas'],
+        'currentRevision': json['currentRevision'] == null ? undefined : json['currentRevision'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'readyReplicas': json['readyReplicas'] == null ? undefined : json['readyReplicas'],
         'replicas': json['replicas'],
-        'updateRevision': !exists(json, 'updateRevision') ? undefined : json['updateRevision'],
-        'updatedReplicas': !exists(json, 'updatedReplicas') ? undefined : json['updatedReplicas'],
+        'updateRevision': json['updateRevision'] == null ? undefined : json['updateRevision'],
+        'updatedReplicas': json['updatedReplicas'] == null ? undefined : json['updatedReplicas'],
     };
 }
 
-export function IoK8sApiAppsV1StatefulSetStatusToJSON(value?: IoK8sApiAppsV1StatefulSetStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1StatefulSetStatusToJSON(json: any): IoK8sApiAppsV1StatefulSetStatus {
+    return IoK8sApiAppsV1StatefulSetStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1StatefulSetStatusToJSONTyped(value?: IoK8sApiAppsV1StatefulSetStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'availableReplicas': value.availableReplicas,
-        'collisionCount': value.collisionCount,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiAppsV1StatefulSetConditionToJSON)),
-        'currentReplicas': value.currentReplicas,
-        'currentRevision': value.currentRevision,
-        'observedGeneration': value.observedGeneration,
-        'readyReplicas': value.readyReplicas,
-        'replicas': value.replicas,
-        'updateRevision': value.updateRevision,
-        'updatedReplicas': value.updatedReplicas,
+        'availableReplicas': value['availableReplicas'],
+        'collisionCount': value['collisionCount'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiAppsV1StatefulSetConditionToJSON)),
+        'currentReplicas': value['currentReplicas'],
+        'currentRevision': value['currentRevision'],
+        'observedGeneration': value['observedGeneration'],
+        'readyReplicas': value['readyReplicas'],
+        'replicas': value['replicas'],
+        'updateRevision': value['updateRevision'],
+        'updatedReplicas': value['updatedReplicas'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -61,11 +62,9 @@ export interface IoK8sApiCoreV1ClusterTrustBundleProjection {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ClusterTrustBundleProjection interface.
  */
-export function instanceOfIoK8sApiCoreV1ClusterTrustBundleProjection(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ClusterTrustBundleProjection(value: object): value is IoK8sApiCoreV1ClusterTrustBundleProjection {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSON(json: any): IoK8sApiCoreV1ClusterTrustBundleProjection {
@@ -73,33 +72,35 @@ export function IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSON(json: any): I
 }
 
 export function IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ClusterTrustBundleProjection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'labelSelector': !exists(json, 'labelSelector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['labelSelector']),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
+        'labelSelector': json['labelSelector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['labelSelector']),
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
         'path': json['path'],
-        'signerName': !exists(json, 'signerName') ? undefined : json['signerName'],
+        'signerName': json['signerName'] == null ? undefined : json['signerName'],
     };
 }
 
-export function IoK8sApiCoreV1ClusterTrustBundleProjectionToJSON(value?: IoK8sApiCoreV1ClusterTrustBundleProjection | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ClusterTrustBundleProjectionToJSON(json: any): IoK8sApiCoreV1ClusterTrustBundleProjection {
+    return IoK8sApiCoreV1ClusterTrustBundleProjectionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ClusterTrustBundleProjectionToJSONTyped(value?: IoK8sApiCoreV1ClusterTrustBundleProjection | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'labelSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.labelSelector),
-        'name': value.name,
-        'optional': value.optional,
-        'path': value.path,
-        'signerName': value.signerName,
+        'labelSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['labelSelector']),
+        'name': value['name'],
+        'optional': value['optional'],
+        'path': value['path'],
+        'signerName': value['signerName'],
     };
 }
 

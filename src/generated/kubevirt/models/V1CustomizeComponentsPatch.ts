@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -48,14 +48,12 @@ export interface V1CustomizeComponentsPatch {
 /**
  * Check if a given object implements the V1CustomizeComponentsPatch interface.
  */
-export function instanceOfV1CustomizeComponentsPatch(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "patch" in value;
-    isInstance = isInstance && "resourceName" in value;
-    isInstance = isInstance && "resourceType" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1CustomizeComponentsPatch(value: object): value is V1CustomizeComponentsPatch {
+    if (!('patch' in value) || value['patch'] === undefined) return false;
+    if (!('resourceName' in value) || value['resourceName'] === undefined) return false;
+    if (!('resourceType' in value) || value['resourceType'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1CustomizeComponentsPatchFromJSON(json: any): V1CustomizeComponentsPatch {
@@ -63,7 +61,7 @@ export function V1CustomizeComponentsPatchFromJSON(json: any): V1CustomizeCompon
 }
 
 export function V1CustomizeComponentsPatchFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CustomizeComponentsPatch {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -75,19 +73,21 @@ export function V1CustomizeComponentsPatchFromJSONTyped(json: any, ignoreDiscrim
     };
 }
 
-export function V1CustomizeComponentsPatchToJSON(value?: V1CustomizeComponentsPatch | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CustomizeComponentsPatchToJSON(json: any): V1CustomizeComponentsPatch {
+    return V1CustomizeComponentsPatchToJSONTyped(json, false);
+}
+
+export function V1CustomizeComponentsPatchToJSONTyped(value?: V1CustomizeComponentsPatch | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'patch': value.patch,
-        'resourceName': value.resourceName,
-        'resourceType': value.resourceType,
-        'type': value.type,
+        'patch': value['patch'],
+        'resourceName': value['resourceName'],
+        'resourceType': value['resourceType'],
+        'type': value['type'],
     };
 }
 

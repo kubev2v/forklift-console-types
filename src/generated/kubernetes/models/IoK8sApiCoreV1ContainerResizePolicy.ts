@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ContainerResizePolicy represents resource resize policy for the container.
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApiCoreV1ContainerResizePolicy {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerResizePolicy interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerResizePolicy(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "resourceName" in value;
-    isInstance = isInstance && "restartPolicy" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerResizePolicy(value: object): value is IoK8sApiCoreV1ContainerResizePolicy {
+    if (!('resourceName' in value) || value['resourceName'] === undefined) return false;
+    if (!('restartPolicy' in value) || value['restartPolicy'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerResizePolicyFromJSON(json: any): IoK8sApiCoreV1ContainerResizePolicy {
@@ -49,7 +47,7 @@ export function IoK8sApiCoreV1ContainerResizePolicyFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ContainerResizePolicyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerResizePolicy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiCoreV1ContainerResizePolicyFromJSONTyped(json: any, igno
     };
 }
 
-export function IoK8sApiCoreV1ContainerResizePolicyToJSON(value?: IoK8sApiCoreV1ContainerResizePolicy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerResizePolicyToJSON(json: any): IoK8sApiCoreV1ContainerResizePolicy {
+    return IoK8sApiCoreV1ContainerResizePolicyToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerResizePolicyToJSONTyped(value?: IoK8sApiCoreV1ContainerResizePolicy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'resourceName': value.resourceName,
-        'restartPolicy': value.restartPolicy,
+        'resourceName': value['resourceName'],
+        'restartPolicy': value['restartPolicy'],
     };
 }
 

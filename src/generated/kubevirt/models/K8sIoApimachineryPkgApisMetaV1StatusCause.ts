@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
  * @export
@@ -46,10 +46,8 @@ export interface K8sIoApimachineryPkgApisMetaV1StatusCause {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1StatusCause interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1StatusCause(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1StatusCause(value: object): value is K8sIoApimachineryPkgApisMetaV1StatusCause {
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1StatusCauseFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1StatusCause {
@@ -57,29 +55,31 @@ export function K8sIoApimachineryPkgApisMetaV1StatusCauseFromJSON(json: any): K8
 }
 
 export function K8sIoApimachineryPkgApisMetaV1StatusCauseFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1StatusCause {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'field': !exists(json, 'field') ? undefined : json['field'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'field': json['field'] == null ? undefined : json['field'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1StatusCauseToJSON(value?: K8sIoApimachineryPkgApisMetaV1StatusCause | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1StatusCauseToJSON(json: any): K8sIoApimachineryPkgApisMetaV1StatusCause {
+    return K8sIoApimachineryPkgApisMetaV1StatusCauseToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1StatusCauseToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1StatusCause | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'field': value.field,
-        'message': value.message,
-        'reason': value.reason,
+        'field': value['field'],
+        'message': value['message'],
+        'reason': value['reason'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1SecretReference } from './IoK8sApiCoreV1SecretReference';
 import {
     IoK8sApiCoreV1SecretReferenceFromJSON,
     IoK8sApiCoreV1SecretReferenceFromJSONTyped,
     IoK8sApiCoreV1SecretReferenceToJSON,
+    IoK8sApiCoreV1SecretReferenceToJSONTyped,
 } from './IoK8sApiCoreV1SecretReference';
 
 /**
@@ -31,7 +32,7 @@ export interface IoK8sApiCoreV1CephFSPersistentVolumeSource {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1CephFSPersistentVolumeSource
      */
-    monitors: string[];
+    monitors: Array<string>;
     /**
      * path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
      * @type {string}
@@ -67,11 +68,9 @@ export interface IoK8sApiCoreV1CephFSPersistentVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1CephFSPersistentVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1CephFSPersistentVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "monitors" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1CephFSPersistentVolumeSource(value: object): value is IoK8sApiCoreV1CephFSPersistentVolumeSource {
+    if (!('monitors' in value) || value['monitors'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1CephFSPersistentVolumeSourceFromJSON(json: any): IoK8sApiCoreV1CephFSPersistentVolumeSource {
@@ -79,35 +78,37 @@ export function IoK8sApiCoreV1CephFSPersistentVolumeSourceFromJSON(json: any): I
 }
 
 export function IoK8sApiCoreV1CephFSPersistentVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1CephFSPersistentVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'monitors': json['monitors'],
-        'path': !exists(json, 'path') ? undefined : json['path'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'secretFile': !exists(json, 'secretFile') ? undefined : json['secretFile'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : IoK8sApiCoreV1SecretReferenceFromJSON(json['secretRef']),
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'path': json['path'] == null ? undefined : json['path'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'secretFile': json['secretFile'] == null ? undefined : json['secretFile'],
+        'secretRef': json['secretRef'] == null ? undefined : IoK8sApiCoreV1SecretReferenceFromJSON(json['secretRef']),
+        'user': json['user'] == null ? undefined : json['user'],
     };
 }
 
-export function IoK8sApiCoreV1CephFSPersistentVolumeSourceToJSON(value?: IoK8sApiCoreV1CephFSPersistentVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1CephFSPersistentVolumeSourceToJSON(json: any): IoK8sApiCoreV1CephFSPersistentVolumeSource {
+    return IoK8sApiCoreV1CephFSPersistentVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1CephFSPersistentVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1CephFSPersistentVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'monitors': value.monitors,
-        'path': value.path,
-        'readOnly': value.readOnly,
-        'secretFile': value.secretFile,
-        'secretRef': IoK8sApiCoreV1SecretReferenceToJSON(value.secretRef),
-        'user': value.user,
+        'monitors': value['monitors'],
+        'path': value['path'],
+        'readOnly': value['readOnly'],
+        'secretFile': value['secretFile'],
+        'secretRef': IoK8sApiCoreV1SecretReferenceToJSON(value['secretRef']),
+        'user': value['user'],
     };
 }
 

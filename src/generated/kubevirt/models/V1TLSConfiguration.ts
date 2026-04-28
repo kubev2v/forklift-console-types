@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * TLSConfiguration holds TLS options
  * @export
@@ -40,10 +40,8 @@ export interface V1TLSConfiguration {
 /**
  * Check if a given object implements the V1TLSConfiguration interface.
  */
-export function instanceOfV1TLSConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1TLSConfiguration(value: object): value is V1TLSConfiguration {
+    return true;
 }
 
 export function V1TLSConfigurationFromJSON(json: any): V1TLSConfiguration {
@@ -51,27 +49,29 @@ export function V1TLSConfigurationFromJSON(json: any): V1TLSConfiguration {
 }
 
 export function V1TLSConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1TLSConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ciphers': !exists(json, 'ciphers') ? undefined : json['ciphers'],
-        'minTLSVersion': !exists(json, 'minTLSVersion') ? undefined : json['minTLSVersion'],
+        'ciphers': json['ciphers'] == null ? undefined : json['ciphers'],
+        'minTLSVersion': json['minTLSVersion'] == null ? undefined : json['minTLSVersion'],
     };
 }
 
-export function V1TLSConfigurationToJSON(value?: V1TLSConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1TLSConfigurationToJSON(json: any): V1TLSConfiguration {
+    return V1TLSConfigurationToJSONTyped(json, false);
+}
+
+export function V1TLSConfigurationToJSONTyped(value?: V1TLSConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ciphers': value.ciphers,
-        'minTLSVersion': value.minTLSVersion,
+        'ciphers': value['ciphers'],
+        'minTLSVersion': value['minTLSVersion'],
     };
 }
 

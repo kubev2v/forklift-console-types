@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
-import {
-    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
-    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1ListMeta';
+import { mapValues } from '../../runtime';
 import type { V1VirtualMachineInstancePreset } from './V1VirtualMachineInstancePreset';
 import {
     V1VirtualMachineInstancePresetFromJSON,
     V1VirtualMachineInstancePresetFromJSONTyped,
     V1VirtualMachineInstancePresetToJSON,
+    V1VirtualMachineInstancePresetToJSONTyped,
 } from './V1VirtualMachineInstancePreset';
+import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
+import {
+    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 
 /**
  * VirtualMachineInstancePresetList is a list of VirtualMachinePresets
@@ -61,11 +63,9 @@ export interface V1VirtualMachineInstancePresetList {
 /**
  * Check if a given object implements the V1VirtualMachineInstancePresetList interface.
  */
-export function instanceOfV1VirtualMachineInstancePresetList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstancePresetList(value: object): value is V1VirtualMachineInstancePresetList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstancePresetListFromJSON(json: any): V1VirtualMachineInstancePresetList {
@@ -73,31 +73,33 @@ export function V1VirtualMachineInstancePresetListFromJSON(json: any): V1Virtual
 }
 
 export function V1VirtualMachineInstancePresetListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstancePresetList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1VirtualMachineInstancePresetFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1VirtualMachineInstancePresetListToJSON(value?: V1VirtualMachineInstancePresetList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstancePresetListToJSON(json: any): V1VirtualMachineInstancePresetList {
+    return V1VirtualMachineInstancePresetListToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstancePresetListToJSONTyped(value?: V1VirtualMachineInstancePresetList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1VirtualMachineInstancePresetToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1VirtualMachineInstancePresetToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

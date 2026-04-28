@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAdmissionregistrationV1ServiceReference } from './IoK8sApiAdmissionregistrationV1ServiceReference';
 import {
     IoK8sApiAdmissionregistrationV1ServiceReferenceFromJSON,
     IoK8sApiAdmissionregistrationV1ServiceReferenceFromJSONTyped,
     IoK8sApiAdmissionregistrationV1ServiceReferenceToJSON,
+    IoK8sApiAdmissionregistrationV1ServiceReferenceToJSONTyped,
 } from './IoK8sApiAdmissionregistrationV1ServiceReference';
 
 /**
@@ -27,7 +28,7 @@ import {
  */
 export interface IoK8sApiAdmissionregistrationV1WebhookClientConfig {
     /**
-     * `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
+     * caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
      * @type {string}
      * @memberof IoK8sApiAdmissionregistrationV1WebhookClientConfig
      */
@@ -39,7 +40,7 @@ export interface IoK8sApiAdmissionregistrationV1WebhookClientConfig {
      */
     service?: IoK8sApiAdmissionregistrationV1ServiceReference;
     /**
-     * `url` gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
+     * url gives the location of the webhook, in standard URL form (`scheme://host:port/path`). Exactly one of `url` or `service` must be specified.
      * 
      * The `host` should not refer to a service running in the cluster; use the `service` field instead. The host might be resolved via external DNS in some apiservers (e.g., `kube-apiserver` cannot resolve in-cluster DNS as that would be a layering violation). `host` may also be an IP address.
      * 
@@ -59,10 +60,8 @@ export interface IoK8sApiAdmissionregistrationV1WebhookClientConfig {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1WebhookClientConfig interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1WebhookClientConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1WebhookClientConfig(value: object): value is IoK8sApiAdmissionregistrationV1WebhookClientConfig {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1WebhookClientConfigFromJSON(json: any): IoK8sApiAdmissionregistrationV1WebhookClientConfig {
@@ -70,29 +69,31 @@ export function IoK8sApiAdmissionregistrationV1WebhookClientConfigFromJSON(json:
 }
 
 export function IoK8sApiAdmissionregistrationV1WebhookClientConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1WebhookClientConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'caBundle': !exists(json, 'caBundle') ? undefined : json['caBundle'],
-        'service': !exists(json, 'service') ? undefined : IoK8sApiAdmissionregistrationV1ServiceReferenceFromJSON(json['service']),
-        'url': !exists(json, 'url') ? undefined : json['url'],
+        'caBundle': json['caBundle'] == null ? undefined : json['caBundle'],
+        'service': json['service'] == null ? undefined : IoK8sApiAdmissionregistrationV1ServiceReferenceFromJSON(json['service']),
+        'url': json['url'] == null ? undefined : json['url'],
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSON(value?: IoK8sApiAdmissionregistrationV1WebhookClientConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSON(json: any): IoK8sApiAdmissionregistrationV1WebhookClientConfig {
+    return IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1WebhookClientConfigToJSONTyped(value?: IoK8sApiAdmissionregistrationV1WebhookClientConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'caBundle': value.caBundle,
-        'service': IoK8sApiAdmissionregistrationV1ServiceReferenceToJSON(value.service),
-        'url': value.url,
+        'caBundle': value['caBundle'],
+        'service': IoK8sApiAdmissionregistrationV1ServiceReferenceToJSON(value['service']),
+        'url': value['url'],
     };
 }
 

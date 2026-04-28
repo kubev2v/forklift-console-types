@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IPBlock } from './IoK8sApiNetworkingV1IPBlock';
 import {
     IoK8sApiNetworkingV1IPBlockFromJSON,
     IoK8sApiNetworkingV1IPBlockFromJSONTyped,
     IoK8sApiNetworkingV1IPBlockToJSON,
+    IoK8sApiNetworkingV1IPBlockToJSONTyped,
 } from './IoK8sApiNetworkingV1IPBlock';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -55,10 +57,8 @@ export interface IoK8sApiNetworkingV1NetworkPolicyPeer {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1NetworkPolicyPeer interface.
  */
-export function instanceOfIoK8sApiNetworkingV1NetworkPolicyPeer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1NetworkPolicyPeer(value: object): value is IoK8sApiNetworkingV1NetworkPolicyPeer {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1NetworkPolicyPeerFromJSON(json: any): IoK8sApiNetworkingV1NetworkPolicyPeer {
@@ -66,29 +66,31 @@ export function IoK8sApiNetworkingV1NetworkPolicyPeerFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiNetworkingV1NetworkPolicyPeerFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1NetworkPolicyPeer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ipBlock': !exists(json, 'ipBlock') ? undefined : IoK8sApiNetworkingV1IPBlockFromJSON(json['ipBlock']),
-        'namespaceSelector': !exists(json, 'namespaceSelector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['namespaceSelector']),
-        'podSelector': !exists(json, 'podSelector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['podSelector']),
+        'ipBlock': json['ipBlock'] == null ? undefined : IoK8sApiNetworkingV1IPBlockFromJSON(json['ipBlock']),
+        'namespaceSelector': json['namespaceSelector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['namespaceSelector']),
+        'podSelector': json['podSelector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['podSelector']),
     };
 }
 
-export function IoK8sApiNetworkingV1NetworkPolicyPeerToJSON(value?: IoK8sApiNetworkingV1NetworkPolicyPeer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1NetworkPolicyPeerToJSON(json: any): IoK8sApiNetworkingV1NetworkPolicyPeer {
+    return IoK8sApiNetworkingV1NetworkPolicyPeerToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1NetworkPolicyPeerToJSONTyped(value?: IoK8sApiNetworkingV1NetworkPolicyPeer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ipBlock': IoK8sApiNetworkingV1IPBlockToJSON(value.ipBlock),
-        'namespaceSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.namespaceSelector),
-        'podSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.podSelector),
+        'ipBlock': IoK8sApiNetworkingV1IPBlockToJSON(value['ipBlock']),
+        'namespaceSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['namespaceSelector']),
+        'podSelector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['podSelector']),
     };
 }
 

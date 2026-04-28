@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1FeatureKVM {
 /**
  * Check if a given object implements the V1FeatureKVM interface.
  */
-export function instanceOfV1FeatureKVM(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1FeatureKVM(value: object): value is V1FeatureKVM {
+    return true;
 }
 
 export function V1FeatureKVMFromJSON(json: any): V1FeatureKVM {
@@ -41,25 +39,27 @@ export function V1FeatureKVMFromJSON(json: any): V1FeatureKVM {
 }
 
 export function V1FeatureKVMFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1FeatureKVM {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hidden': !exists(json, 'hidden') ? undefined : json['hidden'],
+        'hidden': json['hidden'] == null ? undefined : json['hidden'],
     };
 }
 
-export function V1FeatureKVMToJSON(value?: V1FeatureKVM | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FeatureKVMToJSON(json: any): V1FeatureKVM {
+    return V1FeatureKVMToJSONTyped(json, false);
+}
+
+export function V1FeatureKVMToJSONTyped(value?: V1FeatureKVM | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hidden': value.hidden,
+        'hidden': value['hidden'],
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1SSHPublicKeyAccessCredential } from './V1SSHPublicKeyAccessCredential';
-import {
-    V1SSHPublicKeyAccessCredentialFromJSON,
-    V1SSHPublicKeyAccessCredentialFromJSONTyped,
-    V1SSHPublicKeyAccessCredentialToJSON,
-} from './V1SSHPublicKeyAccessCredential';
+import { mapValues } from '../../runtime';
 import type { V1UserPasswordAccessCredential } from './V1UserPasswordAccessCredential';
 import {
     V1UserPasswordAccessCredentialFromJSON,
     V1UserPasswordAccessCredentialFromJSONTyped,
     V1UserPasswordAccessCredentialToJSON,
+    V1UserPasswordAccessCredentialToJSONTyped,
 } from './V1UserPasswordAccessCredential';
+import type { V1SSHPublicKeyAccessCredential } from './V1SSHPublicKeyAccessCredential';
+import {
+    V1SSHPublicKeyAccessCredentialFromJSON,
+    V1SSHPublicKeyAccessCredentialFromJSONTyped,
+    V1SSHPublicKeyAccessCredentialToJSON,
+    V1SSHPublicKeyAccessCredentialToJSONTyped,
+} from './V1SSHPublicKeyAccessCredential';
 
 /**
  * AccessCredential represents a credential source that can be used to authorize remote access to the vm guest Only one of its members may be specified.
@@ -49,10 +51,8 @@ export interface V1AccessCredential {
 /**
  * Check if a given object implements the V1AccessCredential interface.
  */
-export function instanceOfV1AccessCredential(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1AccessCredential(value: object): value is V1AccessCredential {
+    return true;
 }
 
 export function V1AccessCredentialFromJSON(json: any): V1AccessCredential {
@@ -60,27 +60,29 @@ export function V1AccessCredentialFromJSON(json: any): V1AccessCredential {
 }
 
 export function V1AccessCredentialFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1AccessCredential {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'sshPublicKey': !exists(json, 'sshPublicKey') ? undefined : V1SSHPublicKeyAccessCredentialFromJSON(json['sshPublicKey']),
-        'userPassword': !exists(json, 'userPassword') ? undefined : V1UserPasswordAccessCredentialFromJSON(json['userPassword']),
+        'sshPublicKey': json['sshPublicKey'] == null ? undefined : V1SSHPublicKeyAccessCredentialFromJSON(json['sshPublicKey']),
+        'userPassword': json['userPassword'] == null ? undefined : V1UserPasswordAccessCredentialFromJSON(json['userPassword']),
     };
 }
 
-export function V1AccessCredentialToJSON(value?: V1AccessCredential | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1AccessCredentialToJSON(json: any): V1AccessCredential {
+    return V1AccessCredentialToJSONTyped(json, false);
+}
+
+export function V1AccessCredentialToJSONTyped(value?: V1AccessCredential | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'sshPublicKey': V1SSHPublicKeyAccessCredentialToJSON(value.sshPublicKey),
-        'userPassword': V1UserPasswordAccessCredentialToJSON(value.userPassword),
+        'sshPublicKey': V1SSHPublicKeyAccessCredentialToJSON(value['sshPublicKey']),
+        'userPassword': V1UserPasswordAccessCredentialToJSON(value['userPassword']),
     };
 }
 

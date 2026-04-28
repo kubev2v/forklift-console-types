@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1CustomProfile } from './V1CustomProfile';
 import {
     V1CustomProfileFromJSON,
     V1CustomProfileFromJSONTyped,
     V1CustomProfileToJSON,
+    V1CustomProfileToJSONTyped,
 } from './V1CustomProfile';
 
 /**
@@ -37,10 +38,8 @@ export interface V1VirtualMachineInstanceProfile {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceProfile interface.
  */
-export function instanceOfV1VirtualMachineInstanceProfile(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceProfile(value: object): value is V1VirtualMachineInstanceProfile {
+    return true;
 }
 
 export function V1VirtualMachineInstanceProfileFromJSON(json: any): V1VirtualMachineInstanceProfile {
@@ -48,25 +47,27 @@ export function V1VirtualMachineInstanceProfileFromJSON(json: any): V1VirtualMac
 }
 
 export function V1VirtualMachineInstanceProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'customProfile': !exists(json, 'customProfile') ? undefined : V1CustomProfileFromJSON(json['customProfile']),
+        'customProfile': json['customProfile'] == null ? undefined : V1CustomProfileFromJSON(json['customProfile']),
     };
 }
 
-export function V1VirtualMachineInstanceProfileToJSON(value?: V1VirtualMachineInstanceProfile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceProfileToJSON(json: any): V1VirtualMachineInstanceProfile {
+    return V1VirtualMachineInstanceProfileToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceProfileToJSONTyped(value?: V1VirtualMachineInstanceProfile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'customProfile': V1CustomProfileToJSON(value.customProfile),
+        'customProfile': V1CustomProfileToJSON(value['customProfile']),
     };
 }
 

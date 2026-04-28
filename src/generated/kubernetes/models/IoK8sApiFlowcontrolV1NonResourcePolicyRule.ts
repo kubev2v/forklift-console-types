@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
  * @export
@@ -30,24 +30,22 @@ export interface IoK8sApiFlowcontrolV1NonResourcePolicyRule {
      * @type {Array<string>}
      * @memberof IoK8sApiFlowcontrolV1NonResourcePolicyRule
      */
-    nonResourceURLs: string[];
+    nonResourceURLs: Array<string>;
     /**
      * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiFlowcontrolV1NonResourcePolicyRule
      */
-    verbs: string[];
+    verbs: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1NonResourcePolicyRule interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1NonResourcePolicyRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "nonResourceURLs" in value;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1NonResourcePolicyRule(value: object): value is IoK8sApiFlowcontrolV1NonResourcePolicyRule {
+    if (!('nonResourceURLs' in value) || value['nonResourceURLs'] === undefined) return false;
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSON(json: any): IoK8sApiFlowcontrolV1NonResourcePolicyRule {
@@ -55,7 +53,7 @@ export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSON(json: any): I
 }
 
 export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1NonResourcePolicyRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -65,17 +63,19 @@ export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleFromJSONTyped(json: an
     };
 }
 
-export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSON(value?: IoK8sApiFlowcontrolV1NonResourcePolicyRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSON(json: any): IoK8sApiFlowcontrolV1NonResourcePolicyRule {
+    return IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1NonResourcePolicyRuleToJSONTyped(value?: IoK8sApiFlowcontrolV1NonResourcePolicyRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nonResourceURLs': value.nonResourceURLs,
-        'verbs': value.verbs,
+        'nonResourceURLs': value['nonResourceURLs'],
+        'verbs': value['verbs'],
     };
 }
 

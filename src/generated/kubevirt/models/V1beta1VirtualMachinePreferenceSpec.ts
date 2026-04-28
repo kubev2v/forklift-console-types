@@ -12,55 +12,63 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1beta1CPUPreferences } from './V1beta1CPUPreferences';
-import {
-    V1beta1CPUPreferencesFromJSON,
-    V1beta1CPUPreferencesFromJSONTyped,
-    V1beta1CPUPreferencesToJSON,
-} from './V1beta1CPUPreferences';
+import { mapValues } from '../../runtime';
 import type { V1beta1ClockPreferences } from './V1beta1ClockPreferences';
 import {
     V1beta1ClockPreferencesFromJSON,
     V1beta1ClockPreferencesFromJSONTyped,
     V1beta1ClockPreferencesToJSON,
+    V1beta1ClockPreferencesToJSONTyped,
 } from './V1beta1ClockPreferences';
-import type { V1beta1DevicePreferences } from './V1beta1DevicePreferences';
-import {
-    V1beta1DevicePreferencesFromJSON,
-    V1beta1DevicePreferencesFromJSONTyped,
-    V1beta1DevicePreferencesToJSON,
-} from './V1beta1DevicePreferences';
 import type { V1beta1FeaturePreferences } from './V1beta1FeaturePreferences';
 import {
     V1beta1FeaturePreferencesFromJSON,
     V1beta1FeaturePreferencesFromJSONTyped,
     V1beta1FeaturePreferencesToJSON,
+    V1beta1FeaturePreferencesToJSONTyped,
 } from './V1beta1FeaturePreferences';
-import type { V1beta1FirmwarePreferences } from './V1beta1FirmwarePreferences';
-import {
-    V1beta1FirmwarePreferencesFromJSON,
-    V1beta1FirmwarePreferencesFromJSONTyped,
-    V1beta1FirmwarePreferencesToJSON,
-} from './V1beta1FirmwarePreferences';
-import type { V1beta1MachinePreferences } from './V1beta1MachinePreferences';
-import {
-    V1beta1MachinePreferencesFromJSON,
-    V1beta1MachinePreferencesFromJSONTyped,
-    V1beta1MachinePreferencesToJSON,
-} from './V1beta1MachinePreferences';
 import type { V1beta1PreferenceRequirements } from './V1beta1PreferenceRequirements';
 import {
     V1beta1PreferenceRequirementsFromJSON,
     V1beta1PreferenceRequirementsFromJSONTyped,
     V1beta1PreferenceRequirementsToJSON,
+    V1beta1PreferenceRequirementsToJSONTyped,
 } from './V1beta1PreferenceRequirements';
+import type { V1beta1DevicePreferences } from './V1beta1DevicePreferences';
+import {
+    V1beta1DevicePreferencesFromJSON,
+    V1beta1DevicePreferencesFromJSONTyped,
+    V1beta1DevicePreferencesToJSON,
+    V1beta1DevicePreferencesToJSONTyped,
+} from './V1beta1DevicePreferences';
+import type { V1beta1CPUPreferences } from './V1beta1CPUPreferences';
+import {
+    V1beta1CPUPreferencesFromJSON,
+    V1beta1CPUPreferencesFromJSONTyped,
+    V1beta1CPUPreferencesToJSON,
+    V1beta1CPUPreferencesToJSONTyped,
+} from './V1beta1CPUPreferences';
 import type { V1beta1VolumePreferences } from './V1beta1VolumePreferences';
 import {
     V1beta1VolumePreferencesFromJSON,
     V1beta1VolumePreferencesFromJSONTyped,
     V1beta1VolumePreferencesToJSON,
+    V1beta1VolumePreferencesToJSONTyped,
 } from './V1beta1VolumePreferences';
+import type { V1beta1MachinePreferences } from './V1beta1MachinePreferences';
+import {
+    V1beta1MachinePreferencesFromJSON,
+    V1beta1MachinePreferencesFromJSONTyped,
+    V1beta1MachinePreferencesToJSON,
+    V1beta1MachinePreferencesToJSONTyped,
+} from './V1beta1MachinePreferences';
+import type { V1beta1FirmwarePreferences } from './V1beta1FirmwarePreferences';
+import {
+    V1beta1FirmwarePreferencesFromJSON,
+    V1beta1FirmwarePreferencesFromJSONTyped,
+    V1beta1FirmwarePreferencesToJSON,
+    V1beta1FirmwarePreferencesToJSONTyped,
+} from './V1beta1FirmwarePreferences';
 
 /**
  * VirtualMachinePreferenceSpec is a description of the VirtualMachinePreference or VirtualMachineClusterPreference.
@@ -117,6 +125,12 @@ export interface V1beta1VirtualMachinePreferenceSpec {
      */
     preferSpreadSocketToCoreRatio?: number;
     /**
+     * PreferredArchitecture defines a prefeerred architecture for the VirtualMachine
+     * @type {string}
+     * @memberof V1beta1VirtualMachinePreferenceSpec
+     */
+    preferredArchitecture?: string;
+    /**
      * Subdomain of the VirtualMachineInstance
      * @type {string}
      * @memberof V1beta1VirtualMachinePreferenceSpec
@@ -145,10 +159,8 @@ export interface V1beta1VirtualMachinePreferenceSpec {
 /**
  * Check if a given object implements the V1beta1VirtualMachinePreferenceSpec interface.
  */
-export function instanceOfV1beta1VirtualMachinePreferenceSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1VirtualMachinePreferenceSpec(value: object): value is V1beta1VirtualMachinePreferenceSpec {
+    return true;
 }
 
 export function V1beta1VirtualMachinePreferenceSpecFromJSON(json: any): V1beta1VirtualMachinePreferenceSpec {
@@ -156,47 +168,51 @@ export function V1beta1VirtualMachinePreferenceSpecFromJSON(json: any): V1beta1V
 }
 
 export function V1beta1VirtualMachinePreferenceSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1VirtualMachinePreferenceSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'annotations': !exists(json, 'annotations') ? undefined : json['annotations'],
-        'clock': !exists(json, 'clock') ? undefined : V1beta1ClockPreferencesFromJSON(json['clock']),
-        'cpu': !exists(json, 'cpu') ? undefined : V1beta1CPUPreferencesFromJSON(json['cpu']),
-        'devices': !exists(json, 'devices') ? undefined : V1beta1DevicePreferencesFromJSON(json['devices']),
-        'features': !exists(json, 'features') ? undefined : V1beta1FeaturePreferencesFromJSON(json['features']),
-        'firmware': !exists(json, 'firmware') ? undefined : V1beta1FirmwarePreferencesFromJSON(json['firmware']),
-        'machine': !exists(json, 'machine') ? undefined : V1beta1MachinePreferencesFromJSON(json['machine']),
-        'preferSpreadSocketToCoreRatio': !exists(json, 'preferSpreadSocketToCoreRatio') ? undefined : json['preferSpreadSocketToCoreRatio'],
-        'preferredSubdomain': !exists(json, 'preferredSubdomain') ? undefined : json['preferredSubdomain'],
-        'preferredTerminationGracePeriodSeconds': !exists(json, 'preferredTerminationGracePeriodSeconds') ? undefined : json['preferredTerminationGracePeriodSeconds'],
-        'requirements': !exists(json, 'requirements') ? undefined : V1beta1PreferenceRequirementsFromJSON(json['requirements']),
-        'volumes': !exists(json, 'volumes') ? undefined : V1beta1VolumePreferencesFromJSON(json['volumes']),
+        'annotations': json['annotations'] == null ? undefined : json['annotations'],
+        'clock': json['clock'] == null ? undefined : V1beta1ClockPreferencesFromJSON(json['clock']),
+        'cpu': json['cpu'] == null ? undefined : V1beta1CPUPreferencesFromJSON(json['cpu']),
+        'devices': json['devices'] == null ? undefined : V1beta1DevicePreferencesFromJSON(json['devices']),
+        'features': json['features'] == null ? undefined : V1beta1FeaturePreferencesFromJSON(json['features']),
+        'firmware': json['firmware'] == null ? undefined : V1beta1FirmwarePreferencesFromJSON(json['firmware']),
+        'machine': json['machine'] == null ? undefined : V1beta1MachinePreferencesFromJSON(json['machine']),
+        'preferSpreadSocketToCoreRatio': json['preferSpreadSocketToCoreRatio'] == null ? undefined : json['preferSpreadSocketToCoreRatio'],
+        'preferredArchitecture': json['preferredArchitecture'] == null ? undefined : json['preferredArchitecture'],
+        'preferredSubdomain': json['preferredSubdomain'] == null ? undefined : json['preferredSubdomain'],
+        'preferredTerminationGracePeriodSeconds': json['preferredTerminationGracePeriodSeconds'] == null ? undefined : json['preferredTerminationGracePeriodSeconds'],
+        'requirements': json['requirements'] == null ? undefined : V1beta1PreferenceRequirementsFromJSON(json['requirements']),
+        'volumes': json['volumes'] == null ? undefined : V1beta1VolumePreferencesFromJSON(json['volumes']),
     };
 }
 
-export function V1beta1VirtualMachinePreferenceSpecToJSON(value?: V1beta1VirtualMachinePreferenceSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1VirtualMachinePreferenceSpecToJSON(json: any): V1beta1VirtualMachinePreferenceSpec {
+    return V1beta1VirtualMachinePreferenceSpecToJSONTyped(json, false);
+}
+
+export function V1beta1VirtualMachinePreferenceSpecToJSONTyped(value?: V1beta1VirtualMachinePreferenceSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'annotations': value.annotations,
-        'clock': V1beta1ClockPreferencesToJSON(value.clock),
-        'cpu': V1beta1CPUPreferencesToJSON(value.cpu),
-        'devices': V1beta1DevicePreferencesToJSON(value.devices),
-        'features': V1beta1FeaturePreferencesToJSON(value.features),
-        'firmware': V1beta1FirmwarePreferencesToJSON(value.firmware),
-        'machine': V1beta1MachinePreferencesToJSON(value.machine),
-        'preferSpreadSocketToCoreRatio': value.preferSpreadSocketToCoreRatio,
-        'preferredSubdomain': value.preferredSubdomain,
-        'preferredTerminationGracePeriodSeconds': value.preferredTerminationGracePeriodSeconds,
-        'requirements': V1beta1PreferenceRequirementsToJSON(value.requirements),
-        'volumes': V1beta1VolumePreferencesToJSON(value.volumes),
+        'annotations': value['annotations'],
+        'clock': V1beta1ClockPreferencesToJSON(value['clock']),
+        'cpu': V1beta1CPUPreferencesToJSON(value['cpu']),
+        'devices': V1beta1DevicePreferencesToJSON(value['devices']),
+        'features': V1beta1FeaturePreferencesToJSON(value['features']),
+        'firmware': V1beta1FirmwarePreferencesToJSON(value['firmware']),
+        'machine': V1beta1MachinePreferencesToJSON(value['machine']),
+        'preferSpreadSocketToCoreRatio': value['preferSpreadSocketToCoreRatio'],
+        'preferredArchitecture': value['preferredArchitecture'],
+        'preferredSubdomain': value['preferredSubdomain'],
+        'preferredTerminationGracePeriodSeconds': value['preferredTerminationGracePeriodSeconds'],
+        'requirements': V1beta1PreferenceRequirementsToJSON(value['requirements']),
+        'volumes': V1beta1VolumePreferencesToJSON(value['volumes']),
     };
 }
 

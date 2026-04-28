@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DHCPExtraOptions defines Extra DHCP options for a VM.
  * @export
@@ -36,12 +36,10 @@ export interface V1DHCPPrivateOptions {
 /**
  * Check if a given object implements the V1DHCPPrivateOptions interface.
  */
-export function instanceOfV1DHCPPrivateOptions(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "option" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfV1DHCPPrivateOptions(value: object): value is V1DHCPPrivateOptions {
+    if (!('option' in value) || value['option'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
+    return true;
 }
 
 export function V1DHCPPrivateOptionsFromJSON(json: any): V1DHCPPrivateOptions {
@@ -49,7 +47,7 @@ export function V1DHCPPrivateOptionsFromJSON(json: any): V1DHCPPrivateOptions {
 }
 
 export function V1DHCPPrivateOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1DHCPPrivateOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function V1DHCPPrivateOptionsFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function V1DHCPPrivateOptionsToJSON(value?: V1DHCPPrivateOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1DHCPPrivateOptionsToJSON(json: any): V1DHCPPrivateOptions {
+    return V1DHCPPrivateOptionsToJSONTyped(json, false);
+}
+
+export function V1DHCPPrivateOptionsToJSONTyped(value?: V1DHCPPrivateOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'option': value.option,
-        'value': value.value,
+        'option': value['option'],
+        'value': value['value'],
     };
 }
 

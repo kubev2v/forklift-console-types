@@ -87,6 +87,12 @@ export interface V1beta1DataVolumeSpec {
      */
     pvc?: V1PersistentVolumeClaimSpec;
     /**
+     * ServiceAccountName for Importer and Uploader pod
+     * @type {string}
+     * @memberof V1beta1DataVolumeSpec
+     */
+    serviceAccountName?: string;
+    /**
      * 
      * @type {V1beta1DataVolumeSource}
      * @memberof V1beta1DataVolumeSpec
@@ -129,6 +135,7 @@ export function V1beta1DataVolumeSpecFromJSONTyped(json: any, ignoreDiscriminato
         'preallocation': json['preallocation'] == null ? undefined : json['preallocation'],
         'priorityClassName': json['priorityClassName'] == null ? undefined : json['priorityClassName'],
         'pvc': json['pvc'] == null ? undefined : V1PersistentVolumeClaimSpecFromJSON(json['pvc']),
+        'serviceAccountName': json['serviceAccountName'] == null ? undefined : json['serviceAccountName'],
         'source': json['source'] == null ? undefined : V1beta1DataVolumeSourceFromJSON(json['source']),
         'sourceRef': json['sourceRef'] == null ? undefined : V1beta1DataVolumeSourceRefFromJSON(json['sourceRef']),
         'storage': json['storage'] == null ? undefined : V1beta1StorageSpecFromJSON(json['storage']),
@@ -147,6 +154,7 @@ export function V1beta1DataVolumeSpecToJSON(value?: V1beta1DataVolumeSpec | null
         'preallocation': value['preallocation'],
         'priorityClassName': value['priorityClassName'],
         'pvc': V1PersistentVolumeClaimSpecToJSON(value['pvc']),
+        'serviceAccountName': value['serviceAccountName'],
         'source': V1beta1DataVolumeSourceToJSON(value['source']),
         'sourceRef': V1beta1DataVolumeSourceRefToJSON(value['sourceRef']),
         'storage': V1beta1StorageSpecToJSON(value['storage']),

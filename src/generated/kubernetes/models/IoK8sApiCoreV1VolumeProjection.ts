@@ -12,40 +12,52 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiCoreV1PodCertificateProjection } from './IoK8sApiCoreV1PodCertificateProjection';
+import {
+    IoK8sApiCoreV1PodCertificateProjectionFromJSON,
+    IoK8sApiCoreV1PodCertificateProjectionFromJSONTyped,
+    IoK8sApiCoreV1PodCertificateProjectionToJSON,
+    IoK8sApiCoreV1PodCertificateProjectionToJSONTyped,
+} from './IoK8sApiCoreV1PodCertificateProjection';
 import type { IoK8sApiCoreV1ClusterTrustBundleProjection } from './IoK8sApiCoreV1ClusterTrustBundleProjection';
 import {
     IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSON,
     IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSONTyped,
     IoK8sApiCoreV1ClusterTrustBundleProjectionToJSON,
+    IoK8sApiCoreV1ClusterTrustBundleProjectionToJSONTyped,
 } from './IoK8sApiCoreV1ClusterTrustBundleProjection';
 import type { IoK8sApiCoreV1ConfigMapProjection } from './IoK8sApiCoreV1ConfigMapProjection';
 import {
     IoK8sApiCoreV1ConfigMapProjectionFromJSON,
     IoK8sApiCoreV1ConfigMapProjectionFromJSONTyped,
     IoK8sApiCoreV1ConfigMapProjectionToJSON,
+    IoK8sApiCoreV1ConfigMapProjectionToJSONTyped,
 } from './IoK8sApiCoreV1ConfigMapProjection';
+import type { IoK8sApiCoreV1ServiceAccountTokenProjection } from './IoK8sApiCoreV1ServiceAccountTokenProjection';
+import {
+    IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSON,
+    IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSONTyped,
+    IoK8sApiCoreV1ServiceAccountTokenProjectionToJSON,
+    IoK8sApiCoreV1ServiceAccountTokenProjectionToJSONTyped,
+} from './IoK8sApiCoreV1ServiceAccountTokenProjection';
 import type { IoK8sApiCoreV1DownwardAPIProjection } from './IoK8sApiCoreV1DownwardAPIProjection';
 import {
     IoK8sApiCoreV1DownwardAPIProjectionFromJSON,
     IoK8sApiCoreV1DownwardAPIProjectionFromJSONTyped,
     IoK8sApiCoreV1DownwardAPIProjectionToJSON,
+    IoK8sApiCoreV1DownwardAPIProjectionToJSONTyped,
 } from './IoK8sApiCoreV1DownwardAPIProjection';
 import type { IoK8sApiCoreV1SecretProjection } from './IoK8sApiCoreV1SecretProjection';
 import {
     IoK8sApiCoreV1SecretProjectionFromJSON,
     IoK8sApiCoreV1SecretProjectionFromJSONTyped,
     IoK8sApiCoreV1SecretProjectionToJSON,
+    IoK8sApiCoreV1SecretProjectionToJSONTyped,
 } from './IoK8sApiCoreV1SecretProjection';
-import type { IoK8sApiCoreV1ServiceAccountTokenProjection } from './IoK8sApiCoreV1ServiceAccountTokenProjection';
-import {
-    IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSON,
-    IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSONTyped,
-    IoK8sApiCoreV1ServiceAccountTokenProjectionToJSON,
-} from './IoK8sApiCoreV1ServiceAccountTokenProjection';
 
 /**
- * Projection that may be projected along with other supported volume types
+ * Projection that may be projected along with other supported volume types. Exactly one of these fields must be set.
  * @export
  * @interface IoK8sApiCoreV1VolumeProjection
  */
@@ -70,6 +82,12 @@ export interface IoK8sApiCoreV1VolumeProjection {
     downwardAPI?: IoK8sApiCoreV1DownwardAPIProjection;
     /**
      * 
+     * @type {IoK8sApiCoreV1PodCertificateProjection}
+     * @memberof IoK8sApiCoreV1VolumeProjection
+     */
+    podCertificate?: IoK8sApiCoreV1PodCertificateProjection;
+    /**
+     * 
      * @type {IoK8sApiCoreV1SecretProjection}
      * @memberof IoK8sApiCoreV1VolumeProjection
      */
@@ -85,10 +103,8 @@ export interface IoK8sApiCoreV1VolumeProjection {
 /**
  * Check if a given object implements the IoK8sApiCoreV1VolumeProjection interface.
  */
-export function instanceOfIoK8sApiCoreV1VolumeProjection(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1VolumeProjection(value: object): value is IoK8sApiCoreV1VolumeProjection {
+    return true;
 }
 
 export function IoK8sApiCoreV1VolumeProjectionFromJSON(json: any): IoK8sApiCoreV1VolumeProjection {
@@ -96,33 +112,37 @@ export function IoK8sApiCoreV1VolumeProjectionFromJSON(json: any): IoK8sApiCoreV
 }
 
 export function IoK8sApiCoreV1VolumeProjectionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1VolumeProjection {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'clusterTrustBundle': !exists(json, 'clusterTrustBundle') ? undefined : IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSON(json['clusterTrustBundle']),
-        'configMap': !exists(json, 'configMap') ? undefined : IoK8sApiCoreV1ConfigMapProjectionFromJSON(json['configMap']),
-        'downwardAPI': !exists(json, 'downwardAPI') ? undefined : IoK8sApiCoreV1DownwardAPIProjectionFromJSON(json['downwardAPI']),
-        'secret': !exists(json, 'secret') ? undefined : IoK8sApiCoreV1SecretProjectionFromJSON(json['secret']),
-        'serviceAccountToken': !exists(json, 'serviceAccountToken') ? undefined : IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSON(json['serviceAccountToken']),
+        'clusterTrustBundle': json['clusterTrustBundle'] == null ? undefined : IoK8sApiCoreV1ClusterTrustBundleProjectionFromJSON(json['clusterTrustBundle']),
+        'configMap': json['configMap'] == null ? undefined : IoK8sApiCoreV1ConfigMapProjectionFromJSON(json['configMap']),
+        'downwardAPI': json['downwardAPI'] == null ? undefined : IoK8sApiCoreV1DownwardAPIProjectionFromJSON(json['downwardAPI']),
+        'podCertificate': json['podCertificate'] == null ? undefined : IoK8sApiCoreV1PodCertificateProjectionFromJSON(json['podCertificate']),
+        'secret': json['secret'] == null ? undefined : IoK8sApiCoreV1SecretProjectionFromJSON(json['secret']),
+        'serviceAccountToken': json['serviceAccountToken'] == null ? undefined : IoK8sApiCoreV1ServiceAccountTokenProjectionFromJSON(json['serviceAccountToken']),
     };
 }
 
-export function IoK8sApiCoreV1VolumeProjectionToJSON(value?: IoK8sApiCoreV1VolumeProjection | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VolumeProjectionToJSON(json: any): IoK8sApiCoreV1VolumeProjection {
+    return IoK8sApiCoreV1VolumeProjectionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VolumeProjectionToJSONTyped(value?: IoK8sApiCoreV1VolumeProjection | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'clusterTrustBundle': IoK8sApiCoreV1ClusterTrustBundleProjectionToJSON(value.clusterTrustBundle),
-        'configMap': IoK8sApiCoreV1ConfigMapProjectionToJSON(value.configMap),
-        'downwardAPI': IoK8sApiCoreV1DownwardAPIProjectionToJSON(value.downwardAPI),
-        'secret': IoK8sApiCoreV1SecretProjectionToJSON(value.secret),
-        'serviceAccountToken': IoK8sApiCoreV1ServiceAccountTokenProjectionToJSON(value.serviceAccountToken),
+        'clusterTrustBundle': IoK8sApiCoreV1ClusterTrustBundleProjectionToJSON(value['clusterTrustBundle']),
+        'configMap': IoK8sApiCoreV1ConfigMapProjectionToJSON(value['configMap']),
+        'downwardAPI': IoK8sApiCoreV1DownwardAPIProjectionToJSON(value['downwardAPI']),
+        'podCertificate': IoK8sApiCoreV1PodCertificateProjectionToJSON(value['podCertificate']),
+        'secret': IoK8sApiCoreV1SecretProjectionToJSON(value['secret']),
+        'serviceAccountToken': IoK8sApiCoreV1ServiceAccountTokenProjectionToJSON(value['serviceAccountToken']),
     };
 }
 

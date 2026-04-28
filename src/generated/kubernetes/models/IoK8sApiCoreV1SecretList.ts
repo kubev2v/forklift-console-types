@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1Secret } from './IoK8sApiCoreV1Secret';
 import {
     IoK8sApiCoreV1SecretFromJSON,
     IoK8sApiCoreV1SecretFromJSONTyped,
     IoK8sApiCoreV1SecretToJSON,
+    IoK8sApiCoreV1SecretToJSONTyped,
 } from './IoK8sApiCoreV1Secret';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiCoreV1SecretList {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SecretList interface.
  */
-export function instanceOfIoK8sApiCoreV1SecretList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SecretList(value: object): value is IoK8sApiCoreV1SecretList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1SecretListFromJSON(json: any): IoK8sApiCoreV1SecretList {
@@ -73,31 +73,33 @@ export function IoK8sApiCoreV1SecretListFromJSON(json: any): IoK8sApiCoreV1Secre
 }
 
 export function IoK8sApiCoreV1SecretListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SecretList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiCoreV1SecretFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiCoreV1SecretListToJSON(value?: IoK8sApiCoreV1SecretList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecretListToJSON(json: any): IoK8sApiCoreV1SecretList {
+    return IoK8sApiCoreV1SecretListToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecretListToJSONTyped(value?: IoK8sApiCoreV1SecretList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiCoreV1SecretToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiCoreV1SecretToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

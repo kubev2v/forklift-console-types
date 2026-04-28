@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1FeatureState } from './V1FeatureState';
 import {
     V1FeatureStateFromJSON,
     V1FeatureStateFromJSONTyped,
     V1FeatureStateToJSON,
+    V1FeatureStateToJSONTyped,
 } from './V1FeatureState';
 
 /**
@@ -43,10 +44,8 @@ export interface V1VGPUDisplayOptions {
 /**
  * Check if a given object implements the V1VGPUDisplayOptions interface.
  */
-export function instanceOfV1VGPUDisplayOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VGPUDisplayOptions(value: object): value is V1VGPUDisplayOptions {
+    return true;
 }
 
 export function V1VGPUDisplayOptionsFromJSON(json: any): V1VGPUDisplayOptions {
@@ -54,27 +53,29 @@ export function V1VGPUDisplayOptionsFromJSON(json: any): V1VGPUDisplayOptions {
 }
 
 export function V1VGPUDisplayOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VGPUDisplayOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
-        'ramFB': !exists(json, 'ramFB') ? undefined : V1FeatureStateFromJSON(json['ramFB']),
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'ramFB': json['ramFB'] == null ? undefined : V1FeatureStateFromJSON(json['ramFB']),
     };
 }
 
-export function V1VGPUDisplayOptionsToJSON(value?: V1VGPUDisplayOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VGPUDisplayOptionsToJSON(json: any): V1VGPUDisplayOptions {
+    return V1VGPUDisplayOptionsToJSONTyped(json, false);
+}
+
+export function V1VGPUDisplayOptionsToJSONTyped(value?: V1VGPUDisplayOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'enabled': value.enabled,
-        'ramFB': V1FeatureStateToJSON(value.ramFB),
+        'enabled': value['enabled'],
+        'ramFB': V1FeatureStateToJSON(value['ramFB']),
     };
 }
 

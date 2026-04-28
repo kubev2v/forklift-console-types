@@ -12,7 +12,15 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiCoreV1NodeSwapStatus } from './IoK8sApiCoreV1NodeSwapStatus';
+import {
+    IoK8sApiCoreV1NodeSwapStatusFromJSON,
+    IoK8sApiCoreV1NodeSwapStatusFromJSONTyped,
+    IoK8sApiCoreV1NodeSwapStatusToJSON,
+    IoK8sApiCoreV1NodeSwapStatusToJSONTyped,
+} from './IoK8sApiCoreV1NodeSwapStatus';
+
 /**
  * NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
  * @export
@@ -44,7 +52,7 @@ export interface IoK8sApiCoreV1NodeSystemInfo {
      */
     kernelVersion: string;
     /**
-     * KubeProxy Version reported by the node.
+     * Deprecated: KubeProxy Version reported by the node.
      * @type {string}
      * @memberof IoK8sApiCoreV1NodeSystemInfo
      */
@@ -74,6 +82,12 @@ export interface IoK8sApiCoreV1NodeSystemInfo {
      */
     osImage: string;
     /**
+     * 
+     * @type {IoK8sApiCoreV1NodeSwapStatus}
+     * @memberof IoK8sApiCoreV1NodeSystemInfo
+     */
+    swap?: IoK8sApiCoreV1NodeSwapStatus;
+    /**
      * SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
      * @type {string}
      * @memberof IoK8sApiCoreV1NodeSystemInfo
@@ -84,20 +98,18 @@ export interface IoK8sApiCoreV1NodeSystemInfo {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeSystemInfo interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeSystemInfo(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "architecture" in value;
-    isInstance = isInstance && "bootID" in value;
-    isInstance = isInstance && "containerRuntimeVersion" in value;
-    isInstance = isInstance && "kernelVersion" in value;
-    isInstance = isInstance && "kubeProxyVersion" in value;
-    isInstance = isInstance && "kubeletVersion" in value;
-    isInstance = isInstance && "machineID" in value;
-    isInstance = isInstance && "operatingSystem" in value;
-    isInstance = isInstance && "osImage" in value;
-    isInstance = isInstance && "systemUUID" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeSystemInfo(value: object): value is IoK8sApiCoreV1NodeSystemInfo {
+    if (!('architecture' in value) || value['architecture'] === undefined) return false;
+    if (!('bootID' in value) || value['bootID'] === undefined) return false;
+    if (!('containerRuntimeVersion' in value) || value['containerRuntimeVersion'] === undefined) return false;
+    if (!('kernelVersion' in value) || value['kernelVersion'] === undefined) return false;
+    if (!('kubeProxyVersion' in value) || value['kubeProxyVersion'] === undefined) return false;
+    if (!('kubeletVersion' in value) || value['kubeletVersion'] === undefined) return false;
+    if (!('machineID' in value) || value['machineID'] === undefined) return false;
+    if (!('operatingSystem' in value) || value['operatingSystem'] === undefined) return false;
+    if (!('osImage' in value) || value['osImage'] === undefined) return false;
+    if (!('systemUUID' in value) || value['systemUUID'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeSystemInfoFromJSON(json: any): IoK8sApiCoreV1NodeSystemInfo {
@@ -105,7 +117,7 @@ export function IoK8sApiCoreV1NodeSystemInfoFromJSON(json: any): IoK8sApiCoreV1N
 }
 
 export function IoK8sApiCoreV1NodeSystemInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeSystemInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -119,29 +131,33 @@ export function IoK8sApiCoreV1NodeSystemInfoFromJSONTyped(json: any, ignoreDiscr
         'machineID': json['machineID'],
         'operatingSystem': json['operatingSystem'],
         'osImage': json['osImage'],
+        'swap': json['swap'] == null ? undefined : IoK8sApiCoreV1NodeSwapStatusFromJSON(json['swap']),
         'systemUUID': json['systemUUID'],
     };
 }
 
-export function IoK8sApiCoreV1NodeSystemInfoToJSON(value?: IoK8sApiCoreV1NodeSystemInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeSystemInfoToJSON(json: any): IoK8sApiCoreV1NodeSystemInfo {
+    return IoK8sApiCoreV1NodeSystemInfoToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeSystemInfoToJSONTyped(value?: IoK8sApiCoreV1NodeSystemInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'architecture': value.architecture,
-        'bootID': value.bootID,
-        'containerRuntimeVersion': value.containerRuntimeVersion,
-        'kernelVersion': value.kernelVersion,
-        'kubeProxyVersion': value.kubeProxyVersion,
-        'kubeletVersion': value.kubeletVersion,
-        'machineID': value.machineID,
-        'operatingSystem': value.operatingSystem,
-        'osImage': value.osImage,
-        'systemUUID': value.systemUUID,
+        'architecture': value['architecture'],
+        'bootID': value['bootID'],
+        'containerRuntimeVersion': value['containerRuntimeVersion'],
+        'kernelVersion': value['kernelVersion'],
+        'kubeProxyVersion': value['kubeProxyVersion'],
+        'kubeletVersion': value['kubeletVersion'],
+        'machineID': value['machineID'],
+        'operatingSystem': value['operatingSystem'],
+        'osImage': value['osImage'],
+        'swap': IoK8sApiCoreV1NodeSwapStatusToJSON(value['swap']),
+        'systemUUID': value['systemUUID'],
     };
 }
 

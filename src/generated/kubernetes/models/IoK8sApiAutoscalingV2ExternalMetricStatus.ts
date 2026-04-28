@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricIdentifier } from './IoK8sApiAutoscalingV2MetricIdentifier';
 import {
     IoK8sApiAutoscalingV2MetricIdentifierFromJSON,
     IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped,
     IoK8sApiAutoscalingV2MetricIdentifierToJSON,
+    IoK8sApiAutoscalingV2MetricIdentifierToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricIdentifier';
 import type { IoK8sApiAutoscalingV2MetricValueStatus } from './IoK8sApiAutoscalingV2MetricValueStatus';
 import {
     IoK8sApiAutoscalingV2MetricValueStatusFromJSON,
     IoK8sApiAutoscalingV2MetricValueStatusFromJSONTyped,
     IoK8sApiAutoscalingV2MetricValueStatusToJSON,
+    IoK8sApiAutoscalingV2MetricValueStatusToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricValueStatus';
 
 /**
@@ -49,12 +51,10 @@ export interface IoK8sApiAutoscalingV2ExternalMetricStatus {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2ExternalMetricStatus interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2ExternalMetricStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "current" in value;
-    isInstance = isInstance && "metric" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2ExternalMetricStatus(value: object): value is IoK8sApiAutoscalingV2ExternalMetricStatus {
+    if (!('current' in value) || value['current'] === undefined) return false;
+    if (!('metric' in value) || value['metric'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2ExternalMetricStatusFromJSON(json: any): IoK8sApiAutoscalingV2ExternalMetricStatus {
@@ -62,7 +62,7 @@ export function IoK8sApiAutoscalingV2ExternalMetricStatusFromJSON(json: any): Io
 }
 
 export function IoK8sApiAutoscalingV2ExternalMetricStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2ExternalMetricStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -72,17 +72,19 @@ export function IoK8sApiAutoscalingV2ExternalMetricStatusFromJSONTyped(json: any
     };
 }
 
-export function IoK8sApiAutoscalingV2ExternalMetricStatusToJSON(value?: IoK8sApiAutoscalingV2ExternalMetricStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2ExternalMetricStatusToJSON(json: any): IoK8sApiAutoscalingV2ExternalMetricStatus {
+    return IoK8sApiAutoscalingV2ExternalMetricStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2ExternalMetricStatusToJSONTyped(value?: IoK8sApiAutoscalingV2ExternalMetricStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'current': IoK8sApiAutoscalingV2MetricValueStatusToJSON(value.current),
-        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value.metric),
+        'current': IoK8sApiAutoscalingV2MetricValueStatusToJSON(value['current']),
+        'metric': IoK8sApiAutoscalingV2MetricIdentifierToJSON(value['metric']),
     };
 }
 

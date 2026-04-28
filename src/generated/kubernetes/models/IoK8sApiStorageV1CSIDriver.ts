@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1CSIDriverSpec } from './IoK8sApiStorageV1CSIDriverSpec';
 import {
     IoK8sApiStorageV1CSIDriverSpecFromJSON,
     IoK8sApiStorageV1CSIDriverSpecFromJSONTyped,
     IoK8sApiStorageV1CSIDriverSpecToJSON,
+    IoK8sApiStorageV1CSIDriverSpecToJSONTyped,
 } from './IoK8sApiStorageV1CSIDriverSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiStorageV1CSIDriver {
 /**
  * Check if a given object implements the IoK8sApiStorageV1CSIDriver interface.
  */
-export function instanceOfIoK8sApiStorageV1CSIDriver(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1CSIDriver(value: object): value is IoK8sApiStorageV1CSIDriver {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1CSIDriverFromJSON(json: any): IoK8sApiStorageV1CSIDriver {
@@ -73,31 +73,33 @@ export function IoK8sApiStorageV1CSIDriverFromJSON(json: any): IoK8sApiStorageV1
 }
 
 export function IoK8sApiStorageV1CSIDriverFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1CSIDriver {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiStorageV1CSIDriverSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiStorageV1CSIDriverToJSON(value?: IoK8sApiStorageV1CSIDriver | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1CSIDriverToJSON(json: any): IoK8sApiStorageV1CSIDriver {
+    return IoK8sApiStorageV1CSIDriverToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1CSIDriverToJSONTyped(value?: IoK8sApiStorageV1CSIDriver | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiStorageV1CSIDriverSpecToJSON(value.spec),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiStorageV1CSIDriverSpecToJSON(value['spec']),
     };
 }
 

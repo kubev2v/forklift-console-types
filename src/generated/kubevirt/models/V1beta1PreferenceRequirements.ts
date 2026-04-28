@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1beta1CPUPreferenceRequirement } from './V1beta1CPUPreferenceRequirement';
-import {
-    V1beta1CPUPreferenceRequirementFromJSON,
-    V1beta1CPUPreferenceRequirementFromJSONTyped,
-    V1beta1CPUPreferenceRequirementToJSON,
-} from './V1beta1CPUPreferenceRequirement';
+import { mapValues } from '../../runtime';
 import type { V1beta1MemoryPreferenceRequirement } from './V1beta1MemoryPreferenceRequirement';
 import {
     V1beta1MemoryPreferenceRequirementFromJSON,
     V1beta1MemoryPreferenceRequirementFromJSONTyped,
     V1beta1MemoryPreferenceRequirementToJSON,
+    V1beta1MemoryPreferenceRequirementToJSONTyped,
 } from './V1beta1MemoryPreferenceRequirement';
+import type { V1beta1CPUPreferenceRequirement } from './V1beta1CPUPreferenceRequirement';
+import {
+    V1beta1CPUPreferenceRequirementFromJSON,
+    V1beta1CPUPreferenceRequirementFromJSONTyped,
+    V1beta1CPUPreferenceRequirementToJSON,
+    V1beta1CPUPreferenceRequirementToJSONTyped,
+} from './V1beta1CPUPreferenceRequirement';
 
 /**
  * 
@@ -32,6 +34,12 @@ import {
  * @interface V1beta1PreferenceRequirements
  */
 export interface V1beta1PreferenceRequirements {
+    /**
+     * Required Architecture of the VM referencing this preference
+     * @type {string}
+     * @memberof V1beta1PreferenceRequirements
+     */
+    architecture?: string;
     /**
      * 
      * @type {V1beta1CPUPreferenceRequirement}
@@ -49,10 +57,8 @@ export interface V1beta1PreferenceRequirements {
 /**
  * Check if a given object implements the V1beta1PreferenceRequirements interface.
  */
-export function instanceOfV1beta1PreferenceRequirements(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1PreferenceRequirements(value: object): value is V1beta1PreferenceRequirements {
+    return true;
 }
 
 export function V1beta1PreferenceRequirementsFromJSON(json: any): V1beta1PreferenceRequirements {
@@ -60,27 +66,31 @@ export function V1beta1PreferenceRequirementsFromJSON(json: any): V1beta1Prefere
 }
 
 export function V1beta1PreferenceRequirementsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1PreferenceRequirements {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'cpu': !exists(json, 'cpu') ? undefined : V1beta1CPUPreferenceRequirementFromJSON(json['cpu']),
-        'memory': !exists(json, 'memory') ? undefined : V1beta1MemoryPreferenceRequirementFromJSON(json['memory']),
+        'architecture': json['architecture'] == null ? undefined : json['architecture'],
+        'cpu': json['cpu'] == null ? undefined : V1beta1CPUPreferenceRequirementFromJSON(json['cpu']),
+        'memory': json['memory'] == null ? undefined : V1beta1MemoryPreferenceRequirementFromJSON(json['memory']),
     };
 }
 
-export function V1beta1PreferenceRequirementsToJSON(value?: V1beta1PreferenceRequirements | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1PreferenceRequirementsToJSON(json: any): V1beta1PreferenceRequirements {
+    return V1beta1PreferenceRequirementsToJSONTyped(json, false);
+}
+
+export function V1beta1PreferenceRequirementsToJSONTyped(value?: V1beta1PreferenceRequirements | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'cpu': V1beta1CPUPreferenceRequirementToJSON(value.cpu),
-        'memory': V1beta1MemoryPreferenceRequirementToJSON(value.memory),
+        'architecture': value['architecture'],
+        'cpu': V1beta1CPUPreferenceRequirementToJSON(value['cpu']),
+        'memory': V1beta1MemoryPreferenceRequirementToJSON(value['memory']),
     };
 }
 

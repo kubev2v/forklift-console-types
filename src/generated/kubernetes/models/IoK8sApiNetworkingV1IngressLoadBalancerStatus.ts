@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressLoadBalancerIngress } from './IoK8sApiNetworkingV1IngressLoadBalancerIngress';
 import {
     IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSON,
     IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSONTyped,
     IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSON,
+    IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressLoadBalancerIngress';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiNetworkingV1IngressLoadBalancerStatus {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressLoadBalancerStatus interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressLoadBalancerStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressLoadBalancerStatus(value: object): value is IoK8sApiNetworkingV1IngressLoadBalancerStatus {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSON(json: any): IoK8sApiNetworkingV1IngressLoadBalancerStatus {
@@ -48,25 +47,27 @@ export function IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSON(json: any)
 }
 
 export function IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressLoadBalancerStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ingress': !exists(json, 'ingress') ? undefined : ((json['ingress'] as Array<any>).map(IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSON)),
+        'ingress': json['ingress'] == null ? undefined : ((json['ingress'] as Array<any>).map(IoK8sApiNetworkingV1IngressLoadBalancerIngressFromJSON)),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSON(value?: IoK8sApiNetworkingV1IngressLoadBalancerStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSON(json: any): IoK8sApiNetworkingV1IngressLoadBalancerStatus {
+    return IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSONTyped(value?: IoK8sApiNetworkingV1IngressLoadBalancerStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ingress': value.ingress === undefined ? undefined : ((value.ingress as Array<any>).map(IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSON)),
+        'ingress': value['ingress'] == null ? undefined : ((value['ingress'] as Array<any>).map(IoK8sApiNetworkingV1IngressLoadBalancerIngressToJSON)),
     };
 }
 

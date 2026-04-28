@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SubjectAccessReviewStatus
  * @export
@@ -20,25 +20,25 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthorizationV1SubjectAccessReviewStatus {
     /**
-     * Allowed is required. True if the action would be allowed, false otherwise.
+     * allowed is required. True if the action would be allowed, false otherwise.
      * @type {boolean}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewStatus
      */
     allowed: boolean;
     /**
-     * Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
+     * denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
      * @type {boolean}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewStatus
      */
     denied?: boolean;
     /**
-     * EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
+     * evaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewStatus
      */
     evaluationError?: string;
     /**
-     * Reason is optional.  It indicates why a request was allowed or denied.
+     * reason is optional.  It indicates why a request was allowed or denied.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1SubjectAccessReviewStatus
      */
@@ -48,11 +48,9 @@ export interface IoK8sApiAuthorizationV1SubjectAccessReviewStatus {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1SubjectAccessReviewStatus interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1SubjectAccessReviewStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "allowed" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1SubjectAccessReviewStatus(value: object): value is IoK8sApiAuthorizationV1SubjectAccessReviewStatus {
+    if (!('allowed' in value) || value['allowed'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSON(json: any): IoK8sApiAuthorizationV1SubjectAccessReviewStatus {
@@ -60,31 +58,33 @@ export function IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSON(json: a
 }
 
 export function IoK8sApiAuthorizationV1SubjectAccessReviewStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1SubjectAccessReviewStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'allowed': json['allowed'],
-        'denied': !exists(json, 'denied') ? undefined : json['denied'],
-        'evaluationError': !exists(json, 'evaluationError') ? undefined : json['evaluationError'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'denied': json['denied'] == null ? undefined : json['denied'],
+        'evaluationError': json['evaluationError'] == null ? undefined : json['evaluationError'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
     };
 }
 
-export function IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSON(value?: IoK8sApiAuthorizationV1SubjectAccessReviewStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSON(json: any): IoK8sApiAuthorizationV1SubjectAccessReviewStatus {
+    return IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1SubjectAccessReviewStatusToJSONTyped(value?: IoK8sApiAuthorizationV1SubjectAccessReviewStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allowed': value.allowed,
-        'denied': value.denied,
-        'evaluationError': value.evaluationError,
-        'reason': value.reason,
+        'allowed': value['allowed'],
+        'denied': value['denied'],
+        'evaluationError': value['evaluationError'],
+        'reason': value['reason'],
     };
 }
 

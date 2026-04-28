@@ -12,13 +12,14 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApiCoreV1ResourceRequirements } from './K8sIoApiCoreV1ResourceRequirements';
+import { mapValues } from '../../runtime';
+import type { V1ResourceRequirementsWithoutClaims } from './V1ResourceRequirementsWithoutClaims';
 import {
-    K8sIoApiCoreV1ResourceRequirementsFromJSON,
-    K8sIoApiCoreV1ResourceRequirementsFromJSONTyped,
-    K8sIoApiCoreV1ResourceRequirementsToJSON,
-} from './K8sIoApiCoreV1ResourceRequirements';
+    V1ResourceRequirementsWithoutClaimsFromJSON,
+    V1ResourceRequirementsWithoutClaimsFromJSONTyped,
+    V1ResourceRequirementsWithoutClaimsToJSON,
+    V1ResourceRequirementsWithoutClaimsToJSONTyped,
+} from './V1ResourceRequirementsWithoutClaims';
 
 /**
  * SupportContainerResources are used to specify the cpu/memory request and limits for the containers that support various features of Virtual Machines. These containers are usually idle and don't require a lot of memory or cpu.
@@ -28,10 +29,10 @@ import {
 export interface V1SupportContainerResources {
     /**
      * 
-     * @type {K8sIoApiCoreV1ResourceRequirements}
+     * @type {V1ResourceRequirementsWithoutClaims}
      * @memberof V1SupportContainerResources
      */
-    resources: K8sIoApiCoreV1ResourceRequirements;
+    resources: V1ResourceRequirementsWithoutClaims;
     /**
      * 
      * @type {string}
@@ -43,12 +44,10 @@ export interface V1SupportContainerResources {
 /**
  * Check if a given object implements the V1SupportContainerResources interface.
  */
-export function instanceOfV1SupportContainerResources(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "resources" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1SupportContainerResources(value: object): value is V1SupportContainerResources {
+    if (!('resources' in value) || value['resources'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1SupportContainerResourcesFromJSON(json: any): V1SupportContainerResources {
@@ -56,27 +55,29 @@ export function V1SupportContainerResourcesFromJSON(json: any): V1SupportContain
 }
 
 export function V1SupportContainerResourcesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SupportContainerResources {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'resources': K8sIoApiCoreV1ResourceRequirementsFromJSON(json['resources']),
+        'resources': V1ResourceRequirementsWithoutClaimsFromJSON(json['resources']),
         'type': json['type'],
     };
 }
 
-export function V1SupportContainerResourcesToJSON(value?: V1SupportContainerResources | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SupportContainerResourcesToJSON(json: any): V1SupportContainerResources {
+    return V1SupportContainerResourcesToJSONTyped(json, false);
+}
+
+export function V1SupportContainerResourcesToJSONTyped(value?: V1SupportContainerResources | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'resources': K8sIoApiCoreV1ResourceRequirementsToJSON(value.resources),
-        'type': value.type,
+        'resources': V1ResourceRequirementsWithoutClaimsToJSON(value['resources']),
+        'type': value['type'],
     };
 }
 

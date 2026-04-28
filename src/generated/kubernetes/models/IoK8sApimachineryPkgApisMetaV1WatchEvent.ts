@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Event represents a single event to a watched resource.
  * @export
@@ -73,12 +73,10 @@ export interface IoK8sApimachineryPkgApisMetaV1WatchEvent {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1WatchEvent interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1WatchEvent(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "object" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1WatchEvent(value: object): value is IoK8sApimachineryPkgApisMetaV1WatchEvent {
+    if (!('object' in value) || value['object'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1WatchEventFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1WatchEvent {
@@ -86,7 +84,7 @@ export function IoK8sApimachineryPkgApisMetaV1WatchEventFromJSON(json: any): IoK
 }
 
 export function IoK8sApimachineryPkgApisMetaV1WatchEventFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1WatchEvent {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -96,17 +94,19 @@ export function IoK8sApimachineryPkgApisMetaV1WatchEventFromJSONTyped(json: any,
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1WatchEventToJSON(value?: IoK8sApimachineryPkgApisMetaV1WatchEvent | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1WatchEventToJSON(json: any): IoK8sApimachineryPkgApisMetaV1WatchEvent {
+    return IoK8sApimachineryPkgApisMetaV1WatchEventToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1WatchEventToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1WatchEvent | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'object': value.object,
-        'type': value.type,
+        'object': value['object'],
+        'type': value['type'],
     };
 }
 

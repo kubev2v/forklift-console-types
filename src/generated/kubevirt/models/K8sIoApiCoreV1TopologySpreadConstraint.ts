@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 import {
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -33,7 +34,9 @@ export interface K8sIoApiCoreV1TopologySpreadConstraint {
      */
     labelSelector?: K8sIoApimachineryPkgApisMetaV1LabelSelector;
     /**
-     * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+     * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+     * 
+     * This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
      * @type {Array<string>}
      * @memberof K8sIoApiCoreV1TopologySpreadConstraint
      */
@@ -48,8 +51,6 @@ export interface K8sIoApiCoreV1TopologySpreadConstraint {
      * MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
      * 
      * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
-     * 
-     * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
      * @type {number}
      * @memberof K8sIoApiCoreV1TopologySpreadConstraint
      */
@@ -57,7 +58,7 @@ export interface K8sIoApiCoreV1TopologySpreadConstraint {
     /**
      * NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
      * 
-     * If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * If this value is nil, the behavior is equivalent to the Honor policy.
      * 
      * Possible enum values:
      *  - `"Honor"` means use this scheduling directive when calculating pod topology spread skew.
@@ -69,7 +70,7 @@ export interface K8sIoApiCoreV1TopologySpreadConstraint {
     /**
      * NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
      * 
-     * If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * If this value is nil, the behavior is equivalent to the Ignore policy.
      * 
      * Possible enum values:
      *  - `"Honor"` means use this scheduling directive when calculating pod topology spread skew.
@@ -131,13 +132,11 @@ export type K8sIoApiCoreV1TopologySpreadConstraintWhenUnsatisfiableEnum = typeof
 /**
  * Check if a given object implements the K8sIoApiCoreV1TopologySpreadConstraint interface.
  */
-export function instanceOfK8sIoApiCoreV1TopologySpreadConstraint(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "maxSkew" in value;
-    isInstance = isInstance && "topologyKey" in value;
-    isInstance = isInstance && "whenUnsatisfiable" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1TopologySpreadConstraint(value: object): value is K8sIoApiCoreV1TopologySpreadConstraint {
+    if (!('maxSkew' in value) || value['maxSkew'] === undefined) return false;
+    if (!('topologyKey' in value) || value['topologyKey'] === undefined) return false;
+    if (!('whenUnsatisfiable' in value) || value['whenUnsatisfiable'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1TopologySpreadConstraintFromJSON(json: any): K8sIoApiCoreV1TopologySpreadConstraint {
@@ -145,39 +144,41 @@ export function K8sIoApiCoreV1TopologySpreadConstraintFromJSON(json: any): K8sIo
 }
 
 export function K8sIoApiCoreV1TopologySpreadConstraintFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1TopologySpreadConstraint {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'labelSelector': !exists(json, 'labelSelector') ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['labelSelector']),
-        'matchLabelKeys': !exists(json, 'matchLabelKeys') ? undefined : json['matchLabelKeys'],
+        'labelSelector': json['labelSelector'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['labelSelector']),
+        'matchLabelKeys': json['matchLabelKeys'] == null ? undefined : json['matchLabelKeys'],
         'maxSkew': json['maxSkew'],
-        'minDomains': !exists(json, 'minDomains') ? undefined : json['minDomains'],
-        'nodeAffinityPolicy': !exists(json, 'nodeAffinityPolicy') ? undefined : json['nodeAffinityPolicy'],
-        'nodeTaintsPolicy': !exists(json, 'nodeTaintsPolicy') ? undefined : json['nodeTaintsPolicy'],
+        'minDomains': json['minDomains'] == null ? undefined : json['minDomains'],
+        'nodeAffinityPolicy': json['nodeAffinityPolicy'] == null ? undefined : json['nodeAffinityPolicy'],
+        'nodeTaintsPolicy': json['nodeTaintsPolicy'] == null ? undefined : json['nodeTaintsPolicy'],
         'topologyKey': json['topologyKey'],
         'whenUnsatisfiable': json['whenUnsatisfiable'],
     };
 }
 
-export function K8sIoApiCoreV1TopologySpreadConstraintToJSON(value?: K8sIoApiCoreV1TopologySpreadConstraint | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1TopologySpreadConstraintToJSON(json: any): K8sIoApiCoreV1TopologySpreadConstraint {
+    return K8sIoApiCoreV1TopologySpreadConstraintToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1TopologySpreadConstraintToJSONTyped(value?: K8sIoApiCoreV1TopologySpreadConstraint | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'labelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.labelSelector),
-        'matchLabelKeys': value.matchLabelKeys,
-        'maxSkew': value.maxSkew,
-        'minDomains': value.minDomains,
-        'nodeAffinityPolicy': value.nodeAffinityPolicy,
-        'nodeTaintsPolicy': value.nodeTaintsPolicy,
-        'topologyKey': value.topologyKey,
-        'whenUnsatisfiable': value.whenUnsatisfiable,
+        'labelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['labelSelector']),
+        'matchLabelKeys': value['matchLabelKeys'],
+        'maxSkew': value['maxSkew'],
+        'minDomains': value['minDomains'],
+        'nodeAffinityPolicy': value['nodeAffinityPolicy'],
+        'nodeTaintsPolicy': value['nodeTaintsPolicy'],
+        'topologyKey': value['topologyKey'],
+        'whenUnsatisfiable': value['whenUnsatisfiable'],
     };
 }
 

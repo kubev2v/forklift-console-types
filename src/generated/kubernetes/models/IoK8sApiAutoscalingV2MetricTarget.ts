@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * MetricTarget defines the target value, average value, or average utilization of a specific metric
  * @export
@@ -120,11 +120,9 @@ export interface IoK8sApiAutoscalingV2MetricTarget {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2MetricTarget interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2MetricTarget(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2MetricTarget(value: object): value is IoK8sApiAutoscalingV2MetricTarget {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2MetricTargetFromJSON(json: any): IoK8sApiAutoscalingV2MetricTarget {
@@ -132,31 +130,33 @@ export function IoK8sApiAutoscalingV2MetricTargetFromJSON(json: any): IoK8sApiAu
 }
 
 export function IoK8sApiAutoscalingV2MetricTargetFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2MetricTarget {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'averageUtilization': !exists(json, 'averageUtilization') ? undefined : json['averageUtilization'],
-        'averageValue': !exists(json, 'averageValue') ? undefined : json['averageValue'],
+        'averageUtilization': json['averageUtilization'] == null ? undefined : json['averageUtilization'],
+        'averageValue': json['averageValue'] == null ? undefined : json['averageValue'],
         'type': json['type'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function IoK8sApiAutoscalingV2MetricTargetToJSON(value?: IoK8sApiAutoscalingV2MetricTarget | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2MetricTargetToJSON(json: any): IoK8sApiAutoscalingV2MetricTarget {
+    return IoK8sApiAutoscalingV2MetricTargetToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2MetricTargetToJSONTyped(value?: IoK8sApiAutoscalingV2MetricTarget | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'averageUtilization': value.averageUtilization,
-        'averageValue': value.averageValue,
-        'type': value.type,
-        'value': value.value,
+        'averageUtilization': value['averageUtilization'],
+        'averageValue': value['averageValue'],
+        'type': value['type'],
+        'value': value['value'],
     };
 }
 

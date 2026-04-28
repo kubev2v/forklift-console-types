@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
  * @export
@@ -50,12 +50,10 @@ export interface IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement {
 /**
  * Check if a given object implements the IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement interface.
  */
-export function instanceOfIoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "operator" in value;
-    isInstance = isInstance && "values" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement(value: object): value is IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement {
+    if (!('operator' in value) || value['operator'] === undefined) return false;
+    if (!('values' in value) || value['values'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSON(json: any): IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement {
@@ -63,29 +61,31 @@ export function IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSON(js
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'containerName': !exists(json, 'containerName') ? undefined : json['containerName'],
+        'containerName': json['containerName'] == null ? undefined : json['containerName'],
         'operator': json['operator'],
         'values': json['values'],
     };
 }
 
-export function IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSON(value?: IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSON(json: any): IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement {
+    return IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSONTyped(value?: IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'containerName': value.containerName,
-        'operator': value.operator,
-        'values': value.values,
+        'containerName': value['containerName'],
+        'operator': value['operator'],
+        'values': value['values'],
     };
 }
 

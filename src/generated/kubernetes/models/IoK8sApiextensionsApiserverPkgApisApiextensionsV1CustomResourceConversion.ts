@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversion';
 
 /**
@@ -44,11 +45,9 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "strategy" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion {
+    if (!('strategy' in value) || value['strategy'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion {
@@ -56,27 +55,29 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceC
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'strategy': json['strategy'],
-        'webhook': !exists(json, 'webhook') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionFromJSON(json['webhook']),
+        'webhook': json['webhook'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionFromJSON(json['webhook']),
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversionToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceConversion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'strategy': value.strategy,
-        'webhook': IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSON(value.webhook),
+        'strategy': value['strategy'],
+        'webhook': IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookConversionToJSON(value['webhook']),
     };
 }
 

@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { V1VirtualMachineInstanceGuestOSUser } from './V1VirtualMachineInstanceGuestOSUser';
 import {
     V1VirtualMachineInstanceGuestOSUserFromJSON,
     V1VirtualMachineInstanceGuestOSUserFromJSONTyped,
     V1VirtualMachineInstanceGuestOSUserToJSON,
+    V1VirtualMachineInstanceGuestOSUserToJSONTyped,
 } from './V1VirtualMachineInstanceGuestOSUser';
 
 /**
@@ -61,11 +63,9 @@ export interface V1VirtualMachineInstanceGuestOSUserList {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceGuestOSUserList interface.
  */
-export function instanceOfV1VirtualMachineInstanceGuestOSUserList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceGuestOSUserList(value: object): value is V1VirtualMachineInstanceGuestOSUserList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceGuestOSUserListFromJSON(json: any): V1VirtualMachineInstanceGuestOSUserList {
@@ -73,31 +73,33 @@ export function V1VirtualMachineInstanceGuestOSUserListFromJSON(json: any): V1Vi
 }
 
 export function V1VirtualMachineInstanceGuestOSUserListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceGuestOSUserList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1VirtualMachineInstanceGuestOSUserFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1VirtualMachineInstanceGuestOSUserListToJSON(value?: V1VirtualMachineInstanceGuestOSUserList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceGuestOSUserListToJSON(json: any): V1VirtualMachineInstanceGuestOSUserList {
+    return V1VirtualMachineInstanceGuestOSUserListToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceGuestOSUserListToJSONTyped(value?: V1VirtualMachineInstanceGuestOSUserList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1VirtualMachineInstanceGuestOSUserToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1VirtualMachineInstanceGuestOSUserToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

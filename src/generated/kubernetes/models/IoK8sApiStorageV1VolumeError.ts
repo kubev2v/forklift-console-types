@@ -12,13 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VolumeError captures an error encountered during a volume operation.
  * @export
  * @interface IoK8sApiStorageV1VolumeError
  */
 export interface IoK8sApiStorageV1VolumeError {
+    /**
+     * errorCode is a numeric gRPC code representing the error encountered during Attach or Detach operations.
+     * 
+     * This field requires the MutableCSINodeAllocatableCount feature gate being enabled to be set.
+     * @type {number}
+     * @memberof IoK8sApiStorageV1VolumeError
+     */
+    errorCode?: number;
     /**
      * message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
      * @type {string}
@@ -30,16 +38,14 @@ export interface IoK8sApiStorageV1VolumeError {
      * @type {Date}
      * @memberof IoK8sApiStorageV1VolumeError
      */
-    time?: string;
+    time?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeError interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeError(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeError(value: object): value is IoK8sApiStorageV1VolumeError {
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeErrorFromJSON(json: any): IoK8sApiStorageV1VolumeError {
@@ -47,27 +53,31 @@ export function IoK8sApiStorageV1VolumeErrorFromJSON(json: any): IoK8sApiStorage
 }
 
 export function IoK8sApiStorageV1VolumeErrorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeError {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'time': !exists(json, 'time') ? undefined : json['time'],
+        'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'time': json['time'] == null ? undefined : (new Date(json['time'])),
     };
 }
 
-export function IoK8sApiStorageV1VolumeErrorToJSON(value?: IoK8sApiStorageV1VolumeError | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeErrorToJSON(json: any): IoK8sApiStorageV1VolumeError {
+    return IoK8sApiStorageV1VolumeErrorToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeErrorToJSONTyped(value?: IoK8sApiStorageV1VolumeError | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'message': value.message,
-        'time': value.time === undefined ? undefined : (value.time),
+        'errorCode': value['errorCode'],
+        'message': value['message'],
+        'time': value['time'] == null ? undefined : ((value['time']).toISOString()),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CustomResourceColumnDefinition specifies a column for server side printing.
  * @export
@@ -60,13 +60,11 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "jsonPath" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition {
+    if (!('jsonPath' in value) || value['jsonPath'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinitionFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition {
@@ -74,35 +72,37 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceC
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinitionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'description': !exists(json, 'description') ? undefined : json['description'],
-        'format': !exists(json, 'format') ? undefined : json['format'],
+        'description': json['description'] == null ? undefined : json['description'],
+        'format': json['format'] == null ? undefined : json['format'],
         'jsonPath': json['jsonPath'],
         'name': json['name'],
-        'priority': !exists(json, 'priority') ? undefined : json['priority'],
+        'priority': json['priority'] == null ? undefined : json['priority'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinitionToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinitionToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinitionToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinitionToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceColumnDefinition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'description': value.description,
-        'format': value.format,
-        'jsonPath': value.jsonPath,
-        'name': value.name,
-        'priority': value.priority,
-        'type': value.type,
+        'description': value['description'],
+        'format': value['format'],
+        'jsonPath': value['jsonPath'],
+        'name': value['name'],
+        'priority': value['priority'],
+        'type': value['type'],
     };
 }
 

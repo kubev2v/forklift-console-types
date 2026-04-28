@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NodeMediatedDeviceTypesConfig holds information about MDEV types to be defined in a specific node that matches the NodeSelector field.
  * @export
@@ -42,11 +42,9 @@ export interface V1NodeMediatedDeviceTypesConfig {
 /**
  * Check if a given object implements the V1NodeMediatedDeviceTypesConfig interface.
  */
-export function instanceOfV1NodeMediatedDeviceTypesConfig(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "nodeSelector" in value;
-
-    return isInstance;
+export function instanceOfV1NodeMediatedDeviceTypesConfig(value: object): value is V1NodeMediatedDeviceTypesConfig {
+    if (!('nodeSelector' in value) || value['nodeSelector'] === undefined) return false;
+    return true;
 }
 
 export function V1NodeMediatedDeviceTypesConfigFromJSON(json: any): V1NodeMediatedDeviceTypesConfig {
@@ -54,29 +52,31 @@ export function V1NodeMediatedDeviceTypesConfigFromJSON(json: any): V1NodeMediat
 }
 
 export function V1NodeMediatedDeviceTypesConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1NodeMediatedDeviceTypesConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'mediatedDeviceTypes': !exists(json, 'mediatedDeviceTypes') ? undefined : json['mediatedDeviceTypes'],
-        'mediatedDevicesTypes': !exists(json, 'mediatedDevicesTypes') ? undefined : json['mediatedDevicesTypes'],
+        'mediatedDeviceTypes': json['mediatedDeviceTypes'] == null ? undefined : json['mediatedDeviceTypes'],
+        'mediatedDevicesTypes': json['mediatedDevicesTypes'] == null ? undefined : json['mediatedDevicesTypes'],
         'nodeSelector': json['nodeSelector'],
     };
 }
 
-export function V1NodeMediatedDeviceTypesConfigToJSON(value?: V1NodeMediatedDeviceTypesConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1NodeMediatedDeviceTypesConfigToJSON(json: any): V1NodeMediatedDeviceTypesConfig {
+    return V1NodeMediatedDeviceTypesConfigToJSONTyped(json, false);
+}
+
+export function V1NodeMediatedDeviceTypesConfigToJSONTyped(value?: V1NodeMediatedDeviceTypesConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'mediatedDeviceTypes': value.mediatedDeviceTypes,
-        'mediatedDevicesTypes': value.mediatedDevicesTypes,
-        'nodeSelector': value.nodeSelector,
+        'mediatedDeviceTypes': value['mediatedDeviceTypes'],
+        'mediatedDevicesTypes': value['mediatedDevicesTypes'],
+        'nodeSelector': value['nodeSelector'],
     };
 }
 

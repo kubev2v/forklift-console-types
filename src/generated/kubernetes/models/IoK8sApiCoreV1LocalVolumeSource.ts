@@ -12,9 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
- * Local represents directly-attached storage with node affinity (Beta feature)
+ * Local represents directly-attached storage with node affinity
  * @export
  * @interface IoK8sApiCoreV1LocalVolumeSource
  */
@@ -36,11 +36,9 @@ export interface IoK8sApiCoreV1LocalVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1LocalVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1LocalVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1LocalVolumeSource(value: object): value is IoK8sApiCoreV1LocalVolumeSource {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1LocalVolumeSourceFromJSON(json: any): IoK8sApiCoreV1LocalVolumeSource {
@@ -48,27 +46,29 @@ export function IoK8sApiCoreV1LocalVolumeSourceFromJSON(json: any): IoK8sApiCore
 }
 
 export function IoK8sApiCoreV1LocalVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1LocalVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
         'path': json['path'],
     };
 }
 
-export function IoK8sApiCoreV1LocalVolumeSourceToJSON(value?: IoK8sApiCoreV1LocalVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1LocalVolumeSourceToJSON(json: any): IoK8sApiCoreV1LocalVolumeSource {
+    return IoK8sApiCoreV1LocalVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1LocalVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1LocalVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'path': value.path,
+        'fsType': value['fsType'],
+        'path': value['path'],
     };
 }
 

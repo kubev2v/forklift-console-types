@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import {
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import type { IoK8sApiNodeV1Overhead } from './IoK8sApiNodeV1Overhead';
 import {
     IoK8sApiNodeV1OverheadFromJSON,
     IoK8sApiNodeV1OverheadFromJSONTyped,
     IoK8sApiNodeV1OverheadToJSON,
+    IoK8sApiNodeV1OverheadToJSONTyped,
 } from './IoK8sApiNodeV1Overhead';
 import type { IoK8sApiNodeV1Scheduling } from './IoK8sApiNodeV1Scheduling';
 import {
     IoK8sApiNodeV1SchedulingFromJSON,
     IoK8sApiNodeV1SchedulingFromJSONTyped,
     IoK8sApiNodeV1SchedulingToJSON,
+    IoK8sApiNodeV1SchedulingToJSONTyped,
 } from './IoK8sApiNodeV1Scheduling';
-import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
-import {
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
-    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
-} from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
  * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
@@ -79,11 +82,9 @@ export interface IoK8sApiNodeV1RuntimeClass {
 /**
  * Check if a given object implements the IoK8sApiNodeV1RuntimeClass interface.
  */
-export function instanceOfIoK8sApiNodeV1RuntimeClass(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "handler" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNodeV1RuntimeClass(value: object): value is IoK8sApiNodeV1RuntimeClass {
+    if (!('handler' in value) || value['handler'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNodeV1RuntimeClassFromJSON(json: any): IoK8sApiNodeV1RuntimeClass {
@@ -91,35 +92,37 @@ export function IoK8sApiNodeV1RuntimeClassFromJSON(json: any): IoK8sApiNodeV1Run
 }
 
 export function IoK8sApiNodeV1RuntimeClassFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNodeV1RuntimeClass {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'handler': json['handler'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'overhead': !exists(json, 'overhead') ? undefined : IoK8sApiNodeV1OverheadFromJSON(json['overhead']),
-        'scheduling': !exists(json, 'scheduling') ? undefined : IoK8sApiNodeV1SchedulingFromJSON(json['scheduling']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'overhead': json['overhead'] == null ? undefined : IoK8sApiNodeV1OverheadFromJSON(json['overhead']),
+        'scheduling': json['scheduling'] == null ? undefined : IoK8sApiNodeV1SchedulingFromJSON(json['scheduling']),
     };
 }
 
-export function IoK8sApiNodeV1RuntimeClassToJSON(value?: IoK8sApiNodeV1RuntimeClass | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNodeV1RuntimeClassToJSON(json: any): IoK8sApiNodeV1RuntimeClass {
+    return IoK8sApiNodeV1RuntimeClassToJSONTyped(json, false);
+}
+
+export function IoK8sApiNodeV1RuntimeClassToJSONTyped(value?: IoK8sApiNodeV1RuntimeClass | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'handler': value.handler,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'overhead': IoK8sApiNodeV1OverheadToJSON(value.overhead),
-        'scheduling': IoK8sApiNodeV1SchedulingToJSON(value.scheduling),
+        'apiVersion': value['apiVersion'],
+        'handler': value['handler'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'overhead': IoK8sApiNodeV1OverheadToJSON(value['overhead']),
+        'scheduling': IoK8sApiNodeV1SchedulingToJSON(value['scheduling']),
     };
 }
 

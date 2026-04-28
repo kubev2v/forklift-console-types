@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 /**
  * VirtualMachineExportVolumeFormat contains the format type and URL to get the volume in that format
  * @export

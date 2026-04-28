@@ -12,30 +12,41 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1Capabilities } from './IoK8sApiCoreV1Capabilities';
-import {
-    IoK8sApiCoreV1CapabilitiesFromJSON,
-    IoK8sApiCoreV1CapabilitiesFromJSONTyped,
-    IoK8sApiCoreV1CapabilitiesToJSON,
-} from './IoK8sApiCoreV1Capabilities';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1SELinuxOptions } from './IoK8sApiCoreV1SELinuxOptions';
 import {
     IoK8sApiCoreV1SELinuxOptionsFromJSON,
     IoK8sApiCoreV1SELinuxOptionsFromJSONTyped,
     IoK8sApiCoreV1SELinuxOptionsToJSON,
+    IoK8sApiCoreV1SELinuxOptionsToJSONTyped,
 } from './IoK8sApiCoreV1SELinuxOptions';
+import type { IoK8sApiCoreV1Capabilities } from './IoK8sApiCoreV1Capabilities';
+import {
+    IoK8sApiCoreV1CapabilitiesFromJSON,
+    IoK8sApiCoreV1CapabilitiesFromJSONTyped,
+    IoK8sApiCoreV1CapabilitiesToJSON,
+    IoK8sApiCoreV1CapabilitiesToJSONTyped,
+} from './IoK8sApiCoreV1Capabilities';
 import type { IoK8sApiCoreV1SeccompProfile } from './IoK8sApiCoreV1SeccompProfile';
 import {
     IoK8sApiCoreV1SeccompProfileFromJSON,
     IoK8sApiCoreV1SeccompProfileFromJSONTyped,
     IoK8sApiCoreV1SeccompProfileToJSON,
+    IoK8sApiCoreV1SeccompProfileToJSONTyped,
 } from './IoK8sApiCoreV1SeccompProfile';
+import type { IoK8sApiCoreV1AppArmorProfile } from './IoK8sApiCoreV1AppArmorProfile';
+import {
+    IoK8sApiCoreV1AppArmorProfileFromJSON,
+    IoK8sApiCoreV1AppArmorProfileFromJSONTyped,
+    IoK8sApiCoreV1AppArmorProfileToJSON,
+    IoK8sApiCoreV1AppArmorProfileToJSONTyped,
+} from './IoK8sApiCoreV1AppArmorProfile';
 import type { IoK8sApiCoreV1WindowsSecurityContextOptions } from './IoK8sApiCoreV1WindowsSecurityContextOptions';
 import {
     IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON,
     IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSONTyped,
     IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON,
+    IoK8sApiCoreV1WindowsSecurityContextOptionsToJSONTyped,
 } from './IoK8sApiCoreV1WindowsSecurityContextOptions';
 
 /**
@@ -52,6 +63,12 @@ export interface IoK8sApiCoreV1SecurityContext {
     allowPrivilegeEscalation?: boolean;
     /**
      * 
+     * @type {IoK8sApiCoreV1AppArmorProfile}
+     * @memberof IoK8sApiCoreV1SecurityContext
+     */
+    appArmorProfile?: IoK8sApiCoreV1AppArmorProfile;
+    /**
+     * 
      * @type {IoK8sApiCoreV1Capabilities}
      * @memberof IoK8sApiCoreV1SecurityContext
      */
@@ -63,7 +80,7 @@ export interface IoK8sApiCoreV1SecurityContext {
      */
     privileged?: boolean;
     /**
-     * procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+     * procMount denotes the type of proc mount to use for the containers. The default value is Default which uses the container runtime defaults for readonly paths and masked paths. Note that this field cannot be set when spec.os.name is windows.
      * @type {string}
      * @memberof IoK8sApiCoreV1SecurityContext
      */
@@ -115,10 +132,8 @@ export interface IoK8sApiCoreV1SecurityContext {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SecurityContext interface.
  */
-export function instanceOfIoK8sApiCoreV1SecurityContext(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SecurityContext(value: object): value is IoK8sApiCoreV1SecurityContext {
+    return true;
 }
 
 export function IoK8sApiCoreV1SecurityContextFromJSON(json: any): IoK8sApiCoreV1SecurityContext {
@@ -126,45 +141,49 @@ export function IoK8sApiCoreV1SecurityContextFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1SecurityContextFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SecurityContext {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allowPrivilegeEscalation': !exists(json, 'allowPrivilegeEscalation') ? undefined : json['allowPrivilegeEscalation'],
-        'capabilities': !exists(json, 'capabilities') ? undefined : IoK8sApiCoreV1CapabilitiesFromJSON(json['capabilities']),
-        'privileged': !exists(json, 'privileged') ? undefined : json['privileged'],
-        'procMount': !exists(json, 'procMount') ? undefined : json['procMount'],
-        'readOnlyRootFilesystem': !exists(json, 'readOnlyRootFilesystem') ? undefined : json['readOnlyRootFilesystem'],
-        'runAsGroup': !exists(json, 'runAsGroup') ? undefined : json['runAsGroup'],
-        'runAsNonRoot': !exists(json, 'runAsNonRoot') ? undefined : json['runAsNonRoot'],
-        'runAsUser': !exists(json, 'runAsUser') ? undefined : json['runAsUser'],
-        'seLinuxOptions': !exists(json, 'seLinuxOptions') ? undefined : IoK8sApiCoreV1SELinuxOptionsFromJSON(json['seLinuxOptions']),
-        'seccompProfile': !exists(json, 'seccompProfile') ? undefined : IoK8sApiCoreV1SeccompProfileFromJSON(json['seccompProfile']),
-        'windowsOptions': !exists(json, 'windowsOptions') ? undefined : IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON(json['windowsOptions']),
+        'allowPrivilegeEscalation': json['allowPrivilegeEscalation'] == null ? undefined : json['allowPrivilegeEscalation'],
+        'appArmorProfile': json['appArmorProfile'] == null ? undefined : IoK8sApiCoreV1AppArmorProfileFromJSON(json['appArmorProfile']),
+        'capabilities': json['capabilities'] == null ? undefined : IoK8sApiCoreV1CapabilitiesFromJSON(json['capabilities']),
+        'privileged': json['privileged'] == null ? undefined : json['privileged'],
+        'procMount': json['procMount'] == null ? undefined : json['procMount'],
+        'readOnlyRootFilesystem': json['readOnlyRootFilesystem'] == null ? undefined : json['readOnlyRootFilesystem'],
+        'runAsGroup': json['runAsGroup'] == null ? undefined : json['runAsGroup'],
+        'runAsNonRoot': json['runAsNonRoot'] == null ? undefined : json['runAsNonRoot'],
+        'runAsUser': json['runAsUser'] == null ? undefined : json['runAsUser'],
+        'seLinuxOptions': json['seLinuxOptions'] == null ? undefined : IoK8sApiCoreV1SELinuxOptionsFromJSON(json['seLinuxOptions']),
+        'seccompProfile': json['seccompProfile'] == null ? undefined : IoK8sApiCoreV1SeccompProfileFromJSON(json['seccompProfile']),
+        'windowsOptions': json['windowsOptions'] == null ? undefined : IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON(json['windowsOptions']),
     };
 }
 
-export function IoK8sApiCoreV1SecurityContextToJSON(value?: IoK8sApiCoreV1SecurityContext | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecurityContextToJSON(json: any): IoK8sApiCoreV1SecurityContext {
+    return IoK8sApiCoreV1SecurityContextToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecurityContextToJSONTyped(value?: IoK8sApiCoreV1SecurityContext | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allowPrivilegeEscalation': value.allowPrivilegeEscalation,
-        'capabilities': IoK8sApiCoreV1CapabilitiesToJSON(value.capabilities),
-        'privileged': value.privileged,
-        'procMount': value.procMount,
-        'readOnlyRootFilesystem': value.readOnlyRootFilesystem,
-        'runAsGroup': value.runAsGroup,
-        'runAsNonRoot': value.runAsNonRoot,
-        'runAsUser': value.runAsUser,
-        'seLinuxOptions': IoK8sApiCoreV1SELinuxOptionsToJSON(value.seLinuxOptions),
-        'seccompProfile': IoK8sApiCoreV1SeccompProfileToJSON(value.seccompProfile),
-        'windowsOptions': IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON(value.windowsOptions),
+        'allowPrivilegeEscalation': value['allowPrivilegeEscalation'],
+        'appArmorProfile': IoK8sApiCoreV1AppArmorProfileToJSON(value['appArmorProfile']),
+        'capabilities': IoK8sApiCoreV1CapabilitiesToJSON(value['capabilities']),
+        'privileged': value['privileged'],
+        'procMount': value['procMount'],
+        'readOnlyRootFilesystem': value['readOnlyRootFilesystem'],
+        'runAsGroup': value['runAsGroup'],
+        'runAsNonRoot': value['runAsNonRoot'],
+        'runAsUser': value['runAsUser'],
+        'seLinuxOptions': IoK8sApiCoreV1SELinuxOptionsToJSON(value['seLinuxOptions']),
+        'seccompProfile': IoK8sApiCoreV1SeccompProfileToJSON(value['seccompProfile']),
+        'windowsOptions': IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON(value['windowsOptions']),
     };
 }
 

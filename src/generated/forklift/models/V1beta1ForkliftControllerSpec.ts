@@ -38,7 +38,7 @@ export interface V1beta1ForkliftControllerSpec {
    */
   feature_volume_populator?: 'true' | 'false';
   /** feature_copy_offload
-   * Enable copy offload plugins (default: false)
+   * Enable copy offload plugins (default: true)
    *
    * @required {false}
    * @originalType {string}
@@ -79,6 +79,13 @@ export interface V1beta1ForkliftControllerSpec {
    * @originalType {string}
    */
   feature_cli_download?: 'true' | 'false';
+  /** feature_vsphere_vmware_driver_removal
+   * Run VMware driver removal scripts during Windows vSphere conversion (default: false)
+   *
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_vsphere_vmware_driver_removal?: 'true' | 'false';
   /** controller_image_fqin
    * Controller pod image
    *
@@ -91,6 +98,12 @@ export interface V1beta1ForkliftControllerSpec {
    * @required {false}
    */
   virt_v2v_image_fqin?: string;
+  /** virt_v2v_image_xfs_fqin
+   * Virt-v2v XFS conversion image used by migration pods
+   *
+   * @required {false}
+   */
+  virt_v2v_image_xfs_fqin?: string;
   /** vddk_image
    * VDDK image for VMware disk access
    *
@@ -139,12 +152,12 @@ export interface V1beta1ForkliftControllerSpec {
    * @required {false}
    */
   populator_openstack_image_fqin?: string;
-  /** populator_vsphere_xcopy_volume_image_fqin
+  /** populator_vsphere_copy_offload_image_fqin
    * vSphere xcopy populator image
    *
    * @required {false}
    */
-  populator_vsphere_xcopy_volume_image_fqin?: string;
+  populator_vsphere_copy_offload_image_fqin?: string;
   /** ova_provider_server_fqin
    * OVA provider server image
    *
@@ -361,6 +374,12 @@ export interface V1beta1ForkliftControllerSpec {
    * @required {false}
    */
   virt_customize_configmap_name?: string;
+  /** controller_migration_service_account
+   * Global default ServiceAccount for migration pods in the target namespace. Overridden by Plan-level serviceAccount.
+   *
+   * @required {false}
+   */
+  controller_migration_service_account?: string;
   /** controller_max_vm_inflight
    * Max concurrent VM migrations (default: 20)
    *
@@ -373,6 +392,12 @@ export interface V1beta1ForkliftControllerSpec {
    * @required {false}
    */
   controller_precopy_interval?: undefined;
+  /** controller_blocker_grace_period_minutes
+   * How long Critical/Error blocker conditions must persist before failing an active migration, in minutes (default: 5)
+   *
+   * @required {false}
+   */
+  controller_blocker_grace_period_minutes?: undefined;
   /** controller_host_lease_namespace
    * Namespace for host lease objects (default: openshift-mtv)
    *
@@ -433,6 +458,24 @@ export interface V1beta1ForkliftControllerSpec {
    * @required {false}
    */
   controller_max_parent_backing_retries?: undefined;
+  /** aap_url
+   * Ansible Automation Platform base URL (e.g. https://aap.example.com). Required for centralized AAP connection together with aap_token_secret_name; omit when hooks use spec.aap.url and spec.aap.tokenSecret.
+   *
+   * @required {false}
+   */
+  aap_url?: string;
+  /** aap_token_secret_name
+   * Name of the Secret in the operator namespace containing the AAP API Bearer token (data key: token). Required for centralized AAP connection together with aap_url; omit when hooks use per-hook spec.aap.url and tokenSecret.
+   *
+   * @required {false}
+   */
+  aap_token_secret_name?: string;
+  /** aap_timeout
+   * Default timeout in seconds for AAP HTTP calls and job polling when Hook spec.deadline is 0 (optional).
+   *
+   * @required {false}
+   */
+  aap_timeout?: undefined;
   /** controller_vsphere_incremental_backup
    * Use vSphere incremental backup (default: true)
    *
@@ -505,17 +548,39 @@ export interface V1beta1ForkliftControllerSpec {
    */
   virt_v2v_dont_request_kvm?: 'true' | 'false';
   /** virt_v2v_extra_args
-   * Additional arguments for virt-v2v
+   * Additional arguments for virt-v2v conversion
    *
    * @required {false}
    */
   virt_v2v_extra_args?: string;
+  /** virt_v2v_inspector_extra_args
+   * Additional arguments for virt-v2v-inspector
+   *
+   * @required {false}
+   */
+  virt_v2v_inspector_extra_args?: string;
   /** virt_v2v_extra_conf_config_map
    * ConfigMap name containing extra virt-v2v configuration
    *
    * @required {false}
    */
   virt_v2v_extra_conf_config_map?: string;
+  /** virt_v2v_memsize
+   * Memory (in MB) allocated for the virt-v2v conversion appliance (default: virt-v2v chooses)
+   *
+   * @required {false}
+   * @format {int64}
+   * @originalType {integer}
+   */
+  virt_v2v_memsize?: number;
+  /** virt_v2v_smp
+   * Number of virtual CPUs for the virt-v2v conversion appliance (default: virt-v2v chooses)
+   *
+   * @required {false}
+   * @format {int64}
+   * @originalType {integer}
+   */
+  virt_v2v_smp?: number;
   /** hooks_container_limits_cpu
    * Hooks CPU limit (default: 1000m)
    *
@@ -588,6 +653,18 @@ export interface V1beta1ForkliftControllerSpec {
    * @required {false}
    */
   hyperv_container_requests_memory?: string;
+  /** controller_hyperv_refresh_interval
+   * HyperV inventory refresh interval as a Go duration (default: 10s)
+   *
+   * @required {false}
+   */
+  controller_hyperv_refresh_interval?: string;
+  /** controller_hyperv_validation_timeout
+   * Timeout for HyperV SMB disk validation HTTP calls as a Go duration (default: 30s)
+   *
+   * @required {false}
+   */
+  controller_hyperv_validation_timeout?: string;
   /** ova_proxy_container_limits_cpu
    * OVA Proxy CPU limit (default: 1000m)
    *

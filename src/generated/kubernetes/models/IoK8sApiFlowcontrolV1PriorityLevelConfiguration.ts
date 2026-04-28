@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec';
 import {
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSON,
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSONTyped,
     IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSON,
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSONTyped,
 } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec';
-import type { IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus';
-import {
-    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSON,
-    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSONTyped,
-    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSON,
-} from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus } from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus';
+import {
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSON,
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSONTyped,
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSON,
+    IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSONTyped,
+} from './IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatus';
 
 /**
  * PriorityLevelConfiguration represents the configuration of a priority level.
@@ -73,10 +76,8 @@ export interface IoK8sApiFlowcontrolV1PriorityLevelConfiguration {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1PriorityLevelConfiguration interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfiguration(value: object): value is IoK8sApiFlowcontrolV1PriorityLevelConfiguration {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationFromJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfiguration {
@@ -84,33 +85,35 @@ export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationFromJSON(json: an
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1PriorityLevelConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationToJSON(value?: IoK8sApiFlowcontrolV1PriorityLevelConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationToJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfiguration {
+    return IoK8sApiFlowcontrolV1PriorityLevelConfigurationToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationToJSONTyped(value?: IoK8sApiFlowcontrolV1PriorityLevelConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSON(value.spec),
-        'status': IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSON(value['spec']),
+        'status': IoK8sApiFlowcontrolV1PriorityLevelConfigurationStatusToJSON(value['status']),
     };
 }
 

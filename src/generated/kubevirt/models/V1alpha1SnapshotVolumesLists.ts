@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 /**
  * SnapshotVolumesLists includes the list of volumes which were included in the snapshot and volumes which were excluded from the snapshot
  * @export

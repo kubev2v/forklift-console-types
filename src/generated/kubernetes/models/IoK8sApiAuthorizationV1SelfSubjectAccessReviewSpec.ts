@@ -12,22 +12,24 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthorizationV1NonResourceAttributes } from './IoK8sApiAuthorizationV1NonResourceAttributes';
 import {
     IoK8sApiAuthorizationV1NonResourceAttributesFromJSON,
     IoK8sApiAuthorizationV1NonResourceAttributesFromJSONTyped,
     IoK8sApiAuthorizationV1NonResourceAttributesToJSON,
+    IoK8sApiAuthorizationV1NonResourceAttributesToJSONTyped,
 } from './IoK8sApiAuthorizationV1NonResourceAttributes';
 import type { IoK8sApiAuthorizationV1ResourceAttributes } from './IoK8sApiAuthorizationV1ResourceAttributes';
 import {
     IoK8sApiAuthorizationV1ResourceAttributesFromJSON,
     IoK8sApiAuthorizationV1ResourceAttributesFromJSONTyped,
     IoK8sApiAuthorizationV1ResourceAttributesToJSON,
+    IoK8sApiAuthorizationV1ResourceAttributesToJSONTyped,
 } from './IoK8sApiAuthorizationV1ResourceAttributes';
 
 /**
- * SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+ * SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of resourceAttributes and nonResourceAttributes must be set
  * @export
  * @interface IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec
  */
@@ -49,10 +51,8 @@ export interface IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec(value: object): value is IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec {
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecFromJSON(json: any): IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec {
@@ -60,27 +60,29 @@ export function IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecFromJSON(json:
 }
 
 export function IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nonResourceAttributes': !exists(json, 'nonResourceAttributes') ? undefined : IoK8sApiAuthorizationV1NonResourceAttributesFromJSON(json['nonResourceAttributes']),
-        'resourceAttributes': !exists(json, 'resourceAttributes') ? undefined : IoK8sApiAuthorizationV1ResourceAttributesFromJSON(json['resourceAttributes']),
+        'nonResourceAttributes': json['nonResourceAttributes'] == null ? undefined : IoK8sApiAuthorizationV1NonResourceAttributesFromJSON(json['nonResourceAttributes']),
+        'resourceAttributes': json['resourceAttributes'] == null ? undefined : IoK8sApiAuthorizationV1ResourceAttributesFromJSON(json['resourceAttributes']),
     };
 }
 
-export function IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecToJSON(value?: IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecToJSON(json: any): IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec {
+    return IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpecToJSONTyped(value?: IoK8sApiAuthorizationV1SelfSubjectAccessReviewSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nonResourceAttributes': IoK8sApiAuthorizationV1NonResourceAttributesToJSON(value.nonResourceAttributes),
-        'resourceAttributes': IoK8sApiAuthorizationV1ResourceAttributesToJSON(value.resourceAttributes),
+        'nonResourceAttributes': IoK8sApiAuthorizationV1NonResourceAttributesToJSON(value['nonResourceAttributes']),
+        'resourceAttributes': IoK8sApiAuthorizationV1ResourceAttributesToJSON(value['resourceAttributes']),
     };
 }
 

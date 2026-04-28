@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ScaleStatus represents the current status of a scale subresource.
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiAutoscalingV1ScaleStatus {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV1ScaleStatus interface.
  */
-export function instanceOfIoK8sApiAutoscalingV1ScaleStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "replicas" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV1ScaleStatus(value: object): value is IoK8sApiAutoscalingV1ScaleStatus {
+    if (!('replicas' in value) || value['replicas'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV1ScaleStatusFromJSON(json: any): IoK8sApiAutoscalingV1ScaleStatus {
@@ -48,27 +46,29 @@ export function IoK8sApiAutoscalingV1ScaleStatusFromJSON(json: any): IoK8sApiAut
 }
 
 export function IoK8sApiAutoscalingV1ScaleStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV1ScaleStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'replicas': json['replicas'],
-        'selector': !exists(json, 'selector') ? undefined : json['selector'],
+        'selector': json['selector'] == null ? undefined : json['selector'],
     };
 }
 
-export function IoK8sApiAutoscalingV1ScaleStatusToJSON(value?: IoK8sApiAutoscalingV1ScaleStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV1ScaleStatusToJSON(json: any): IoK8sApiAutoscalingV1ScaleStatus {
+    return IoK8sApiAutoscalingV1ScaleStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV1ScaleStatusToJSONTyped(value?: IoK8sApiAutoscalingV1ScaleStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'replicas': value.replicas,
-        'selector': value.selector,
+        'replicas': value['replicas'],
+        'selector': value['selector'],
     };
 }
 

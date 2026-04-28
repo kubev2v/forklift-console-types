@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NodeCondition contains condition information for a node.
  * @export
@@ -24,13 +24,13 @@ export interface IoK8sApiCoreV1NodeCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1NodeCondition
      */
-    lastHeartbeatTime?: string;
+    lastHeartbeatTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1NodeCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * Human readable message indicating details about last transition.
      * @type {string}
@@ -60,12 +60,10 @@ export interface IoK8sApiCoreV1NodeCondition {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeCondition interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeCondition(value: object): value is IoK8sApiCoreV1NodeCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeConditionFromJSON(json: any): IoK8sApiCoreV1NodeCondition {
@@ -73,35 +71,37 @@ export function IoK8sApiCoreV1NodeConditionFromJSON(json: any): IoK8sApiCoreV1No
 }
 
 export function IoK8sApiCoreV1NodeConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastHeartbeatTime': !exists(json, 'lastHeartbeatTime') ? undefined : json['lastHeartbeatTime'],
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastHeartbeatTime': json['lastHeartbeatTime'] == null ? undefined : (new Date(json['lastHeartbeatTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1NodeConditionToJSON(value?: IoK8sApiCoreV1NodeCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeConditionToJSON(json: any): IoK8sApiCoreV1NodeCondition {
+    return IoK8sApiCoreV1NodeConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeConditionToJSONTyped(value?: IoK8sApiCoreV1NodeCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastHeartbeatTime': value.lastHeartbeatTime === undefined ? undefined : (value.lastHeartbeatTime),
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastHeartbeatTime': value['lastHeartbeatTime'] == null ? undefined : ((value['lastHeartbeatTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
  * @export
@@ -42,10 +42,8 @@ export interface IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration(value: object): value is IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSON(json: any): IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration {
@@ -53,27 +51,29 @@ export function IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSON(js
 }
 
 export function IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lendablePercent': !exists(json, 'lendablePercent') ? undefined : json['lendablePercent'],
-        'nominalConcurrencyShares': !exists(json, 'nominalConcurrencyShares') ? undefined : json['nominalConcurrencyShares'],
+        'lendablePercent': json['lendablePercent'] == null ? undefined : json['lendablePercent'],
+        'nominalConcurrencyShares': json['nominalConcurrencyShares'] == null ? undefined : json['nominalConcurrencyShares'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSON(value?: IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSON(json: any): IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration {
+    return IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSONTyped(value?: IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lendablePercent': value.lendablePercent,
-        'nominalConcurrencyShares': value.nominalConcurrencyShares,
+        'lendablePercent': value['lendablePercent'],
+        'nominalConcurrencyShares': value['nominalConcurrencyShares'],
     };
 }
 

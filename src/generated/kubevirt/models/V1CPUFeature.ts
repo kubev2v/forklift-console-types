@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CPUFeature allows specifying a CPU feature.
  * @export
@@ -36,11 +36,9 @@ export interface V1CPUFeature {
 /**
  * Check if a given object implements the V1CPUFeature interface.
  */
-export function instanceOfV1CPUFeature(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfV1CPUFeature(value: object): value is V1CPUFeature {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function V1CPUFeatureFromJSON(json: any): V1CPUFeature {
@@ -48,27 +46,29 @@ export function V1CPUFeatureFromJSON(json: any): V1CPUFeature {
 }
 
 export function V1CPUFeatureFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CPUFeature {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
-        'policy': !exists(json, 'policy') ? undefined : json['policy'],
+        'policy': json['policy'] == null ? undefined : json['policy'],
     };
 }
 
-export function V1CPUFeatureToJSON(value?: V1CPUFeature | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CPUFeatureToJSON(json: any): V1CPUFeature {
+    return V1CPUFeatureToJSONTyped(json, false);
+}
+
+export function V1CPUFeatureToJSONTyped(value?: V1CPUFeature | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'policy': value.policy,
+        'name': value['name'],
+        'policy': value['policy'],
     };
 }
 

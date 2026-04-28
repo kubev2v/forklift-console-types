@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference';
 
 /**
@@ -59,10 +60,8 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientC
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig {
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig {
@@ -70,29 +69,31 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientCo
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'caBundle': !exists(json, 'caBundle') ? undefined : json['caBundle'],
-        'service': !exists(json, 'service') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceFromJSON(json['service']),
-        'url': !exists(json, 'url') ? undefined : json['url'],
+        'caBundle': json['caBundle'] == null ? undefined : json['caBundle'],
+        'service': json['service'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceFromJSON(json['service']),
+        'url': json['url'] == null ? undefined : json['url'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfigToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1WebhookClientConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'caBundle': value.caBundle,
-        'service': IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSON(value.service),
-        'url': value.url,
+        'caBundle': value['caBundle'],
+        'service': IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSON(value['service']),
+        'url': value['url'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiAdmissionregistrationV1beta1ValidatingAdmissionPolicyBindingSpec } from './IoK8sApiAdmissionregistrationV1beta1ValidatingAdmissionPolicyBindingSpec';
 import {
     IoK8sApiAdmissionregistrationV1beta1ValidatingAdmissionPolicyBindingSpecFromJSON,

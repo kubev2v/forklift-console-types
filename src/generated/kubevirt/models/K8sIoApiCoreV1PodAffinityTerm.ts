@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 import {
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -32,6 +33,18 @@ export interface K8sIoApiCoreV1PodAffinityTerm {
      * @memberof K8sIoApiCoreV1PodAffinityTerm
      */
     labelSelector?: K8sIoApimachineryPkgApisMetaV1LabelSelector;
+    /**
+     * MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set.
+     * @type {Array<string>}
+     * @memberof K8sIoApiCoreV1PodAffinityTerm
+     */
+    matchLabelKeys?: Array<string>;
+    /**
+     * MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set.
+     * @type {Array<string>}
+     * @memberof K8sIoApiCoreV1PodAffinityTerm
+     */
+    mismatchLabelKeys?: Array<string>;
     /**
      * 
      * @type {K8sIoApimachineryPkgApisMetaV1LabelSelector}
@@ -55,11 +68,9 @@ export interface K8sIoApiCoreV1PodAffinityTerm {
 /**
  * Check if a given object implements the K8sIoApiCoreV1PodAffinityTerm interface.
  */
-export function instanceOfK8sIoApiCoreV1PodAffinityTerm(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "topologyKey" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1PodAffinityTerm(value: object): value is K8sIoApiCoreV1PodAffinityTerm {
+    if (!('topologyKey' in value) || value['topologyKey'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1PodAffinityTermFromJSON(json: any): K8sIoApiCoreV1PodAffinityTerm {
@@ -67,31 +78,37 @@ export function K8sIoApiCoreV1PodAffinityTermFromJSON(json: any): K8sIoApiCoreV1
 }
 
 export function K8sIoApiCoreV1PodAffinityTermFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1PodAffinityTerm {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'labelSelector': !exists(json, 'labelSelector') ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['labelSelector']),
-        'namespaceSelector': !exists(json, 'namespaceSelector') ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['namespaceSelector']),
-        'namespaces': !exists(json, 'namespaces') ? undefined : json['namespaces'],
+        'labelSelector': json['labelSelector'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['labelSelector']),
+        'matchLabelKeys': json['matchLabelKeys'] == null ? undefined : json['matchLabelKeys'],
+        'mismatchLabelKeys': json['mismatchLabelKeys'] == null ? undefined : json['mismatchLabelKeys'],
+        'namespaceSelector': json['namespaceSelector'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['namespaceSelector']),
+        'namespaces': json['namespaces'] == null ? undefined : json['namespaces'],
         'topologyKey': json['topologyKey'],
     };
 }
 
-export function K8sIoApiCoreV1PodAffinityTermToJSON(value?: K8sIoApiCoreV1PodAffinityTerm | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1PodAffinityTermToJSON(json: any): K8sIoApiCoreV1PodAffinityTerm {
+    return K8sIoApiCoreV1PodAffinityTermToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1PodAffinityTermToJSONTyped(value?: K8sIoApiCoreV1PodAffinityTerm | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'labelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.labelSelector),
-        'namespaceSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.namespaceSelector),
-        'namespaces': value.namespaces,
-        'topologyKey': value.topologyKey,
+        'labelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['labelSelector']),
+        'matchLabelKeys': value['matchLabelKeys'],
+        'mismatchLabelKeys': value['mismatchLabelKeys'],
+        'namespaceSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['namespaceSelector']),
+        'namespaces': value['namespaces'],
+        'topologyKey': value['topologyKey'],
     };
 }
 

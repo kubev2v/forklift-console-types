@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +74,8 @@ export interface IoK8sApiCoreV1Secret {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Secret interface.
  */
-export function instanceOfIoK8sApiCoreV1Secret(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Secret(value: object): value is IoK8sApiCoreV1Secret {
+    return true;
 }
 
 export function IoK8sApiCoreV1SecretFromJSON(json: any): IoK8sApiCoreV1Secret {
@@ -84,37 +83,39 @@ export function IoK8sApiCoreV1SecretFromJSON(json: any): IoK8sApiCoreV1Secret {
 }
 
 export function IoK8sApiCoreV1SecretFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Secret {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'data': !exists(json, 'data') ? undefined : json['data'],
-        'immutable': !exists(json, 'immutable') ? undefined : json['immutable'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'stringData': !exists(json, 'stringData') ? undefined : json['stringData'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'data': json['data'] == null ? undefined : json['data'],
+        'immutable': json['immutable'] == null ? undefined : json['immutable'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'stringData': json['stringData'] == null ? undefined : json['stringData'],
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiCoreV1SecretToJSON(value?: IoK8sApiCoreV1Secret | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecretToJSON(json: any): IoK8sApiCoreV1Secret {
+    return IoK8sApiCoreV1SecretToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecretToJSONTyped(value?: IoK8sApiCoreV1Secret | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'data': value.data,
-        'immutable': value.immutable,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'stringData': value.stringData,
-        'type': value.type,
+        'apiVersion': value['apiVersion'],
+        'data': value['data'],
+        'immutable': value['immutable'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'stringData': value['stringData'],
+        'type': value['type'],
     };
 }
 

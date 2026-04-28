@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiStorageV1CSINodeSpec } from './IoK8sApiStorageV1CSINodeSpec';
-import {
-    IoK8sApiStorageV1CSINodeSpecFromJSON,
-    IoK8sApiStorageV1CSINodeSpecFromJSONTyped,
-    IoK8sApiStorageV1CSINodeSpecToJSON,
-} from './IoK8sApiStorageV1CSINodeSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiStorageV1CSINodeSpec } from './IoK8sApiStorageV1CSINodeSpec';
+import {
+    IoK8sApiStorageV1CSINodeSpecFromJSON,
+    IoK8sApiStorageV1CSINodeSpecFromJSONTyped,
+    IoK8sApiStorageV1CSINodeSpecToJSON,
+    IoK8sApiStorageV1CSINodeSpecToJSONTyped,
+} from './IoK8sApiStorageV1CSINodeSpec';
 
 /**
  * CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
@@ -61,11 +63,9 @@ export interface IoK8sApiStorageV1CSINode {
 /**
  * Check if a given object implements the IoK8sApiStorageV1CSINode interface.
  */
-export function instanceOfIoK8sApiStorageV1CSINode(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1CSINode(value: object): value is IoK8sApiStorageV1CSINode {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1CSINodeFromJSON(json: any): IoK8sApiStorageV1CSINode {
@@ -73,31 +73,33 @@ export function IoK8sApiStorageV1CSINodeFromJSON(json: any): IoK8sApiStorageV1CS
 }
 
 export function IoK8sApiStorageV1CSINodeFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1CSINode {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'spec': IoK8sApiStorageV1CSINodeSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiStorageV1CSINodeToJSON(value?: IoK8sApiStorageV1CSINode | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1CSINodeToJSON(json: any): IoK8sApiStorageV1CSINode {
+    return IoK8sApiStorageV1CSINodeToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1CSINodeToJSONTyped(value?: IoK8sApiStorageV1CSINode | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiStorageV1CSINodeSpecToJSON(value.spec),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiStorageV1CSINodeSpecToJSON(value['spec']),
     };
 }
 

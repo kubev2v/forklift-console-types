@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SEVMeasurementInfo contains information about the guest launch measurement.
  * @export
@@ -72,10 +72,8 @@ export interface V1SEVMeasurementInfo {
 /**
  * Check if a given object implements the V1SEVMeasurementInfo interface.
  */
-export function instanceOfV1SEVMeasurementInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SEVMeasurementInfo(value: object): value is V1SEVMeasurementInfo {
+    return true;
 }
 
 export function V1SEVMeasurementInfoFromJSON(json: any): V1SEVMeasurementInfo {
@@ -83,39 +81,41 @@ export function V1SEVMeasurementInfoFromJSON(json: any): V1SEVMeasurementInfo {
 }
 
 export function V1SEVMeasurementInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SEVMeasurementInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiMajor': !exists(json, 'apiMajor') ? undefined : json['apiMajor'],
-        'apiMinor': !exists(json, 'apiMinor') ? undefined : json['apiMinor'],
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'buildID': !exists(json, 'buildID') ? undefined : json['buildID'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'loaderSHA': !exists(json, 'loaderSHA') ? undefined : json['loaderSHA'],
-        'measurement': !exists(json, 'measurement') ? undefined : json['measurement'],
-        'policy': !exists(json, 'policy') ? undefined : json['policy'],
+        'apiMajor': json['apiMajor'] == null ? undefined : json['apiMajor'],
+        'apiMinor': json['apiMinor'] == null ? undefined : json['apiMinor'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'buildID': json['buildID'] == null ? undefined : json['buildID'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'loaderSHA': json['loaderSHA'] == null ? undefined : json['loaderSHA'],
+        'measurement': json['measurement'] == null ? undefined : json['measurement'],
+        'policy': json['policy'] == null ? undefined : json['policy'],
     };
 }
 
-export function V1SEVMeasurementInfoToJSON(value?: V1SEVMeasurementInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SEVMeasurementInfoToJSON(json: any): V1SEVMeasurementInfo {
+    return V1SEVMeasurementInfoToJSONTyped(json, false);
+}
+
+export function V1SEVMeasurementInfoToJSONTyped(value?: V1SEVMeasurementInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiMajor': value.apiMajor,
-        'apiMinor': value.apiMinor,
-        'apiVersion': value.apiVersion,
-        'buildID': value.buildID,
-        'kind': value.kind,
-        'loaderSHA': value.loaderSHA,
-        'measurement': value.measurement,
-        'policy': value.policy,
+        'apiMajor': value['apiMajor'],
+        'apiMinor': value['apiMinor'],
+        'apiVersion': value['apiVersion'],
+        'buildID': value['buildID'],
+        'kind': value['kind'],
+        'loaderSHA': value['loaderSHA'],
+        'measurement': value['measurement'],
+        'policy': value['policy'],
     };
 }
 

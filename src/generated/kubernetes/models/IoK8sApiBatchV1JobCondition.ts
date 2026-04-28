@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * JobCondition describes current state of a job.
  * @export
@@ -24,13 +24,13 @@ export interface IoK8sApiBatchV1JobCondition {
      * @type {Date}
      * @memberof IoK8sApiBatchV1JobCondition
      */
-    lastProbeTime?: string;
+    lastProbeTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiBatchV1JobCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * Human readable message indicating details about last transition.
      * @type {string}
@@ -60,12 +60,10 @@ export interface IoK8sApiBatchV1JobCondition {
 /**
  * Check if a given object implements the IoK8sApiBatchV1JobCondition interface.
  */
-export function instanceOfIoK8sApiBatchV1JobCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1JobCondition(value: object): value is IoK8sApiBatchV1JobCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1JobConditionFromJSON(json: any): IoK8sApiBatchV1JobCondition {
@@ -73,35 +71,37 @@ export function IoK8sApiBatchV1JobConditionFromJSON(json: any): IoK8sApiBatchV1J
 }
 
 export function IoK8sApiBatchV1JobConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1JobCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastProbeTime': !exists(json, 'lastProbeTime') ? undefined : json['lastProbeTime'],
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastProbeTime': json['lastProbeTime'] == null ? undefined : (new Date(json['lastProbeTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiBatchV1JobConditionToJSON(value?: IoK8sApiBatchV1JobCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1JobConditionToJSON(json: any): IoK8sApiBatchV1JobCondition {
+    return IoK8sApiBatchV1JobConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1JobConditionToJSONTyped(value?: IoK8sApiBatchV1JobCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastProbeTime': value.lastProbeTime === undefined ? undefined : (value.lastProbeTime),
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastProbeTime': value['lastProbeTime'] == null ? undefined : ((value['lastProbeTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

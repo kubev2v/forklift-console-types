@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NodeSelector } from './IoK8sApiCoreV1NodeSelector';
 import {
     IoK8sApiCoreV1NodeSelectorFromJSON,
     IoK8sApiCoreV1NodeSelectorFromJSONTyped,
     IoK8sApiCoreV1NodeSelectorToJSON,
+    IoK8sApiCoreV1NodeSelectorToJSONTyped,
 } from './IoK8sApiCoreV1NodeSelector';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1VolumeNodeAffinity {
 /**
  * Check if a given object implements the IoK8sApiCoreV1VolumeNodeAffinity interface.
  */
-export function instanceOfIoK8sApiCoreV1VolumeNodeAffinity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1VolumeNodeAffinity(value: object): value is IoK8sApiCoreV1VolumeNodeAffinity {
+    return true;
 }
 
 export function IoK8sApiCoreV1VolumeNodeAffinityFromJSON(json: any): IoK8sApiCoreV1VolumeNodeAffinity {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1VolumeNodeAffinityFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1VolumeNodeAffinityFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1VolumeNodeAffinity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'required': !exists(json, 'required') ? undefined : IoK8sApiCoreV1NodeSelectorFromJSON(json['required']),
+        'required': json['required'] == null ? undefined : IoK8sApiCoreV1NodeSelectorFromJSON(json['required']),
     };
 }
 
-export function IoK8sApiCoreV1VolumeNodeAffinityToJSON(value?: IoK8sApiCoreV1VolumeNodeAffinity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1VolumeNodeAffinityToJSON(json: any): IoK8sApiCoreV1VolumeNodeAffinity {
+    return IoK8sApiCoreV1VolumeNodeAffinityToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1VolumeNodeAffinityToJSONTyped(value?: IoK8sApiCoreV1VolumeNodeAffinity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'required': IoK8sApiCoreV1NodeSelectorToJSON(value.required),
+        'required': IoK8sApiCoreV1NodeSelectorToJSON(value['required']),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * UTC sets the guest clock to UTC on each boot.
  * @export
@@ -30,10 +30,8 @@ export interface V1ClockOffsetUTC {
 /**
  * Check if a given object implements the V1ClockOffsetUTC interface.
  */
-export function instanceOfV1ClockOffsetUTC(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ClockOffsetUTC(value: object): value is V1ClockOffsetUTC {
+    return true;
 }
 
 export function V1ClockOffsetUTCFromJSON(json: any): V1ClockOffsetUTC {
@@ -41,25 +39,27 @@ export function V1ClockOffsetUTCFromJSON(json: any): V1ClockOffsetUTC {
 }
 
 export function V1ClockOffsetUTCFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ClockOffsetUTC {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'offsetSeconds': !exists(json, 'offsetSeconds') ? undefined : json['offsetSeconds'],
+        'offsetSeconds': json['offsetSeconds'] == null ? undefined : json['offsetSeconds'],
     };
 }
 
-export function V1ClockOffsetUTCToJSON(value?: V1ClockOffsetUTC | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ClockOffsetUTCToJSON(json: any): V1ClockOffsetUTC {
+    return V1ClockOffsetUTCToJSONTyped(json, false);
+}
+
+export function V1ClockOffsetUTCToJSONTyped(value?: V1ClockOffsetUTC | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'offsetSeconds': value.offsetSeconds,
+        'offsetSeconds': value['offsetSeconds'],
     };
 }
 

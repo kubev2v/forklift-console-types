@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Info contains versioning information. how we'll want to distribute that information.
  * @export
@@ -31,6 +31,18 @@ export interface IoK8sApimachineryPkgVersionInfo {
      * @memberof IoK8sApimachineryPkgVersionInfo
      */
     compiler: string;
+    /**
+     * EmulationMajor is the major version of the emulation version
+     * @type {string}
+     * @memberof IoK8sApimachineryPkgVersionInfo
+     */
+    emulationMajor?: string;
+    /**
+     * EmulationMinor is the minor version of the emulation version
+     * @type {string}
+     * @memberof IoK8sApimachineryPkgVersionInfo
+     */
+    emulationMinor?: string;
     /**
      * 
      * @type {string}
@@ -56,13 +68,25 @@ export interface IoK8sApimachineryPkgVersionInfo {
      */
     goVersion: string;
     /**
-     * 
+     * Major is the major version of the binary version
      * @type {string}
      * @memberof IoK8sApimachineryPkgVersionInfo
      */
     major: string;
     /**
-     * 
+     * MinCompatibilityMajor is the major version of the minimum compatibility version
+     * @type {string}
+     * @memberof IoK8sApimachineryPkgVersionInfo
+     */
+    minCompatibilityMajor?: string;
+    /**
+     * MinCompatibilityMinor is the minor version of the minimum compatibility version
+     * @type {string}
+     * @memberof IoK8sApimachineryPkgVersionInfo
+     */
+    minCompatibilityMinor?: string;
+    /**
+     * Minor is the minor version of the binary version
      * @type {string}
      * @memberof IoK8sApimachineryPkgVersionInfo
      */
@@ -78,19 +102,17 @@ export interface IoK8sApimachineryPkgVersionInfo {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgVersionInfo interface.
  */
-export function instanceOfIoK8sApimachineryPkgVersionInfo(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "buildDate" in value;
-    isInstance = isInstance && "compiler" in value;
-    isInstance = isInstance && "gitCommit" in value;
-    isInstance = isInstance && "gitTreeState" in value;
-    isInstance = isInstance && "gitVersion" in value;
-    isInstance = isInstance && "goVersion" in value;
-    isInstance = isInstance && "major" in value;
-    isInstance = isInstance && "minor" in value;
-    isInstance = isInstance && "platform" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgVersionInfo(value: object): value is IoK8sApimachineryPkgVersionInfo {
+    if (!('buildDate' in value) || value['buildDate'] === undefined) return false;
+    if (!('compiler' in value) || value['compiler'] === undefined) return false;
+    if (!('gitCommit' in value) || value['gitCommit'] === undefined) return false;
+    if (!('gitTreeState' in value) || value['gitTreeState'] === undefined) return false;
+    if (!('gitVersion' in value) || value['gitVersion'] === undefined) return false;
+    if (!('goVersion' in value) || value['goVersion'] === undefined) return false;
+    if (!('major' in value) || value['major'] === undefined) return false;
+    if (!('minor' in value) || value['minor'] === undefined) return false;
+    if (!('platform' in value) || value['platform'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgVersionInfoFromJSON(json: any): IoK8sApimachineryPkgVersionInfo {
@@ -98,41 +120,51 @@ export function IoK8sApimachineryPkgVersionInfoFromJSON(json: any): IoK8sApimach
 }
 
 export function IoK8sApimachineryPkgVersionInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgVersionInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'buildDate': json['buildDate'],
         'compiler': json['compiler'],
+        'emulationMajor': json['emulationMajor'] == null ? undefined : json['emulationMajor'],
+        'emulationMinor': json['emulationMinor'] == null ? undefined : json['emulationMinor'],
         'gitCommit': json['gitCommit'],
         'gitTreeState': json['gitTreeState'],
         'gitVersion': json['gitVersion'],
         'goVersion': json['goVersion'],
         'major': json['major'],
+        'minCompatibilityMajor': json['minCompatibilityMajor'] == null ? undefined : json['minCompatibilityMajor'],
+        'minCompatibilityMinor': json['minCompatibilityMinor'] == null ? undefined : json['minCompatibilityMinor'],
         'minor': json['minor'],
         'platform': json['platform'],
     };
 }
 
-export function IoK8sApimachineryPkgVersionInfoToJSON(value?: IoK8sApimachineryPkgVersionInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgVersionInfoToJSON(json: any): IoK8sApimachineryPkgVersionInfo {
+    return IoK8sApimachineryPkgVersionInfoToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgVersionInfoToJSONTyped(value?: IoK8sApimachineryPkgVersionInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'buildDate': value.buildDate,
-        'compiler': value.compiler,
-        'gitCommit': value.gitCommit,
-        'gitTreeState': value.gitTreeState,
-        'gitVersion': value.gitVersion,
-        'goVersion': value.goVersion,
-        'major': value.major,
-        'minor': value.minor,
-        'platform': value.platform,
+        'buildDate': value['buildDate'],
+        'compiler': value['compiler'],
+        'emulationMajor': value['emulationMajor'],
+        'emulationMinor': value['emulationMinor'],
+        'gitCommit': value['gitCommit'],
+        'gitTreeState': value['gitTreeState'],
+        'gitVersion': value['gitVersion'],
+        'goVersion': value['goVersion'],
+        'major': value['major'],
+        'minCompatibilityMajor': value['minCompatibilityMajor'],
+        'minCompatibilityMinor': value['minCompatibilityMinor'],
+        'minor': value['minor'],
+        'platform': value['platform'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -72,10 +72,8 @@ export interface V1VirtualMachineInstanceGuestOSInfo {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceGuestOSInfo interface.
  */
-export function instanceOfV1VirtualMachineInstanceGuestOSInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceGuestOSInfo(value: object): value is V1VirtualMachineInstanceGuestOSInfo {
+    return true;
 }
 
 export function V1VirtualMachineInstanceGuestOSInfoFromJSON(json: any): V1VirtualMachineInstanceGuestOSInfo {
@@ -83,39 +81,41 @@ export function V1VirtualMachineInstanceGuestOSInfoFromJSON(json: any): V1Virtua
 }
 
 export function V1VirtualMachineInstanceGuestOSInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceGuestOSInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'id': !exists(json, 'id') ? undefined : json['id'],
-        'kernelRelease': !exists(json, 'kernelRelease') ? undefined : json['kernelRelease'],
-        'kernelVersion': !exists(json, 'kernelVersion') ? undefined : json['kernelVersion'],
-        'machine': !exists(json, 'machine') ? undefined : json['machine'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'prettyName': !exists(json, 'prettyName') ? undefined : json['prettyName'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
-        'versionId': !exists(json, 'versionId') ? undefined : json['versionId'],
+        'id': json['id'] == null ? undefined : json['id'],
+        'kernelRelease': json['kernelRelease'] == null ? undefined : json['kernelRelease'],
+        'kernelVersion': json['kernelVersion'] == null ? undefined : json['kernelVersion'],
+        'machine': json['machine'] == null ? undefined : json['machine'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'prettyName': json['prettyName'] == null ? undefined : json['prettyName'],
+        'version': json['version'] == null ? undefined : json['version'],
+        'versionId': json['versionId'] == null ? undefined : json['versionId'],
     };
 }
 
-export function V1VirtualMachineInstanceGuestOSInfoToJSON(value?: V1VirtualMachineInstanceGuestOSInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceGuestOSInfoToJSON(json: any): V1VirtualMachineInstanceGuestOSInfo {
+    return V1VirtualMachineInstanceGuestOSInfoToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceGuestOSInfoToJSONTyped(value?: V1VirtualMachineInstanceGuestOSInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'id': value.id,
-        'kernelRelease': value.kernelRelease,
-        'kernelVersion': value.kernelVersion,
-        'machine': value.machine,
-        'name': value.name,
-        'prettyName': value.prettyName,
-        'version': value.version,
-        'versionId': value.versionId,
+        'id': value['id'],
+        'kernelRelease': value['kernelRelease'],
+        'kernelVersion': value['kernelVersion'],
+        'machine': value['machine'],
+        'name': value['name'],
+        'prettyName': value['prettyName'],
+        'version': value['version'],
+        'versionId': value['versionId'],
     };
 }
 

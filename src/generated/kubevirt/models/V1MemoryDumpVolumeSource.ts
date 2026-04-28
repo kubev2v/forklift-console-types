@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,11 +42,9 @@ export interface V1MemoryDumpVolumeSource {
 /**
  * Check if a given object implements the V1MemoryDumpVolumeSource interface.
  */
-export function instanceOfV1MemoryDumpVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "claimName" in value;
-
-    return isInstance;
+export function instanceOfV1MemoryDumpVolumeSource(value: object): value is V1MemoryDumpVolumeSource {
+    if (!('claimName' in value) || value['claimName'] === undefined) return false;
+    return true;
 }
 
 export function V1MemoryDumpVolumeSourceFromJSON(json: any): V1MemoryDumpVolumeSource {
@@ -54,29 +52,31 @@ export function V1MemoryDumpVolumeSourceFromJSON(json: any): V1MemoryDumpVolumeS
 }
 
 export function V1MemoryDumpVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1MemoryDumpVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'claimName': json['claimName'],
-        'hotpluggable': !exists(json, 'hotpluggable') ? undefined : json['hotpluggable'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'hotpluggable': json['hotpluggable'] == null ? undefined : json['hotpluggable'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
     };
 }
 
-export function V1MemoryDumpVolumeSourceToJSON(value?: V1MemoryDumpVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MemoryDumpVolumeSourceToJSON(json: any): V1MemoryDumpVolumeSource {
+    return V1MemoryDumpVolumeSourceToJSONTyped(json, false);
+}
+
+export function V1MemoryDumpVolumeSourceToJSONTyped(value?: V1MemoryDumpVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'claimName': value.claimName,
-        'hotpluggable': value.hotpluggable,
-        'readOnly': value.readOnly,
+        'claimName': value['claimName'],
+        'hotpluggable': value['hotpluggable'],
+        'readOnly': value['readOnly'],
     };
 }
 

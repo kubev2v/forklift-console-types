@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1TypedLocalObjectReference } from './IoK8sApiCoreV1TypedLocalObjectReference';
 import {
     IoK8sApiCoreV1TypedLocalObjectReferenceFromJSON,
     IoK8sApiCoreV1TypedLocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1TypedLocalObjectReferenceToJSON,
+    IoK8sApiCoreV1TypedLocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1TypedLocalObjectReference';
 import type { IoK8sApiNetworkingV1IngressServiceBackend } from './IoK8sApiNetworkingV1IngressServiceBackend';
 import {
     IoK8sApiNetworkingV1IngressServiceBackendFromJSON,
     IoK8sApiNetworkingV1IngressServiceBackendFromJSONTyped,
     IoK8sApiNetworkingV1IngressServiceBackendToJSON,
+    IoK8sApiNetworkingV1IngressServiceBackendToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressServiceBackend';
 
 /**
@@ -49,10 +51,8 @@ export interface IoK8sApiNetworkingV1IngressBackend {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressBackend interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressBackend(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressBackend(value: object): value is IoK8sApiNetworkingV1IngressBackend {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressBackendFromJSON(json: any): IoK8sApiNetworkingV1IngressBackend {
@@ -60,27 +60,29 @@ export function IoK8sApiNetworkingV1IngressBackendFromJSON(json: any): IoK8sApiN
 }
 
 export function IoK8sApiNetworkingV1IngressBackendFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressBackend {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'resource': !exists(json, 'resource') ? undefined : IoK8sApiCoreV1TypedLocalObjectReferenceFromJSON(json['resource']),
-        'service': !exists(json, 'service') ? undefined : IoK8sApiNetworkingV1IngressServiceBackendFromJSON(json['service']),
+        'resource': json['resource'] == null ? undefined : IoK8sApiCoreV1TypedLocalObjectReferenceFromJSON(json['resource']),
+        'service': json['service'] == null ? undefined : IoK8sApiNetworkingV1IngressServiceBackendFromJSON(json['service']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressBackendToJSON(value?: IoK8sApiNetworkingV1IngressBackend | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressBackendToJSON(json: any): IoK8sApiNetworkingV1IngressBackend {
+    return IoK8sApiNetworkingV1IngressBackendToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressBackendToJSONTyped(value?: IoK8sApiNetworkingV1IngressBackend | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'resource': IoK8sApiCoreV1TypedLocalObjectReferenceToJSON(value.resource),
-        'service': IoK8sApiNetworkingV1IngressServiceBackendToJSON(value.service),
+        'resource': IoK8sApiCoreV1TypedLocalObjectReferenceToJSON(value['resource']),
+        'service': IoK8sApiNetworkingV1IngressServiceBackendToJSON(value['service']),
     };
 }
 

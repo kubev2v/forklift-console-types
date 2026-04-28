@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PersistentVolumeClaimTemplate } from './IoK8sApiCoreV1PersistentVolumeClaimTemplate';
 import {
     IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSON,
     IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSONTyped,
     IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSONTyped,
 } from './IoK8sApiCoreV1PersistentVolumeClaimTemplate';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1EphemeralVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EphemeralVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1EphemeralVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EphemeralVolumeSource(value: object): value is IoK8sApiCoreV1EphemeralVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1EphemeralVolumeSourceFromJSON(json: any): IoK8sApiCoreV1EphemeralVolumeSource {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1EphemeralVolumeSourceFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1EphemeralVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EphemeralVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'volumeClaimTemplate': !exists(json, 'volumeClaimTemplate') ? undefined : IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSON(json['volumeClaimTemplate']),
+        'volumeClaimTemplate': json['volumeClaimTemplate'] == null ? undefined : IoK8sApiCoreV1PersistentVolumeClaimTemplateFromJSON(json['volumeClaimTemplate']),
     };
 }
 
-export function IoK8sApiCoreV1EphemeralVolumeSourceToJSON(value?: IoK8sApiCoreV1EphemeralVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EphemeralVolumeSourceToJSON(json: any): IoK8sApiCoreV1EphemeralVolumeSource {
+    return IoK8sApiCoreV1EphemeralVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EphemeralVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1EphemeralVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'volumeClaimTemplate': IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSON(value.volumeClaimTemplate),
+        'volumeClaimTemplate': IoK8sApiCoreV1PersistentVolumeClaimTemplateToJSON(value['volumeClaimTemplate']),
     };
 }
 

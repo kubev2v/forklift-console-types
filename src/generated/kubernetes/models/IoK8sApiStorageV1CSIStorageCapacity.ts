@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
-import {
-    IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
-    IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
-    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
-} from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
+import {
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
  * CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
@@ -159,11 +161,9 @@ export interface IoK8sApiStorageV1CSIStorageCapacity {
 /**
  * Check if a given object implements the IoK8sApiStorageV1CSIStorageCapacity interface.
  */
-export function instanceOfIoK8sApiStorageV1CSIStorageCapacity(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "storageClassName" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1CSIStorageCapacity(value: object): value is IoK8sApiStorageV1CSIStorageCapacity {
+    if (!('storageClassName' in value) || value['storageClassName'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1CSIStorageCapacityFromJSON(json: any): IoK8sApiStorageV1CSIStorageCapacity {
@@ -171,37 +171,39 @@ export function IoK8sApiStorageV1CSIStorageCapacityFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiStorageV1CSIStorageCapacityFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1CSIStorageCapacity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'capacity': !exists(json, 'capacity') ? undefined : json['capacity'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'maximumVolumeSize': !exists(json, 'maximumVolumeSize') ? undefined : json['maximumVolumeSize'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'nodeTopology': !exists(json, 'nodeTopology') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['nodeTopology']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'capacity': json['capacity'] == null ? undefined : json['capacity'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'maximumVolumeSize': json['maximumVolumeSize'] == null ? undefined : json['maximumVolumeSize'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'nodeTopology': json['nodeTopology'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['nodeTopology']),
         'storageClassName': json['storageClassName'],
     };
 }
 
-export function IoK8sApiStorageV1CSIStorageCapacityToJSON(value?: IoK8sApiStorageV1CSIStorageCapacity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1CSIStorageCapacityToJSON(json: any): IoK8sApiStorageV1CSIStorageCapacity {
+    return IoK8sApiStorageV1CSIStorageCapacityToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1CSIStorageCapacityToJSONTyped(value?: IoK8sApiStorageV1CSIStorageCapacity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'capacity': value.capacity,
-        'kind': value.kind,
-        'maximumVolumeSize': value.maximumVolumeSize,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'nodeTopology': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.nodeTopology),
-        'storageClassName': value.storageClassName,
+        'apiVersion': value['apiVersion'],
+        'capacity': value['capacity'],
+        'kind': value['kind'],
+        'maximumVolumeSize': value['maximumVolumeSize'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'nodeTopology': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['nodeTopology']),
+        'storageClassName': value['storageClassName'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
  * @export
@@ -20,33 +20,33 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations {
     /**
-     * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+     * apiGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations
      */
     apiGroups?: Array<string>;
     /**
-     * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+     * apiVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations
      */
     apiVersions?: Array<string>;
     /**
-     * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+     * operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations
      */
     operations?: Array<string>;
     /**
-     * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+     * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
      * @type {Array<string>}
      * @memberof IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations
      */
     resourceNames?: Array<string>;
     /**
-     * Resources is a list of resources this rule applies to.
+     * resources is a list of resources this rule applies to.
      * 
-     * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '' means all resources and their subresources.
+     * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. 'star/scale' means all scale subresources. 'star/*' means all resources and their subresources.
      * 
      * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
      * 
@@ -66,10 +66,8 @@ export interface IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations {
 /**
  * Check if a given object implements the IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations interface.
  */
-export function instanceOfIoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations(value: object): value is IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations {
+    return true;
 }
 
 export function IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsFromJSON(json: any): IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations {
@@ -77,35 +75,37 @@ export function IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsFrom
 }
 
 export function IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroups': !exists(json, 'apiGroups') ? undefined : json['apiGroups'],
-        'apiVersions': !exists(json, 'apiVersions') ? undefined : json['apiVersions'],
-        'operations': !exists(json, 'operations') ? undefined : json['operations'],
-        'resourceNames': !exists(json, 'resourceNames') ? undefined : json['resourceNames'],
-        'resources': !exists(json, 'resources') ? undefined : json['resources'],
-        'scope': !exists(json, 'scope') ? undefined : json['scope'],
+        'apiGroups': json['apiGroups'] == null ? undefined : json['apiGroups'],
+        'apiVersions': json['apiVersions'] == null ? undefined : json['apiVersions'],
+        'operations': json['operations'] == null ? undefined : json['operations'],
+        'resourceNames': json['resourceNames'] == null ? undefined : json['resourceNames'],
+        'resources': json['resources'] == null ? undefined : json['resources'],
+        'scope': json['scope'] == null ? undefined : json['scope'],
     };
 }
 
-export function IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsToJSON(value?: IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsToJSON(json: any): IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations {
+    return IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsToJSONTyped(json, false);
+}
+
+export function IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperationsToJSONTyped(value?: IoK8sApiAdmissionregistrationV1alpha1NamedRuleWithOperations | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroups': value.apiGroups,
-        'apiVersions': value.apiVersions,
-        'operations': value.operations,
-        'resourceNames': value.resourceNames,
-        'resources': value.resources,
-        'scope': value.scope,
+        'apiGroups': value['apiGroups'],
+        'apiVersions': value['apiVersions'],
+        'operations': value['operations'],
+        'resourceNames': value['resourceNames'],
+        'resources': value['resources'],
+        'scope': value['scope'],
     };
 }
 

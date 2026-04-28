@@ -12,16 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ClaimSource } from './IoK8sApiCoreV1ClaimSource';
-import {
-    IoK8sApiCoreV1ClaimSourceFromJSON,
-    IoK8sApiCoreV1ClaimSourceFromJSONTyped,
-    IoK8sApiCoreV1ClaimSourceToJSON,
-} from './IoK8sApiCoreV1ClaimSource';
-
+import { mapValues } from '../../runtime';
 /**
- * PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+ * PodResourceClaim references exactly one ResourceClaim, either directly or by naming a ResourceClaimTemplate which is then turned into a ResourceClaim for the pod.
+ * 
+ * It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+ * 
+ * When the DRAWorkloadResourceClaims feature gate is enabled and this Pod belongs to a PodGroup, a PodResourceClaim is matched to a PodGroupResourceClaim if all of their fields are equal (Name, ResourceClaimName, and ResourceClaimTemplateName). A matched claim references a single ResourceClaim shared across all Pods in the PodGroup, reserved for the PodGroup in ResourceClaimStatus.ReservedFor rather than for individual Pods.
  * @export
  * @interface IoK8sApiCoreV1PodResourceClaim
  */
@@ -33,21 +30,35 @@ export interface IoK8sApiCoreV1PodResourceClaim {
      */
     name: string;
     /**
+     * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
      * 
-     * @type {IoK8sApiCoreV1ClaimSource}
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * @type {string}
      * @memberof IoK8sApiCoreV1PodResourceClaim
      */
-    source?: IoK8sApiCoreV1ClaimSource;
+    resourceClaimName?: string;
+    /**
+     * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+     * 
+     * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The pod name and resource name, along with a generated component, will be used to form a unique name for the ResourceClaim, which will be recorded in pod.status.resourceClaimStatuses.
+     * 
+     * When the DRAWorkloadResourceClaims feature gate is enabled and the pod belongs to a PodGroup that defines a PodGroupResourceClaim with the same Name and ResourceClaimTemplateName, this PodResourceClaim resolves to the ResourceClaim generated for the PodGroup. All pods in the group that define an equivalent PodResourceClaim matching the PodGroupResourceClaim's Name and ResourceClaimTemplateName share the same generated ResourceClaim. ResourceClaims generated for a PodGroup are owned by the PodGroup and their lifecycles are tied to the PodGroup instead of any individual pod.
+     * 
+     * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+     * 
+     * Exactly one of ResourceClaimName and ResourceClaimTemplateName must be set.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1PodResourceClaim
+     */
+    resourceClaimTemplateName?: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodResourceClaim interface.
  */
-export function instanceOfIoK8sApiCoreV1PodResourceClaim(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodResourceClaim(value: object): value is IoK8sApiCoreV1PodResourceClaim {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodResourceClaimFromJSON(json: any): IoK8sApiCoreV1PodResourceClaim {
@@ -55,27 +66,31 @@ export function IoK8sApiCoreV1PodResourceClaimFromJSON(json: any): IoK8sApiCoreV
 }
 
 export function IoK8sApiCoreV1PodResourceClaimFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodResourceClaim {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
-        'source': !exists(json, 'source') ? undefined : IoK8sApiCoreV1ClaimSourceFromJSON(json['source']),
+        'resourceClaimName': json['resourceClaimName'] == null ? undefined : json['resourceClaimName'],
+        'resourceClaimTemplateName': json['resourceClaimTemplateName'] == null ? undefined : json['resourceClaimTemplateName'],
     };
 }
 
-export function IoK8sApiCoreV1PodResourceClaimToJSON(value?: IoK8sApiCoreV1PodResourceClaim | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodResourceClaimToJSON(json: any): IoK8sApiCoreV1PodResourceClaim {
+    return IoK8sApiCoreV1PodResourceClaimToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodResourceClaimToJSONTyped(value?: IoK8sApiCoreV1PodResourceClaim | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'source': IoK8sApiCoreV1ClaimSourceToJSON(value.source),
+        'name': value['name'],
+        'resourceClaimName': value['resourceClaimName'],
+        'resourceClaimTemplateName': value['resourceClaimTemplateName'],
     };
 }
 

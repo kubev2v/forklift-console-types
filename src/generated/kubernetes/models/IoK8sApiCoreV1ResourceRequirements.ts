@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ResourceClaim } from './IoK8sApiCoreV1ResourceClaim';
 import {
     IoK8sApiCoreV1ResourceClaimFromJSON,
     IoK8sApiCoreV1ResourceClaimFromJSONTyped,
     IoK8sApiCoreV1ResourceClaimToJSON,
+    IoK8sApiCoreV1ResourceClaimToJSONTyped,
 } from './IoK8sApiCoreV1ResourceClaim';
 
 /**
@@ -29,7 +30,7 @@ export interface IoK8sApiCoreV1ResourceRequirements {
     /**
      * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This field depends on the DynamicResourceAllocation feature gate.
      * 
      * This field is immutable. It can only be set for containers.
      * @type {Array<IoK8sApiCoreV1ResourceClaim>}
@@ -53,10 +54,8 @@ export interface IoK8sApiCoreV1ResourceRequirements {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ResourceRequirements interface.
  */
-export function instanceOfIoK8sApiCoreV1ResourceRequirements(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ResourceRequirements(value: object): value is IoK8sApiCoreV1ResourceRequirements {
+    return true;
 }
 
 export function IoK8sApiCoreV1ResourceRequirementsFromJSON(json: any): IoK8sApiCoreV1ResourceRequirements {
@@ -64,29 +63,31 @@ export function IoK8sApiCoreV1ResourceRequirementsFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1ResourceRequirementsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ResourceRequirements {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'claims': !exists(json, 'claims') ? undefined : ((json['claims'] as Array<any>).map(IoK8sApiCoreV1ResourceClaimFromJSON)),
-        'limits': !exists(json, 'limits') ? undefined : json['limits'],
-        'requests': !exists(json, 'requests') ? undefined : json['requests'],
+        'claims': json['claims'] == null ? undefined : ((json['claims'] as Array<any>).map(IoK8sApiCoreV1ResourceClaimFromJSON)),
+        'limits': json['limits'] == null ? undefined : json['limits'],
+        'requests': json['requests'] == null ? undefined : json['requests'],
     };
 }
 
-export function IoK8sApiCoreV1ResourceRequirementsToJSON(value?: IoK8sApiCoreV1ResourceRequirements | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ResourceRequirementsToJSON(json: any): IoK8sApiCoreV1ResourceRequirements {
+    return IoK8sApiCoreV1ResourceRequirementsToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ResourceRequirementsToJSONTyped(value?: IoK8sApiCoreV1ResourceRequirements | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'claims': value.claims === undefined ? undefined : ((value.claims as Array<any>).map(IoK8sApiCoreV1ResourceClaimToJSON)),
-        'limits': value.limits,
-        'requests': value.requests,
+        'claims': value['claims'] == null ? undefined : ((value['claims'] as Array<any>).map(IoK8sApiCoreV1ResourceClaimToJSON)),
+        'limits': value['limits'],
+        'requests': value['requests'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodOS defines the OS parameters of a pod.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiCoreV1PodOS {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodOS interface.
  */
-export function instanceOfIoK8sApiCoreV1PodOS(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodOS(value: object): value is IoK8sApiCoreV1PodOS {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodOSFromJSON(json: any): IoK8sApiCoreV1PodOS {
@@ -42,7 +40,7 @@ export function IoK8sApiCoreV1PodOSFromJSON(json: any): IoK8sApiCoreV1PodOS {
 }
 
 export function IoK8sApiCoreV1PodOSFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodOS {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiCoreV1PodOSFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function IoK8sApiCoreV1PodOSToJSON(value?: IoK8sApiCoreV1PodOS | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodOSToJSON(json: any): IoK8sApiCoreV1PodOS {
+    return IoK8sApiCoreV1PodOSToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodOSToJSONTyped(value?: IoK8sApiCoreV1PodOS | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
+        'name': value['name'],
     };
 }
 

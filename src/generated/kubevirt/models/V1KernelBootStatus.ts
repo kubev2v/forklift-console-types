@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1InitrdInfo } from './V1InitrdInfo';
 import {
     V1InitrdInfoFromJSON,
     V1InitrdInfoFromJSONTyped,
     V1InitrdInfoToJSON,
+    V1InitrdInfoToJSONTyped,
 } from './V1InitrdInfo';
 import type { V1KernelInfo } from './V1KernelInfo';
 import {
     V1KernelInfoFromJSON,
     V1KernelInfoFromJSONTyped,
     V1KernelInfoToJSON,
+    V1KernelInfoToJSONTyped,
 } from './V1KernelInfo';
 
 /**
@@ -49,10 +51,8 @@ export interface V1KernelBootStatus {
 /**
  * Check if a given object implements the V1KernelBootStatus interface.
  */
-export function instanceOfV1KernelBootStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KernelBootStatus(value: object): value is V1KernelBootStatus {
+    return true;
 }
 
 export function V1KernelBootStatusFromJSON(json: any): V1KernelBootStatus {
@@ -60,27 +60,29 @@ export function V1KernelBootStatusFromJSON(json: any): V1KernelBootStatus {
 }
 
 export function V1KernelBootStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KernelBootStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'initrdInfo': !exists(json, 'initrdInfo') ? undefined : V1InitrdInfoFromJSON(json['initrdInfo']),
-        'kernelInfo': !exists(json, 'kernelInfo') ? undefined : V1KernelInfoFromJSON(json['kernelInfo']),
+        'initrdInfo': json['initrdInfo'] == null ? undefined : V1InitrdInfoFromJSON(json['initrdInfo']),
+        'kernelInfo': json['kernelInfo'] == null ? undefined : V1KernelInfoFromJSON(json['kernelInfo']),
     };
 }
 
-export function V1KernelBootStatusToJSON(value?: V1KernelBootStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KernelBootStatusToJSON(json: any): V1KernelBootStatus {
+    return V1KernelBootStatusToJSONTyped(json, false);
+}
+
+export function V1KernelBootStatusToJSONTyped(value?: V1KernelBootStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'initrdInfo': V1InitrdInfoToJSON(value.initrdInfo),
-        'kernelInfo': V1KernelInfoToJSON(value.kernelInfo),
+        'initrdInfo': V1InitrdInfoToJSON(value['initrdInfo']),
+        'kernelInfo': V1KernelInfoToJSON(value['kernelInfo']),
     };
 }
 

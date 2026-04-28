@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
  * @export
@@ -30,18 +30,16 @@ export interface IoK8sApiCoreV1TopologySelectorLabelRequirement {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1TopologySelectorLabelRequirement
      */
-    values: string[];
+    values: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1TopologySelectorLabelRequirement interface.
  */
-export function instanceOfIoK8sApiCoreV1TopologySelectorLabelRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-    isInstance = isInstance && "values" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1TopologySelectorLabelRequirement(value: object): value is IoK8sApiCoreV1TopologySelectorLabelRequirement {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    if (!('values' in value) || value['values'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSON(json: any): IoK8sApiCoreV1TopologySelectorLabelRequirement {
@@ -49,7 +47,7 @@ export function IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSON(json: any
 }
 
 export function IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1TopologySelectorLabelRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiCoreV1TopologySelectorLabelRequirementFromJSONTyped(json
     };
 }
 
-export function IoK8sApiCoreV1TopologySelectorLabelRequirementToJSON(value?: IoK8sApiCoreV1TopologySelectorLabelRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1TopologySelectorLabelRequirementToJSON(json: any): IoK8sApiCoreV1TopologySelectorLabelRequirement {
+    return IoK8sApiCoreV1TopologySelectorLabelRequirementToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1TopologySelectorLabelRequirementToJSONTyped(value?: IoK8sApiCoreV1TopologySelectorLabelRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'values': value.values,
+        'key': value['key'],
+        'values': value['values'],
     };
 }
 

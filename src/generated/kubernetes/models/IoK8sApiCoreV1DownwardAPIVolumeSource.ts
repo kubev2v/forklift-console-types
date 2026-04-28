@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1DownwardAPIVolumeFile } from './IoK8sApiCoreV1DownwardAPIVolumeFile';
 import {
     IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON,
     IoK8sApiCoreV1DownwardAPIVolumeFileFromJSONTyped,
     IoK8sApiCoreV1DownwardAPIVolumeFileToJSON,
+    IoK8sApiCoreV1DownwardAPIVolumeFileToJSONTyped,
 } from './IoK8sApiCoreV1DownwardAPIVolumeFile';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiCoreV1DownwardAPIVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1DownwardAPIVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1DownwardAPIVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1DownwardAPIVolumeSource(value: object): value is IoK8sApiCoreV1DownwardAPIVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSON(json: any): IoK8sApiCoreV1DownwardAPIVolumeSource {
@@ -54,27 +53,29 @@ export function IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiCoreV1DownwardAPIVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1DownwardAPIVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'defaultMode': !exists(json, 'defaultMode') ? undefined : json['defaultMode'],
-        'items': !exists(json, 'items') ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON)),
+        'defaultMode': json['defaultMode'] == null ? undefined : json['defaultMode'],
+        'items': json['items'] == null ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1DownwardAPIVolumeSourceToJSON(value?: IoK8sApiCoreV1DownwardAPIVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1DownwardAPIVolumeSourceToJSON(json: any): IoK8sApiCoreV1DownwardAPIVolumeSource {
+    return IoK8sApiCoreV1DownwardAPIVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1DownwardAPIVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1DownwardAPIVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'defaultMode': value.defaultMode,
-        'items': value.items === undefined ? undefined : ((value.items as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileToJSON)),
+        'defaultMode': value['defaultMode'],
+        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(IoK8sApiCoreV1DownwardAPIVolumeFileToJSON)),
     };
 }
 

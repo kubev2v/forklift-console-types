@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
-import {
-    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
-    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
+import { mapValues } from '../../runtime';
 import type { V1DomainSpec } from './V1DomainSpec';
 import {
     V1DomainSpecFromJSON,
     V1DomainSpecFromJSONTyped,
     V1DomainSpecToJSON,
+    V1DomainSpecToJSONTyped,
 } from './V1DomainSpec';
+import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
+import {
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 
 /**
  * 
@@ -49,11 +51,9 @@ export interface V1VirtualMachineInstancePresetSpec {
 /**
  * Check if a given object implements the V1VirtualMachineInstancePresetSpec interface.
  */
-export function instanceOfV1VirtualMachineInstancePresetSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selector" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstancePresetSpec(value: object): value is V1VirtualMachineInstancePresetSpec {
+    if (!('selector' in value) || value['selector'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstancePresetSpecFromJSON(json: any): V1VirtualMachineInstancePresetSpec {
@@ -61,27 +61,29 @@ export function V1VirtualMachineInstancePresetSpecFromJSON(json: any): V1Virtual
 }
 
 export function V1VirtualMachineInstancePresetSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstancePresetSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'domain': !exists(json, 'domain') ? undefined : V1DomainSpecFromJSON(json['domain']),
+        'domain': json['domain'] == null ? undefined : V1DomainSpecFromJSON(json['domain']),
         'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
     };
 }
 
-export function V1VirtualMachineInstancePresetSpecToJSON(value?: V1VirtualMachineInstancePresetSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstancePresetSpecToJSON(json: any): V1VirtualMachineInstancePresetSpec {
+    return V1VirtualMachineInstancePresetSpecToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstancePresetSpecToJSONTyped(value?: V1VirtualMachineInstancePresetSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'domain': V1DomainSpecToJSON(value.domain),
-        'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
+        'domain': V1DomainSpecToJSON(value['domain']),
+        'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
     };
 }
 

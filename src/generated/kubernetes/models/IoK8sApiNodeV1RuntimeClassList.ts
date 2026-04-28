@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiNodeV1RuntimeClass } from './IoK8sApiNodeV1RuntimeClass';
-import {
-    IoK8sApiNodeV1RuntimeClassFromJSON,
-    IoK8sApiNodeV1RuntimeClassFromJSONTyped,
-    IoK8sApiNodeV1RuntimeClassToJSON,
-} from './IoK8sApiNodeV1RuntimeClass';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import type { IoK8sApiNodeV1RuntimeClass } from './IoK8sApiNodeV1RuntimeClass';
+import {
+    IoK8sApiNodeV1RuntimeClassFromJSON,
+    IoK8sApiNodeV1RuntimeClassFromJSONTyped,
+    IoK8sApiNodeV1RuntimeClassToJSON,
+    IoK8sApiNodeV1RuntimeClassToJSONTyped,
+} from './IoK8sApiNodeV1RuntimeClass';
 
 /**
  * RuntimeClassList is a list of RuntimeClass objects.
@@ -61,11 +63,9 @@ export interface IoK8sApiNodeV1RuntimeClassList {
 /**
  * Check if a given object implements the IoK8sApiNodeV1RuntimeClassList interface.
  */
-export function instanceOfIoK8sApiNodeV1RuntimeClassList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNodeV1RuntimeClassList(value: object): value is IoK8sApiNodeV1RuntimeClassList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNodeV1RuntimeClassListFromJSON(json: any): IoK8sApiNodeV1RuntimeClassList {
@@ -73,31 +73,33 @@ export function IoK8sApiNodeV1RuntimeClassListFromJSON(json: any): IoK8sApiNodeV
 }
 
 export function IoK8sApiNodeV1RuntimeClassListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNodeV1RuntimeClassList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiNodeV1RuntimeClassFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiNodeV1RuntimeClassListToJSON(value?: IoK8sApiNodeV1RuntimeClassList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNodeV1RuntimeClassListToJSON(json: any): IoK8sApiNodeV1RuntimeClassList {
+    return IoK8sApiNodeV1RuntimeClassListToJSONTyped(json, false);
+}
+
+export function IoK8sApiNodeV1RuntimeClassListToJSONTyped(value?: IoK8sApiNodeV1RuntimeClassList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiNodeV1RuntimeClassToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiNodeV1RuntimeClassToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

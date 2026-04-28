@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1MediatedHostDevice } from './V1MediatedHostDevice';
-import {
-    V1MediatedHostDeviceFromJSON,
-    V1MediatedHostDeviceFromJSONTyped,
-    V1MediatedHostDeviceToJSON,
-} from './V1MediatedHostDevice';
+import { mapValues } from '../../runtime';
 import type { V1PciHostDevice } from './V1PciHostDevice';
 import {
     V1PciHostDeviceFromJSON,
     V1PciHostDeviceFromJSONTyped,
     V1PciHostDeviceToJSON,
+    V1PciHostDeviceToJSONTyped,
 } from './V1PciHostDevice';
 import type { V1USBHostDevice } from './V1USBHostDevice';
 import {
     V1USBHostDeviceFromJSON,
     V1USBHostDeviceFromJSONTyped,
     V1USBHostDeviceToJSON,
+    V1USBHostDeviceToJSONTyped,
 } from './V1USBHostDevice';
+import type { V1MediatedHostDevice } from './V1MediatedHostDevice';
+import {
+    V1MediatedHostDeviceFromJSON,
+    V1MediatedHostDeviceFromJSONTyped,
+    V1MediatedHostDeviceToJSON,
+    V1MediatedHostDeviceToJSONTyped,
+} from './V1MediatedHostDevice';
 
 /**
  * PermittedHostDevices holds information about devices allowed for passthrough
@@ -61,10 +64,8 @@ export interface V1PermittedHostDevices {
 /**
  * Check if a given object implements the V1PermittedHostDevices interface.
  */
-export function instanceOfV1PermittedHostDevices(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1PermittedHostDevices(value: object): value is V1PermittedHostDevices {
+    return true;
 }
 
 export function V1PermittedHostDevicesFromJSON(json: any): V1PermittedHostDevices {
@@ -72,29 +73,31 @@ export function V1PermittedHostDevicesFromJSON(json: any): V1PermittedHostDevice
 }
 
 export function V1PermittedHostDevicesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PermittedHostDevices {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'mediatedDevices': !exists(json, 'mediatedDevices') ? undefined : ((json['mediatedDevices'] as Array<any>).map(V1MediatedHostDeviceFromJSON)),
-        'pciHostDevices': !exists(json, 'pciHostDevices') ? undefined : ((json['pciHostDevices'] as Array<any>).map(V1PciHostDeviceFromJSON)),
-        'usb': !exists(json, 'usb') ? undefined : ((json['usb'] as Array<any>).map(V1USBHostDeviceFromJSON)),
+        'mediatedDevices': json['mediatedDevices'] == null ? undefined : ((json['mediatedDevices'] as Array<any>).map(V1MediatedHostDeviceFromJSON)),
+        'pciHostDevices': json['pciHostDevices'] == null ? undefined : ((json['pciHostDevices'] as Array<any>).map(V1PciHostDeviceFromJSON)),
+        'usb': json['usb'] == null ? undefined : ((json['usb'] as Array<any>).map(V1USBHostDeviceFromJSON)),
     };
 }
 
-export function V1PermittedHostDevicesToJSON(value?: V1PermittedHostDevices | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PermittedHostDevicesToJSON(json: any): V1PermittedHostDevices {
+    return V1PermittedHostDevicesToJSONTyped(json, false);
+}
+
+export function V1PermittedHostDevicesToJSONTyped(value?: V1PermittedHostDevices | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'mediatedDevices': value.mediatedDevices === undefined ? undefined : ((value.mediatedDevices as Array<any>).map(V1MediatedHostDeviceToJSON)),
-        'pciHostDevices': value.pciHostDevices === undefined ? undefined : ((value.pciHostDevices as Array<any>).map(V1PciHostDeviceToJSON)),
-        'usb': value.usb === undefined ? undefined : ((value.usb as Array<any>).map(V1USBHostDeviceToJSON)),
+        'mediatedDevices': value['mediatedDevices'] == null ? undefined : ((value['mediatedDevices'] as Array<any>).map(V1MediatedHostDeviceToJSON)),
+        'pciHostDevices': value['pciHostDevices'] == null ? undefined : ((value['pciHostDevices'] as Array<any>).map(V1PciHostDeviceToJSON)),
+        'usb': value['usb'] == null ? undefined : ((value['usb'] as Array<any>).map(V1USBHostDeviceToJSON)),
     };
 }
 

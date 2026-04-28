@@ -45,6 +45,13 @@ export interface V1beta1ProviderStatus {
    * @required {false}
    */
   phase?: string;
+  /** secretResourceVersion
+   * The ResourceVersion of the secret referenced by this provider.
+Used to detect when credentials have been rotated.
+   *
+   * @required {false}
+   */
+  secretResourceVersion?: string;
   /** service
    * Provider service reference
    *

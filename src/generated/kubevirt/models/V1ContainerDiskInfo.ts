@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ContainerDiskInfo shows info about the containerdisk
  * @export
@@ -30,10 +30,8 @@ export interface V1ContainerDiskInfo {
 /**
  * Check if a given object implements the V1ContainerDiskInfo interface.
  */
-export function instanceOfV1ContainerDiskInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ContainerDiskInfo(value: object): value is V1ContainerDiskInfo {
+    return true;
 }
 
 export function V1ContainerDiskInfoFromJSON(json: any): V1ContainerDiskInfo {
@@ -41,25 +39,27 @@ export function V1ContainerDiskInfoFromJSON(json: any): V1ContainerDiskInfo {
 }
 
 export function V1ContainerDiskInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ContainerDiskInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'checksum': !exists(json, 'checksum') ? undefined : json['checksum'],
+        'checksum': json['checksum'] == null ? undefined : json['checksum'],
     };
 }
 
-export function V1ContainerDiskInfoToJSON(value?: V1ContainerDiskInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ContainerDiskInfoToJSON(json: any): V1ContainerDiskInfo {
+    return V1ContainerDiskInfoToJSONTyped(json, false);
+}
+
+export function V1ContainerDiskInfoToJSONTyped(value?: V1ContainerDiskInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'checksum': value.checksum,
+        'checksum': value['checksum'],
     };
 }
 

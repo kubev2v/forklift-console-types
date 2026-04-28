@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1QueuingConfiguration } from './IoK8sApiFlowcontrolV1QueuingConfiguration';
 import {
     IoK8sApiFlowcontrolV1QueuingConfigurationFromJSON,
     IoK8sApiFlowcontrolV1QueuingConfigurationFromJSONTyped,
     IoK8sApiFlowcontrolV1QueuingConfigurationToJSON,
+    IoK8sApiFlowcontrolV1QueuingConfigurationToJSONTyped,
 } from './IoK8sApiFlowcontrolV1QueuingConfiguration';
 
 /**
@@ -43,11 +44,9 @@ export interface IoK8sApiFlowcontrolV1LimitResponse {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1LimitResponse interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1LimitResponse(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1LimitResponse(value: object): value is IoK8sApiFlowcontrolV1LimitResponse {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1LimitResponseFromJSON(json: any): IoK8sApiFlowcontrolV1LimitResponse {
@@ -55,27 +54,29 @@ export function IoK8sApiFlowcontrolV1LimitResponseFromJSON(json: any): IoK8sApiF
 }
 
 export function IoK8sApiFlowcontrolV1LimitResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1LimitResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'queuing': !exists(json, 'queuing') ? undefined : IoK8sApiFlowcontrolV1QueuingConfigurationFromJSON(json['queuing']),
+        'queuing': json['queuing'] == null ? undefined : IoK8sApiFlowcontrolV1QueuingConfigurationFromJSON(json['queuing']),
         'type': json['type'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1LimitResponseToJSON(value?: IoK8sApiFlowcontrolV1LimitResponse | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1LimitResponseToJSON(json: any): IoK8sApiFlowcontrolV1LimitResponse {
+    return IoK8sApiFlowcontrolV1LimitResponseToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1LimitResponseToJSONTyped(value?: IoK8sApiFlowcontrolV1LimitResponse | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'queuing': IoK8sApiFlowcontrolV1QueuingConfigurationToJSON(value.queuing),
-        'type': value.type,
+        'queuing': IoK8sApiFlowcontrolV1QueuingConfigurationToJSON(value['queuing']),
+        'type': value['type'],
     };
 }
 

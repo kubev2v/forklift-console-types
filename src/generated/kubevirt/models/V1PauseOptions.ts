@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PauseOptions may be provided on pause request.
  * @export
@@ -42,10 +42,8 @@ export interface V1PauseOptions {
 /**
  * Check if a given object implements the V1PauseOptions interface.
  */
-export function instanceOfV1PauseOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1PauseOptions(value: object): value is V1PauseOptions {
+    return true;
 }
 
 export function V1PauseOptionsFromJSON(json: any): V1PauseOptions {
@@ -53,29 +51,31 @@ export function V1PauseOptionsFromJSON(json: any): V1PauseOptions {
 }
 
 export function V1PauseOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PauseOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
     };
 }
 
-export function V1PauseOptionsToJSON(value?: V1PauseOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PauseOptionsToJSON(json: any): V1PauseOptions {
+    return V1PauseOptionsToJSONTyped(json, false);
+}
+
+export function V1PauseOptionsToJSONTyped(value?: V1PauseOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'dryRun': value.dryRun,
-        'kind': value.kind,
+        'apiVersion': value['apiVersion'],
+        'dryRun': value['dryRun'],
+        'kind': value['kind'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineInstancePhaseTransitionTimestamp gives a timestamp in relation to when a phase is set on a vmi
  * @export
@@ -30,16 +30,14 @@ export interface V1VirtualMachineInstancePhaseTransitionTimestamp {
      * @type {Date}
      * @memberof V1VirtualMachineInstancePhaseTransitionTimestamp
      */
-    phaseTransitionTimestamp?: string;
+    phaseTransitionTimestamp?: Date;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineInstancePhaseTransitionTimestamp interface.
  */
-export function instanceOfV1VirtualMachineInstancePhaseTransitionTimestamp(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstancePhaseTransitionTimestamp(value: object): value is V1VirtualMachineInstancePhaseTransitionTimestamp {
+    return true;
 }
 
 export function V1VirtualMachineInstancePhaseTransitionTimestampFromJSON(json: any): V1VirtualMachineInstancePhaseTransitionTimestamp {
@@ -47,27 +45,29 @@ export function V1VirtualMachineInstancePhaseTransitionTimestampFromJSON(json: a
 }
 
 export function V1VirtualMachineInstancePhaseTransitionTimestampFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstancePhaseTransitionTimestamp {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'phaseTransitionTimestamp': !exists(json, 'phaseTransitionTimestamp') ? undefined : json['phaseTransitionTimestamp'],
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'phaseTransitionTimestamp': json['phaseTransitionTimestamp'] == null ? undefined : (new Date(json['phaseTransitionTimestamp'])),
     };
 }
 
-export function V1VirtualMachineInstancePhaseTransitionTimestampToJSON(value?: V1VirtualMachineInstancePhaseTransitionTimestamp | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstancePhaseTransitionTimestampToJSON(json: any): V1VirtualMachineInstancePhaseTransitionTimestamp {
+    return V1VirtualMachineInstancePhaseTransitionTimestampToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstancePhaseTransitionTimestampToJSONTyped(value?: V1VirtualMachineInstancePhaseTransitionTimestamp | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'phase': value.phase,
-        'phaseTransitionTimestamp': value.phaseTransitionTimestamp === undefined ? undefined : (value.phaseTransitionTimestamp),
+        'phase': value['phase'],
+        'phaseTransitionTimestamp': value['phaseTransitionTimestamp'] == null ? undefined : ((value['phaseTransitionTimestamp']).toISOString()),
     };
 }
 

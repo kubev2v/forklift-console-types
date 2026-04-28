@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * WindowsSecurityContextOptions contain Windows-specific options and credentials.
  * @export
@@ -48,10 +48,8 @@ export interface IoK8sApiCoreV1WindowsSecurityContextOptions {
 /**
  * Check if a given object implements the IoK8sApiCoreV1WindowsSecurityContextOptions interface.
  */
-export function instanceOfIoK8sApiCoreV1WindowsSecurityContextOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1WindowsSecurityContextOptions(value: object): value is IoK8sApiCoreV1WindowsSecurityContextOptions {
+    return true;
 }
 
 export function IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON(json: any): IoK8sApiCoreV1WindowsSecurityContextOptions {
@@ -59,31 +57,33 @@ export function IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSON(json: any): 
 }
 
 export function IoK8sApiCoreV1WindowsSecurityContextOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1WindowsSecurityContextOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'gmsaCredentialSpec': !exists(json, 'gmsaCredentialSpec') ? undefined : json['gmsaCredentialSpec'],
-        'gmsaCredentialSpecName': !exists(json, 'gmsaCredentialSpecName') ? undefined : json['gmsaCredentialSpecName'],
-        'hostProcess': !exists(json, 'hostProcess') ? undefined : json['hostProcess'],
-        'runAsUserName': !exists(json, 'runAsUserName') ? undefined : json['runAsUserName'],
+        'gmsaCredentialSpec': json['gmsaCredentialSpec'] == null ? undefined : json['gmsaCredentialSpec'],
+        'gmsaCredentialSpecName': json['gmsaCredentialSpecName'] == null ? undefined : json['gmsaCredentialSpecName'],
+        'hostProcess': json['hostProcess'] == null ? undefined : json['hostProcess'],
+        'runAsUserName': json['runAsUserName'] == null ? undefined : json['runAsUserName'],
     };
 }
 
-export function IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON(value?: IoK8sApiCoreV1WindowsSecurityContextOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1WindowsSecurityContextOptionsToJSON(json: any): IoK8sApiCoreV1WindowsSecurityContextOptions {
+    return IoK8sApiCoreV1WindowsSecurityContextOptionsToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1WindowsSecurityContextOptionsToJSONTyped(value?: IoK8sApiCoreV1WindowsSecurityContextOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'gmsaCredentialSpec': value.gmsaCredentialSpec,
-        'gmsaCredentialSpecName': value.gmsaCredentialSpecName,
-        'hostProcess': value.hostProcess,
-        'runAsUserName': value.runAsUserName,
+        'gmsaCredentialSpec': value['gmsaCredentialSpec'],
+        'gmsaCredentialSpecName': value['gmsaCredentialSpecName'],
+        'hostProcess': value['hostProcess'],
+        'runAsUserName': value['runAsUserName'],
     };
 }
 

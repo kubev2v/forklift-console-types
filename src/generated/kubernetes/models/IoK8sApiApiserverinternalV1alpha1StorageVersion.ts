@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiApiserverinternalV1alpha1StorageVersionStatus } from './IoK8sApiApiserverinternalV1alpha1StorageVersionStatus';
-import {
-    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSON,
-    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSONTyped,
-    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSON,
-} from './IoK8sApiApiserverinternalV1alpha1StorageVersionStatus';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiApiserverinternalV1alpha1StorageVersionStatus } from './IoK8sApiApiserverinternalV1alpha1StorageVersionStatus';
+import {
+    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSON,
+    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSONTyped,
+    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSON,
+    IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSONTyped,
+} from './IoK8sApiApiserverinternalV1alpha1StorageVersionStatus';
 
 /**
  * Storage version of a specific resource.
@@ -49,30 +51,27 @@ export interface IoK8sApiApiserverinternalV1alpha1StorageVersion {
      * @type {IoK8sApimachineryPkgApisMetaV1ObjectMeta}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersion
      */
-    metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
+    metadata: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
     /**
      * StorageVersionSpec is an empty spec.
      * @type {object}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersion
      */
-    spec: object;
+    spec?: object;
     /**
      * 
      * @type {IoK8sApiApiserverinternalV1alpha1StorageVersionStatus}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersion
      */
-    status: IoK8sApiApiserverinternalV1alpha1StorageVersionStatus;
+    status?: IoK8sApiApiserverinternalV1alpha1StorageVersionStatus;
 }
 
 /**
  * Check if a given object implements the IoK8sApiApiserverinternalV1alpha1StorageVersion interface.
  */
-export function instanceOfIoK8sApiApiserverinternalV1alpha1StorageVersion(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "spec" in value;
-    isInstance = isInstance && "status" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiApiserverinternalV1alpha1StorageVersion(value: object): value is IoK8sApiApiserverinternalV1alpha1StorageVersion {
+    if (!('metadata' in value) || value['metadata'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiApiserverinternalV1alpha1StorageVersionFromJSON(json: any): IoK8sApiApiserverinternalV1alpha1StorageVersion {
@@ -80,33 +79,35 @@ export function IoK8sApiApiserverinternalV1alpha1StorageVersionFromJSON(json: an
 }
 
 export function IoK8sApiApiserverinternalV1alpha1StorageVersionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiApiserverinternalV1alpha1StorageVersion {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': json['spec'],
-        'status': IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : json['spec'],
+        'status': json['status'] == null ? undefined : IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiApiserverinternalV1alpha1StorageVersionToJSON(value?: IoK8sApiApiserverinternalV1alpha1StorageVersion | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiApiserverinternalV1alpha1StorageVersionToJSON(json: any): IoK8sApiApiserverinternalV1alpha1StorageVersion {
+    return IoK8sApiApiserverinternalV1alpha1StorageVersionToJSONTyped(json, false);
+}
+
+export function IoK8sApiApiserverinternalV1alpha1StorageVersionToJSONTyped(value?: IoK8sApiApiserverinternalV1alpha1StorageVersion | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': value.spec,
-        'status': IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': value['spec'],
+        'status': IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSON(value['status']),
     };
 }
 

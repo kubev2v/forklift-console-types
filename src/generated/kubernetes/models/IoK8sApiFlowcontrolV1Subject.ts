@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiFlowcontrolV1GroupSubject } from './IoK8sApiFlowcontrolV1GroupSubject';
-import {
-    IoK8sApiFlowcontrolV1GroupSubjectFromJSON,
-    IoK8sApiFlowcontrolV1GroupSubjectFromJSONTyped,
-    IoK8sApiFlowcontrolV1GroupSubjectToJSON,
-} from './IoK8sApiFlowcontrolV1GroupSubject';
-import type { IoK8sApiFlowcontrolV1ServiceAccountSubject } from './IoK8sApiFlowcontrolV1ServiceAccountSubject';
-import {
-    IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSON,
-    IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSONTyped,
-    IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSON,
-} from './IoK8sApiFlowcontrolV1ServiceAccountSubject';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1UserSubject } from './IoK8sApiFlowcontrolV1UserSubject';
 import {
     IoK8sApiFlowcontrolV1UserSubjectFromJSON,
     IoK8sApiFlowcontrolV1UserSubjectFromJSONTyped,
     IoK8sApiFlowcontrolV1UserSubjectToJSON,
+    IoK8sApiFlowcontrolV1UserSubjectToJSONTyped,
 } from './IoK8sApiFlowcontrolV1UserSubject';
+import type { IoK8sApiFlowcontrolV1ServiceAccountSubject } from './IoK8sApiFlowcontrolV1ServiceAccountSubject';
+import {
+    IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSON,
+    IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSONTyped,
+    IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSON,
+    IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSONTyped,
+} from './IoK8sApiFlowcontrolV1ServiceAccountSubject';
+import type { IoK8sApiFlowcontrolV1GroupSubject } from './IoK8sApiFlowcontrolV1GroupSubject';
+import {
+    IoK8sApiFlowcontrolV1GroupSubjectFromJSON,
+    IoK8sApiFlowcontrolV1GroupSubjectFromJSONTyped,
+    IoK8sApiFlowcontrolV1GroupSubjectToJSON,
+    IoK8sApiFlowcontrolV1GroupSubjectToJSONTyped,
+} from './IoK8sApiFlowcontrolV1GroupSubject';
 
 /**
  * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
@@ -67,11 +70,9 @@ export interface IoK8sApiFlowcontrolV1Subject {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1Subject interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1Subject(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1Subject(value: object): value is IoK8sApiFlowcontrolV1Subject {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1SubjectFromJSON(json: any): IoK8sApiFlowcontrolV1Subject {
@@ -79,31 +80,33 @@ export function IoK8sApiFlowcontrolV1SubjectFromJSON(json: any): IoK8sApiFlowcon
 }
 
 export function IoK8sApiFlowcontrolV1SubjectFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1Subject {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'group': !exists(json, 'group') ? undefined : IoK8sApiFlowcontrolV1GroupSubjectFromJSON(json['group']),
+        'group': json['group'] == null ? undefined : IoK8sApiFlowcontrolV1GroupSubjectFromJSON(json['group']),
         'kind': json['kind'],
-        'serviceAccount': !exists(json, 'serviceAccount') ? undefined : IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSON(json['serviceAccount']),
-        'user': !exists(json, 'user') ? undefined : IoK8sApiFlowcontrolV1UserSubjectFromJSON(json['user']),
+        'serviceAccount': json['serviceAccount'] == null ? undefined : IoK8sApiFlowcontrolV1ServiceAccountSubjectFromJSON(json['serviceAccount']),
+        'user': json['user'] == null ? undefined : IoK8sApiFlowcontrolV1UserSubjectFromJSON(json['user']),
     };
 }
 
-export function IoK8sApiFlowcontrolV1SubjectToJSON(value?: IoK8sApiFlowcontrolV1Subject | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1SubjectToJSON(json: any): IoK8sApiFlowcontrolV1Subject {
+    return IoK8sApiFlowcontrolV1SubjectToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1SubjectToJSONTyped(value?: IoK8sApiFlowcontrolV1Subject | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'group': IoK8sApiFlowcontrolV1GroupSubjectToJSON(value.group),
-        'kind': value.kind,
-        'serviceAccount': IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSON(value.serviceAccount),
-        'user': IoK8sApiFlowcontrolV1UserSubjectToJSON(value.user),
+        'group': IoK8sApiFlowcontrolV1GroupSubjectToJSON(value['group']),
+        'kind': value['kind'],
+        'serviceAccount': IoK8sApiFlowcontrolV1ServiceAccountSubjectToJSON(value['serviceAccount']),
+        'user': IoK8sApiFlowcontrolV1UserSubjectToJSON(value['user']),
     };
 }
 

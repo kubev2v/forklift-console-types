@@ -12,31 +12,42 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ConfigMapKeySelector } from './IoK8sApiCoreV1ConfigMapKeySelector';
 import {
     IoK8sApiCoreV1ConfigMapKeySelectorFromJSON,
     IoK8sApiCoreV1ConfigMapKeySelectorFromJSONTyped,
     IoK8sApiCoreV1ConfigMapKeySelectorToJSON,
+    IoK8sApiCoreV1ConfigMapKeySelectorToJSONTyped,
 } from './IoK8sApiCoreV1ConfigMapKeySelector';
-import type { IoK8sApiCoreV1ObjectFieldSelector } from './IoK8sApiCoreV1ObjectFieldSelector';
+import type { IoK8sApiCoreV1FileKeySelector } from './IoK8sApiCoreV1FileKeySelector';
 import {
-    IoK8sApiCoreV1ObjectFieldSelectorFromJSON,
-    IoK8sApiCoreV1ObjectFieldSelectorFromJSONTyped,
-    IoK8sApiCoreV1ObjectFieldSelectorToJSON,
-} from './IoK8sApiCoreV1ObjectFieldSelector';
+    IoK8sApiCoreV1FileKeySelectorFromJSON,
+    IoK8sApiCoreV1FileKeySelectorFromJSONTyped,
+    IoK8sApiCoreV1FileKeySelectorToJSON,
+    IoK8sApiCoreV1FileKeySelectorToJSONTyped,
+} from './IoK8sApiCoreV1FileKeySelector';
 import type { IoK8sApiCoreV1ResourceFieldSelector } from './IoK8sApiCoreV1ResourceFieldSelector';
 import {
     IoK8sApiCoreV1ResourceFieldSelectorFromJSON,
     IoK8sApiCoreV1ResourceFieldSelectorFromJSONTyped,
     IoK8sApiCoreV1ResourceFieldSelectorToJSON,
+    IoK8sApiCoreV1ResourceFieldSelectorToJSONTyped,
 } from './IoK8sApiCoreV1ResourceFieldSelector';
 import type { IoK8sApiCoreV1SecretKeySelector } from './IoK8sApiCoreV1SecretKeySelector';
 import {
     IoK8sApiCoreV1SecretKeySelectorFromJSON,
     IoK8sApiCoreV1SecretKeySelectorFromJSONTyped,
     IoK8sApiCoreV1SecretKeySelectorToJSON,
+    IoK8sApiCoreV1SecretKeySelectorToJSONTyped,
 } from './IoK8sApiCoreV1SecretKeySelector';
+import type { IoK8sApiCoreV1ObjectFieldSelector } from './IoK8sApiCoreV1ObjectFieldSelector';
+import {
+    IoK8sApiCoreV1ObjectFieldSelectorFromJSON,
+    IoK8sApiCoreV1ObjectFieldSelectorFromJSONTyped,
+    IoK8sApiCoreV1ObjectFieldSelectorToJSON,
+    IoK8sApiCoreV1ObjectFieldSelectorToJSONTyped,
+} from './IoK8sApiCoreV1ObjectFieldSelector';
 
 /**
  * EnvVarSource represents a source for the value of an EnvVar.
@@ -58,6 +69,12 @@ export interface IoK8sApiCoreV1EnvVarSource {
     fieldRef?: IoK8sApiCoreV1ObjectFieldSelector;
     /**
      * 
+     * @type {IoK8sApiCoreV1FileKeySelector}
+     * @memberof IoK8sApiCoreV1EnvVarSource
+     */
+    fileKeyRef?: IoK8sApiCoreV1FileKeySelector;
+    /**
+     * 
      * @type {IoK8sApiCoreV1ResourceFieldSelector}
      * @memberof IoK8sApiCoreV1EnvVarSource
      */
@@ -73,10 +90,8 @@ export interface IoK8sApiCoreV1EnvVarSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EnvVarSource interface.
  */
-export function instanceOfIoK8sApiCoreV1EnvVarSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EnvVarSource(value: object): value is IoK8sApiCoreV1EnvVarSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1EnvVarSourceFromJSON(json: any): IoK8sApiCoreV1EnvVarSource {
@@ -84,31 +99,35 @@ export function IoK8sApiCoreV1EnvVarSourceFromJSON(json: any): IoK8sApiCoreV1Env
 }
 
 export function IoK8sApiCoreV1EnvVarSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EnvVarSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'configMapKeyRef': !exists(json, 'configMapKeyRef') ? undefined : IoK8sApiCoreV1ConfigMapKeySelectorFromJSON(json['configMapKeyRef']),
-        'fieldRef': !exists(json, 'fieldRef') ? undefined : IoK8sApiCoreV1ObjectFieldSelectorFromJSON(json['fieldRef']),
-        'resourceFieldRef': !exists(json, 'resourceFieldRef') ? undefined : IoK8sApiCoreV1ResourceFieldSelectorFromJSON(json['resourceFieldRef']),
-        'secretKeyRef': !exists(json, 'secretKeyRef') ? undefined : IoK8sApiCoreV1SecretKeySelectorFromJSON(json['secretKeyRef']),
+        'configMapKeyRef': json['configMapKeyRef'] == null ? undefined : IoK8sApiCoreV1ConfigMapKeySelectorFromJSON(json['configMapKeyRef']),
+        'fieldRef': json['fieldRef'] == null ? undefined : IoK8sApiCoreV1ObjectFieldSelectorFromJSON(json['fieldRef']),
+        'fileKeyRef': json['fileKeyRef'] == null ? undefined : IoK8sApiCoreV1FileKeySelectorFromJSON(json['fileKeyRef']),
+        'resourceFieldRef': json['resourceFieldRef'] == null ? undefined : IoK8sApiCoreV1ResourceFieldSelectorFromJSON(json['resourceFieldRef']),
+        'secretKeyRef': json['secretKeyRef'] == null ? undefined : IoK8sApiCoreV1SecretKeySelectorFromJSON(json['secretKeyRef']),
     };
 }
 
-export function IoK8sApiCoreV1EnvVarSourceToJSON(value?: IoK8sApiCoreV1EnvVarSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EnvVarSourceToJSON(json: any): IoK8sApiCoreV1EnvVarSource {
+    return IoK8sApiCoreV1EnvVarSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EnvVarSourceToJSONTyped(value?: IoK8sApiCoreV1EnvVarSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'configMapKeyRef': IoK8sApiCoreV1ConfigMapKeySelectorToJSON(value.configMapKeyRef),
-        'fieldRef': IoK8sApiCoreV1ObjectFieldSelectorToJSON(value.fieldRef),
-        'resourceFieldRef': IoK8sApiCoreV1ResourceFieldSelectorToJSON(value.resourceFieldRef),
-        'secretKeyRef': IoK8sApiCoreV1SecretKeySelectorToJSON(value.secretKeyRef),
+        'configMapKeyRef': IoK8sApiCoreV1ConfigMapKeySelectorToJSON(value['configMapKeyRef']),
+        'fieldRef': IoK8sApiCoreV1ObjectFieldSelectorToJSON(value['fieldRef']),
+        'fileKeyRef': IoK8sApiCoreV1FileKeySelectorToJSON(value['fileKeyRef']),
+        'resourceFieldRef': IoK8sApiCoreV1ResourceFieldSelectorToJSON(value['resourceFieldRef']),
+        'secretKeyRef': IoK8sApiCoreV1SecretKeySelectorToJSON(value['secretKeyRef']),
     };
 }
 

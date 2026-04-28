@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Condition defines conditions
  * @export
@@ -48,12 +48,10 @@ export interface V1alpha1Condition {
 /**
  * Check if a given object implements the V1alpha1Condition interface.
  */
-export function instanceOfV1alpha1Condition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1alpha1Condition(value: object): value is V1alpha1Condition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1alpha1ConditionFromJSON(json: any): V1alpha1Condition {
@@ -61,31 +59,33 @@ export function V1alpha1ConditionFromJSON(json: any): V1alpha1Condition {
 }
 
 export function V1alpha1ConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1alpha1Condition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function V1alpha1ConditionToJSON(value?: V1alpha1Condition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1alpha1ConditionToJSON(json: any): V1alpha1Condition {
+    return V1alpha1ConditionToJSONTyped(json, false);
+}
+
+export function V1alpha1ConditionToJSONTyped(value?: V1alpha1Condition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

@@ -12,37 +12,63 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ContainerStatus } from './IoK8sApiCoreV1ContainerStatus';
-import {
-    IoK8sApiCoreV1ContainerStatusFromJSON,
-    IoK8sApiCoreV1ContainerStatusFromJSONTyped,
-    IoK8sApiCoreV1ContainerStatusToJSON,
-} from './IoK8sApiCoreV1ContainerStatus';
-import type { IoK8sApiCoreV1HostIP } from './IoK8sApiCoreV1HostIP';
-import {
-    IoK8sApiCoreV1HostIPFromJSON,
-    IoK8sApiCoreV1HostIPFromJSONTyped,
-    IoK8sApiCoreV1HostIPToJSON,
-} from './IoK8sApiCoreV1HostIP';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodCondition } from './IoK8sApiCoreV1PodCondition';
 import {
     IoK8sApiCoreV1PodConditionFromJSON,
     IoK8sApiCoreV1PodConditionFromJSONTyped,
     IoK8sApiCoreV1PodConditionToJSON,
+    IoK8sApiCoreV1PodConditionToJSONTyped,
 } from './IoK8sApiCoreV1PodCondition';
-import type { IoK8sApiCoreV1PodIP } from './IoK8sApiCoreV1PodIP';
+import type { IoK8sApiCoreV1HostIP } from './IoK8sApiCoreV1HostIP';
 import {
-    IoK8sApiCoreV1PodIPFromJSON,
-    IoK8sApiCoreV1PodIPFromJSONTyped,
-    IoK8sApiCoreV1PodIPToJSON,
-} from './IoK8sApiCoreV1PodIP';
+    IoK8sApiCoreV1HostIPFromJSON,
+    IoK8sApiCoreV1HostIPFromJSONTyped,
+    IoK8sApiCoreV1HostIPToJSON,
+    IoK8sApiCoreV1HostIPToJSONTyped,
+} from './IoK8sApiCoreV1HostIP';
+import type { IoK8sApiCoreV1ResourceRequirements } from './IoK8sApiCoreV1ResourceRequirements';
+import {
+    IoK8sApiCoreV1ResourceRequirementsFromJSON,
+    IoK8sApiCoreV1ResourceRequirementsFromJSONTyped,
+    IoK8sApiCoreV1ResourceRequirementsToJSON,
+    IoK8sApiCoreV1ResourceRequirementsToJSONTyped,
+} from './IoK8sApiCoreV1ResourceRequirements';
 import type { IoK8sApiCoreV1PodResourceClaimStatus } from './IoK8sApiCoreV1PodResourceClaimStatus';
 import {
     IoK8sApiCoreV1PodResourceClaimStatusFromJSON,
     IoK8sApiCoreV1PodResourceClaimStatusFromJSONTyped,
     IoK8sApiCoreV1PodResourceClaimStatusToJSON,
+    IoK8sApiCoreV1PodResourceClaimStatusToJSONTyped,
 } from './IoK8sApiCoreV1PodResourceClaimStatus';
+import type { IoK8sApiCoreV1ContainerStatus } from './IoK8sApiCoreV1ContainerStatus';
+import {
+    IoK8sApiCoreV1ContainerStatusFromJSON,
+    IoK8sApiCoreV1ContainerStatusFromJSONTyped,
+    IoK8sApiCoreV1ContainerStatusToJSON,
+    IoK8sApiCoreV1ContainerStatusToJSONTyped,
+} from './IoK8sApiCoreV1ContainerStatus';
+import type { IoK8sApiCoreV1PodExtendedResourceClaimStatus } from './IoK8sApiCoreV1PodExtendedResourceClaimStatus';
+import {
+    IoK8sApiCoreV1PodExtendedResourceClaimStatusFromJSON,
+    IoK8sApiCoreV1PodExtendedResourceClaimStatusFromJSONTyped,
+    IoK8sApiCoreV1PodExtendedResourceClaimStatusToJSON,
+    IoK8sApiCoreV1PodExtendedResourceClaimStatusToJSONTyped,
+} from './IoK8sApiCoreV1PodExtendedResourceClaimStatus';
+import type { IoK8sApiCoreV1NodeAllocatableResourceClaimStatus } from './IoK8sApiCoreV1NodeAllocatableResourceClaimStatus';
+import {
+    IoK8sApiCoreV1NodeAllocatableResourceClaimStatusFromJSON,
+    IoK8sApiCoreV1NodeAllocatableResourceClaimStatusFromJSONTyped,
+    IoK8sApiCoreV1NodeAllocatableResourceClaimStatusToJSON,
+    IoK8sApiCoreV1NodeAllocatableResourceClaimStatusToJSONTyped,
+} from './IoK8sApiCoreV1NodeAllocatableResourceClaimStatus';
+import type { IoK8sApiCoreV1PodIP } from './IoK8sApiCoreV1PodIP';
+import {
+    IoK8sApiCoreV1PodIPFromJSON,
+    IoK8sApiCoreV1PodIPFromJSONTyped,
+    IoK8sApiCoreV1PodIPToJSON,
+    IoK8sApiCoreV1PodIPToJSONTyped,
+} from './IoK8sApiCoreV1PodIP';
 
 /**
  * PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
@@ -51,23 +77,35 @@ import {
  */
 export interface IoK8sApiCoreV1PodStatus {
     /**
+     * AllocatedResources is the total requests allocated for this pod by the node. If pod-level requests are not set, this will be the total requests aggregated across containers in the pod.
+     * @type {{ [key: string]: string; }}
+     * @memberof IoK8sApiCoreV1PodStatus
+     */
+    allocatedResources?: { [key: string]: string; };
+    /**
      * Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
      * @type {Array<IoK8sApiCoreV1PodCondition>}
      * @memberof IoK8sApiCoreV1PodStatus
      */
     conditions?: Array<IoK8sApiCoreV1PodCondition>;
     /**
-     * The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * Statuses of containers in this pod. Each container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * @type {Array<IoK8sApiCoreV1ContainerStatus>}
      * @memberof IoK8sApiCoreV1PodStatus
      */
     containerStatuses?: Array<IoK8sApiCoreV1ContainerStatus>;
     /**
-     * Status for any ephemeral containers that have run in this pod.
+     * Statuses for any ephemeral containers that have run in this pod. Each ephemeral container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * @type {Array<IoK8sApiCoreV1ContainerStatus>}
      * @memberof IoK8sApiCoreV1PodStatus
      */
     ephemeralContainerStatuses?: Array<IoK8sApiCoreV1ContainerStatus>;
+    /**
+     * 
+     * @type {IoK8sApiCoreV1PodExtendedResourceClaimStatus}
+     * @memberof IoK8sApiCoreV1PodStatus
+     */
+    extendedResourceClaimStatus?: IoK8sApiCoreV1PodExtendedResourceClaimStatus;
     /**
      * hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * @type {string}
@@ -81,7 +119,7 @@ export interface IoK8sApiCoreV1PodStatus {
      */
     hostIPs?: Array<IoK8sApiCoreV1HostIP>;
     /**
-     * The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+     * Statuses of init containers in this pod. The most recent successful non-restartable init container will have ready = true, the most recently started container will have startTime set. Each init container in the pod should have at most one status in this list, and all statuses should be for containers in the pod. However this is not enforced. If a status for a non-existent container is present in the list, or the list has duplicate names, the behavior of various Kubernetes components is not defined and those statuses might be ignored. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-and-container-status
      * @type {Array<IoK8sApiCoreV1ContainerStatus>}
      * @memberof IoK8sApiCoreV1PodStatus
      */
@@ -93,11 +131,23 @@ export interface IoK8sApiCoreV1PodStatus {
      */
     message?: string;
     /**
+     * NodeAllocatableResourceClaimStatuses contains the status of node-allocatable resources that were allocated for this pod through DRA claims. This includes resources currently reported in v1.Node `status.allocatable` that are not extended resources (see https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#extended-resources). Examples include "cpu", "memory", "ephemeral-storage", and hugepages.
+     * @type {Array<IoK8sApiCoreV1NodeAllocatableResourceClaimStatus>}
+     * @memberof IoK8sApiCoreV1PodStatus
+     */
+    nodeAllocatableResourceClaimStatuses?: Array<IoK8sApiCoreV1NodeAllocatableResourceClaimStatus>;
+    /**
      * nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodStatus
      */
     nominatedNodeName?: string;
+    /**
+     * If set, this represents the .metadata.generation that the pod status was set based upon. The PodObservedGenerationTracking feature gate must be enabled to use this field.
+     * @type {number}
+     * @memberof IoK8sApiCoreV1PodStatus
+     */
+    observedGeneration?: number;
     /**
      * The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
      * 
@@ -133,7 +183,7 @@ export interface IoK8sApiCoreV1PodStatus {
      */
     reason?: string;
     /**
-     * Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+     * Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed" Deprecated: Resize status is moved to two pod conditions PodResizePending and PodResizeInProgress. PodResizePending will track states where the spec has been resized, but the Kubelet has not yet allocated the resources. PodResizeInProgress will track in-progress resizes, and should be present whenever allocated resources != acknowledged resources.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodStatus
      */
@@ -145,20 +195,24 @@ export interface IoK8sApiCoreV1PodStatus {
      */
     resourceClaimStatuses?: Array<IoK8sApiCoreV1PodResourceClaimStatus>;
     /**
+     * 
+     * @type {IoK8sApiCoreV1ResourceRequirements}
+     * @memberof IoK8sApiCoreV1PodStatus
+     */
+    resources?: IoK8sApiCoreV1ResourceRequirements;
+    /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1PodStatus
      */
-    startTime?: string;
+    startTime?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1PodStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodStatus(value: object): value is IoK8sApiCoreV1PodStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1PodStatusFromJSON(json: any): IoK8sApiCoreV1PodStatus {
@@ -166,55 +220,67 @@ export function IoK8sApiCoreV1PodStatusFromJSON(json: any): IoK8sApiCoreV1PodSta
 }
 
 export function IoK8sApiCoreV1PodStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1PodConditionFromJSON)),
-        'containerStatuses': !exists(json, 'containerStatuses') ? undefined : ((json['containerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusFromJSON)),
-        'ephemeralContainerStatuses': !exists(json, 'ephemeralContainerStatuses') ? undefined : ((json['ephemeralContainerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusFromJSON)),
-        'hostIP': !exists(json, 'hostIP') ? undefined : json['hostIP'],
-        'hostIPs': !exists(json, 'hostIPs') ? undefined : ((json['hostIPs'] as Array<any>).map(IoK8sApiCoreV1HostIPFromJSON)),
-        'initContainerStatuses': !exists(json, 'initContainerStatuses') ? undefined : ((json['initContainerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusFromJSON)),
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'nominatedNodeName': !exists(json, 'nominatedNodeName') ? undefined : json['nominatedNodeName'],
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'podIP': !exists(json, 'podIP') ? undefined : json['podIP'],
-        'podIPs': !exists(json, 'podIPs') ? undefined : ((json['podIPs'] as Array<any>).map(IoK8sApiCoreV1PodIPFromJSON)),
-        'qosClass': !exists(json, 'qosClass') ? undefined : json['qosClass'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'resize': !exists(json, 'resize') ? undefined : json['resize'],
-        'resourceClaimStatuses': !exists(json, 'resourceClaimStatuses') ? undefined : ((json['resourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimStatusFromJSON)),
-        'startTime': !exists(json, 'startTime') ? undefined : json['startTime'],
+        'allocatedResources': json['allocatedResources'] == null ? undefined : json['allocatedResources'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1PodConditionFromJSON)),
+        'containerStatuses': json['containerStatuses'] == null ? undefined : ((json['containerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusFromJSON)),
+        'ephemeralContainerStatuses': json['ephemeralContainerStatuses'] == null ? undefined : ((json['ephemeralContainerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusFromJSON)),
+        'extendedResourceClaimStatus': json['extendedResourceClaimStatus'] == null ? undefined : IoK8sApiCoreV1PodExtendedResourceClaimStatusFromJSON(json['extendedResourceClaimStatus']),
+        'hostIP': json['hostIP'] == null ? undefined : json['hostIP'],
+        'hostIPs': json['hostIPs'] == null ? undefined : ((json['hostIPs'] as Array<any>).map(IoK8sApiCoreV1HostIPFromJSON)),
+        'initContainerStatuses': json['initContainerStatuses'] == null ? undefined : ((json['initContainerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusFromJSON)),
+        'message': json['message'] == null ? undefined : json['message'],
+        'nodeAllocatableResourceClaimStatuses': json['nodeAllocatableResourceClaimStatuses'] == null ? undefined : ((json['nodeAllocatableResourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1NodeAllocatableResourceClaimStatusFromJSON)),
+        'nominatedNodeName': json['nominatedNodeName'] == null ? undefined : json['nominatedNodeName'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'podIP': json['podIP'] == null ? undefined : json['podIP'],
+        'podIPs': json['podIPs'] == null ? undefined : ((json['podIPs'] as Array<any>).map(IoK8sApiCoreV1PodIPFromJSON)),
+        'qosClass': json['qosClass'] == null ? undefined : json['qosClass'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'resize': json['resize'] == null ? undefined : json['resize'],
+        'resourceClaimStatuses': json['resourceClaimStatuses'] == null ? undefined : ((json['resourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimStatusFromJSON)),
+        'resources': json['resources'] == null ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
+        'startTime': json['startTime'] == null ? undefined : (new Date(json['startTime'])),
     };
 }
 
-export function IoK8sApiCoreV1PodStatusToJSON(value?: IoK8sApiCoreV1PodStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodStatusToJSON(json: any): IoK8sApiCoreV1PodStatus {
+    return IoK8sApiCoreV1PodStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodStatusToJSONTyped(value?: IoK8sApiCoreV1PodStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCoreV1PodConditionToJSON)),
-        'containerStatuses': value.containerStatuses === undefined ? undefined : ((value.containerStatuses as Array<any>).map(IoK8sApiCoreV1ContainerStatusToJSON)),
-        'ephemeralContainerStatuses': value.ephemeralContainerStatuses === undefined ? undefined : ((value.ephemeralContainerStatuses as Array<any>).map(IoK8sApiCoreV1ContainerStatusToJSON)),
-        'hostIP': value.hostIP,
-        'hostIPs': value.hostIPs === undefined ? undefined : ((value.hostIPs as Array<any>).map(IoK8sApiCoreV1HostIPToJSON)),
-        'initContainerStatuses': value.initContainerStatuses === undefined ? undefined : ((value.initContainerStatuses as Array<any>).map(IoK8sApiCoreV1ContainerStatusToJSON)),
-        'message': value.message,
-        'nominatedNodeName': value.nominatedNodeName,
-        'phase': value.phase,
-        'podIP': value.podIP,
-        'podIPs': value.podIPs === undefined ? undefined : ((value.podIPs as Array<any>).map(IoK8sApiCoreV1PodIPToJSON)),
-        'qosClass': value.qosClass,
-        'reason': value.reason,
-        'resize': value.resize,
-        'resourceClaimStatuses': value.resourceClaimStatuses === undefined ? undefined : ((value.resourceClaimStatuses as Array<any>).map(IoK8sApiCoreV1PodResourceClaimStatusToJSON)),
-        'startTime': value.startTime === undefined ? undefined : (value.startTime),
+        'allocatedResources': value['allocatedResources'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCoreV1PodConditionToJSON)),
+        'containerStatuses': value['containerStatuses'] == null ? undefined : ((value['containerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusToJSON)),
+        'ephemeralContainerStatuses': value['ephemeralContainerStatuses'] == null ? undefined : ((value['ephemeralContainerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusToJSON)),
+        'extendedResourceClaimStatus': IoK8sApiCoreV1PodExtendedResourceClaimStatusToJSON(value['extendedResourceClaimStatus']),
+        'hostIP': value['hostIP'],
+        'hostIPs': value['hostIPs'] == null ? undefined : ((value['hostIPs'] as Array<any>).map(IoK8sApiCoreV1HostIPToJSON)),
+        'initContainerStatuses': value['initContainerStatuses'] == null ? undefined : ((value['initContainerStatuses'] as Array<any>).map(IoK8sApiCoreV1ContainerStatusToJSON)),
+        'message': value['message'],
+        'nodeAllocatableResourceClaimStatuses': value['nodeAllocatableResourceClaimStatuses'] == null ? undefined : ((value['nodeAllocatableResourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1NodeAllocatableResourceClaimStatusToJSON)),
+        'nominatedNodeName': value['nominatedNodeName'],
+        'observedGeneration': value['observedGeneration'],
+        'phase': value['phase'],
+        'podIP': value['podIP'],
+        'podIPs': value['podIPs'] == null ? undefined : ((value['podIPs'] as Array<any>).map(IoK8sApiCoreV1PodIPToJSON)),
+        'qosClass': value['qosClass'],
+        'reason': value['reason'],
+        'resize': value['resize'],
+        'resourceClaimStatuses': value['resourceClaimStatuses'] == null ? undefined : ((value['resourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimStatusToJSON)),
+        'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value['resources']),
+        'startTime': value['startTime'] == null ? undefined : ((value['startTime']).toISOString()),
     };
 }
 

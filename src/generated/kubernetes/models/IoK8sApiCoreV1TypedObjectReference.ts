@@ -12,9 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
- * 
+ * TypedObjectReference contains enough information to let you locate the typed referenced object
  * @export
  * @interface IoK8sApiCoreV1TypedObjectReference
  */
@@ -48,12 +48,10 @@ export interface IoK8sApiCoreV1TypedObjectReference {
 /**
  * Check if a given object implements the IoK8sApiCoreV1TypedObjectReference interface.
  */
-export function instanceOfIoK8sApiCoreV1TypedObjectReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1TypedObjectReference(value: object): value is IoK8sApiCoreV1TypedObjectReference {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1TypedObjectReferenceFromJSON(json: any): IoK8sApiCoreV1TypedObjectReference {
@@ -61,31 +59,33 @@ export function IoK8sApiCoreV1TypedObjectReferenceFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1TypedObjectReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1TypedObjectReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroup': !exists(json, 'apiGroup') ? undefined : json['apiGroup'],
+        'apiGroup': json['apiGroup'] == null ? undefined : json['apiGroup'],
         'kind': json['kind'],
         'name': json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
     };
 }
 
-export function IoK8sApiCoreV1TypedObjectReferenceToJSON(value?: IoK8sApiCoreV1TypedObjectReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1TypedObjectReferenceToJSON(json: any): IoK8sApiCoreV1TypedObjectReference {
+    return IoK8sApiCoreV1TypedObjectReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1TypedObjectReferenceToJSONTyped(value?: IoK8sApiCoreV1TypedObjectReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroup': value.apiGroup,
-        'kind': value.kind,
-        'name': value.name,
-        'namespace': value.namespace,
+        'apiGroup': value['apiGroup'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'namespace': value['namespace'],
     };
 }
 

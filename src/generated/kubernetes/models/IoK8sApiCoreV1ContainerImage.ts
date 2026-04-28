@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Describe a container image
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiCoreV1ContainerImage {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ContainerImage
      */
-    names?: string[];
+    names?: Array<string>;
     /**
      * The size of the image in bytes.
      * @type {number}
@@ -36,10 +36,8 @@ export interface IoK8sApiCoreV1ContainerImage {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerImage interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerImage(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerImage(value: object): value is IoK8sApiCoreV1ContainerImage {
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerImageFromJSON(json: any): IoK8sApiCoreV1ContainerImage {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1ContainerImageFromJSON(json: any): IoK8sApiCoreV1C
 }
 
 export function IoK8sApiCoreV1ContainerImageFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerImage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'names': !exists(json, 'names') ? undefined : json['names'],
-        'sizeBytes': !exists(json, 'sizeBytes') ? undefined : json['sizeBytes'],
+        'names': json['names'] == null ? undefined : json['names'],
+        'sizeBytes': json['sizeBytes'] == null ? undefined : json['sizeBytes'],
     };
 }
 
-export function IoK8sApiCoreV1ContainerImageToJSON(value?: IoK8sApiCoreV1ContainerImage | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerImageToJSON(json: any): IoK8sApiCoreV1ContainerImage {
+    return IoK8sApiCoreV1ContainerImageToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerImageToJSONTyped(value?: IoK8sApiCoreV1ContainerImage | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'names': value.names,
-        'sizeBytes': value.sizeBytes,
+        'names': value['names'],
+        'sizeBytes': value['sizeBytes'],
     };
 }
 

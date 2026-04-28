@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1KVMTimer {
 /**
  * Check if a given object implements the V1KVMTimer interface.
  */
-export function instanceOfV1KVMTimer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KVMTimer(value: object): value is V1KVMTimer {
+    return true;
 }
 
 export function V1KVMTimerFromJSON(json: any): V1KVMTimer {
@@ -41,25 +39,27 @@ export function V1KVMTimerFromJSON(json: any): V1KVMTimer {
 }
 
 export function V1KVMTimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KVMTimer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'present': !exists(json, 'present') ? undefined : json['present'],
+        'present': json['present'] == null ? undefined : json['present'],
     };
 }
 
-export function V1KVMTimerToJSON(value?: V1KVMTimer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KVMTimerToJSON(json: any): V1KVMTimer {
+    return V1KVMTimerToJSONTyped(json, false);
+}
+
+export function V1KVMTimerToJSONTyped(value?: V1KVMTimer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'present': value.present,
+        'present': value['present'],
     };
 }
 

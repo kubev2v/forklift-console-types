@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PortworxVolumeSource represents a Portworx volume resource.
  * @export
@@ -42,11 +42,9 @@ export interface IoK8sApiCoreV1PortworxVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PortworxVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1PortworxVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "volumeID" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PortworxVolumeSource(value: object): value is IoK8sApiCoreV1PortworxVolumeSource {
+    if (!('volumeID' in value) || value['volumeID'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PortworxVolumeSourceFromJSON(json: any): IoK8sApiCoreV1PortworxVolumeSource {
@@ -54,29 +52,31 @@ export function IoK8sApiCoreV1PortworxVolumeSourceFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1PortworxVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PortworxVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
         'volumeID': json['volumeID'],
     };
 }
 
-export function IoK8sApiCoreV1PortworxVolumeSourceToJSON(value?: IoK8sApiCoreV1PortworxVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PortworxVolumeSourceToJSON(json: any): IoK8sApiCoreV1PortworxVolumeSource {
+    return IoK8sApiCoreV1PortworxVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PortworxVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1PortworxVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'readOnly': value.readOnly,
-        'volumeID': value.volumeID,
+        'fsType': value['fsType'],
+        'readOnly': value['readOnly'],
+        'volumeID': value['volumeID'],
     };
 }
 

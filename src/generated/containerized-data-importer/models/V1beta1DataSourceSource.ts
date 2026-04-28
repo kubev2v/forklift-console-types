@@ -13,6 +13,12 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { V1beta1DataSourceRefSourceDataSource } from './V1beta1DataSourceRefSourceDataSource';
+import {
+    V1beta1DataSourceRefSourceDataSourceFromJSON,
+    V1beta1DataSourceRefSourceDataSourceFromJSONTyped,
+    V1beta1DataSourceRefSourceDataSourceToJSON,
+} from './V1beta1DataSourceRefSourceDataSource';
 import type { V1beta1DataVolumeSourcePVC } from './V1beta1DataVolumeSourcePVC';
 import {
     V1beta1DataVolumeSourcePVCFromJSON,
@@ -32,6 +38,12 @@ import {
  * @interface V1beta1DataSourceSource
  */
 export interface V1beta1DataSourceSource {
+    /**
+     * 
+     * @type {V1beta1DataSourceRefSourceDataSource}
+     * @memberof V1beta1DataSourceSource
+     */
+    dataSource?: V1beta1DataSourceRefSourceDataSource;
     /**
      * 
      * @type {V1beta1DataVolumeSourcePVC}
@@ -63,6 +75,7 @@ export function V1beta1DataSourceSourceFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
+        'dataSource': json['dataSource'] == null ? undefined : V1beta1DataSourceRefSourceDataSourceFromJSON(json['dataSource']),
         'pvc': json['pvc'] == null ? undefined : V1beta1DataVolumeSourcePVCFromJSON(json['pvc']),
         'snapshot': json['snapshot'] == null ? undefined : V1beta1DataVolumeSourceSnapshotFromJSON(json['snapshot']),
     };
@@ -74,6 +87,7 @@ export function V1beta1DataSourceSourceToJSON(value?: V1beta1DataSourceSource | 
     }
     return {
         
+        'dataSource': V1beta1DataSourceRefSourceDataSourceToJSON(value['dataSource']),
         'pvc': V1beta1DataVolumeSourcePVCToJSON(value['pvc']),
         'snapshot': V1beta1DataVolumeSourceSnapshotToJSON(value['snapshot']),
     };

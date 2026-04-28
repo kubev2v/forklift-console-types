@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1TopologySelectorTerm } from './IoK8sApiCoreV1TopologySelectorTerm';
 import {
     IoK8sApiCoreV1TopologySelectorTermFromJSON,
     IoK8sApiCoreV1TopologySelectorTermFromJSONTyped,
     IoK8sApiCoreV1TopologySelectorTermToJSON,
+    IoK8sApiCoreV1TopologySelectorTermToJSONTyped,
 } from './IoK8sApiCoreV1TopologySelectorTerm';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -69,7 +71,7 @@ export interface IoK8sApiStorageV1StorageClass {
      * @type {Array<string>}
      * @memberof IoK8sApiStorageV1StorageClass
      */
-    mountOptions?: string[];
+    mountOptions?: Array<string>;
     /**
      * parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * @type {{ [key: string]: string; }}
@@ -99,11 +101,9 @@ export interface IoK8sApiStorageV1StorageClass {
 /**
  * Check if a given object implements the IoK8sApiStorageV1StorageClass interface.
  */
-export function instanceOfIoK8sApiStorageV1StorageClass(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "provisioner" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1StorageClass(value: object): value is IoK8sApiStorageV1StorageClass {
+    if (!('provisioner' in value) || value['provisioner'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1StorageClassFromJSON(json: any): IoK8sApiStorageV1StorageClass {
@@ -111,43 +111,45 @@ export function IoK8sApiStorageV1StorageClassFromJSON(json: any): IoK8sApiStorag
 }
 
 export function IoK8sApiStorageV1StorageClassFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1StorageClass {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allowVolumeExpansion': !exists(json, 'allowVolumeExpansion') ? undefined : json['allowVolumeExpansion'],
-        'allowedTopologies': !exists(json, 'allowedTopologies') ? undefined : ((json['allowedTopologies'] as Array<any>).map(IoK8sApiCoreV1TopologySelectorTermFromJSON)),
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'mountOptions': !exists(json, 'mountOptions') ? undefined : json['mountOptions'],
-        'parameters': !exists(json, 'parameters') ? undefined : json['parameters'],
+        'allowVolumeExpansion': json['allowVolumeExpansion'] == null ? undefined : json['allowVolumeExpansion'],
+        'allowedTopologies': json['allowedTopologies'] == null ? undefined : ((json['allowedTopologies'] as Array<any>).map(IoK8sApiCoreV1TopologySelectorTermFromJSON)),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'mountOptions': json['mountOptions'] == null ? undefined : json['mountOptions'],
+        'parameters': json['parameters'] == null ? undefined : json['parameters'],
         'provisioner': json['provisioner'],
-        'reclaimPolicy': !exists(json, 'reclaimPolicy') ? undefined : json['reclaimPolicy'],
-        'volumeBindingMode': !exists(json, 'volumeBindingMode') ? undefined : json['volumeBindingMode'],
+        'reclaimPolicy': json['reclaimPolicy'] == null ? undefined : json['reclaimPolicy'],
+        'volumeBindingMode': json['volumeBindingMode'] == null ? undefined : json['volumeBindingMode'],
     };
 }
 
-export function IoK8sApiStorageV1StorageClassToJSON(value?: IoK8sApiStorageV1StorageClass | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1StorageClassToJSON(json: any): IoK8sApiStorageV1StorageClass {
+    return IoK8sApiStorageV1StorageClassToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1StorageClassToJSONTyped(value?: IoK8sApiStorageV1StorageClass | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allowVolumeExpansion': value.allowVolumeExpansion,
-        'allowedTopologies': value.allowedTopologies === undefined ? undefined : ((value.allowedTopologies as Array<any>).map(IoK8sApiCoreV1TopologySelectorTermToJSON)),
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'mountOptions': value.mountOptions,
-        'parameters': value.parameters,
-        'provisioner': value.provisioner,
-        'reclaimPolicy': value.reclaimPolicy,
-        'volumeBindingMode': value.volumeBindingMode,
+        'allowVolumeExpansion': value['allowVolumeExpansion'],
+        'allowedTopologies': value['allowedTopologies'] == null ? undefined : ((value['allowedTopologies'] as Array<any>).map(IoK8sApiCoreV1TopologySelectorTermToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'mountOptions': value['mountOptions'],
+        'parameters': value['parameters'],
+        'provisioner': value['provisioner'],
+        'reclaimPolicy': value['reclaimPolicy'],
+        'volumeBindingMode': value['volumeBindingMode'],
     };
 }
 

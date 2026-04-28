@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodCondition contains details for the current condition of this pod.
  * @export
@@ -24,19 +24,25 @@ export interface IoK8sApiCoreV1PodCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1PodCondition
      */
-    lastProbeTime?: string;
+    lastProbeTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1PodCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * Human-readable message indicating details about last transition.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodCondition
      */
     message?: string;
+    /**
+     * If set, this represents the .metadata.generation that the pod condition was set based upon.
+     * @type {number}
+     * @memberof IoK8sApiCoreV1PodCondition
+     */
+    observedGeneration?: number;
     /**
      * Unique, one-word, CamelCase reason for the condition's last transition.
      * @type {string}
@@ -60,12 +66,10 @@ export interface IoK8sApiCoreV1PodCondition {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodCondition interface.
  */
-export function instanceOfIoK8sApiCoreV1PodCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodCondition(value: object): value is IoK8sApiCoreV1PodCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodConditionFromJSON(json: any): IoK8sApiCoreV1PodCondition {
@@ -73,35 +77,39 @@ export function IoK8sApiCoreV1PodConditionFromJSON(json: any): IoK8sApiCoreV1Pod
 }
 
 export function IoK8sApiCoreV1PodConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastProbeTime': !exists(json, 'lastProbeTime') ? undefined : json['lastProbeTime'],
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastProbeTime': json['lastProbeTime'] == null ? undefined : (new Date(json['lastProbeTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiCoreV1PodConditionToJSON(value?: IoK8sApiCoreV1PodCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodConditionToJSON(json: any): IoK8sApiCoreV1PodCondition {
+    return IoK8sApiCoreV1PodConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodConditionToJSONTyped(value?: IoK8sApiCoreV1PodCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastProbeTime': value.lastProbeTime === undefined ? undefined : (value.lastProbeTime),
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastProbeTime': value['lastProbeTime'] == null ? undefined : ((value['lastProbeTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'observedGeneration': value['observedGeneration'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

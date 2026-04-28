@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
  * 
@@ -44,11 +44,9 @@ export interface IoK8sApiCoreV1GitRepoVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1GitRepoVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1GitRepoVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "repository" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1GitRepoVolumeSource(value: object): value is IoK8sApiCoreV1GitRepoVolumeSource {
+    if (!('repository' in value) || value['repository'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1GitRepoVolumeSourceFromJSON(json: any): IoK8sApiCoreV1GitRepoVolumeSource {
@@ -56,29 +54,31 @@ export function IoK8sApiCoreV1GitRepoVolumeSourceFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1GitRepoVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1GitRepoVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'directory': !exists(json, 'directory') ? undefined : json['directory'],
+        'directory': json['directory'] == null ? undefined : json['directory'],
         'repository': json['repository'],
-        'revision': !exists(json, 'revision') ? undefined : json['revision'],
+        'revision': json['revision'] == null ? undefined : json['revision'],
     };
 }
 
-export function IoK8sApiCoreV1GitRepoVolumeSourceToJSON(value?: IoK8sApiCoreV1GitRepoVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1GitRepoVolumeSourceToJSON(json: any): IoK8sApiCoreV1GitRepoVolumeSource {
+    return IoK8sApiCoreV1GitRepoVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1GitRepoVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1GitRepoVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'directory': value.directory,
-        'repository': value.repository,
-        'revision': value.revision,
+        'directory': value['directory'],
+        'repository': value['repository'],
+        'revision': value['revision'],
     };
 }
 

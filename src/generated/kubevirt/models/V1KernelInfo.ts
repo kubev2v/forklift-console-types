@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * KernelInfo show info about the kernel image
  * @export
@@ -30,10 +30,8 @@ export interface V1KernelInfo {
 /**
  * Check if a given object implements the V1KernelInfo interface.
  */
-export function instanceOfV1KernelInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1KernelInfo(value: object): value is V1KernelInfo {
+    return true;
 }
 
 export function V1KernelInfoFromJSON(json: any): V1KernelInfo {
@@ -41,25 +39,27 @@ export function V1KernelInfoFromJSON(json: any): V1KernelInfo {
 }
 
 export function V1KernelInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KernelInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'checksum': !exists(json, 'checksum') ? undefined : json['checksum'],
+        'checksum': json['checksum'] == null ? undefined : json['checksum'],
     };
 }
 
-export function V1KernelInfoToJSON(value?: V1KernelInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KernelInfoToJSON(json: any): V1KernelInfo {
+    return V1KernelInfoToJSONTyped(json, false);
+}
+
+export function V1KernelInfoToJSONTyped(value?: V1KernelInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'checksum': value.checksum,
+        'checksum': value['checksum'],
     };
 }
 

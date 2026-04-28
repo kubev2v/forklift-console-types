@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServiceReference holds a reference to Service.legacy.k8s.io
  * @export
@@ -48,12 +48,10 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferen
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "namespace" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('namespace' in value) || value['namespace'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference {
@@ -61,31 +59,33 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenc
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
         'namespace': json['namespace'],
-        'path': !exists(json, 'path') ? undefined : json['path'],
-        'port': !exists(json, 'port') ? undefined : json['port'],
+        'path': json['path'] == null ? undefined : json['path'],
+        'port': json['port'] == null ? undefined : json['port'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReferenceToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1ServiceReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'namespace': value.namespace,
-        'path': value.path,
-        'port': value.port,
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'path': value['path'],
+        'port': value['port'],
     };
 }
 

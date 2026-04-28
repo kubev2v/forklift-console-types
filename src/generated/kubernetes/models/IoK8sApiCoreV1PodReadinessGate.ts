@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodReadinessGate contains the reference to a pod condition
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiCoreV1PodReadinessGate {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodReadinessGate interface.
  */
-export function instanceOfIoK8sApiCoreV1PodReadinessGate(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "conditionType" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodReadinessGate(value: object): value is IoK8sApiCoreV1PodReadinessGate {
+    if (!('conditionType' in value) || value['conditionType'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodReadinessGateFromJSON(json: any): IoK8sApiCoreV1PodReadinessGate {
@@ -42,7 +40,7 @@ export function IoK8sApiCoreV1PodReadinessGateFromJSON(json: any): IoK8sApiCoreV
 }
 
 export function IoK8sApiCoreV1PodReadinessGateFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodReadinessGate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiCoreV1PodReadinessGateFromJSONTyped(json: any, ignoreDis
     };
 }
 
-export function IoK8sApiCoreV1PodReadinessGateToJSON(value?: IoK8sApiCoreV1PodReadinessGate | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodReadinessGateToJSON(json: any): IoK8sApiCoreV1PodReadinessGate {
+    return IoK8sApiCoreV1PodReadinessGateToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodReadinessGateToJSONTyped(value?: IoK8sApiCoreV1PodReadinessGate | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditionType': value.conditionType,
+        'conditionType': value['conditionType'],
     };
 }
 

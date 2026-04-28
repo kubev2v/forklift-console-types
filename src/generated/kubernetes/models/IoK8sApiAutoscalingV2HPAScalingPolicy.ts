@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HPAScalingPolicy is a single policy which must hold true for a specified past interval.
  * @export
@@ -42,13 +42,11 @@ export interface IoK8sApiAutoscalingV2HPAScalingPolicy {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2HPAScalingPolicy interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2HPAScalingPolicy(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "periodSeconds" in value;
-    isInstance = isInstance && "type" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2HPAScalingPolicy(value: object): value is IoK8sApiAutoscalingV2HPAScalingPolicy {
+    if (!('periodSeconds' in value) || value['periodSeconds'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2HPAScalingPolicyFromJSON(json: any): IoK8sApiAutoscalingV2HPAScalingPolicy {
@@ -56,7 +54,7 @@ export function IoK8sApiAutoscalingV2HPAScalingPolicyFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiAutoscalingV2HPAScalingPolicyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2HPAScalingPolicy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -67,18 +65,20 @@ export function IoK8sApiAutoscalingV2HPAScalingPolicyFromJSONTyped(json: any, ig
     };
 }
 
-export function IoK8sApiAutoscalingV2HPAScalingPolicyToJSON(value?: IoK8sApiAutoscalingV2HPAScalingPolicy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2HPAScalingPolicyToJSON(json: any): IoK8sApiAutoscalingV2HPAScalingPolicy {
+    return IoK8sApiAutoscalingV2HPAScalingPolicyToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2HPAScalingPolicyToJSONTyped(value?: IoK8sApiAutoscalingV2HPAScalingPolicy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'periodSeconds': value.periodSeconds,
-        'type': value.type,
-        'value': value.value,
+        'periodSeconds': value['periodSeconds'],
+        'type': value['type'],
+        'value': value['value'],
     };
 }
 

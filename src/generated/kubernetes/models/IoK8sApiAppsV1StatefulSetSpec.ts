@@ -12,42 +12,48 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1StatefulSetOrdinals } from './IoK8sApiAppsV1StatefulSetOrdinals';
 import {
     IoK8sApiAppsV1StatefulSetOrdinalsFromJSON,
     IoK8sApiAppsV1StatefulSetOrdinalsFromJSONTyped,
     IoK8sApiAppsV1StatefulSetOrdinalsToJSON,
+    IoK8sApiAppsV1StatefulSetOrdinalsToJSONTyped,
 } from './IoK8sApiAppsV1StatefulSetOrdinals';
-import type { IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy } from './IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy';
-import {
-    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSON,
-    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSONTyped,
-    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSON,
-} from './IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy';
-import type { IoK8sApiAppsV1StatefulSetUpdateStrategy } from './IoK8sApiAppsV1StatefulSetUpdateStrategy';
-import {
-    IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSON,
-    IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSONTyped,
-    IoK8sApiAppsV1StatefulSetUpdateStrategyToJSON,
-} from './IoK8sApiAppsV1StatefulSetUpdateStrategy';
 import type { IoK8sApiCoreV1PersistentVolumeClaim } from './IoK8sApiCoreV1PersistentVolumeClaim';
 import {
     IoK8sApiCoreV1PersistentVolumeClaimFromJSON,
     IoK8sApiCoreV1PersistentVolumeClaimFromJSONTyped,
     IoK8sApiCoreV1PersistentVolumeClaimToJSON,
+    IoK8sApiCoreV1PersistentVolumeClaimToJSONTyped,
 } from './IoK8sApiCoreV1PersistentVolumeClaim';
+import type { IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy } from './IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy';
+import {
+    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSON,
+    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSONTyped,
+    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSON,
+    IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSONTyped,
+} from './IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicy';
 import type { IoK8sApiCoreV1PodTemplateSpec } from './IoK8sApiCoreV1PodTemplateSpec';
 import {
     IoK8sApiCoreV1PodTemplateSpecFromJSON,
     IoK8sApiCoreV1PodTemplateSpecFromJSONTyped,
     IoK8sApiCoreV1PodTemplateSpecToJSON,
+    IoK8sApiCoreV1PodTemplateSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodTemplateSpec';
+import type { IoK8sApiAppsV1StatefulSetUpdateStrategy } from './IoK8sApiAppsV1StatefulSetUpdateStrategy';
+import {
+    IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSON,
+    IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSONTyped,
+    IoK8sApiAppsV1StatefulSetUpdateStrategyToJSON,
+    IoK8sApiAppsV1StatefulSetUpdateStrategyToJSONTyped,
+} from './IoK8sApiAppsV1StatefulSetUpdateStrategy';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -103,7 +109,7 @@ export interface IoK8sApiAppsV1StatefulSetSpec {
      * @type {string}
      * @memberof IoK8sApiAppsV1StatefulSetSpec
      */
-    serviceName: string;
+    serviceName?: string;
     /**
      * 
      * @type {IoK8sApiCoreV1PodTemplateSpec}
@@ -127,13 +133,10 @@ export interface IoK8sApiAppsV1StatefulSetSpec {
 /**
  * Check if a given object implements the IoK8sApiAppsV1StatefulSetSpec interface.
  */
-export function instanceOfIoK8sApiAppsV1StatefulSetSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selector" in value;
-    isInstance = isInstance && "serviceName" in value;
-    isInstance = isInstance && "template" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1StatefulSetSpec(value: object): value is IoK8sApiAppsV1StatefulSetSpec {
+    if (!('selector' in value) || value['selector'] === undefined) return false;
+    if (!('template' in value) || value['template'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1StatefulSetSpecFromJSON(json: any): IoK8sApiAppsV1StatefulSetSpec {
@@ -141,45 +144,47 @@ export function IoK8sApiAppsV1StatefulSetSpecFromJSON(json: any): IoK8sApiAppsV1
 }
 
 export function IoK8sApiAppsV1StatefulSetSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1StatefulSetSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'minReadySeconds': !exists(json, 'minReadySeconds') ? undefined : json['minReadySeconds'],
-        'ordinals': !exists(json, 'ordinals') ? undefined : IoK8sApiAppsV1StatefulSetOrdinalsFromJSON(json['ordinals']),
-        'persistentVolumeClaimRetentionPolicy': !exists(json, 'persistentVolumeClaimRetentionPolicy') ? undefined : IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSON(json['persistentVolumeClaimRetentionPolicy']),
-        'podManagementPolicy': !exists(json, 'podManagementPolicy') ? undefined : json['podManagementPolicy'],
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
-        'revisionHistoryLimit': !exists(json, 'revisionHistoryLimit') ? undefined : json['revisionHistoryLimit'],
+        'minReadySeconds': json['minReadySeconds'] == null ? undefined : json['minReadySeconds'],
+        'ordinals': json['ordinals'] == null ? undefined : IoK8sApiAppsV1StatefulSetOrdinalsFromJSON(json['ordinals']),
+        'persistentVolumeClaimRetentionPolicy': json['persistentVolumeClaimRetentionPolicy'] == null ? undefined : IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyFromJSON(json['persistentVolumeClaimRetentionPolicy']),
+        'podManagementPolicy': json['podManagementPolicy'] == null ? undefined : json['podManagementPolicy'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
+        'revisionHistoryLimit': json['revisionHistoryLimit'] == null ? undefined : json['revisionHistoryLimit'],
         'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'serviceName': json['serviceName'],
+        'serviceName': json['serviceName'] == null ? undefined : json['serviceName'],
         'template': IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
-        'updateStrategy': !exists(json, 'updateStrategy') ? undefined : IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSON(json['updateStrategy']),
-        'volumeClaimTemplates': !exists(json, 'volumeClaimTemplates') ? undefined : ((json['volumeClaimTemplates'] as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimFromJSON)),
+        'updateStrategy': json['updateStrategy'] == null ? undefined : IoK8sApiAppsV1StatefulSetUpdateStrategyFromJSON(json['updateStrategy']),
+        'volumeClaimTemplates': json['volumeClaimTemplates'] == null ? undefined : ((json['volumeClaimTemplates'] as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimFromJSON)),
     };
 }
 
-export function IoK8sApiAppsV1StatefulSetSpecToJSON(value?: IoK8sApiAppsV1StatefulSetSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1StatefulSetSpecToJSON(json: any): IoK8sApiAppsV1StatefulSetSpec {
+    return IoK8sApiAppsV1StatefulSetSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1StatefulSetSpecToJSONTyped(value?: IoK8sApiAppsV1StatefulSetSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'minReadySeconds': value.minReadySeconds,
-        'ordinals': IoK8sApiAppsV1StatefulSetOrdinalsToJSON(value.ordinals),
-        'persistentVolumeClaimRetentionPolicy': IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSON(value.persistentVolumeClaimRetentionPolicy),
-        'podManagementPolicy': value.podManagementPolicy,
-        'replicas': value.replicas,
-        'revisionHistoryLimit': value.revisionHistoryLimit,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'serviceName': value.serviceName,
-        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value.template),
-        'updateStrategy': IoK8sApiAppsV1StatefulSetUpdateStrategyToJSON(value.updateStrategy),
-        'volumeClaimTemplates': value.volumeClaimTemplates === undefined ? undefined : ((value.volumeClaimTemplates as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimToJSON)),
+        'minReadySeconds': value['minReadySeconds'],
+        'ordinals': IoK8sApiAppsV1StatefulSetOrdinalsToJSON(value['ordinals']),
+        'persistentVolumeClaimRetentionPolicy': IoK8sApiAppsV1StatefulSetPersistentVolumeClaimRetentionPolicyToJSON(value['persistentVolumeClaimRetentionPolicy']),
+        'podManagementPolicy': value['podManagementPolicy'],
+        'replicas': value['replicas'],
+        'revisionHistoryLimit': value['revisionHistoryLimit'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'serviceName': value['serviceName'],
+        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value['template']),
+        'updateStrategy': IoK8sApiAppsV1StatefulSetUpdateStrategyToJSON(value['updateStrategy']),
+        'volumeClaimTemplates': value['volumeClaimTemplates'] == null ? undefined : ((value['volumeClaimTemplates'] as Array<any>).map(IoK8sApiCoreV1PersistentVolumeClaimToJSON)),
     };
 }
 

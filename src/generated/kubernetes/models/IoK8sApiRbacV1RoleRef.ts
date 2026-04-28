@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * RoleRef contains information that points to the role being used
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiRbacV1RoleRef {
      * @type {string}
      * @memberof IoK8sApiRbacV1RoleRef
      */
-    apiGroup: string;
+    apiGroup?: string;
     /**
      * Kind is the type of resource being referenced
      * @type {string}
@@ -42,13 +42,10 @@ export interface IoK8sApiRbacV1RoleRef {
 /**
  * Check if a given object implements the IoK8sApiRbacV1RoleRef interface.
  */
-export function instanceOfIoK8sApiRbacV1RoleRef(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "apiGroup" in value;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1RoleRef(value: object): value is IoK8sApiRbacV1RoleRef {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiRbacV1RoleRefFromJSON(json: any): IoK8sApiRbacV1RoleRef {
@@ -56,29 +53,31 @@ export function IoK8sApiRbacV1RoleRefFromJSON(json: any): IoK8sApiRbacV1RoleRef 
 }
 
 export function IoK8sApiRbacV1RoleRefFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1RoleRef {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroup': json['apiGroup'],
+        'apiGroup': json['apiGroup'] == null ? undefined : json['apiGroup'],
         'kind': json['kind'],
         'name': json['name'],
     };
 }
 
-export function IoK8sApiRbacV1RoleRefToJSON(value?: IoK8sApiRbacV1RoleRef | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1RoleRefToJSON(json: any): IoK8sApiRbacV1RoleRef {
+    return IoK8sApiRbacV1RoleRefToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1RoleRefToJSONTyped(value?: IoK8sApiRbacV1RoleRef | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroup': value.apiGroup,
-        'kind': value.kind,
-        'name': value.name,
+        'apiGroup': value['apiGroup'],
+        'kind': value['kind'],
+        'name': value['name'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Condition contains details for one aspect of the current state of this API Resource.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApimachineryPkgApisMetaV1Condition {
      * @type {Date}
      * @memberof IoK8sApimachineryPkgApisMetaV1Condition
      */
-    lastTransitionTime: string;
+    lastTransitionTime: Date;
     /**
      * message is a human readable message indicating details about the transition. This may be an empty string.
      * @type {string}
@@ -60,15 +60,13 @@ export interface IoK8sApimachineryPkgApisMetaV1Condition {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1Condition interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1Condition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "lastTransitionTime" in value;
-    isInstance = isInstance && "message" in value;
-    isInstance = isInstance && "reason" in value;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1Condition(value: object): value is IoK8sApimachineryPkgApisMetaV1Condition {
+    if (!('lastTransitionTime' in value) || value['lastTransitionTime'] === undefined) return false;
+    if (!('message' in value) || value['message'] === undefined) return false;
+    if (!('reason' in value) || value['reason'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ConditionFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1Condition {
@@ -76,35 +74,37 @@ export function IoK8sApimachineryPkgApisMetaV1ConditionFromJSON(json: any): IoK8
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1Condition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'],
+        'lastTransitionTime': (new Date(json['lastTransitionTime'])),
         'message': json['message'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
         'reason': json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1ConditionToJSON(value?: IoK8sApimachineryPkgApisMetaV1Condition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1ConditionToJSON(json: any): IoK8sApimachineryPkgApisMetaV1Condition {
+    return IoK8sApimachineryPkgApisMetaV1ConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1ConditionToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1Condition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': (value.lastTransitionTime),
-        'message': value.message,
-        'observedGeneration': value.observedGeneration,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'observedGeneration': value['observedGeneration'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

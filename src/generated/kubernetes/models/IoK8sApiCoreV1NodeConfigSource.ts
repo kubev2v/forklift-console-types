@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ConfigMapNodeConfigSource } from './IoK8sApiCoreV1ConfigMapNodeConfigSource';
 import {
     IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSON,
     IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSONTyped,
     IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSON,
+    IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSONTyped,
 } from './IoK8sApiCoreV1ConfigMapNodeConfigSource';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiCoreV1NodeConfigSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeConfigSource interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeConfigSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeConfigSource(value: object): value is IoK8sApiCoreV1NodeConfigSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeConfigSourceFromJSON(json: any): IoK8sApiCoreV1NodeConfigSource {
@@ -48,25 +47,27 @@ export function IoK8sApiCoreV1NodeConfigSourceFromJSON(json: any): IoK8sApiCoreV
 }
 
 export function IoK8sApiCoreV1NodeConfigSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeConfigSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'configMap': !exists(json, 'configMap') ? undefined : IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSON(json['configMap']),
+        'configMap': json['configMap'] == null ? undefined : IoK8sApiCoreV1ConfigMapNodeConfigSourceFromJSON(json['configMap']),
     };
 }
 
-export function IoK8sApiCoreV1NodeConfigSourceToJSON(value?: IoK8sApiCoreV1NodeConfigSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeConfigSourceToJSON(json: any): IoK8sApiCoreV1NodeConfigSource {
+    return IoK8sApiCoreV1NodeConfigSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeConfigSourceToJSONTyped(value?: IoK8sApiCoreV1NodeConfigSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'configMap': IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSON(value.configMap),
+        'configMap': IoK8sApiCoreV1ConfigMapNodeConfigSourceToJSON(value['configMap']),
     };
 }
 

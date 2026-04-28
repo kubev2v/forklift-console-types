@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiCoreV1GlusterfsVolumeSource {
     /**
-     * endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+     * endpoints is the endpoint name that details Glusterfs topology.
      * @type {string}
      * @memberof IoK8sApiCoreV1GlusterfsVolumeSource
      */
@@ -42,12 +42,10 @@ export interface IoK8sApiCoreV1GlusterfsVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1GlusterfsVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1GlusterfsVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "endpoints" in value;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1GlusterfsVolumeSource(value: object): value is IoK8sApiCoreV1GlusterfsVolumeSource {
+    if (!('endpoints' in value) || value['endpoints'] === undefined) return false;
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1GlusterfsVolumeSourceFromJSON(json: any): IoK8sApiCoreV1GlusterfsVolumeSource {
@@ -55,29 +53,31 @@ export function IoK8sApiCoreV1GlusterfsVolumeSourceFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1GlusterfsVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1GlusterfsVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'endpoints': json['endpoints'],
         'path': json['path'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
     };
 }
 
-export function IoK8sApiCoreV1GlusterfsVolumeSourceToJSON(value?: IoK8sApiCoreV1GlusterfsVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1GlusterfsVolumeSourceToJSON(json: any): IoK8sApiCoreV1GlusterfsVolumeSource {
+    return IoK8sApiCoreV1GlusterfsVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1GlusterfsVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1GlusterfsVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'endpoints': value.endpoints,
-        'path': value.path,
-        'readOnly': value.readOnly,
+        'endpoints': value['endpoints'],
+        'path': value['path'],
+        'readOnly': value['readOnly'],
     };
 }
 

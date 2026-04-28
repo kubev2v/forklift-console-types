@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PodDNSConfigOption defines DNS resolver options of a pod.
  * @export
@@ -20,13 +20,13 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiCoreV1PodDNSConfigOption {
     /**
-     * Required.
+     * Name is this DNS resolver option's name. Required.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodDNSConfigOption
      */
     name?: string;
     /**
-     * 
+     * Value is this DNS resolver option's value.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodDNSConfigOption
      */
@@ -36,10 +36,8 @@ export interface IoK8sApiCoreV1PodDNSConfigOption {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodDNSConfigOption interface.
  */
-export function instanceOfIoK8sApiCoreV1PodDNSConfigOption(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodDNSConfigOption(value: object): value is IoK8sApiCoreV1PodDNSConfigOption {
+    return true;
 }
 
 export function IoK8sApiCoreV1PodDNSConfigOptionFromJSON(json: any): IoK8sApiCoreV1PodDNSConfigOption {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1PodDNSConfigOptionFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1PodDNSConfigOptionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodDNSConfigOption {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function IoK8sApiCoreV1PodDNSConfigOptionToJSON(value?: IoK8sApiCoreV1PodDNSConfigOption | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodDNSConfigOptionToJSON(json: any): IoK8sApiCoreV1PodDNSConfigOption {
+    return IoK8sApiCoreV1PodDNSConfigOptionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodDNSConfigOptionToJSONTyped(value?: IoK8sApiCoreV1PodDNSConfigOption | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'value': value.value,
+        'name': value['name'],
+        'value': value['value'],
     };
 }
 

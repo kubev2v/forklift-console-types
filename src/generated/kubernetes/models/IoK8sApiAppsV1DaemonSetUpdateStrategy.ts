@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1RollingUpdateDaemonSet } from './IoK8sApiAppsV1RollingUpdateDaemonSet';
 import {
     IoK8sApiAppsV1RollingUpdateDaemonSetFromJSON,
     IoK8sApiAppsV1RollingUpdateDaemonSetFromJSONTyped,
     IoK8sApiAppsV1RollingUpdateDaemonSetToJSON,
+    IoK8sApiAppsV1RollingUpdateDaemonSetToJSONTyped,
 } from './IoK8sApiAppsV1RollingUpdateDaemonSet';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiAppsV1DaemonSetUpdateStrategy {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DaemonSetUpdateStrategy interface.
  */
-export function instanceOfIoK8sApiAppsV1DaemonSetUpdateStrategy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DaemonSetUpdateStrategy(value: object): value is IoK8sApiAppsV1DaemonSetUpdateStrategy {
+    return true;
 }
 
 export function IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSON(json: any): IoK8sApiAppsV1DaemonSetUpdateStrategy {
@@ -54,27 +53,29 @@ export function IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiAppsV1DaemonSetUpdateStrategyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DaemonSetUpdateStrategy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'rollingUpdate': !exists(json, 'rollingUpdate') ? undefined : IoK8sApiAppsV1RollingUpdateDaemonSetFromJSON(json['rollingUpdate']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'rollingUpdate': json['rollingUpdate'] == null ? undefined : IoK8sApiAppsV1RollingUpdateDaemonSetFromJSON(json['rollingUpdate']),
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiAppsV1DaemonSetUpdateStrategyToJSON(value?: IoK8sApiAppsV1DaemonSetUpdateStrategy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DaemonSetUpdateStrategyToJSON(json: any): IoK8sApiAppsV1DaemonSetUpdateStrategy {
+    return IoK8sApiAppsV1DaemonSetUpdateStrategyToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DaemonSetUpdateStrategyToJSONTyped(value?: IoK8sApiAppsV1DaemonSetUpdateStrategy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'rollingUpdate': IoK8sApiAppsV1RollingUpdateDaemonSetToJSON(value.rollingUpdate),
-        'type': value.type,
+        'rollingUpdate': IoK8sApiAppsV1RollingUpdateDaemonSetToJSON(value['rollingUpdate']),
+        'type': value['type'],
     };
 }
 

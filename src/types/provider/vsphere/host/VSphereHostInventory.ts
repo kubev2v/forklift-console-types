@@ -30,6 +30,8 @@ export interface VSphereHostInventory {
   cpuSockets: number;
   /** The number of CPU cores on the host. */
   cpuCores: number;
+  /** The total memory in bytes on the host. */
+  memoryBytes: number;
   /** The name of the product running on the host. */
   productName: string;
   /** The version of the product running on the host. */
@@ -40,8 +42,12 @@ export interface VSphereHostInventory {
   networks?: HostParent[] | null;
   /** The list of datastores available on the host. */
   datastores?: HostParent[] | null;
+  /** The list of VMs on the host. */
+  vms?: HostParent[] | null;
   /** The list of network adapters on the host. */
   networkAdapters?: NetworkAdapters[] | null;
+  /** The list of SCSI disks on the host. */
+  hostScsiDisks?: HostScsiDisk[] | null;
 }
 
 /**
@@ -84,12 +90,16 @@ export interface PNICs {
 export interface VNICs {
   /** The unique identifier of the virtual NIC. */
   key: string;
+  /** The device name of the virtual NIC. */
+  device: string;
   /** The port group the virtual NIC is connected to. */
   portGroup: string;
   /** The distributed port group the virtual NIC is connected to. */
   dPortGroup: string;
   /** The IP address of the virtual NIC. */
   ipAddress: string;
+  /** The IPv6 addresses of the virtual NIC. */
+  ipV6Address: string[];
   /** The subnet mask of the virtual NIC. */
   subnetMask: string;
   /** The maximum transmission unit (MTU) of the virtual NIC. */
@@ -106,6 +116,8 @@ export interface PortGroups {
   name: string;
   /** The virtual switch the port group is connected to. */
   vSwitch: string;
+  /** The VLAN ID of the port group. */
+  vlanId: number;
 }
 
 /**
@@ -120,6 +132,20 @@ export interface Switches {
   portGroups?: string[] | null;
   /** The list of physical NICs connected to the switch. */
   pNICs?: string[] | null;
+}
+
+/**
+ * Represents a SCSI disk on a vSphere host.
+ */
+export interface HostScsiDisk {
+  /** Canonical name of the SCSI logical unit. */
+  canonicalName: string;
+  /** The vendor of the SCSI device. */
+  vendor: string;
+  /** The model of the SCSI device. */
+  model: string;
+  /** The key of the SCSI device. */
+  key: string;
 }
 
 /**

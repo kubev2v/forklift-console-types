@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinition } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinition';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinition';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionListFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList {
@@ -73,31 +73,33 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceD
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionListToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionListToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionListToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionListToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

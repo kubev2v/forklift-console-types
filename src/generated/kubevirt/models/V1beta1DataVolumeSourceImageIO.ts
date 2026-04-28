@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DataVolumeSourceImageIO provides the parameters to create a Data Volume from an imageio source
  * @export
@@ -32,6 +32,12 @@ export interface V1beta1DataVolumeSourceImageIO {
      */
     diskId: string;
     /**
+     * InsecureSkipVerify is a flag to skip certificate verification
+     * @type {boolean}
+     * @memberof V1beta1DataVolumeSourceImageIO
+     */
+    insecureSkipVerify?: boolean;
+    /**
      * SecretRef provides the secret reference needed to access the ovirt-engine
      * @type {string}
      * @memberof V1beta1DataVolumeSourceImageIO
@@ -48,12 +54,10 @@ export interface V1beta1DataVolumeSourceImageIO {
 /**
  * Check if a given object implements the V1beta1DataVolumeSourceImageIO interface.
  */
-export function instanceOfV1beta1DataVolumeSourceImageIO(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "diskId" in value;
-    isInstance = isInstance && "url" in value;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeSourceImageIO(value: object): value is V1beta1DataVolumeSourceImageIO {
+    if (!('diskId' in value) || value['diskId'] === undefined) return false;
+    if (!('url' in value) || value['url'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1DataVolumeSourceImageIOFromJSON(json: any): V1beta1DataVolumeSourceImageIO {
@@ -61,31 +65,35 @@ export function V1beta1DataVolumeSourceImageIOFromJSON(json: any): V1beta1DataVo
 }
 
 export function V1beta1DataVolumeSourceImageIOFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeSourceImageIO {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'certConfigMap': !exists(json, 'certConfigMap') ? undefined : json['certConfigMap'],
+        'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
         'diskId': json['diskId'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : json['secretRef'],
+        'insecureSkipVerify': json['insecureSkipVerify'] == null ? undefined : json['insecureSkipVerify'],
+        'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
         'url': json['url'],
     };
 }
 
-export function V1beta1DataVolumeSourceImageIOToJSON(value?: V1beta1DataVolumeSourceImageIO | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeSourceImageIOToJSON(json: any): V1beta1DataVolumeSourceImageIO {
+    return V1beta1DataVolumeSourceImageIOToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeSourceImageIOToJSONTyped(value?: V1beta1DataVolumeSourceImageIO | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'certConfigMap': value.certConfigMap,
-        'diskId': value.diskId,
-        'secretRef': value.secretRef,
-        'url': value.url,
+        'certConfigMap': value['certConfigMap'],
+        'diskId': value['diskId'],
+        'insecureSkipVerify': value['insecureSkipVerify'],
+        'secretRef': value['secretRef'],
+        'url': value['url'],
     };
 }
 

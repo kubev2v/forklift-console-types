@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
  * @export
@@ -42,12 +42,10 @@ export interface IoK8sApiCoreV1AzureFileVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1AzureFileVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1AzureFileVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "secretName" in value;
-    isInstance = isInstance && "shareName" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1AzureFileVolumeSource(value: object): value is IoK8sApiCoreV1AzureFileVolumeSource {
+    if (!('secretName' in value) || value['secretName'] === undefined) return false;
+    if (!('shareName' in value) || value['shareName'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1AzureFileVolumeSourceFromJSON(json: any): IoK8sApiCoreV1AzureFileVolumeSource {
@@ -55,29 +53,31 @@ export function IoK8sApiCoreV1AzureFileVolumeSourceFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1AzureFileVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1AzureFileVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
         'secretName': json['secretName'],
         'shareName': json['shareName'],
     };
 }
 
-export function IoK8sApiCoreV1AzureFileVolumeSourceToJSON(value?: IoK8sApiCoreV1AzureFileVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1AzureFileVolumeSourceToJSON(json: any): IoK8sApiCoreV1AzureFileVolumeSource {
+    return IoK8sApiCoreV1AzureFileVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1AzureFileVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1AzureFileVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'readOnly': value.readOnly,
-        'secretName': value.secretName,
-        'shareName': value.shareName,
+        'readOnly': value['readOnly'],
+        'secretName': value['secretName'],
+        'shareName': value['shareName'],
     };
 }
 

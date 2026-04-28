@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DaemonSetCondition describes the state of a DaemonSet at a certain point.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiAppsV1DaemonSetCondition {
      * @type {Date}
      * @memberof IoK8sApiAppsV1DaemonSetCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * A human readable message indicating details about the transition.
      * @type {string}
@@ -54,12 +54,10 @@ export interface IoK8sApiAppsV1DaemonSetCondition {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DaemonSetCondition interface.
  */
-export function instanceOfIoK8sApiAppsV1DaemonSetCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DaemonSetCondition(value: object): value is IoK8sApiAppsV1DaemonSetCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1DaemonSetConditionFromJSON(json: any): IoK8sApiAppsV1DaemonSetCondition {
@@ -67,33 +65,35 @@ export function IoK8sApiAppsV1DaemonSetConditionFromJSON(json: any): IoK8sApiApp
 }
 
 export function IoK8sApiAppsV1DaemonSetConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DaemonSetCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiAppsV1DaemonSetConditionToJSON(value?: IoK8sApiAppsV1DaemonSetCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DaemonSetConditionToJSON(json: any): IoK8sApiAppsV1DaemonSetCondition {
+    return IoK8sApiAppsV1DaemonSetConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DaemonSetConditionToJSONTyped(value?: IoK8sApiAppsV1DaemonSetCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

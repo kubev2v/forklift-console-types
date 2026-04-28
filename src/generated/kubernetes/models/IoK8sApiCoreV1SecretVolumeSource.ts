@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1KeyToPath } from './IoK8sApiCoreV1KeyToPath';
 import {
     IoK8sApiCoreV1KeyToPathFromJSON,
     IoK8sApiCoreV1KeyToPathFromJSONTyped,
     IoK8sApiCoreV1KeyToPathToJSON,
+    IoK8sApiCoreV1KeyToPathToJSONTyped,
 } from './IoK8sApiCoreV1KeyToPath';
 
 /**
@@ -57,10 +58,8 @@ export interface IoK8sApiCoreV1SecretVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SecretVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1SecretVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SecretVolumeSource(value: object): value is IoK8sApiCoreV1SecretVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1SecretVolumeSourceFromJSON(json: any): IoK8sApiCoreV1SecretVolumeSource {
@@ -68,31 +67,33 @@ export function IoK8sApiCoreV1SecretVolumeSourceFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1SecretVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SecretVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'defaultMode': !exists(json, 'defaultMode') ? undefined : json['defaultMode'],
-        'items': !exists(json, 'items') ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1KeyToPathFromJSON)),
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
-        'secretName': !exists(json, 'secretName') ? undefined : json['secretName'],
+        'defaultMode': json['defaultMode'] == null ? undefined : json['defaultMode'],
+        'items': json['items'] == null ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1KeyToPathFromJSON)),
+        'optional': json['optional'] == null ? undefined : json['optional'],
+        'secretName': json['secretName'] == null ? undefined : json['secretName'],
     };
 }
 
-export function IoK8sApiCoreV1SecretVolumeSourceToJSON(value?: IoK8sApiCoreV1SecretVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecretVolumeSourceToJSON(json: any): IoK8sApiCoreV1SecretVolumeSource {
+    return IoK8sApiCoreV1SecretVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecretVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1SecretVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'defaultMode': value.defaultMode,
-        'items': value.items === undefined ? undefined : ((value.items as Array<any>).map(IoK8sApiCoreV1KeyToPathToJSON)),
-        'optional': value.optional,
-        'secretName': value.secretName,
+        'defaultMode': value['defaultMode'],
+        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(IoK8sApiCoreV1KeyToPathToJSON)),
+        'optional': value['optional'],
+        'secretName': value['secretName'],
     };
 }
 

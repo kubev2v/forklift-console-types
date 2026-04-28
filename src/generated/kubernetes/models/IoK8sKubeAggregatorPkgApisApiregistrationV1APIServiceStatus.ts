@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceCondition } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceCondition';
 import {
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionFromJSON,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionFromJSONTyped,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionToJSON,
+    IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionToJSONTyped,
 } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceCondition';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus {
 /**
  * Check if a given object implements the IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus interface.
  */
-export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus(value: object): value is IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus {
+    return true;
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus {
@@ -48,25 +47,27 @@ export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJ
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionFromJSON)),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionFromJSON)),
     };
 }
 
-export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSON(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus {
+    return IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSONTyped(json, false);
+}
+
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatusToJSONTyped(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionToJSON)),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionToJSON)),
     };
 }
 

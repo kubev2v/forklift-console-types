@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1VolumeNodeResources } from './IoK8sApiStorageV1VolumeNodeResources';
 import {
     IoK8sApiStorageV1VolumeNodeResourcesFromJSON,
     IoK8sApiStorageV1VolumeNodeResourcesFromJSONTyped,
     IoK8sApiStorageV1VolumeNodeResourcesToJSON,
+    IoK8sApiStorageV1VolumeNodeResourcesToJSONTyped,
 } from './IoK8sApiStorageV1VolumeNodeResources';
 
 /**
@@ -49,18 +50,16 @@ export interface IoK8sApiStorageV1CSINodeDriver {
      * @type {Array<string>}
      * @memberof IoK8sApiStorageV1CSINodeDriver
      */
-    topologyKeys?: string[];
+    topologyKeys?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiStorageV1CSINodeDriver interface.
  */
-export function instanceOfIoK8sApiStorageV1CSINodeDriver(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "nodeID" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1CSINodeDriver(value: object): value is IoK8sApiStorageV1CSINodeDriver {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('nodeID' in value) || value['nodeID'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1CSINodeDriverFromJSON(json: any): IoK8sApiStorageV1CSINodeDriver {
@@ -68,31 +67,33 @@ export function IoK8sApiStorageV1CSINodeDriverFromJSON(json: any): IoK8sApiStora
 }
 
 export function IoK8sApiStorageV1CSINodeDriverFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1CSINodeDriver {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allocatable': !exists(json, 'allocatable') ? undefined : IoK8sApiStorageV1VolumeNodeResourcesFromJSON(json['allocatable']),
+        'allocatable': json['allocatable'] == null ? undefined : IoK8sApiStorageV1VolumeNodeResourcesFromJSON(json['allocatable']),
         'name': json['name'],
         'nodeID': json['nodeID'],
-        'topologyKeys': !exists(json, 'topologyKeys') ? undefined : json['topologyKeys'],
+        'topologyKeys': json['topologyKeys'] == null ? undefined : json['topologyKeys'],
     };
 }
 
-export function IoK8sApiStorageV1CSINodeDriverToJSON(value?: IoK8sApiStorageV1CSINodeDriver | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1CSINodeDriverToJSON(json: any): IoK8sApiStorageV1CSINodeDriver {
+    return IoK8sApiStorageV1CSINodeDriverToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1CSINodeDriverToJSONTyped(value?: IoK8sApiStorageV1CSINodeDriver | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allocatable': IoK8sApiStorageV1VolumeNodeResourcesToJSON(value.allocatable),
-        'name': value.name,
-        'nodeID': value.nodeID,
-        'topologyKeys': value.topologyKeys,
+        'allocatable': IoK8sApiStorageV1VolumeNodeResourcesToJSON(value['allocatable']),
+        'name': value['name'],
+        'nodeID': value['nodeID'],
+        'topologyKeys': value['topologyKeys'],
     };
 }
 

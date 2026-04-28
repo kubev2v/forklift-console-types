@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressBackend } from './IoK8sApiNetworkingV1IngressBackend';
 import {
     IoK8sApiNetworkingV1IngressBackendFromJSON,
     IoK8sApiNetworkingV1IngressBackendFromJSONTyped,
     IoK8sApiNetworkingV1IngressBackendToJSON,
+    IoK8sApiNetworkingV1IngressBackendToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressBackend';
 
 /**
@@ -59,12 +60,10 @@ export interface IoK8sApiNetworkingV1HTTPIngressPath {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1HTTPIngressPath interface.
  */
-export function instanceOfIoK8sApiNetworkingV1HTTPIngressPath(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "backend" in value;
-    isInstance = isInstance && "pathType" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1HTTPIngressPath(value: object): value is IoK8sApiNetworkingV1HTTPIngressPath {
+    if (!('backend' in value) || value['backend'] === undefined) return false;
+    if (!('pathType' in value) || value['pathType'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1HTTPIngressPathFromJSON(json: any): IoK8sApiNetworkingV1HTTPIngressPath {
@@ -72,29 +71,31 @@ export function IoK8sApiNetworkingV1HTTPIngressPathFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiNetworkingV1HTTPIngressPathFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1HTTPIngressPath {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'backend': IoK8sApiNetworkingV1IngressBackendFromJSON(json['backend']),
-        'path': !exists(json, 'path') ? undefined : json['path'],
+        'path': json['path'] == null ? undefined : json['path'],
         'pathType': json['pathType'],
     };
 }
 
-export function IoK8sApiNetworkingV1HTTPIngressPathToJSON(value?: IoK8sApiNetworkingV1HTTPIngressPath | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1HTTPIngressPathToJSON(json: any): IoK8sApiNetworkingV1HTTPIngressPath {
+    return IoK8sApiNetworkingV1HTTPIngressPathToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1HTTPIngressPathToJSONTyped(value?: IoK8sApiNetworkingV1HTTPIngressPath | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'backend': IoK8sApiNetworkingV1IngressBackendToJSON(value.backend),
-        'path': value.path,
-        'pathType': value.pathType,
+        'backend': IoK8sApiNetworkingV1IngressBackendToJSON(value['backend']),
+        'path': value['path'],
+        'pathType': value['pathType'],
     };
 }
 

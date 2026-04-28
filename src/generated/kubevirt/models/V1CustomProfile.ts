@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1CustomProfile {
 /**
  * Check if a given object implements the V1CustomProfile interface.
  */
-export function instanceOfV1CustomProfile(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1CustomProfile(value: object): value is V1CustomProfile {
+    return true;
 }
 
 export function V1CustomProfileFromJSON(json: any): V1CustomProfile {
@@ -47,27 +45,29 @@ export function V1CustomProfileFromJSON(json: any): V1CustomProfile {
 }
 
 export function V1CustomProfileFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CustomProfile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'localhostProfile': !exists(json, 'localhostProfile') ? undefined : json['localhostProfile'],
-        'runtimeDefaultProfile': !exists(json, 'runtimeDefaultProfile') ? undefined : json['runtimeDefaultProfile'],
+        'localhostProfile': json['localhostProfile'] == null ? undefined : json['localhostProfile'],
+        'runtimeDefaultProfile': json['runtimeDefaultProfile'] == null ? undefined : json['runtimeDefaultProfile'],
     };
 }
 
-export function V1CustomProfileToJSON(value?: V1CustomProfile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CustomProfileToJSON(json: any): V1CustomProfile {
+    return V1CustomProfileToJSONTyped(json, false);
+}
+
+export function V1CustomProfileToJSONTyped(value?: V1CustomProfile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'localhostProfile': value.localhostProfile,
-        'runtimeDefaultProfile': value.runtimeDefaultProfile,
+        'localhostProfile': value['localhostProfile'],
+        'runtimeDefaultProfile': value['runtimeDefaultProfile'],
     };
 }
 

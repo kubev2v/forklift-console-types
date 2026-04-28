@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { V1beta1VirtualMachinePreference } from './V1beta1VirtualMachinePreference';
 import {
     V1beta1VirtualMachinePreferenceFromJSON,
     V1beta1VirtualMachinePreferenceFromJSONTyped,
     V1beta1VirtualMachinePreferenceToJSON,
+    V1beta1VirtualMachinePreferenceToJSONTyped,
 } from './V1beta1VirtualMachinePreference';
 
 /**
@@ -61,11 +63,9 @@ export interface V1beta1VirtualMachinePreferenceList {
 /**
  * Check if a given object implements the V1beta1VirtualMachinePreferenceList interface.
  */
-export function instanceOfV1beta1VirtualMachinePreferenceList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1beta1VirtualMachinePreferenceList(value: object): value is V1beta1VirtualMachinePreferenceList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1VirtualMachinePreferenceListFromJSON(json: any): V1beta1VirtualMachinePreferenceList {
@@ -73,31 +73,33 @@ export function V1beta1VirtualMachinePreferenceListFromJSON(json: any): V1beta1V
 }
 
 export function V1beta1VirtualMachinePreferenceListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1VirtualMachinePreferenceList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1beta1VirtualMachinePreferenceFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1beta1VirtualMachinePreferenceListToJSON(value?: V1beta1VirtualMachinePreferenceList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1VirtualMachinePreferenceListToJSON(json: any): V1beta1VirtualMachinePreferenceList {
+    return V1beta1VirtualMachinePreferenceListToJSONTyped(json, false);
+}
+
+export function V1beta1VirtualMachinePreferenceListToJSONTyped(value?: V1beta1VirtualMachinePreferenceList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1beta1VirtualMachinePreferenceToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1beta1VirtualMachinePreferenceToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

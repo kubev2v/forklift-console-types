@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1StatusCause } from './IoK8sApimachineryPkgApisMetaV1StatusCause';
 import {
     IoK8sApimachineryPkgApisMetaV1StatusCauseFromJSON,
     IoK8sApimachineryPkgApisMetaV1StatusCauseFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1StatusCauseToJSON,
+    IoK8sApimachineryPkgApisMetaV1StatusCauseToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1StatusCause';
 
 /**
@@ -67,10 +68,8 @@ export interface IoK8sApimachineryPkgApisMetaV1StatusDetails {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1StatusDetails interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1StatusDetails(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1StatusDetails(value: object): value is IoK8sApimachineryPkgApisMetaV1StatusDetails {
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1StatusDetails {
@@ -78,35 +77,37 @@ export function IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSON(json: any): 
 }
 
 export function IoK8sApimachineryPkgApisMetaV1StatusDetailsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1StatusDetails {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'causes': !exists(json, 'causes') ? undefined : ((json['causes'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1StatusCauseFromJSON)),
-        'group': !exists(json, 'group') ? undefined : json['group'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'retryAfterSeconds': !exists(json, 'retryAfterSeconds') ? undefined : json['retryAfterSeconds'],
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
+        'causes': json['causes'] == null ? undefined : ((json['causes'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1StatusCauseFromJSON)),
+        'group': json['group'] == null ? undefined : json['group'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'retryAfterSeconds': json['retryAfterSeconds'] == null ? undefined : json['retryAfterSeconds'],
+        'uid': json['uid'] == null ? undefined : json['uid'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSON(value?: IoK8sApimachineryPkgApisMetaV1StatusDetails | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSON(json: any): IoK8sApimachineryPkgApisMetaV1StatusDetails {
+    return IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1StatusDetailsToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1StatusDetails | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'causes': value.causes === undefined ? undefined : ((value.causes as Array<any>).map(IoK8sApimachineryPkgApisMetaV1StatusCauseToJSON)),
-        'group': value.group,
-        'kind': value.kind,
-        'name': value.name,
-        'retryAfterSeconds': value.retryAfterSeconds,
-        'uid': value.uid,
+        'causes': value['causes'] == null ? undefined : ((value['causes'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1StatusCauseToJSON)),
+        'group': value['group'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'retryAfterSeconds': value['retryAfterSeconds'],
+        'uid': value['uid'],
     };
 }
 

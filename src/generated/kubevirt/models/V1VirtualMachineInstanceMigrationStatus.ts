@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1VirtualMachineInstanceMigrationCondition } from './V1VirtualMachineInstanceMigrationCondition';
 import {
     V1VirtualMachineInstanceMigrationConditionFromJSON,
     V1VirtualMachineInstanceMigrationConditionFromJSONTyped,
     V1VirtualMachineInstanceMigrationConditionToJSON,
+    V1VirtualMachineInstanceMigrationConditionToJSONTyped,
 } from './V1VirtualMachineInstanceMigrationCondition';
 import type { V1VirtualMachineInstanceMigrationPhaseTransitionTimestamp } from './V1VirtualMachineInstanceMigrationPhaseTransitionTimestamp';
 import {
     V1VirtualMachineInstanceMigrationPhaseTransitionTimestampFromJSON,
     V1VirtualMachineInstanceMigrationPhaseTransitionTimestampFromJSONTyped,
     V1VirtualMachineInstanceMigrationPhaseTransitionTimestampToJSON,
+    V1VirtualMachineInstanceMigrationPhaseTransitionTimestampToJSONTyped,
 } from './V1VirtualMachineInstanceMigrationPhaseTransitionTimestamp';
 import type { V1VirtualMachineInstanceMigrationState } from './V1VirtualMachineInstanceMigrationState';
 import {
     V1VirtualMachineInstanceMigrationStateFromJSON,
     V1VirtualMachineInstanceMigrationStateFromJSONTyped,
     V1VirtualMachineInstanceMigrationStateToJSON,
+    V1VirtualMachineInstanceMigrationStateToJSONTyped,
 } from './V1VirtualMachineInstanceMigrationState';
 
 /**
@@ -62,15 +65,19 @@ export interface V1VirtualMachineInstanceMigrationStatus {
      * @memberof V1VirtualMachineInstanceMigrationStatus
      */
     phaseTransitionTimestamps?: Array<V1VirtualMachineInstanceMigrationPhaseTransitionTimestamp>;
+    /**
+     * The synchronization addresses one can use to connect to the synchronization controller, includes the port, if multiple addresses are available, the first one is reported in the synchronizationAddress field.
+     * @type {Array<string>}
+     * @memberof V1VirtualMachineInstanceMigrationStatus
+     */
+    synchronizationAddresses?: Array<string>;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineInstanceMigrationStatus interface.
  */
-export function instanceOfV1VirtualMachineInstanceMigrationStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceMigrationStatus(value: object): value is V1VirtualMachineInstanceMigrationStatus {
+    return true;
 }
 
 export function V1VirtualMachineInstanceMigrationStatusFromJSON(json: any): V1VirtualMachineInstanceMigrationStatus {
@@ -78,31 +85,35 @@ export function V1VirtualMachineInstanceMigrationStatusFromJSON(json: any): V1Vi
 }
 
 export function V1VirtualMachineInstanceMigrationStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceMigrationStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(V1VirtualMachineInstanceMigrationConditionFromJSON)),
-        'migrationState': !exists(json, 'migrationState') ? undefined : V1VirtualMachineInstanceMigrationStateFromJSON(json['migrationState']),
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
-        'phaseTransitionTimestamps': !exists(json, 'phaseTransitionTimestamps') ? undefined : ((json['phaseTransitionTimestamps'] as Array<any>).map(V1VirtualMachineInstanceMigrationPhaseTransitionTimestampFromJSON)),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1VirtualMachineInstanceMigrationConditionFromJSON)),
+        'migrationState': json['migrationState'] == null ? undefined : V1VirtualMachineInstanceMigrationStateFromJSON(json['migrationState']),
+        'phase': json['phase'] == null ? undefined : json['phase'],
+        'phaseTransitionTimestamps': json['phaseTransitionTimestamps'] == null ? undefined : ((json['phaseTransitionTimestamps'] as Array<any>).map(V1VirtualMachineInstanceMigrationPhaseTransitionTimestampFromJSON)),
+        'synchronizationAddresses': json['synchronizationAddresses'] == null ? undefined : json['synchronizationAddresses'],
     };
 }
 
-export function V1VirtualMachineInstanceMigrationStatusToJSON(value?: V1VirtualMachineInstanceMigrationStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceMigrationStatusToJSON(json: any): V1VirtualMachineInstanceMigrationStatus {
+    return V1VirtualMachineInstanceMigrationStatusToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceMigrationStatusToJSONTyped(value?: V1VirtualMachineInstanceMigrationStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(V1VirtualMachineInstanceMigrationConditionToJSON)),
-        'migrationState': V1VirtualMachineInstanceMigrationStateToJSON(value.migrationState),
-        'phase': value.phase,
-        'phaseTransitionTimestamps': value.phaseTransitionTimestamps === undefined ? undefined : ((value.phaseTransitionTimestamps as Array<any>).map(V1VirtualMachineInstanceMigrationPhaseTransitionTimestampToJSON)),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1VirtualMachineInstanceMigrationConditionToJSON)),
+        'migrationState': V1VirtualMachineInstanceMigrationStateToJSON(value['migrationState']),
+        'phase': value['phase'],
+        'phaseTransitionTimestamps': value['phaseTransitionTimestamps'] == null ? undefined : ((value['phaseTransitionTimestamps'] as Array<any>).map(V1VirtualMachineInstanceMigrationPhaseTransitionTimestampToJSON)),
+        'synchronizationAddresses': value['synchronizationAddresses'],
     };
 }
 

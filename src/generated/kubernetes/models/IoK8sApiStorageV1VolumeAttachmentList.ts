@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1VolumeAttachment } from './IoK8sApiStorageV1VolumeAttachment';
 import {
     IoK8sApiStorageV1VolumeAttachmentFromJSON,
     IoK8sApiStorageV1VolumeAttachmentFromJSONTyped,
     IoK8sApiStorageV1VolumeAttachmentToJSON,
+    IoK8sApiStorageV1VolumeAttachmentToJSONTyped,
 } from './IoK8sApiStorageV1VolumeAttachment';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiStorageV1VolumeAttachmentList {
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeAttachmentList interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeAttachmentList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeAttachmentList(value: object): value is IoK8sApiStorageV1VolumeAttachmentList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentListFromJSON(json: any): IoK8sApiStorageV1VolumeAttachmentList {
@@ -73,31 +73,33 @@ export function IoK8sApiStorageV1VolumeAttachmentListFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeAttachmentList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiStorageV1VolumeAttachmentFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiStorageV1VolumeAttachmentListToJSON(value?: IoK8sApiStorageV1VolumeAttachmentList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeAttachmentListToJSON(json: any): IoK8sApiStorageV1VolumeAttachmentList {
+    return IoK8sApiStorageV1VolumeAttachmentListToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeAttachmentListToJSONTyped(value?: IoK8sApiStorageV1VolumeAttachmentList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiStorageV1VolumeAttachmentToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiStorageV1VolumeAttachmentToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

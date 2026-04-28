@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * MachinePreferences contains various optional defaults for Machine.
  * @export
@@ -30,10 +30,8 @@ export interface V1beta1MachinePreferences {
 /**
  * Check if a given object implements the V1beta1MachinePreferences interface.
  */
-export function instanceOfV1beta1MachinePreferences(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1MachinePreferences(value: object): value is V1beta1MachinePreferences {
+    return true;
 }
 
 export function V1beta1MachinePreferencesFromJSON(json: any): V1beta1MachinePreferences {
@@ -41,25 +39,27 @@ export function V1beta1MachinePreferencesFromJSON(json: any): V1beta1MachinePref
 }
 
 export function V1beta1MachinePreferencesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1MachinePreferences {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'preferredMachineType': !exists(json, 'preferredMachineType') ? undefined : json['preferredMachineType'],
+        'preferredMachineType': json['preferredMachineType'] == null ? undefined : json['preferredMachineType'],
     };
 }
 
-export function V1beta1MachinePreferencesToJSON(value?: V1beta1MachinePreferences | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1MachinePreferencesToJSON(json: any): V1beta1MachinePreferences {
+    return V1beta1MachinePreferencesToJSONTyped(json, false);
+}
+
+export function V1beta1MachinePreferencesToJSONTyped(value?: V1beta1MachinePreferences | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preferredMachineType': value.preferredMachineType,
+        'preferredMachineType': value['preferredMachineType'],
     };
 }
 

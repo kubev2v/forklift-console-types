@@ -12,36 +12,41 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1HPETTimer } from './V1HPETTimer';
 import {
     V1HPETTimerFromJSON,
     V1HPETTimerFromJSONTyped,
     V1HPETTimerToJSON,
+    V1HPETTimerToJSONTyped,
 } from './V1HPETTimer';
-import type { V1HypervTimer } from './V1HypervTimer';
-import {
-    V1HypervTimerFromJSON,
-    V1HypervTimerFromJSONTyped,
-    V1HypervTimerToJSON,
-} from './V1HypervTimer';
 import type { V1KVMTimer } from './V1KVMTimer';
 import {
     V1KVMTimerFromJSON,
     V1KVMTimerFromJSONTyped,
     V1KVMTimerToJSON,
+    V1KVMTimerToJSONTyped,
 } from './V1KVMTimer';
 import type { V1PITTimer } from './V1PITTimer';
 import {
     V1PITTimerFromJSON,
     V1PITTimerFromJSONTyped,
     V1PITTimerToJSON,
+    V1PITTimerToJSONTyped,
 } from './V1PITTimer';
+import type { V1HypervTimer } from './V1HypervTimer';
+import {
+    V1HypervTimerFromJSON,
+    V1HypervTimerFromJSONTyped,
+    V1HypervTimerToJSON,
+    V1HypervTimerToJSONTyped,
+} from './V1HypervTimer';
 import type { V1RTCTimer } from './V1RTCTimer';
 import {
     V1RTCTimerFromJSON,
     V1RTCTimerFromJSONTyped,
     V1RTCTimerToJSON,
+    V1RTCTimerToJSONTyped,
 } from './V1RTCTimer';
 
 /**
@@ -85,10 +90,8 @@ export interface V1Timer {
 /**
  * Check if a given object implements the V1Timer interface.
  */
-export function instanceOfV1Timer(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Timer(value: object): value is V1Timer {
+    return true;
 }
 
 export function V1TimerFromJSON(json: any): V1Timer {
@@ -96,33 +99,35 @@ export function V1TimerFromJSON(json: any): V1Timer {
 }
 
 export function V1TimerFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Timer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hpet': !exists(json, 'hpet') ? undefined : V1HPETTimerFromJSON(json['hpet']),
-        'hyperv': !exists(json, 'hyperv') ? undefined : V1HypervTimerFromJSON(json['hyperv']),
-        'kvm': !exists(json, 'kvm') ? undefined : V1KVMTimerFromJSON(json['kvm']),
-        'pit': !exists(json, 'pit') ? undefined : V1PITTimerFromJSON(json['pit']),
-        'rtc': !exists(json, 'rtc') ? undefined : V1RTCTimerFromJSON(json['rtc']),
+        'hpet': json['hpet'] == null ? undefined : V1HPETTimerFromJSON(json['hpet']),
+        'hyperv': json['hyperv'] == null ? undefined : V1HypervTimerFromJSON(json['hyperv']),
+        'kvm': json['kvm'] == null ? undefined : V1KVMTimerFromJSON(json['kvm']),
+        'pit': json['pit'] == null ? undefined : V1PITTimerFromJSON(json['pit']),
+        'rtc': json['rtc'] == null ? undefined : V1RTCTimerFromJSON(json['rtc']),
     };
 }
 
-export function V1TimerToJSON(value?: V1Timer | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1TimerToJSON(json: any): V1Timer {
+    return V1TimerToJSONTyped(json, false);
+}
+
+export function V1TimerToJSONTyped(value?: V1Timer | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hpet': V1HPETTimerToJSON(value.hpet),
-        'hyperv': V1HypervTimerToJSON(value.hyperv),
-        'kvm': V1KVMTimerToJSON(value.kvm),
-        'pit': V1PITTimerToJSON(value.pit),
-        'rtc': V1RTCTimerToJSON(value.rtc),
+        'hpet': V1HPETTimerToJSON(value['hpet']),
+        'hyperv': V1HypervTimerToJSON(value['hyperv']),
+        'kvm': V1KVMTimerToJSON(value['kvm']),
+        'pit': V1PITTimerToJSON(value['pit']),
+        'rtc': V1RTCTimerToJSON(value['rtc']),
     };
 }
 

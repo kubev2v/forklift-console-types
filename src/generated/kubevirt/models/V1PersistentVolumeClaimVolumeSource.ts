@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. Directly attached to the vmi via qemu. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
  * @export
@@ -42,11 +42,9 @@ export interface V1PersistentVolumeClaimVolumeSource {
 /**
  * Check if a given object implements the V1PersistentVolumeClaimVolumeSource interface.
  */
-export function instanceOfV1PersistentVolumeClaimVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "claimName" in value;
-
-    return isInstance;
+export function instanceOfV1PersistentVolumeClaimVolumeSource(value: object): value is V1PersistentVolumeClaimVolumeSource {
+    if (!('claimName' in value) || value['claimName'] === undefined) return false;
+    return true;
 }
 
 export function V1PersistentVolumeClaimVolumeSourceFromJSON(json: any): V1PersistentVolumeClaimVolumeSource {
@@ -54,29 +52,31 @@ export function V1PersistentVolumeClaimVolumeSourceFromJSON(json: any): V1Persis
 }
 
 export function V1PersistentVolumeClaimVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1PersistentVolumeClaimVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'claimName': json['claimName'],
-        'hotpluggable': !exists(json, 'hotpluggable') ? undefined : json['hotpluggable'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'hotpluggable': json['hotpluggable'] == null ? undefined : json['hotpluggable'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
     };
 }
 
-export function V1PersistentVolumeClaimVolumeSourceToJSON(value?: V1PersistentVolumeClaimVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1PersistentVolumeClaimVolumeSourceToJSON(json: any): V1PersistentVolumeClaimVolumeSource {
+    return V1PersistentVolumeClaimVolumeSourceToJSONTyped(json, false);
+}
+
+export function V1PersistentVolumeClaimVolumeSourceToJSONTyped(value?: V1PersistentVolumeClaimVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'claimName': value.claimName,
-        'hotpluggable': value.hotpluggable,
-        'readOnly': value.readOnly,
+        'claimName': value['claimName'],
+        'hotpluggable': value['hotpluggable'],
+        'readOnly': value['readOnly'],
     };
 }
 

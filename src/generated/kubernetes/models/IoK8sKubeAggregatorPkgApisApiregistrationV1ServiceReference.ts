@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ServiceReference holds a reference to Service.legacy.k8s.io
  * @export
@@ -42,10 +42,8 @@ export interface IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference {
 /**
  * Check if a given object implements the IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference interface.
  */
-export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference(value: object): value is IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference {
+    return true;
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceFromJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference {
@@ -53,29 +51,31 @@ export function IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceFromJ
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
-        'port': !exists(json, 'port') ? undefined : json['port'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
+        'port': json['port'] == null ? undefined : json['port'],
     };
 }
 
-export function IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceToJSON(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceToJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference {
+    return IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReferenceToJSONTyped(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1ServiceReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'namespace': value.namespace,
-        'port': value.port,
+        'name': value['name'],
+        'namespace': value['namespace'],
+        'port': value['port'],
     };
 }
 

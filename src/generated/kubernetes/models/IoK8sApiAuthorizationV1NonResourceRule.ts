@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NonResourceRule holds information that describes a rule for the non-resource
  * @export
@@ -20,27 +20,25 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthorizationV1NonResourceRule {
     /**
-     * NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
+     * nonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1NonResourceRule
      */
-    nonResourceURLs?: string[];
+    nonResourceURLs?: Array<string>;
     /**
-     * Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
+     * verbs is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1NonResourceRule
      */
-    verbs: string[];
+    verbs: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1NonResourceRule interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1NonResourceRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1NonResourceRule(value: object): value is IoK8sApiAuthorizationV1NonResourceRule {
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1NonResourceRuleFromJSON(json: any): IoK8sApiAuthorizationV1NonResourceRule {
@@ -48,27 +46,29 @@ export function IoK8sApiAuthorizationV1NonResourceRuleFromJSON(json: any): IoK8s
 }
 
 export function IoK8sApiAuthorizationV1NonResourceRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1NonResourceRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nonResourceURLs': !exists(json, 'nonResourceURLs') ? undefined : json['nonResourceURLs'],
+        'nonResourceURLs': json['nonResourceURLs'] == null ? undefined : json['nonResourceURLs'],
         'verbs': json['verbs'],
     };
 }
 
-export function IoK8sApiAuthorizationV1NonResourceRuleToJSON(value?: IoK8sApiAuthorizationV1NonResourceRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1NonResourceRuleToJSON(json: any): IoK8sApiAuthorizationV1NonResourceRule {
+    return IoK8sApiAuthorizationV1NonResourceRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1NonResourceRuleToJSONTyped(value?: IoK8sApiAuthorizationV1NonResourceRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nonResourceURLs': value.nonResourceURLs,
-        'verbs': value.verbs,
+        'nonResourceURLs': value['nonResourceURLs'],
+        'verbs': value['verbs'],
     };
 }
 

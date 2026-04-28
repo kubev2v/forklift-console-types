@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CustomBlockSize represents the desired logical and physical block size for a VM disk.
  * @export
@@ -24,24 +24,26 @@ export interface V1CustomBlockSize {
      * @type {number}
      * @memberof V1CustomBlockSize
      */
-    logical: number;
+    discardGranularity?: number;
     /**
      * 
      * @type {number}
      * @memberof V1CustomBlockSize
      */
-    physical: number;
+    logical?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof V1CustomBlockSize
+     */
+    physical?: number;
 }
 
 /**
  * Check if a given object implements the V1CustomBlockSize interface.
  */
-export function instanceOfV1CustomBlockSize(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "logical" in value;
-    isInstance = isInstance && "physical" in value;
-
-    return isInstance;
+export function instanceOfV1CustomBlockSize(value: object): value is V1CustomBlockSize {
+    return true;
 }
 
 export function V1CustomBlockSizeFromJSON(json: any): V1CustomBlockSize {
@@ -49,27 +51,31 @@ export function V1CustomBlockSizeFromJSON(json: any): V1CustomBlockSize {
 }
 
 export function V1CustomBlockSizeFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CustomBlockSize {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'logical': json['logical'],
-        'physical': json['physical'],
+        'discardGranularity': json['discardGranularity'] == null ? undefined : json['discardGranularity'],
+        'logical': json['logical'] == null ? undefined : json['logical'],
+        'physical': json['physical'] == null ? undefined : json['physical'],
     };
 }
 
-export function V1CustomBlockSizeToJSON(value?: V1CustomBlockSize | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CustomBlockSizeToJSON(json: any): V1CustomBlockSize {
+    return V1CustomBlockSizeToJSONTyped(json, false);
+}
+
+export function V1CustomBlockSizeToJSONTyped(value?: V1CustomBlockSize | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'logical': value.logical,
-        'physical': value.physical,
+        'discardGranularity': value['discardGranularity'],
+        'logical': value['logical'],
+        'physical': value['physical'],
     };
 }
 

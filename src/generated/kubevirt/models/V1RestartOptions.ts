@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * RestartOptions may be provided when deleting an API object.
  * @export
@@ -48,10 +48,8 @@ export interface V1RestartOptions {
 /**
  * Check if a given object implements the V1RestartOptions interface.
  */
-export function instanceOfV1RestartOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1RestartOptions(value: object): value is V1RestartOptions {
+    return true;
 }
 
 export function V1RestartOptionsFromJSON(json: any): V1RestartOptions {
@@ -59,31 +57,33 @@ export function V1RestartOptionsFromJSON(json: any): V1RestartOptions {
 }
 
 export function V1RestartOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1RestartOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'dryRun': !exists(json, 'dryRun') ? undefined : json['dryRun'],
-        'gracePeriodSeconds': !exists(json, 'gracePeriodSeconds') ? undefined : json['gracePeriodSeconds'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'dryRun': json['dryRun'] == null ? undefined : json['dryRun'],
+        'gracePeriodSeconds': json['gracePeriodSeconds'] == null ? undefined : json['gracePeriodSeconds'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
     };
 }
 
-export function V1RestartOptionsToJSON(value?: V1RestartOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1RestartOptionsToJSON(json: any): V1RestartOptions {
+    return V1RestartOptionsToJSONTyped(json, false);
+}
+
+export function V1RestartOptionsToJSONTyped(value?: V1RestartOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'dryRun': value.dryRun,
-        'gracePeriodSeconds': value.gracePeriodSeconds,
-        'kind': value.kind,
+        'apiVersion': value['apiVersion'],
+        'dryRun': value['dryRun'],
+        'gracePeriodSeconds': value['gracePeriodSeconds'],
+        'kind': value['kind'],
     };
 }
 

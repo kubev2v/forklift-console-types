@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { V1VirtualMachineInstanceMigration } from './V1VirtualMachineInstanceMigration';
 import {
     V1VirtualMachineInstanceMigrationFromJSON,
     V1VirtualMachineInstanceMigrationFromJSONTyped,
     V1VirtualMachineInstanceMigrationToJSON,
+    V1VirtualMachineInstanceMigrationToJSONTyped,
 } from './V1VirtualMachineInstanceMigration';
 
 /**
@@ -61,11 +63,9 @@ export interface V1VirtualMachineInstanceMigrationList {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceMigrationList interface.
  */
-export function instanceOfV1VirtualMachineInstanceMigrationList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceMigrationList(value: object): value is V1VirtualMachineInstanceMigrationList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceMigrationListFromJSON(json: any): V1VirtualMachineInstanceMigrationList {
@@ -73,31 +73,33 @@ export function V1VirtualMachineInstanceMigrationListFromJSON(json: any): V1Virt
 }
 
 export function V1VirtualMachineInstanceMigrationListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceMigrationList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1VirtualMachineInstanceMigrationFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1VirtualMachineInstanceMigrationListToJSON(value?: V1VirtualMachineInstanceMigrationList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceMigrationListToJSON(json: any): V1VirtualMachineInstanceMigrationList {
+    return V1VirtualMachineInstanceMigrationListToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceMigrationListToJSONTyped(value?: V1VirtualMachineInstanceMigrationList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1VirtualMachineInstanceMigrationToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1VirtualMachineInstanceMigrationToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

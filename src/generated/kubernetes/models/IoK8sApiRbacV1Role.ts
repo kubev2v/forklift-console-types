@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiRbacV1PolicyRule } from './IoK8sApiRbacV1PolicyRule';
-import {
-    IoK8sApiRbacV1PolicyRuleFromJSON,
-    IoK8sApiRbacV1PolicyRuleFromJSONTyped,
-    IoK8sApiRbacV1PolicyRuleToJSON,
-} from './IoK8sApiRbacV1PolicyRule';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiRbacV1PolicyRule } from './IoK8sApiRbacV1PolicyRule';
+import {
+    IoK8sApiRbacV1PolicyRuleFromJSON,
+    IoK8sApiRbacV1PolicyRuleFromJSONTyped,
+    IoK8sApiRbacV1PolicyRuleToJSON,
+    IoK8sApiRbacV1PolicyRuleToJSONTyped,
+} from './IoK8sApiRbacV1PolicyRule';
 
 /**
  * Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
@@ -61,10 +63,8 @@ export interface IoK8sApiRbacV1Role {
 /**
  * Check if a given object implements the IoK8sApiRbacV1Role interface.
  */
-export function instanceOfIoK8sApiRbacV1Role(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiRbacV1Role(value: object): value is IoK8sApiRbacV1Role {
+    return true;
 }
 
 export function IoK8sApiRbacV1RoleFromJSON(json: any): IoK8sApiRbacV1Role {
@@ -72,31 +72,33 @@ export function IoK8sApiRbacV1RoleFromJSON(json: any): IoK8sApiRbacV1Role {
 }
 
 export function IoK8sApiRbacV1RoleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiRbacV1Role {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'rules': !exists(json, 'rules') ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiRbacV1PolicyRuleFromJSON)),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'rules': json['rules'] == null ? undefined : ((json['rules'] as Array<any>).map(IoK8sApiRbacV1PolicyRuleFromJSON)),
     };
 }
 
-export function IoK8sApiRbacV1RoleToJSON(value?: IoK8sApiRbacV1Role | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiRbacV1RoleToJSON(json: any): IoK8sApiRbacV1Role {
+    return IoK8sApiRbacV1RoleToJSONTyped(json, false);
+}
+
+export function IoK8sApiRbacV1RoleToJSONTyped(value?: IoK8sApiRbacV1Role | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'rules': value.rules === undefined ? undefined : ((value.rules as Array<any>).map(IoK8sApiRbacV1PolicyRuleToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'rules': value['rules'] == null ? undefined : ((value['rules'] as Array<any>).map(IoK8sApiRbacV1PolicyRuleToJSON)),
     };
 }
 

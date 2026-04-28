@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiResourceV1alpha2ResourceClaimSchedulingStatus } from './IoK8sApiResourceV1alpha2ResourceClaimSchedulingStatus';
 import {
     IoK8sApiResourceV1alpha2ResourceClaimSchedulingStatusFromJSON,

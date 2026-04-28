@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1alpha1Selectors {
 /**
  * Check if a given object implements the V1alpha1Selectors interface.
  */
-export function instanceOfV1alpha1Selectors(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1alpha1Selectors(value: object): value is V1alpha1Selectors {
+    return true;
 }
 
 export function V1alpha1SelectorsFromJSON(json: any): V1alpha1Selectors {
@@ -47,27 +45,29 @@ export function V1alpha1SelectorsFromJSON(json: any): V1alpha1Selectors {
 }
 
 export function V1alpha1SelectorsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1alpha1Selectors {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'namespaceSelector': !exists(json, 'namespaceSelector') ? undefined : json['namespaceSelector'],
-        'virtualMachineInstanceSelector': !exists(json, 'virtualMachineInstanceSelector') ? undefined : json['virtualMachineInstanceSelector'],
+        'namespaceSelector': json['namespaceSelector'] == null ? undefined : json['namespaceSelector'],
+        'virtualMachineInstanceSelector': json['virtualMachineInstanceSelector'] == null ? undefined : json['virtualMachineInstanceSelector'],
     };
 }
 
-export function V1alpha1SelectorsToJSON(value?: V1alpha1Selectors | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1alpha1SelectorsToJSON(json: any): V1alpha1Selectors {
+    return V1alpha1SelectorsToJSONTyped(json, false);
+}
+
+export function V1alpha1SelectorsToJSONTyped(value?: V1alpha1Selectors | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'namespaceSelector': value.namespaceSelector,
-        'virtualMachineInstanceSelector': value.virtualMachineInstanceSelector,
+        'namespaceSelector': value['namespaceSelector'],
+        'virtualMachineInstanceSelector': value['virtualMachineInstanceSelector'],
     };
 }
 

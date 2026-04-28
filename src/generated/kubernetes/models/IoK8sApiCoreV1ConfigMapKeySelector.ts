@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Selects a key from a ConfigMap.
  * @export
@@ -26,7 +26,7 @@ export interface IoK8sApiCoreV1ConfigMapKeySelector {
      */
     key: string;
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof IoK8sApiCoreV1ConfigMapKeySelector
      */
@@ -42,11 +42,9 @@ export interface IoK8sApiCoreV1ConfigMapKeySelector {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ConfigMapKeySelector interface.
  */
-export function instanceOfIoK8sApiCoreV1ConfigMapKeySelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ConfigMapKeySelector(value: object): value is IoK8sApiCoreV1ConfigMapKeySelector {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ConfigMapKeySelectorFromJSON(json: any): IoK8sApiCoreV1ConfigMapKeySelector {
@@ -54,29 +52,31 @@ export function IoK8sApiCoreV1ConfigMapKeySelectorFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1ConfigMapKeySelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ConfigMapKeySelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'key': json['key'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
     };
 }
 
-export function IoK8sApiCoreV1ConfigMapKeySelectorToJSON(value?: IoK8sApiCoreV1ConfigMapKeySelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ConfigMapKeySelectorToJSON(json: any): IoK8sApiCoreV1ConfigMapKeySelector {
+    return IoK8sApiCoreV1ConfigMapKeySelectorToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ConfigMapKeySelectorToJSONTyped(value?: IoK8sApiCoreV1ConfigMapKeySelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'name': value.name,
-        'optional': value.optional,
+        'key': value['key'],
+        'name': value['name'],
+        'optional': value['optional'],
     };
 }
 

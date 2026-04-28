@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1Namespace } from './IoK8sApiCoreV1Namespace';
 import {
     IoK8sApiCoreV1NamespaceFromJSON,
     IoK8sApiCoreV1NamespaceFromJSONTyped,
     IoK8sApiCoreV1NamespaceToJSON,
+    IoK8sApiCoreV1NamespaceToJSONTyped,
 } from './IoK8sApiCoreV1Namespace';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiCoreV1NamespaceList {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NamespaceList interface.
  */
-export function instanceOfIoK8sApiCoreV1NamespaceList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NamespaceList(value: object): value is IoK8sApiCoreV1NamespaceList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NamespaceListFromJSON(json: any): IoK8sApiCoreV1NamespaceList {
@@ -73,31 +73,33 @@ export function IoK8sApiCoreV1NamespaceListFromJSON(json: any): IoK8sApiCoreV1Na
 }
 
 export function IoK8sApiCoreV1NamespaceListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NamespaceList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiCoreV1NamespaceFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiCoreV1NamespaceListToJSON(value?: IoK8sApiCoreV1NamespaceList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NamespaceListToJSON(json: any): IoK8sApiCoreV1NamespaceList {
+    return IoK8sApiCoreV1NamespaceListToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NamespaceListToJSONTyped(value?: IoK8sApiCoreV1NamespaceList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiCoreV1NamespaceToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiCoreV1NamespaceToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

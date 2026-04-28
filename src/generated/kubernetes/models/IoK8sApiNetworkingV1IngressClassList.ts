@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiNetworkingV1IngressClass } from './IoK8sApiNetworkingV1IngressClass';
-import {
-    IoK8sApiNetworkingV1IngressClassFromJSON,
-    IoK8sApiNetworkingV1IngressClassFromJSONTyped,
-    IoK8sApiNetworkingV1IngressClassToJSON,
-} from './IoK8sApiNetworkingV1IngressClass';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import type { IoK8sApiNetworkingV1IngressClass } from './IoK8sApiNetworkingV1IngressClass';
+import {
+    IoK8sApiNetworkingV1IngressClassFromJSON,
+    IoK8sApiNetworkingV1IngressClassFromJSONTyped,
+    IoK8sApiNetworkingV1IngressClassToJSON,
+    IoK8sApiNetworkingV1IngressClassToJSONTyped,
+} from './IoK8sApiNetworkingV1IngressClass';
 
 /**
  * IngressClassList is a collection of IngressClasses.
@@ -61,11 +63,9 @@ export interface IoK8sApiNetworkingV1IngressClassList {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressClassList interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressClassList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressClassList(value: object): value is IoK8sApiNetworkingV1IngressClassList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressClassListFromJSON(json: any): IoK8sApiNetworkingV1IngressClassList {
@@ -73,31 +73,33 @@ export function IoK8sApiNetworkingV1IngressClassListFromJSON(json: any): IoK8sAp
 }
 
 export function IoK8sApiNetworkingV1IngressClassListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressClassList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiNetworkingV1IngressClassFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressClassListToJSON(value?: IoK8sApiNetworkingV1IngressClassList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressClassListToJSON(json: any): IoK8sApiNetworkingV1IngressClassList {
+    return IoK8sApiNetworkingV1IngressClassListToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressClassListToJSONTyped(value?: IoK8sApiNetworkingV1IngressClassList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiNetworkingV1IngressClassToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiNetworkingV1IngressClassToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

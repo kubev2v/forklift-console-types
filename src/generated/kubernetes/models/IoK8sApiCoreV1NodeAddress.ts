@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NodeAddress contains information for the node's address.
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApiCoreV1NodeAddress {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeAddress interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeAddress(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "address" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeAddress(value: object): value is IoK8sApiCoreV1NodeAddress {
+    if (!('address' in value) || value['address'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeAddressFromJSON(json: any): IoK8sApiCoreV1NodeAddress {
@@ -49,7 +47,7 @@ export function IoK8sApiCoreV1NodeAddressFromJSON(json: any): IoK8sApiCoreV1Node
 }
 
 export function IoK8sApiCoreV1NodeAddressFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeAddress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiCoreV1NodeAddressFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function IoK8sApiCoreV1NodeAddressToJSON(value?: IoK8sApiCoreV1NodeAddress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeAddressToJSON(json: any): IoK8sApiCoreV1NodeAddress {
+    return IoK8sApiCoreV1NodeAddressToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeAddressToJSONTyped(value?: IoK8sApiCoreV1NodeAddress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'address': value.address,
-        'type': value.type,
+        'address': value['address'],
+        'type': value['type'],
     };
 }
 

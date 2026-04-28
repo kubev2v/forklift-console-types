@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
+import type { IoK8sApiCoreV1VolumeResourceRequirements } from './IoK8sApiCoreV1VolumeResourceRequirements';
+import {
+    IoK8sApiCoreV1VolumeResourceRequirementsFromJSON,
+    IoK8sApiCoreV1VolumeResourceRequirementsFromJSONTyped,
+    IoK8sApiCoreV1VolumeResourceRequirementsToJSON,
+    IoK8sApiCoreV1VolumeResourceRequirementsToJSONTyped,
+} from './IoK8sApiCoreV1VolumeResourceRequirements';
 import type { IoK8sApiCoreV1TypedLocalObjectReference } from './IoK8sApiCoreV1TypedLocalObjectReference';
 import {
     IoK8sApiCoreV1TypedLocalObjectReferenceFromJSON,
     IoK8sApiCoreV1TypedLocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1TypedLocalObjectReferenceToJSON,
+    IoK8sApiCoreV1TypedLocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1TypedLocalObjectReference';
 import type { IoK8sApiCoreV1TypedObjectReference } from './IoK8sApiCoreV1TypedObjectReference';
 import {
     IoK8sApiCoreV1TypedObjectReferenceFromJSON,
     IoK8sApiCoreV1TypedObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1TypedObjectReferenceToJSON,
+    IoK8sApiCoreV1TypedObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1TypedObjectReference';
-import type { IoK8sApiCoreV1VolumeResourceRequirements } from './IoK8sApiCoreV1VolumeResourceRequirements';
-import {
-    IoK8sApiCoreV1VolumeResourceRequirementsFromJSON,
-    IoK8sApiCoreV1VolumeResourceRequirementsFromJSONTyped,
-    IoK8sApiCoreV1VolumeResourceRequirementsToJSON,
-} from './IoK8sApiCoreV1VolumeResourceRequirements';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -49,7 +53,7 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1PersistentVolumeClaimSpec
      */
-    accessModes?: string[];
+    accessModes?: Array<string>;
     /**
      * 
      * @type {IoK8sApiCoreV1TypedLocalObjectReference}
@@ -81,7 +85,7 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimSpec {
      */
     storageClassName?: string;
     /**
-     * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#volumeattributesclass (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.
+     * volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string or nil value indicates that no VolumeAttributesClass will be applied to the claim. If the claim enters an Infeasible error state, this field can be reset to its previous value (including nil) to cancel the modification. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/
      * @type {string}
      * @memberof IoK8sApiCoreV1PersistentVolumeClaimSpec
      */
@@ -103,10 +107,8 @@ export interface IoK8sApiCoreV1PersistentVolumeClaimSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PersistentVolumeClaimSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PersistentVolumeClaimSpec(value: object): value is IoK8sApiCoreV1PersistentVolumeClaimSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimSpec {
@@ -114,41 +116,43 @@ export function IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiCoreV1PersistentVolumeClaimSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PersistentVolumeClaimSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'accessModes': !exists(json, 'accessModes') ? undefined : json['accessModes'],
-        'dataSource': !exists(json, 'dataSource') ? undefined : IoK8sApiCoreV1TypedLocalObjectReferenceFromJSON(json['dataSource']),
-        'dataSourceRef': !exists(json, 'dataSourceRef') ? undefined : IoK8sApiCoreV1TypedObjectReferenceFromJSON(json['dataSourceRef']),
-        'resources': !exists(json, 'resources') ? undefined : IoK8sApiCoreV1VolumeResourceRequirementsFromJSON(json['resources']),
-        'selector': !exists(json, 'selector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'storageClassName': !exists(json, 'storageClassName') ? undefined : json['storageClassName'],
-        'volumeAttributesClassName': !exists(json, 'volumeAttributesClassName') ? undefined : json['volumeAttributesClassName'],
-        'volumeMode': !exists(json, 'volumeMode') ? undefined : json['volumeMode'],
-        'volumeName': !exists(json, 'volumeName') ? undefined : json['volumeName'],
+        'accessModes': json['accessModes'] == null ? undefined : json['accessModes'],
+        'dataSource': json['dataSource'] == null ? undefined : IoK8sApiCoreV1TypedLocalObjectReferenceFromJSON(json['dataSource']),
+        'dataSourceRef': json['dataSourceRef'] == null ? undefined : IoK8sApiCoreV1TypedObjectReferenceFromJSON(json['dataSourceRef']),
+        'resources': json['resources'] == null ? undefined : IoK8sApiCoreV1VolumeResourceRequirementsFromJSON(json['resources']),
+        'selector': json['selector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
+        'storageClassName': json['storageClassName'] == null ? undefined : json['storageClassName'],
+        'volumeAttributesClassName': json['volumeAttributesClassName'] == null ? undefined : json['volumeAttributesClassName'],
+        'volumeMode': json['volumeMode'] == null ? undefined : json['volumeMode'],
+        'volumeName': json['volumeName'] == null ? undefined : json['volumeName'],
     };
 }
 
-export function IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON(value?: IoK8sApiCoreV1PersistentVolumeClaimSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PersistentVolumeClaimSpecToJSON(json: any): IoK8sApiCoreV1PersistentVolumeClaimSpec {
+    return IoK8sApiCoreV1PersistentVolumeClaimSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PersistentVolumeClaimSpecToJSONTyped(value?: IoK8sApiCoreV1PersistentVolumeClaimSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'accessModes': value.accessModes,
-        'dataSource': IoK8sApiCoreV1TypedLocalObjectReferenceToJSON(value.dataSource),
-        'dataSourceRef': IoK8sApiCoreV1TypedObjectReferenceToJSON(value.dataSourceRef),
-        'resources': IoK8sApiCoreV1VolumeResourceRequirementsToJSON(value.resources),
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'storageClassName': value.storageClassName,
-        'volumeAttributesClassName': value.volumeAttributesClassName,
-        'volumeMode': value.volumeMode,
-        'volumeName': value.volumeName,
+        'accessModes': value['accessModes'],
+        'dataSource': IoK8sApiCoreV1TypedLocalObjectReferenceToJSON(value['dataSource']),
+        'dataSourceRef': IoK8sApiCoreV1TypedObjectReferenceToJSON(value['dataSourceRef']),
+        'resources': IoK8sApiCoreV1VolumeResourceRequirementsToJSON(value['resources']),
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'storageClassName': value['storageClassName'],
+        'volumeAttributesClassName': value['volumeAttributesClassName'],
+        'volumeMode': value['volumeMode'],
+        'volumeName': value['volumeName'],
     };
 }
 

@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAutoscalingV2CrossVersionObjectReference } from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
-import {
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON,
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped,
-    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON,
-} from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior';
 import {
     IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSON,
     IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSONTyped,
     IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSON,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSONTyped,
 } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehavior';
 import type { IoK8sApiAutoscalingV2MetricSpec } from './IoK8sApiAutoscalingV2MetricSpec';
 import {
     IoK8sApiAutoscalingV2MetricSpecFromJSON,
     IoK8sApiAutoscalingV2MetricSpecFromJSONTyped,
     IoK8sApiAutoscalingV2MetricSpecToJSON,
+    IoK8sApiAutoscalingV2MetricSpecToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricSpec';
+import type { IoK8sApiAutoscalingV2CrossVersionObjectReference } from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
+import {
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON,
+    IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSONTyped,
+} from './IoK8sApiAutoscalingV2CrossVersionObjectReference';
 
 /**
  * HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
@@ -73,12 +76,10 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "maxReplicas" in value;
-    isInstance = isInstance && "scaleTargetRef" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec(value: object): value is IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec {
+    if (!('maxReplicas' in value) || value['maxReplicas'] === undefined) return false;
+    if (!('scaleTargetRef' in value) || value['scaleTargetRef'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec {
@@ -86,33 +87,35 @@ export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSON(json: a
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'behavior': !exists(json, 'behavior') ? undefined : IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSON(json['behavior']),
+        'behavior': json['behavior'] == null ? undefined : IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorFromJSON(json['behavior']),
         'maxReplicas': json['maxReplicas'],
-        'metrics': !exists(json, 'metrics') ? undefined : ((json['metrics'] as Array<any>).map(IoK8sApiAutoscalingV2MetricSpecFromJSON)),
-        'minReplicas': !exists(json, 'minReplicas') ? undefined : json['minReplicas'],
+        'metrics': json['metrics'] == null ? undefined : ((json['metrics'] as Array<any>).map(IoK8sApiAutoscalingV2MetricSpecFromJSON)),
+        'minReplicas': json['minReplicas'] == null ? undefined : json['minReplicas'],
         'scaleTargetRef': IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON(json['scaleTargetRef']),
     };
 }
 
-export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSON(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec {
+    return IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSONTyped(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'behavior': IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSON(value.behavior),
-        'maxReplicas': value.maxReplicas,
-        'metrics': value.metrics === undefined ? undefined : ((value.metrics as Array<any>).map(IoK8sApiAutoscalingV2MetricSpecToJSON)),
-        'minReplicas': value.minReplicas,
-        'scaleTargetRef': IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value.scaleTargetRef),
+        'behavior': IoK8sApiAutoscalingV2HorizontalPodAutoscalerBehaviorToJSON(value['behavior']),
+        'maxReplicas': value['maxReplicas'],
+        'metrics': value['metrics'] == null ? undefined : ((value['metrics'] as Array<any>).map(IoK8sApiAutoscalingV2MetricSpecToJSON)),
+        'minReplicas': value['minReplicas'],
+        'scaleTargetRef': IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value['scaleTargetRef']),
     };
 }
 

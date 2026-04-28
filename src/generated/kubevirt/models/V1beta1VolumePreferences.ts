@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -30,10 +30,8 @@ export interface V1beta1VolumePreferences {
 /**
  * Check if a given object implements the V1beta1VolumePreferences interface.
  */
-export function instanceOfV1beta1VolumePreferences(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1beta1VolumePreferences(value: object): value is V1beta1VolumePreferences {
+    return true;
 }
 
 export function V1beta1VolumePreferencesFromJSON(json: any): V1beta1VolumePreferences {
@@ -41,25 +39,27 @@ export function V1beta1VolumePreferencesFromJSON(json: any): V1beta1VolumePrefer
 }
 
 export function V1beta1VolumePreferencesFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1VolumePreferences {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'preferredStorageClassName': !exists(json, 'preferredStorageClassName') ? undefined : json['preferredStorageClassName'],
+        'preferredStorageClassName': json['preferredStorageClassName'] == null ? undefined : json['preferredStorageClassName'],
     };
 }
 
-export function V1beta1VolumePreferencesToJSON(value?: V1beta1VolumePreferences | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1VolumePreferencesToJSON(json: any): V1beta1VolumePreferences {
+    return V1beta1VolumePreferencesToJSONTyped(json, false);
+}
+
+export function V1beta1VolumePreferencesToJSONTyped(value?: V1beta1VolumePreferences | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preferredStorageClassName': value.preferredStorageClassName,
+        'preferredStorageClassName': value['preferredStorageClassName'],
     };
 }
 

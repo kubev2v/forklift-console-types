@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1SEV } from './V1SEV';
 import {
     V1SEVFromJSON,
     V1SEVFromJSONTyped,
     V1SEVToJSON,
+    V1SEVToJSONTyped,
 } from './V1SEV';
 
 /**
@@ -32,15 +33,25 @@ export interface V1LaunchSecurity {
      * @memberof V1LaunchSecurity
      */
     sev?: V1SEV;
+    /**
+     * 
+     * @type {object}
+     * @memberof V1LaunchSecurity
+     */
+    snp?: object;
+    /**
+     * 
+     * @type {object}
+     * @memberof V1LaunchSecurity
+     */
+    tdx?: object;
 }
 
 /**
  * Check if a given object implements the V1LaunchSecurity interface.
  */
-export function instanceOfV1LaunchSecurity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1LaunchSecurity(value: object): value is V1LaunchSecurity {
+    return true;
 }
 
 export function V1LaunchSecurityFromJSON(json: any): V1LaunchSecurity {
@@ -48,25 +59,31 @@ export function V1LaunchSecurityFromJSON(json: any): V1LaunchSecurity {
 }
 
 export function V1LaunchSecurityFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1LaunchSecurity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'sev': !exists(json, 'sev') ? undefined : V1SEVFromJSON(json['sev']),
+        'sev': json['sev'] == null ? undefined : V1SEVFromJSON(json['sev']),
+        'snp': json['snp'] == null ? undefined : json['snp'],
+        'tdx': json['tdx'] == null ? undefined : json['tdx'],
     };
 }
 
-export function V1LaunchSecurityToJSON(value?: V1LaunchSecurity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1LaunchSecurityToJSON(json: any): V1LaunchSecurity {
+    return V1LaunchSecurityToJSONTyped(json, false);
+}
+
+export function V1LaunchSecurityToJSONTyped(value?: V1LaunchSecurity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'sev': V1SEVToJSON(value.sev),
+        'sev': V1SEVToJSON(value['sev']),
+        'snp': value['snp'],
+        'tdx': value['tdx'],
     };
 }
 

@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -43,11 +44,9 @@ export interface IoK8sApiAutoscalingV2MetricIdentifier {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2MetricIdentifier interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2MetricIdentifier(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2MetricIdentifier(value: object): value is IoK8sApiAutoscalingV2MetricIdentifier {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2MetricIdentifierFromJSON(json: any): IoK8sApiAutoscalingV2MetricIdentifier {
@@ -55,27 +54,29 @@ export function IoK8sApiAutoscalingV2MetricIdentifierFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiAutoscalingV2MetricIdentifierFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2MetricIdentifier {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
-        'selector': !exists(json, 'selector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
+        'selector': json['selector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
     };
 }
 
-export function IoK8sApiAutoscalingV2MetricIdentifierToJSON(value?: IoK8sApiAutoscalingV2MetricIdentifier | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2MetricIdentifierToJSON(json: any): IoK8sApiAutoscalingV2MetricIdentifier {
+    return IoK8sApiAutoscalingV2MetricIdentifierToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2MetricIdentifierToJSONTyped(value?: IoK8sApiAutoscalingV2MetricIdentifier | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
+        'name': value['name'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
     };
 }
 

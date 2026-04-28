@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec {
     /**
-     * Namespace to evaluate rules for. Required.
+     * namespace to evaluate rules for. Required.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec
      */
@@ -30,10 +30,8 @@ export interface IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec(value: object): value is IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec {
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecFromJSON(json: any): IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec {
@@ -41,25 +39,27 @@ export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecFromJSON(json: 
 }
 
 export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
     };
 }
 
-export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSON(value?: IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSON(json: any): IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec {
+    return IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpecToJSONTyped(value?: IoK8sApiAuthorizationV1SelfSubjectRulesReviewSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'namespace': value.namespace,
+        'namespace': value['namespace'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
  * @export
@@ -60,14 +60,12 @@ export interface IoK8sApimachineryPkgApisMetaV1OwnerReference {
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1OwnerReference interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1OwnerReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "apiVersion" in value;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "uid" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1OwnerReference(value: object): value is IoK8sApimachineryPkgApisMetaV1OwnerReference {
+    if (!('apiVersion' in value) || value['apiVersion'] === undefined) return false;
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('uid' in value) || value['uid'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1OwnerReferenceFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1OwnerReference {
@@ -75,35 +73,37 @@ export function IoK8sApimachineryPkgApisMetaV1OwnerReferenceFromJSON(json: any):
 }
 
 export function IoK8sApimachineryPkgApisMetaV1OwnerReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1OwnerReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'apiVersion': json['apiVersion'],
-        'blockOwnerDeletion': !exists(json, 'blockOwnerDeletion') ? undefined : json['blockOwnerDeletion'],
-        'controller': !exists(json, 'controller') ? undefined : json['controller'],
+        'blockOwnerDeletion': json['blockOwnerDeletion'] == null ? undefined : json['blockOwnerDeletion'],
+        'controller': json['controller'] == null ? undefined : json['controller'],
         'kind': json['kind'],
         'name': json['name'],
         'uid': json['uid'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1OwnerReferenceToJSON(value?: IoK8sApimachineryPkgApisMetaV1OwnerReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1OwnerReferenceToJSON(json: any): IoK8sApimachineryPkgApisMetaV1OwnerReference {
+    return IoK8sApimachineryPkgApisMetaV1OwnerReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1OwnerReferenceToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1OwnerReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'blockOwnerDeletion': value.blockOwnerDeletion,
-        'controller': value.controller,
-        'kind': value.kind,
-        'name': value.name,
-        'uid': value.uid,
+        'apiVersion': value['apiVersion'],
+        'blockOwnerDeletion': value['blockOwnerDeletion'],
+        'controller': value['controller'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'uid': value['uid'],
     };
 }
 

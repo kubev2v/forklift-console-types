@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1Toleration } from './IoK8sApiCoreV1Toleration';
 import {
     IoK8sApiCoreV1TolerationFromJSON,
     IoK8sApiCoreV1TolerationFromJSONTyped,
     IoK8sApiCoreV1TolerationToJSON,
+    IoK8sApiCoreV1TolerationToJSONTyped,
 } from './IoK8sApiCoreV1Toleration';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiNodeV1Scheduling {
 /**
  * Check if a given object implements the IoK8sApiNodeV1Scheduling interface.
  */
-export function instanceOfIoK8sApiNodeV1Scheduling(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNodeV1Scheduling(value: object): value is IoK8sApiNodeV1Scheduling {
+    return true;
 }
 
 export function IoK8sApiNodeV1SchedulingFromJSON(json: any): IoK8sApiNodeV1Scheduling {
@@ -54,27 +53,29 @@ export function IoK8sApiNodeV1SchedulingFromJSON(json: any): IoK8sApiNodeV1Sched
 }
 
 export function IoK8sApiNodeV1SchedulingFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNodeV1Scheduling {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nodeSelector': !exists(json, 'nodeSelector') ? undefined : json['nodeSelector'],
-        'tolerations': !exists(json, 'tolerations') ? undefined : ((json['tolerations'] as Array<any>).map(IoK8sApiCoreV1TolerationFromJSON)),
+        'nodeSelector': json['nodeSelector'] == null ? undefined : json['nodeSelector'],
+        'tolerations': json['tolerations'] == null ? undefined : ((json['tolerations'] as Array<any>).map(IoK8sApiCoreV1TolerationFromJSON)),
     };
 }
 
-export function IoK8sApiNodeV1SchedulingToJSON(value?: IoK8sApiNodeV1Scheduling | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNodeV1SchedulingToJSON(json: any): IoK8sApiNodeV1Scheduling {
+    return IoK8sApiNodeV1SchedulingToJSONTyped(json, false);
+}
+
+export function IoK8sApiNodeV1SchedulingToJSONTyped(value?: IoK8sApiNodeV1Scheduling | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nodeSelector': value.nodeSelector,
-        'tolerations': value.tolerations === undefined ? undefined : ((value.tolerations as Array<any>).map(IoK8sApiCoreV1TolerationToJSON)),
+        'nodeSelector': value['nodeSelector'],
+        'tolerations': value['tolerations'] == null ? undefined : ((value['tolerations'] as Array<any>).map(IoK8sApiCoreV1TolerationToJSON)),
     };
 }
 

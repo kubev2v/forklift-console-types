@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1Condition } from './IoK8sApimachineryPkgApisMetaV1Condition';
 import {
     IoK8sApimachineryPkgApisMetaV1ConditionFromJSON,
     IoK8sApimachineryPkgApisMetaV1ConditionFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ConditionToJSON,
+    IoK8sApimachineryPkgApisMetaV1ConditionToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1Condition';
 
 /**
@@ -45,31 +46,31 @@ export interface IoK8sApiPolicyV1PodDisruptionBudgetStatus {
      * @type {number}
      * @memberof IoK8sApiPolicyV1PodDisruptionBudgetStatus
      */
-    currentHealthy: number;
+    currentHealthy?: number;
     /**
      * minimum desired number of healthy pods
      * @type {number}
      * @memberof IoK8sApiPolicyV1PodDisruptionBudgetStatus
      */
-    desiredHealthy: number;
+    desiredHealthy?: number;
     /**
      * DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
-     * @type {{ [key: string]: string; }}
+     * @type {{ [key: string]: Date; }}
      * @memberof IoK8sApiPolicyV1PodDisruptionBudgetStatus
      */
-    disruptedPods?: { [key: string]: string; };
+    disruptedPods?: { [key: string]: Date; };
     /**
      * Number of pod disruptions that are currently allowed.
      * @type {number}
      * @memberof IoK8sApiPolicyV1PodDisruptionBudgetStatus
      */
-    disruptionsAllowed: number;
+    disruptionsAllowed?: number;
     /**
      * total number of pods counted by this disruption budget
      * @type {number}
      * @memberof IoK8sApiPolicyV1PodDisruptionBudgetStatus
      */
-    expectedPods: number;
+    expectedPods?: number;
     /**
      * Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
      * @type {number}
@@ -81,14 +82,8 @@ export interface IoK8sApiPolicyV1PodDisruptionBudgetStatus {
 /**
  * Check if a given object implements the IoK8sApiPolicyV1PodDisruptionBudgetStatus interface.
  */
-export function instanceOfIoK8sApiPolicyV1PodDisruptionBudgetStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "currentHealthy" in value;
-    isInstance = isInstance && "desiredHealthy" in value;
-    isInstance = isInstance && "disruptionsAllowed" in value;
-    isInstance = isInstance && "expectedPods" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiPolicyV1PodDisruptionBudgetStatus(value: object): value is IoK8sApiPolicyV1PodDisruptionBudgetStatus {
+    return true;
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudgetStatus {
@@ -96,37 +91,39 @@ export function IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSON(json: any): Io
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiPolicyV1PodDisruptionBudgetStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ConditionFromJSON)),
-        'currentHealthy': json['currentHealthy'],
-        'desiredHealthy': json['desiredHealthy'],
-        'disruptedPods': !exists(json, 'disruptedPods') ? undefined : json['disruptedPods'],
-        'disruptionsAllowed': json['disruptionsAllowed'],
-        'expectedPods': json['expectedPods'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ConditionFromJSON)),
+        'currentHealthy': json['currentHealthy'] == null ? undefined : json['currentHealthy'],
+        'desiredHealthy': json['desiredHealthy'] == null ? undefined : json['desiredHealthy'],
+        'disruptedPods': json['disruptedPods'] == null ? undefined : json['disruptedPods'],
+        'disruptionsAllowed': json['disruptionsAllowed'] == null ? undefined : json['disruptionsAllowed'],
+        'expectedPods': json['expectedPods'] == null ? undefined : json['expectedPods'],
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
     };
 }
 
-export function IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSON(value?: IoK8sApiPolicyV1PodDisruptionBudgetStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudgetStatus {
+    return IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiPolicyV1PodDisruptionBudgetStatusToJSONTyped(value?: IoK8sApiPolicyV1PodDisruptionBudgetStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ConditionToJSON)),
-        'currentHealthy': value.currentHealthy,
-        'desiredHealthy': value.desiredHealthy,
-        'disruptedPods': value.disruptedPods,
-        'disruptionsAllowed': value.disruptionsAllowed,
-        'expectedPods': value.expectedPods,
-        'observedGeneration': value.observedGeneration,
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ConditionToJSON)),
+        'currentHealthy': value['currentHealthy'],
+        'desiredHealthy': value['desiredHealthy'],
+        'disruptedPods': value['disruptedPods'],
+        'disruptionsAllowed': value['disruptionsAllowed'],
+        'expectedPods': value['expectedPods'],
+        'observedGeneration': value['observedGeneration'],
     };
 }
 

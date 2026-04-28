@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NodeAffinity } from './IoK8sApiCoreV1NodeAffinity';
 import {
     IoK8sApiCoreV1NodeAffinityFromJSON,
     IoK8sApiCoreV1NodeAffinityFromJSONTyped,
     IoK8sApiCoreV1NodeAffinityToJSON,
+    IoK8sApiCoreV1NodeAffinityToJSONTyped,
 } from './IoK8sApiCoreV1NodeAffinity';
-import type { IoK8sApiCoreV1PodAffinity } from './IoK8sApiCoreV1PodAffinity';
-import {
-    IoK8sApiCoreV1PodAffinityFromJSON,
-    IoK8sApiCoreV1PodAffinityFromJSONTyped,
-    IoK8sApiCoreV1PodAffinityToJSON,
-} from './IoK8sApiCoreV1PodAffinity';
 import type { IoK8sApiCoreV1PodAntiAffinity } from './IoK8sApiCoreV1PodAntiAffinity';
 import {
     IoK8sApiCoreV1PodAntiAffinityFromJSON,
     IoK8sApiCoreV1PodAntiAffinityFromJSONTyped,
     IoK8sApiCoreV1PodAntiAffinityToJSON,
+    IoK8sApiCoreV1PodAntiAffinityToJSONTyped,
 } from './IoK8sApiCoreV1PodAntiAffinity';
+import type { IoK8sApiCoreV1PodAffinity } from './IoK8sApiCoreV1PodAffinity';
+import {
+    IoK8sApiCoreV1PodAffinityFromJSON,
+    IoK8sApiCoreV1PodAffinityFromJSONTyped,
+    IoK8sApiCoreV1PodAffinityToJSON,
+    IoK8sApiCoreV1PodAffinityToJSONTyped,
+} from './IoK8sApiCoreV1PodAffinity';
 
 /**
  * Affinity is a group of affinity scheduling rules.
@@ -61,10 +64,8 @@ export interface IoK8sApiCoreV1Affinity {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Affinity interface.
  */
-export function instanceOfIoK8sApiCoreV1Affinity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Affinity(value: object): value is IoK8sApiCoreV1Affinity {
+    return true;
 }
 
 export function IoK8sApiCoreV1AffinityFromJSON(json: any): IoK8sApiCoreV1Affinity {
@@ -72,29 +73,31 @@ export function IoK8sApiCoreV1AffinityFromJSON(json: any): IoK8sApiCoreV1Affinit
 }
 
 export function IoK8sApiCoreV1AffinityFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Affinity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nodeAffinity': !exists(json, 'nodeAffinity') ? undefined : IoK8sApiCoreV1NodeAffinityFromJSON(json['nodeAffinity']),
-        'podAffinity': !exists(json, 'podAffinity') ? undefined : IoK8sApiCoreV1PodAffinityFromJSON(json['podAffinity']),
-        'podAntiAffinity': !exists(json, 'podAntiAffinity') ? undefined : IoK8sApiCoreV1PodAntiAffinityFromJSON(json['podAntiAffinity']),
+        'nodeAffinity': json['nodeAffinity'] == null ? undefined : IoK8sApiCoreV1NodeAffinityFromJSON(json['nodeAffinity']),
+        'podAffinity': json['podAffinity'] == null ? undefined : IoK8sApiCoreV1PodAffinityFromJSON(json['podAffinity']),
+        'podAntiAffinity': json['podAntiAffinity'] == null ? undefined : IoK8sApiCoreV1PodAntiAffinityFromJSON(json['podAntiAffinity']),
     };
 }
 
-export function IoK8sApiCoreV1AffinityToJSON(value?: IoK8sApiCoreV1Affinity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1AffinityToJSON(json: any): IoK8sApiCoreV1Affinity {
+    return IoK8sApiCoreV1AffinityToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1AffinityToJSONTyped(value?: IoK8sApiCoreV1Affinity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nodeAffinity': IoK8sApiCoreV1NodeAffinityToJSON(value.nodeAffinity),
-        'podAffinity': IoK8sApiCoreV1PodAffinityToJSON(value.podAffinity),
-        'podAntiAffinity': IoK8sApiCoreV1PodAntiAffinityToJSON(value.podAntiAffinity),
+        'nodeAffinity': IoK8sApiCoreV1NodeAffinityToJSON(value['nodeAffinity']),
+        'podAffinity': IoK8sApiCoreV1PodAffinityToJSON(value['podAffinity']),
+        'podAntiAffinity': IoK8sApiCoreV1PodAntiAffinityToJSON(value['podAntiAffinity']),
     };
 }
 

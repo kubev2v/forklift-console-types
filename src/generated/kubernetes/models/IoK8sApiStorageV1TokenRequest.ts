@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * TokenRequest contains parameters of a service account token.
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiStorageV1TokenRequest {
 /**
  * Check if a given object implements the IoK8sApiStorageV1TokenRequest interface.
  */
-export function instanceOfIoK8sApiStorageV1TokenRequest(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "audience" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1TokenRequest(value: object): value is IoK8sApiStorageV1TokenRequest {
+    if (!('audience' in value) || value['audience'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1TokenRequestFromJSON(json: any): IoK8sApiStorageV1TokenRequest {
@@ -48,27 +46,29 @@ export function IoK8sApiStorageV1TokenRequestFromJSON(json: any): IoK8sApiStorag
 }
 
 export function IoK8sApiStorageV1TokenRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1TokenRequest {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'audience': json['audience'],
-        'expirationSeconds': !exists(json, 'expirationSeconds') ? undefined : json['expirationSeconds'],
+        'expirationSeconds': json['expirationSeconds'] == null ? undefined : json['expirationSeconds'],
     };
 }
 
-export function IoK8sApiStorageV1TokenRequestToJSON(value?: IoK8sApiStorageV1TokenRequest | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1TokenRequestToJSON(json: any): IoK8sApiStorageV1TokenRequest {
+    return IoK8sApiStorageV1TokenRequestToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1TokenRequestToJSONTyped(value?: IoK8sApiStorageV1TokenRequest | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'audience': value.audience,
-        'expirationSeconds': value.expirationSeconds,
+        'audience': value['audience'],
+        'expirationSeconds': value['expirationSeconds'],
     };
 }
 

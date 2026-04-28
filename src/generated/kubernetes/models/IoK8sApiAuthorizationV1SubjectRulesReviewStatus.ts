@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAuthorizationV1NonResourceRule } from './IoK8sApiAuthorizationV1NonResourceRule';
-import {
-    IoK8sApiAuthorizationV1NonResourceRuleFromJSON,
-    IoK8sApiAuthorizationV1NonResourceRuleFromJSONTyped,
-    IoK8sApiAuthorizationV1NonResourceRuleToJSON,
-} from './IoK8sApiAuthorizationV1NonResourceRule';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthorizationV1ResourceRule } from './IoK8sApiAuthorizationV1ResourceRule';
 import {
     IoK8sApiAuthorizationV1ResourceRuleFromJSON,
     IoK8sApiAuthorizationV1ResourceRuleFromJSONTyped,
     IoK8sApiAuthorizationV1ResourceRuleToJSON,
+    IoK8sApiAuthorizationV1ResourceRuleToJSONTyped,
 } from './IoK8sApiAuthorizationV1ResourceRule';
+import type { IoK8sApiAuthorizationV1NonResourceRule } from './IoK8sApiAuthorizationV1NonResourceRule';
+import {
+    IoK8sApiAuthorizationV1NonResourceRuleFromJSON,
+    IoK8sApiAuthorizationV1NonResourceRuleFromJSONTyped,
+    IoK8sApiAuthorizationV1NonResourceRuleToJSON,
+    IoK8sApiAuthorizationV1NonResourceRuleToJSONTyped,
+} from './IoK8sApiAuthorizationV1NonResourceRule';
 
 /**
  * SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
@@ -33,25 +35,25 @@ import {
  */
 export interface IoK8sApiAuthorizationV1SubjectRulesReviewStatus {
     /**
-     * EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
+     * evaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
      * @type {string}
      * @memberof IoK8sApiAuthorizationV1SubjectRulesReviewStatus
      */
     evaluationError?: string;
     /**
-     * Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
+     * incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
      * @type {boolean}
      * @memberof IoK8sApiAuthorizationV1SubjectRulesReviewStatus
      */
     incomplete: boolean;
     /**
-     * NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+     * nonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
      * @type {Array<IoK8sApiAuthorizationV1NonResourceRule>}
      * @memberof IoK8sApiAuthorizationV1SubjectRulesReviewStatus
      */
     nonResourceRules: Array<IoK8sApiAuthorizationV1NonResourceRule>;
     /**
-     * ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+     * resourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
      * @type {Array<IoK8sApiAuthorizationV1ResourceRule>}
      * @memberof IoK8sApiAuthorizationV1SubjectRulesReviewStatus
      */
@@ -61,13 +63,11 @@ export interface IoK8sApiAuthorizationV1SubjectRulesReviewStatus {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1SubjectRulesReviewStatus interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1SubjectRulesReviewStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "incomplete" in value;
-    isInstance = isInstance && "nonResourceRules" in value;
-    isInstance = isInstance && "resourceRules" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1SubjectRulesReviewStatus(value: object): value is IoK8sApiAuthorizationV1SubjectRulesReviewStatus {
+    if (!('incomplete' in value) || value['incomplete'] === undefined) return false;
+    if (!('nonResourceRules' in value) || value['nonResourceRules'] === undefined) return false;
+    if (!('resourceRules' in value) || value['resourceRules'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSON(json: any): IoK8sApiAuthorizationV1SubjectRulesReviewStatus {
@@ -75,31 +75,33 @@ export function IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSON(json: an
 }
 
 export function IoK8sApiAuthorizationV1SubjectRulesReviewStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1SubjectRulesReviewStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'evaluationError': !exists(json, 'evaluationError') ? undefined : json['evaluationError'],
+        'evaluationError': json['evaluationError'] == null ? undefined : json['evaluationError'],
         'incomplete': json['incomplete'],
         'nonResourceRules': ((json['nonResourceRules'] as Array<any>).map(IoK8sApiAuthorizationV1NonResourceRuleFromJSON)),
         'resourceRules': ((json['resourceRules'] as Array<any>).map(IoK8sApiAuthorizationV1ResourceRuleFromJSON)),
     };
 }
 
-export function IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSON(value?: IoK8sApiAuthorizationV1SubjectRulesReviewStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSON(json: any): IoK8sApiAuthorizationV1SubjectRulesReviewStatus {
+    return IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1SubjectRulesReviewStatusToJSONTyped(value?: IoK8sApiAuthorizationV1SubjectRulesReviewStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'evaluationError': value.evaluationError,
-        'incomplete': value.incomplete,
-        'nonResourceRules': ((value.nonResourceRules as Array<any>).map(IoK8sApiAuthorizationV1NonResourceRuleToJSON)),
-        'resourceRules': ((value.resourceRules as Array<any>).map(IoK8sApiAuthorizationV1ResourceRuleToJSON)),
+        'evaluationError': value['evaluationError'],
+        'incomplete': value['incomplete'],
+        'nonResourceRules': ((value['nonResourceRules'] as Array<any>).map(IoK8sApiAuthorizationV1NonResourceRuleToJSON)),
+        'resourceRules': ((value['resourceRules'] as Array<any>).map(IoK8sApiAuthorizationV1ResourceRuleToJSON)),
     };
 }
 

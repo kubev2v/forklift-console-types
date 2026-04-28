@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition';
-import {
-    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSON,
-    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSONTyped,
-    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSON,
-} from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2MetricStatus } from './IoK8sApiAutoscalingV2MetricStatus';
 import {
     IoK8sApiAutoscalingV2MetricStatusFromJSON,
     IoK8sApiAutoscalingV2MetricStatusFromJSONTyped,
     IoK8sApiAutoscalingV2MetricStatusToJSON,
+    IoK8sApiAutoscalingV2MetricStatusToJSONTyped,
 } from './IoK8sApiAutoscalingV2MetricStatus';
+import type { IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition';
+import {
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSON,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSONTyped,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSON,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSONTyped,
+} from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerCondition';
 
 /**
  * HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
@@ -61,7 +63,7 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
      * @type {Date}
      * @memberof IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus
      */
-    lastScaleTime?: string;
+    lastScaleTime?: Date;
     /**
      * observedGeneration is the most recent generation observed by this autoscaler.
      * @type {number}
@@ -73,11 +75,9 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "desiredReplicas" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus(value: object): value is IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
+    if (!('desiredReplicas' in value) || value['desiredReplicas'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
@@ -85,35 +85,37 @@ export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSON(json:
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSON)),
-        'currentMetrics': !exists(json, 'currentMetrics') ? undefined : ((json['currentMetrics'] as Array<any>).map(IoK8sApiAutoscalingV2MetricStatusFromJSON)),
-        'currentReplicas': !exists(json, 'currentReplicas') ? undefined : json['currentReplicas'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionFromJSON)),
+        'currentMetrics': json['currentMetrics'] == null ? undefined : ((json['currentMetrics'] as Array<any>).map(IoK8sApiAutoscalingV2MetricStatusFromJSON)),
+        'currentReplicas': json['currentReplicas'] == null ? undefined : json['currentReplicas'],
         'desiredReplicas': json['desiredReplicas'],
-        'lastScaleTime': !exists(json, 'lastScaleTime') ? undefined : json['lastScaleTime'],
-        'observedGeneration': !exists(json, 'observedGeneration') ? undefined : json['observedGeneration'],
+        'lastScaleTime': json['lastScaleTime'] == null ? undefined : (new Date(json['lastScaleTime'])),
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
     };
 }
 
-export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSON(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
+    return IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSONTyped(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSON)),
-        'currentMetrics': value.currentMetrics === undefined ? undefined : ((value.currentMetrics as Array<any>).map(IoK8sApiAutoscalingV2MetricStatusToJSON)),
-        'currentReplicas': value.currentReplicas,
-        'desiredReplicas': value.desiredReplicas,
-        'lastScaleTime': value.lastScaleTime === undefined ? undefined : (value.lastScaleTime),
-        'observedGeneration': value.observedGeneration,
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiAutoscalingV2HorizontalPodAutoscalerConditionToJSON)),
+        'currentMetrics': value['currentMetrics'] == null ? undefined : ((value['currentMetrics'] as Array<any>).map(IoK8sApiAutoscalingV2MetricStatusToJSON)),
+        'currentReplicas': value['currentReplicas'],
+        'desiredReplicas': value['desiredReplicas'],
+        'lastScaleTime': value['lastScaleTime'] == null ? undefined : ((value['lastScaleTime']).toISOString()),
+        'observedGeneration': value['observedGeneration'],
     };
 }
 

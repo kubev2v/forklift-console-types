@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NodeSelector } from './IoK8sApiCoreV1NodeSelector';
 import {
     IoK8sApiCoreV1NodeSelectorFromJSON,
     IoK8sApiCoreV1NodeSelectorFromJSONTyped,
     IoK8sApiCoreV1NodeSelectorToJSON,
+    IoK8sApiCoreV1NodeSelectorToJSONTyped,
 } from './IoK8sApiCoreV1NodeSelector';
 import type { IoK8sApiCoreV1PreferredSchedulingTerm } from './IoK8sApiCoreV1PreferredSchedulingTerm';
 import {
     IoK8sApiCoreV1PreferredSchedulingTermFromJSON,
     IoK8sApiCoreV1PreferredSchedulingTermFromJSONTyped,
     IoK8sApiCoreV1PreferredSchedulingTermToJSON,
+    IoK8sApiCoreV1PreferredSchedulingTermToJSONTyped,
 } from './IoK8sApiCoreV1PreferredSchedulingTerm';
 
 /**
@@ -49,10 +51,8 @@ export interface IoK8sApiCoreV1NodeAffinity {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeAffinity interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeAffinity(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeAffinity(value: object): value is IoK8sApiCoreV1NodeAffinity {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeAffinityFromJSON(json: any): IoK8sApiCoreV1NodeAffinity {
@@ -60,27 +60,29 @@ export function IoK8sApiCoreV1NodeAffinityFromJSON(json: any): IoK8sApiCoreV1Nod
 }
 
 export function IoK8sApiCoreV1NodeAffinityFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeAffinity {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'preferredDuringSchedulingIgnoredDuringExecution': !exists(json, 'preferredDuringSchedulingIgnoredDuringExecution') ? undefined : ((json['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1PreferredSchedulingTermFromJSON)),
-        'requiredDuringSchedulingIgnoredDuringExecution': !exists(json, 'requiredDuringSchedulingIgnoredDuringExecution') ? undefined : IoK8sApiCoreV1NodeSelectorFromJSON(json['requiredDuringSchedulingIgnoredDuringExecution']),
+        'preferredDuringSchedulingIgnoredDuringExecution': json['preferredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((json['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1PreferredSchedulingTermFromJSON)),
+        'requiredDuringSchedulingIgnoredDuringExecution': json['requiredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : IoK8sApiCoreV1NodeSelectorFromJSON(json['requiredDuringSchedulingIgnoredDuringExecution']),
     };
 }
 
-export function IoK8sApiCoreV1NodeAffinityToJSON(value?: IoK8sApiCoreV1NodeAffinity | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeAffinityToJSON(json: any): IoK8sApiCoreV1NodeAffinity {
+    return IoK8sApiCoreV1NodeAffinityToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeAffinityToJSONTyped(value?: IoK8sApiCoreV1NodeAffinity | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'preferredDuringSchedulingIgnoredDuringExecution': value.preferredDuringSchedulingIgnoredDuringExecution === undefined ? undefined : ((value.preferredDuringSchedulingIgnoredDuringExecution as Array<any>).map(IoK8sApiCoreV1PreferredSchedulingTermToJSON)),
-        'requiredDuringSchedulingIgnoredDuringExecution': IoK8sApiCoreV1NodeSelectorToJSON(value.requiredDuringSchedulingIgnoredDuringExecution),
+        'preferredDuringSchedulingIgnoredDuringExecution': value['preferredDuringSchedulingIgnoredDuringExecution'] == null ? undefined : ((value['preferredDuringSchedulingIgnoredDuringExecution'] as Array<any>).map(IoK8sApiCoreV1PreferredSchedulingTermToJSON)),
+        'requiredDuringSchedulingIgnoredDuringExecution': IoK8sApiCoreV1NodeSelectorToJSON(value['requiredDuringSchedulingIgnoredDuringExecution']),
     };
 }
 

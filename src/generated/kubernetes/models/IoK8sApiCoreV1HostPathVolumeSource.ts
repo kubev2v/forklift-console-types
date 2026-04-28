@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
  * @export
@@ -36,11 +36,9 @@ export interface IoK8sApiCoreV1HostPathVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1HostPathVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1HostPathVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1HostPathVolumeSource(value: object): value is IoK8sApiCoreV1HostPathVolumeSource {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1HostPathVolumeSourceFromJSON(json: any): IoK8sApiCoreV1HostPathVolumeSource {
@@ -48,27 +46,29 @@ export function IoK8sApiCoreV1HostPathVolumeSourceFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1HostPathVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1HostPathVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'path': json['path'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiCoreV1HostPathVolumeSourceToJSON(value?: IoK8sApiCoreV1HostPathVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1HostPathVolumeSourceToJSON(json: any): IoK8sApiCoreV1HostPathVolumeSource {
+    return IoK8sApiCoreV1HostPathVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1HostPathVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1HostPathVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'path': value.path,
-        'type': value.type,
+        'path': value['path'],
+        'type': value['type'],
     };
 }
 

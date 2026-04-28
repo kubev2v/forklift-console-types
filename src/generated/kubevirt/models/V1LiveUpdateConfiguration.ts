@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface V1LiveUpdateConfiguration {
     /**
-     * MaxCpuSockets holds the maximum amount of sockets that can be hotplugged
+     * MaxCpuSockets provides a MaxSockets value for VMs that do not provide their own. For VMs with more sockets than maximum the MaxSockets will be set to equal number of sockets.
      * @type {number}
      * @memberof V1LiveUpdateConfiguration
      */
@@ -63,10 +63,10 @@ export interface V1LiveUpdateConfiguration {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1LiveUpdateConfiguration
      */
-    maxGuest?: string;
+    maxGuest?: object;
     /**
      * MaxHotplugRatio is the ratio used to define the max amount of a hotplug resource that can be made available to a VM when the specific Max* setting is not defined (MaxCpuSockets, MaxGuest) Example: VM is configured with 512Mi of guest memory, if MaxGuest is not defined and MaxHotplugRatio is 2 then MaxGuest = 1Gi defaults to 4
      * @type {number}
@@ -78,10 +78,8 @@ export interface V1LiveUpdateConfiguration {
 /**
  * Check if a given object implements the V1LiveUpdateConfiguration interface.
  */
-export function instanceOfV1LiveUpdateConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1LiveUpdateConfiguration(value: object): value is V1LiveUpdateConfiguration {
+    return true;
 }
 
 export function V1LiveUpdateConfigurationFromJSON(json: any): V1LiveUpdateConfiguration {
@@ -89,29 +87,31 @@ export function V1LiveUpdateConfigurationFromJSON(json: any): V1LiveUpdateConfig
 }
 
 export function V1LiveUpdateConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1LiveUpdateConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'maxCpuSockets': !exists(json, 'maxCpuSockets') ? undefined : json['maxCpuSockets'],
-        'maxGuest': !exists(json, 'maxGuest') ? undefined : json['maxGuest'],
-        'maxHotplugRatio': !exists(json, 'maxHotplugRatio') ? undefined : json['maxHotplugRatio'],
+        'maxCpuSockets': json['maxCpuSockets'] == null ? undefined : json['maxCpuSockets'],
+        'maxGuest': json['maxGuest'] == null ? undefined : json['maxGuest'],
+        'maxHotplugRatio': json['maxHotplugRatio'] == null ? undefined : json['maxHotplugRatio'],
     };
 }
 
-export function V1LiveUpdateConfigurationToJSON(value?: V1LiveUpdateConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1LiveUpdateConfigurationToJSON(json: any): V1LiveUpdateConfiguration {
+    return V1LiveUpdateConfigurationToJSONTyped(json, false);
+}
+
+export function V1LiveUpdateConfigurationToJSONTyped(value?: V1LiveUpdateConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'maxCpuSockets': value.maxCpuSockets,
-        'maxGuest': value.maxGuest,
-        'maxHotplugRatio': value.maxHotplugRatio,
+        'maxCpuSockets': value['maxCpuSockets'],
+        'maxGuest': value['maxGuest'],
+        'maxHotplugRatio': value['maxHotplugRatio'],
     };
 }
 

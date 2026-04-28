@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiBatchV1CronJobSpec } from './IoK8sApiBatchV1CronJobSpec';
-import {
-    IoK8sApiBatchV1CronJobSpecFromJSON,
-    IoK8sApiBatchV1CronJobSpecFromJSONTyped,
-    IoK8sApiBatchV1CronJobSpecToJSON,
-} from './IoK8sApiBatchV1CronJobSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiBatchV1CronJobStatus } from './IoK8sApiBatchV1CronJobStatus';
 import {
     IoK8sApiBatchV1CronJobStatusFromJSON,
     IoK8sApiBatchV1CronJobStatusFromJSONTyped,
     IoK8sApiBatchV1CronJobStatusToJSON,
+    IoK8sApiBatchV1CronJobStatusToJSONTyped,
 } from './IoK8sApiBatchV1CronJobStatus';
+import type { IoK8sApiBatchV1CronJobSpec } from './IoK8sApiBatchV1CronJobSpec';
+import {
+    IoK8sApiBatchV1CronJobSpecFromJSON,
+    IoK8sApiBatchV1CronJobSpecFromJSONTyped,
+    IoK8sApiBatchV1CronJobSpecToJSON,
+    IoK8sApiBatchV1CronJobSpecToJSONTyped,
+} from './IoK8sApiBatchV1CronJobSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -61,7 +64,7 @@ export interface IoK8sApiBatchV1CronJob {
      * @type {IoK8sApiBatchV1CronJobSpec}
      * @memberof IoK8sApiBatchV1CronJob
      */
-    spec?: IoK8sApiBatchV1CronJobSpec;
+    spec: IoK8sApiBatchV1CronJobSpec;
     /**
      * 
      * @type {IoK8sApiBatchV1CronJobStatus}
@@ -73,10 +76,9 @@ export interface IoK8sApiBatchV1CronJob {
 /**
  * Check if a given object implements the IoK8sApiBatchV1CronJob interface.
  */
-export function instanceOfIoK8sApiBatchV1CronJob(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1CronJob(value: object): value is IoK8sApiBatchV1CronJob {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1CronJobFromJSON(json: any): IoK8sApiBatchV1CronJob {
@@ -84,33 +86,35 @@ export function IoK8sApiBatchV1CronJobFromJSON(json: any): IoK8sApiBatchV1CronJo
 }
 
 export function IoK8sApiBatchV1CronJobFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1CronJob {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiBatchV1CronJobSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiBatchV1CronJobStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': IoK8sApiBatchV1CronJobSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiBatchV1CronJobStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiBatchV1CronJobToJSON(value?: IoK8sApiBatchV1CronJob | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1CronJobToJSON(json: any): IoK8sApiBatchV1CronJob {
+    return IoK8sApiBatchV1CronJobToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1CronJobToJSONTyped(value?: IoK8sApiBatchV1CronJob | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiBatchV1CronJobSpecToJSON(value.spec),
-        'status': IoK8sApiBatchV1CronJobStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiBatchV1CronJobSpecToJSON(value['spec']),
+        'status': IoK8sApiBatchV1CronJobStatusToJSON(value['status']),
     };
 }
 

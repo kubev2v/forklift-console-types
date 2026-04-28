@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * IngressTLS describes the transport layer security associated with an ingress.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiNetworkingV1IngressTLS {
      * @type {Array<string>}
      * @memberof IoK8sApiNetworkingV1IngressTLS
      */
-    hosts?: string[];
+    hosts?: Array<string>;
     /**
      * secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
      * @type {string}
@@ -36,10 +36,8 @@ export interface IoK8sApiNetworkingV1IngressTLS {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressTLS interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressTLS(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressTLS(value: object): value is IoK8sApiNetworkingV1IngressTLS {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressTLSFromJSON(json: any): IoK8sApiNetworkingV1IngressTLS {
@@ -47,27 +45,29 @@ export function IoK8sApiNetworkingV1IngressTLSFromJSON(json: any): IoK8sApiNetwo
 }
 
 export function IoK8sApiNetworkingV1IngressTLSFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressTLS {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hosts': !exists(json, 'hosts') ? undefined : json['hosts'],
-        'secretName': !exists(json, 'secretName') ? undefined : json['secretName'],
+        'hosts': json['hosts'] == null ? undefined : json['hosts'],
+        'secretName': json['secretName'] == null ? undefined : json['secretName'],
     };
 }
 
-export function IoK8sApiNetworkingV1IngressTLSToJSON(value?: IoK8sApiNetworkingV1IngressTLS | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressTLSToJSON(json: any): IoK8sApiNetworkingV1IngressTLS {
+    return IoK8sApiNetworkingV1IngressTLSToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressTLSToJSONTyped(value?: IoK8sApiNetworkingV1IngressTLS | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hosts': value.hosts,
-        'secretName': value.secretName,
+        'hosts': value['hosts'],
+        'secretName': value['secretName'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SleepAction describes a "sleep" action.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiCoreV1SleepAction {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SleepAction interface.
  */
-export function instanceOfIoK8sApiCoreV1SleepAction(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "seconds" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SleepAction(value: object): value is IoK8sApiCoreV1SleepAction {
+    if (!('seconds' in value) || value['seconds'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1SleepActionFromJSON(json: any): IoK8sApiCoreV1SleepAction {
@@ -42,7 +40,7 @@ export function IoK8sApiCoreV1SleepActionFromJSON(json: any): IoK8sApiCoreV1Slee
 }
 
 export function IoK8sApiCoreV1SleepActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SleepAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiCoreV1SleepActionFromJSONTyped(json: any, ignoreDiscrimi
     };
 }
 
-export function IoK8sApiCoreV1SleepActionToJSON(value?: IoK8sApiCoreV1SleepAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SleepActionToJSON(json: any): IoK8sApiCoreV1SleepAction {
+    return IoK8sApiCoreV1SleepActionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SleepActionToJSONTyped(value?: IoK8sApiCoreV1SleepAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'seconds': value.seconds,
+        'seconds': value['seconds'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Sysctl defines a kernel parameter to be set
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApiCoreV1Sysctl {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Sysctl interface.
  */
-export function instanceOfIoK8sApiCoreV1Sysctl(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Sysctl(value: object): value is IoK8sApiCoreV1Sysctl {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1SysctlFromJSON(json: any): IoK8sApiCoreV1Sysctl {
@@ -49,7 +47,7 @@ export function IoK8sApiCoreV1SysctlFromJSON(json: any): IoK8sApiCoreV1Sysctl {
 }
 
 export function IoK8sApiCoreV1SysctlFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Sysctl {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiCoreV1SysctlFromJSONTyped(json: any, ignoreDiscriminator
     };
 }
 
-export function IoK8sApiCoreV1SysctlToJSON(value?: IoK8sApiCoreV1Sysctl | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SysctlToJSON(json: any): IoK8sApiCoreV1Sysctl {
+    return IoK8sApiCoreV1SysctlToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SysctlToJSONTyped(value?: IoK8sApiCoreV1Sysctl | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'value': value.value,
+        'name': value['name'],
+        'value': value['value'],
     };
 }
 

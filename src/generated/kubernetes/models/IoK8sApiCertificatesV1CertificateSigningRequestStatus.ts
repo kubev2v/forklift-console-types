@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCertificatesV1CertificateSigningRequestCondition } from './IoK8sApiCertificatesV1CertificateSigningRequestCondition';
 import {
     IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSON,
     IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSONTyped,
     IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSON,
+    IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSONTyped,
 } from './IoK8sApiCertificatesV1CertificateSigningRequestCondition';
 
 /**
@@ -64,10 +65,8 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestStatus {
 /**
  * Check if a given object implements the IoK8sApiCertificatesV1CertificateSigningRequestStatus interface.
  */
-export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequestStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequestStatus(value: object): value is IoK8sApiCertificatesV1CertificateSigningRequestStatus {
+    return true;
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequestStatus {
@@ -75,27 +74,29 @@ export function IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSON(js
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCertificatesV1CertificateSigningRequestStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'certificate': !exists(json, 'certificate') ? undefined : json['certificate'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSON)),
+        'certificate': json['certificate'] == null ? undefined : json['certificate'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSON)),
     };
 }
 
-export function IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSON(value?: IoK8sApiCertificatesV1CertificateSigningRequestStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequestStatus {
+    return IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCertificatesV1CertificateSigningRequestStatusToJSONTyped(value?: IoK8sApiCertificatesV1CertificateSigningRequestStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'certificate': value.certificate,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSON)),
+        'certificate': value['certificate'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSON)),
     };
 }
 

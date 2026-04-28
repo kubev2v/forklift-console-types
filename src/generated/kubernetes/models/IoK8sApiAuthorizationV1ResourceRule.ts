@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
  * @export
@@ -20,26 +20,26 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiAuthorizationV1ResourceRule {
     /**
-     * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
+     * apiGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1ResourceRule
      */
     apiGroups?: Array<string>;
     /**
-     * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
+     * resourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1ResourceRule
      */
     resourceNames?: Array<string>;
     /**
-     * Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
-     *  "/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
+     * resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
+     *  "star/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1ResourceRule
      */
     resources?: Array<string>;
     /**
-     * Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+     * verbs is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.
      * @type {Array<string>}
      * @memberof IoK8sApiAuthorizationV1ResourceRule
      */
@@ -49,11 +49,9 @@ export interface IoK8sApiAuthorizationV1ResourceRule {
 /**
  * Check if a given object implements the IoK8sApiAuthorizationV1ResourceRule interface.
  */
-export function instanceOfIoK8sApiAuthorizationV1ResourceRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthorizationV1ResourceRule(value: object): value is IoK8sApiAuthorizationV1ResourceRule {
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAuthorizationV1ResourceRuleFromJSON(json: any): IoK8sApiAuthorizationV1ResourceRule {
@@ -61,31 +59,33 @@ export function IoK8sApiAuthorizationV1ResourceRuleFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiAuthorizationV1ResourceRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthorizationV1ResourceRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiGroups': !exists(json, 'apiGroups') ? undefined : json['apiGroups'],
-        'resourceNames': !exists(json, 'resourceNames') ? undefined : json['resourceNames'],
-        'resources': !exists(json, 'resources') ? undefined : json['resources'],
+        'apiGroups': json['apiGroups'] == null ? undefined : json['apiGroups'],
+        'resourceNames': json['resourceNames'] == null ? undefined : json['resourceNames'],
+        'resources': json['resources'] == null ? undefined : json['resources'],
         'verbs': json['verbs'],
     };
 }
 
-export function IoK8sApiAuthorizationV1ResourceRuleToJSON(value?: IoK8sApiAuthorizationV1ResourceRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthorizationV1ResourceRuleToJSON(json: any): IoK8sApiAuthorizationV1ResourceRule {
+    return IoK8sApiAuthorizationV1ResourceRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthorizationV1ResourceRuleToJSONTyped(value?: IoK8sApiAuthorizationV1ResourceRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiGroups': value.apiGroups,
-        'resourceNames': value.resourceNames,
-        'resources': value.resources,
-        'verbs': value.verbs,
+        'apiGroups': value['apiGroups'],
+        'resourceNames': value['resourceNames'],
+        'resources': value['resources'],
+        'verbs': value['verbs'],
     };
 }
 

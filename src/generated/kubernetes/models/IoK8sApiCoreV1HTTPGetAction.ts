@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1HTTPHeader } from './IoK8sApiCoreV1HTTPHeader';
 import {
     IoK8sApiCoreV1HTTPHeaderFromJSON,
     IoK8sApiCoreV1HTTPHeaderFromJSONTyped,
     IoK8sApiCoreV1HTTPHeaderToJSON,
+    IoK8sApiCoreV1HTTPHeaderToJSONTyped,
 } from './IoK8sApiCoreV1HTTPHeader';
 
 /**
@@ -61,11 +62,9 @@ export interface IoK8sApiCoreV1HTTPGetAction {
 /**
  * Check if a given object implements the IoK8sApiCoreV1HTTPGetAction interface.
  */
-export function instanceOfIoK8sApiCoreV1HTTPGetAction(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1HTTPGetAction(value: object): value is IoK8sApiCoreV1HTTPGetAction {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1HTTPGetActionFromJSON(json: any): IoK8sApiCoreV1HTTPGetAction {
@@ -73,33 +72,35 @@ export function IoK8sApiCoreV1HTTPGetActionFromJSON(json: any): IoK8sApiCoreV1HT
 }
 
 export function IoK8sApiCoreV1HTTPGetActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1HTTPGetAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'host': !exists(json, 'host') ? undefined : json['host'],
-        'httpHeaders': !exists(json, 'httpHeaders') ? undefined : ((json['httpHeaders'] as Array<any>).map(IoK8sApiCoreV1HTTPHeaderFromJSON)),
-        'path': !exists(json, 'path') ? undefined : json['path'],
+        'host': json['host'] == null ? undefined : json['host'],
+        'httpHeaders': json['httpHeaders'] == null ? undefined : ((json['httpHeaders'] as Array<any>).map(IoK8sApiCoreV1HTTPHeaderFromJSON)),
+        'path': json['path'] == null ? undefined : json['path'],
         'port': json['port'],
-        'scheme': !exists(json, 'scheme') ? undefined : json['scheme'],
+        'scheme': json['scheme'] == null ? undefined : json['scheme'],
     };
 }
 
-export function IoK8sApiCoreV1HTTPGetActionToJSON(value?: IoK8sApiCoreV1HTTPGetAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1HTTPGetActionToJSON(json: any): IoK8sApiCoreV1HTTPGetAction {
+    return IoK8sApiCoreV1HTTPGetActionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1HTTPGetActionToJSONTyped(value?: IoK8sApiCoreV1HTTPGetAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'host': value.host,
-        'httpHeaders': value.httpHeaders === undefined ? undefined : ((value.httpHeaders as Array<any>).map(IoK8sApiCoreV1HTTPHeaderToJSON)),
-        'path': value.path,
-        'port': value.port,
-        'scheme': value.scheme,
+        'host': value['host'],
+        'httpHeaders': value['httpHeaders'] == null ? undefined : ((value['httpHeaders'] as Array<any>).map(IoK8sApiCoreV1HTTPHeaderToJSON)),
+        'path': value['path'],
+        'port': value['port'],
+        'scheme': value['scheme'],
     };
 }
 

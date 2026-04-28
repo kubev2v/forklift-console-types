@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAuthenticationV1UserInfo } from './IoK8sApiAuthenticationV1UserInfo';
 import {
     IoK8sApiAuthenticationV1UserInfoFromJSON,
     IoK8sApiAuthenticationV1UserInfoFromJSONTyped,
     IoK8sApiAuthenticationV1UserInfoToJSON,
+    IoK8sApiAuthenticationV1UserInfoToJSONTyped,
 } from './IoK8sApiAuthenticationV1UserInfo';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiAuthenticationV1SelfSubjectReviewStatus {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1SelfSubjectReviewStatus interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1SelfSubjectReviewStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1SelfSubjectReviewStatus(value: object): value is IoK8sApiAuthenticationV1SelfSubjectReviewStatus {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSON(json: any): IoK8sApiAuthenticationV1SelfSubjectReviewStatus {
@@ -48,25 +47,27 @@ export function IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSON(json: an
 }
 
 export function IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1SelfSubjectReviewStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'userInfo': !exists(json, 'userInfo') ? undefined : IoK8sApiAuthenticationV1UserInfoFromJSON(json['userInfo']),
+        'userInfo': json['userInfo'] == null ? undefined : IoK8sApiAuthenticationV1UserInfoFromJSON(json['userInfo']),
     };
 }
 
-export function IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSON(value?: IoK8sApiAuthenticationV1SelfSubjectReviewStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSON(json: any): IoK8sApiAuthenticationV1SelfSubjectReviewStatus {
+    return IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSONTyped(value?: IoK8sApiAuthenticationV1SelfSubjectReviewStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'userInfo': IoK8sApiAuthenticationV1UserInfoToJSON(value.userInfo),
+        'userInfo': IoK8sApiAuthenticationV1UserInfoToJSON(value['userInfo']),
     };
 }
 

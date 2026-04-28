@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DeploymentCondition describes the state of a deployment at a certain point.
  * @export
@@ -24,13 +24,13 @@ export interface IoK8sApiAppsV1DeploymentCondition {
      * @type {Date}
      * @memberof IoK8sApiAppsV1DeploymentCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiAppsV1DeploymentCondition
      */
-    lastUpdateTime?: string;
+    lastUpdateTime?: Date;
     /**
      * A human readable message indicating details about the transition.
      * @type {string}
@@ -60,12 +60,10 @@ export interface IoK8sApiAppsV1DeploymentCondition {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DeploymentCondition interface.
  */
-export function instanceOfIoK8sApiAppsV1DeploymentCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DeploymentCondition(value: object): value is IoK8sApiAppsV1DeploymentCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAppsV1DeploymentConditionFromJSON(json: any): IoK8sApiAppsV1DeploymentCondition {
@@ -73,35 +71,37 @@ export function IoK8sApiAppsV1DeploymentConditionFromJSON(json: any): IoK8sApiAp
 }
 
 export function IoK8sApiAppsV1DeploymentConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DeploymentCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'lastUpdateTime': !exists(json, 'lastUpdateTime') ? undefined : json['lastUpdateTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastUpdateTime': json['lastUpdateTime'] == null ? undefined : (new Date(json['lastUpdateTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function IoK8sApiAppsV1DeploymentConditionToJSON(value?: IoK8sApiAppsV1DeploymentCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DeploymentConditionToJSON(json: any): IoK8sApiAppsV1DeploymentCondition {
+    return IoK8sApiAppsV1DeploymentConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DeploymentConditionToJSONTyped(value?: IoK8sApiAppsV1DeploymentCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'lastUpdateTime': value.lastUpdateTime === undefined ? undefined : (value.lastUpdateTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastUpdateTime': value['lastUpdateTime'] == null ? undefined : ((value['lastUpdateTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

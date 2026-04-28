@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1KeyToPath } from './IoK8sApiCoreV1KeyToPath';
 import {
     IoK8sApiCoreV1KeyToPathFromJSON,
     IoK8sApiCoreV1KeyToPathFromJSONTyped,
     IoK8sApiCoreV1KeyToPathToJSON,
+    IoK8sApiCoreV1KeyToPathToJSONTyped,
 } from './IoK8sApiCoreV1KeyToPath';
 
 /**
@@ -41,7 +42,7 @@ export interface IoK8sApiCoreV1ConfigMapVolumeSource {
      */
     items?: Array<IoK8sApiCoreV1KeyToPath>;
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof IoK8sApiCoreV1ConfigMapVolumeSource
      */
@@ -57,10 +58,8 @@ export interface IoK8sApiCoreV1ConfigMapVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ConfigMapVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1ConfigMapVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ConfigMapVolumeSource(value: object): value is IoK8sApiCoreV1ConfigMapVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1ConfigMapVolumeSourceFromJSON(json: any): IoK8sApiCoreV1ConfigMapVolumeSource {
@@ -68,31 +67,33 @@ export function IoK8sApiCoreV1ConfigMapVolumeSourceFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ConfigMapVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ConfigMapVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'defaultMode': !exists(json, 'defaultMode') ? undefined : json['defaultMode'],
-        'items': !exists(json, 'items') ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1KeyToPathFromJSON)),
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
+        'defaultMode': json['defaultMode'] == null ? undefined : json['defaultMode'],
+        'items': json['items'] == null ? undefined : ((json['items'] as Array<any>).map(IoK8sApiCoreV1KeyToPathFromJSON)),
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
     };
 }
 
-export function IoK8sApiCoreV1ConfigMapVolumeSourceToJSON(value?: IoK8sApiCoreV1ConfigMapVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ConfigMapVolumeSourceToJSON(json: any): IoK8sApiCoreV1ConfigMapVolumeSource {
+    return IoK8sApiCoreV1ConfigMapVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ConfigMapVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1ConfigMapVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'defaultMode': value.defaultMode,
-        'items': value.items === undefined ? undefined : ((value.items as Array<any>).map(IoK8sApiCoreV1KeyToPathToJSON)),
-        'name': value.name,
-        'optional': value.optional,
+        'defaultMode': value['defaultMode'],
+        'items': value['items'] == null ? undefined : ((value['items'] as Array<any>).map(IoK8sApiCoreV1KeyToPathToJSON)),
+        'name': value['name'],
+        'optional': value['optional'],
     };
 }
 

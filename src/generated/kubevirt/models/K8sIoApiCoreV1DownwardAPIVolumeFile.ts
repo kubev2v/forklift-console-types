@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1ObjectFieldSelector } from './K8sIoApiCoreV1ObjectFieldSelector';
 import {
     K8sIoApiCoreV1ObjectFieldSelectorFromJSON,
     K8sIoApiCoreV1ObjectFieldSelectorFromJSONTyped,
     K8sIoApiCoreV1ObjectFieldSelectorToJSON,
+    K8sIoApiCoreV1ObjectFieldSelectorToJSONTyped,
 } from './K8sIoApiCoreV1ObjectFieldSelector';
 import type { K8sIoApiCoreV1ResourceFieldSelector } from './K8sIoApiCoreV1ResourceFieldSelector';
 import {
     K8sIoApiCoreV1ResourceFieldSelectorFromJSON,
     K8sIoApiCoreV1ResourceFieldSelectorFromJSONTyped,
     K8sIoApiCoreV1ResourceFieldSelectorToJSON,
+    K8sIoApiCoreV1ResourceFieldSelectorToJSONTyped,
 } from './K8sIoApiCoreV1ResourceFieldSelector';
 
 /**
@@ -61,11 +63,9 @@ export interface K8sIoApiCoreV1DownwardAPIVolumeFile {
 /**
  * Check if a given object implements the K8sIoApiCoreV1DownwardAPIVolumeFile interface.
  */
-export function instanceOfK8sIoApiCoreV1DownwardAPIVolumeFile(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1DownwardAPIVolumeFile(value: object): value is K8sIoApiCoreV1DownwardAPIVolumeFile {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1DownwardAPIVolumeFileFromJSON(json: any): K8sIoApiCoreV1DownwardAPIVolumeFile {
@@ -73,31 +73,33 @@ export function K8sIoApiCoreV1DownwardAPIVolumeFileFromJSON(json: any): K8sIoApi
 }
 
 export function K8sIoApiCoreV1DownwardAPIVolumeFileFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1DownwardAPIVolumeFile {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fieldRef': !exists(json, 'fieldRef') ? undefined : K8sIoApiCoreV1ObjectFieldSelectorFromJSON(json['fieldRef']),
-        'mode': !exists(json, 'mode') ? undefined : json['mode'],
+        'fieldRef': json['fieldRef'] == null ? undefined : K8sIoApiCoreV1ObjectFieldSelectorFromJSON(json['fieldRef']),
+        'mode': json['mode'] == null ? undefined : json['mode'],
         'path': json['path'],
-        'resourceFieldRef': !exists(json, 'resourceFieldRef') ? undefined : K8sIoApiCoreV1ResourceFieldSelectorFromJSON(json['resourceFieldRef']),
+        'resourceFieldRef': json['resourceFieldRef'] == null ? undefined : K8sIoApiCoreV1ResourceFieldSelectorFromJSON(json['resourceFieldRef']),
     };
 }
 
-export function K8sIoApiCoreV1DownwardAPIVolumeFileToJSON(value?: K8sIoApiCoreV1DownwardAPIVolumeFile | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1DownwardAPIVolumeFileToJSON(json: any): K8sIoApiCoreV1DownwardAPIVolumeFile {
+    return K8sIoApiCoreV1DownwardAPIVolumeFileToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1DownwardAPIVolumeFileToJSONTyped(value?: K8sIoApiCoreV1DownwardAPIVolumeFile | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fieldRef': K8sIoApiCoreV1ObjectFieldSelectorToJSON(value.fieldRef),
-        'mode': value.mode,
-        'path': value.path,
-        'resourceFieldRef': K8sIoApiCoreV1ResourceFieldSelectorToJSON(value.resourceFieldRef),
+        'fieldRef': K8sIoApiCoreV1ObjectFieldSelectorToJSON(value['fieldRef']),
+        'mode': value['mode'],
+        'path': value['path'],
+        'resourceFieldRef': K8sIoApiCoreV1ResourceFieldSelectorToJSON(value['resourceFieldRef']),
     };
 }
 

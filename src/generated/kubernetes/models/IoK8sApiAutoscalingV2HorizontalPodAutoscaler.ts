@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec';
 import {
     IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSON,
     IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSONTyped,
     IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSON,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSONTyped,
 } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec';
-import type { IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus';
-import {
-    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSON,
-    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSONTyped,
-    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSON,
-} from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus } from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus';
+import {
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSON,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSONTyped,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSON,
+    IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSONTyped,
+} from './IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus';
 
 /**
  * HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
@@ -61,7 +64,7 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscaler {
      * @type {IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec}
      * @memberof IoK8sApiAutoscalingV2HorizontalPodAutoscaler
      */
-    spec?: IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec;
+    spec: IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpec;
     /**
      * 
      * @type {IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus}
@@ -73,10 +76,9 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscaler {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2HorizontalPodAutoscaler interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscaler(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2HorizontalPodAutoscaler(value: object): value is IoK8sApiAutoscalingV2HorizontalPodAutoscaler {
+    if (!('spec' in value) || value['spec'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerFromJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscaler {
@@ -84,33 +86,35 @@ export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerFromJSON(json: any):
 }
 
 export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2HorizontalPodAutoscaler {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerToJSON(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscaler | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerToJSON(json: any): IoK8sApiAutoscalingV2HorizontalPodAutoscaler {
+    return IoK8sApiAutoscalingV2HorizontalPodAutoscalerToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2HorizontalPodAutoscalerToJSONTyped(value?: IoK8sApiAutoscalingV2HorizontalPodAutoscaler | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSON(value.spec),
-        'status': IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiAutoscalingV2HorizontalPodAutoscalerSpecToJSON(value['spec']),
+        'status': IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatusToJSON(value['status']),
     };
 }
 

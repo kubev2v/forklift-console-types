@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 /**
  * ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
  * @export

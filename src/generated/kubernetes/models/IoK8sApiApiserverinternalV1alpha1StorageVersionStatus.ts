@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiApiserverinternalV1alpha1ServerStorageVersion } from './IoK8sApiApiserverinternalV1alpha1ServerStorageVersion';
-import {
-    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSON,
-    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSONTyped,
-    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSON,
-} from './IoK8sApiApiserverinternalV1alpha1ServerStorageVersion';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiApiserverinternalV1alpha1StorageVersionCondition } from './IoK8sApiApiserverinternalV1alpha1StorageVersionCondition';
 import {
     IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSON,
     IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSONTyped,
     IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSON,
+    IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSONTyped,
 } from './IoK8sApiApiserverinternalV1alpha1StorageVersionCondition';
+import type { IoK8sApiApiserverinternalV1alpha1ServerStorageVersion } from './IoK8sApiApiserverinternalV1alpha1ServerStorageVersion';
+import {
+    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSON,
+    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSONTyped,
+    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSON,
+    IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSONTyped,
+} from './IoK8sApiApiserverinternalV1alpha1ServerStorageVersion';
 
 /**
  * API server instances report the versions they can decode and the version they encode objects to when persisting objects in the backend.
@@ -33,19 +35,19 @@ import {
  */
 export interface IoK8sApiApiserverinternalV1alpha1StorageVersionStatus {
     /**
-     * If all API server instances agree on the same encoding storage version, then this field is set to that version. Otherwise this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.
+     * commonEncodingVersion is set to an encoding storage version if all API server instances share that same version. If they don't share one storage version, this field is left empty. API servers should finish updating its storageVersionStatus entry before serving write operations, so that this field will be in sync with the reality.
      * @type {string}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionStatus
      */
     commonEncodingVersion?: string;
     /**
-     * The latest available observations of the storageVersion's state.
+     * conditions lists the latest available observations of the storageVersion's state.
      * @type {Array<IoK8sApiApiserverinternalV1alpha1StorageVersionCondition>}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionStatus
      */
     conditions?: Array<IoK8sApiApiserverinternalV1alpha1StorageVersionCondition>;
     /**
-     * The reported versions per API server instance.
+     * storageVersions lists the reported versions per API server instance.
      * @type {Array<IoK8sApiApiserverinternalV1alpha1ServerStorageVersion>}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionStatus
      */
@@ -55,10 +57,8 @@ export interface IoK8sApiApiserverinternalV1alpha1StorageVersionStatus {
 /**
  * Check if a given object implements the IoK8sApiApiserverinternalV1alpha1StorageVersionStatus interface.
  */
-export function instanceOfIoK8sApiApiserverinternalV1alpha1StorageVersionStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiApiserverinternalV1alpha1StorageVersionStatus(value: object): value is IoK8sApiApiserverinternalV1alpha1StorageVersionStatus {
+    return true;
 }
 
 export function IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSON(json: any): IoK8sApiApiserverinternalV1alpha1StorageVersionStatus {
@@ -66,29 +66,31 @@ export function IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSON(js
 }
 
 export function IoK8sApiApiserverinternalV1alpha1StorageVersionStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiApiserverinternalV1alpha1StorageVersionStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'commonEncodingVersion': !exists(json, 'commonEncodingVersion') ? undefined : json['commonEncodingVersion'],
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSON)),
-        'storageVersions': !exists(json, 'storageVersions') ? undefined : ((json['storageVersions'] as Array<any>).map(IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSON)),
+        'commonEncodingVersion': json['commonEncodingVersion'] == null ? undefined : json['commonEncodingVersion'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSON)),
+        'storageVersions': json['storageVersions'] == null ? undefined : ((json['storageVersions'] as Array<any>).map(IoK8sApiApiserverinternalV1alpha1ServerStorageVersionFromJSON)),
     };
 }
 
-export function IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSON(value?: IoK8sApiApiserverinternalV1alpha1StorageVersionStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSON(json: any): IoK8sApiApiserverinternalV1alpha1StorageVersionStatus {
+    return IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiApiserverinternalV1alpha1StorageVersionStatusToJSONTyped(value?: IoK8sApiApiserverinternalV1alpha1StorageVersionStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'commonEncodingVersion': value.commonEncodingVersion,
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSON)),
-        'storageVersions': value.storageVersions === undefined ? undefined : ((value.storageVersions as Array<any>).map(IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSON)),
+        'commonEncodingVersion': value['commonEncodingVersion'],
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSON)),
+        'storageVersions': value['storageVersions'] == null ? undefined : ((value['storageVersions'] as Array<any>).map(IoK8sApiApiserverinternalV1alpha1ServerStorageVersionToJSON)),
     };
 }
 

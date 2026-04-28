@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -57,20 +57,18 @@ export interface V1beta1MemoryPreferenceRequirement {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1beta1MemoryPreferenceRequirement
      */
-    guest: string;
+    guest: object;
 }
 
 /**
  * Check if a given object implements the V1beta1MemoryPreferenceRequirement interface.
  */
-export function instanceOfV1beta1MemoryPreferenceRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "guest" in value;
-
-    return isInstance;
+export function instanceOfV1beta1MemoryPreferenceRequirement(value: object): value is V1beta1MemoryPreferenceRequirement {
+    if (!('guest' in value) || value['guest'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1MemoryPreferenceRequirementFromJSON(json: any): V1beta1MemoryPreferenceRequirement {
@@ -78,7 +76,7 @@ export function V1beta1MemoryPreferenceRequirementFromJSON(json: any): V1beta1Me
 }
 
 export function V1beta1MemoryPreferenceRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1MemoryPreferenceRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -87,16 +85,18 @@ export function V1beta1MemoryPreferenceRequirementFromJSONTyped(json: any, ignor
     };
 }
 
-export function V1beta1MemoryPreferenceRequirementToJSON(value?: V1beta1MemoryPreferenceRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1MemoryPreferenceRequirementToJSON(json: any): V1beta1MemoryPreferenceRequirement {
+    return V1beta1MemoryPreferenceRequirementToJSONTyped(json, false);
+}
+
+export function V1beta1MemoryPreferenceRequirementToJSONTyped(value?: V1beta1MemoryPreferenceRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'guest': value.guest,
+        'guest': value['guest'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { V1alpha1PersistentVolumeClaim } from './V1alpha1PersistentVolumeClaim';
 import {
     V1alpha1PersistentVolumeClaimFromJSON,

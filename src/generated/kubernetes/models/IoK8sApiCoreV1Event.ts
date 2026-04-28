@@ -12,31 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1EventSeries } from './IoK8sApiCoreV1EventSeries';
-import {
-    IoK8sApiCoreV1EventSeriesFromJSON,
-    IoK8sApiCoreV1EventSeriesFromJSONTyped,
-    IoK8sApiCoreV1EventSeriesToJSON,
-} from './IoK8sApiCoreV1EventSeries';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1EventSource } from './IoK8sApiCoreV1EventSource';
 import {
     IoK8sApiCoreV1EventSourceFromJSON,
     IoK8sApiCoreV1EventSourceFromJSONTyped,
     IoK8sApiCoreV1EventSourceToJSON,
+    IoK8sApiCoreV1EventSourceToJSONTyped,
 } from './IoK8sApiCoreV1EventSource';
 import type { IoK8sApiCoreV1ObjectReference } from './IoK8sApiCoreV1ObjectReference';
 import {
     IoK8sApiCoreV1ObjectReferenceFromJSON,
     IoK8sApiCoreV1ObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1ObjectReferenceToJSON,
+    IoK8sApiCoreV1ObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1ObjectReference';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiCoreV1EventSeries } from './IoK8sApiCoreV1EventSeries';
+import {
+    IoK8sApiCoreV1EventSeriesFromJSON,
+    IoK8sApiCoreV1EventSeriesFromJSONTyped,
+    IoK8sApiCoreV1EventSeriesToJSON,
+    IoK8sApiCoreV1EventSeriesToJSONTyped,
+} from './IoK8sApiCoreV1EventSeries';
 
 /**
  * Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
@@ -67,13 +71,13 @@ export interface IoK8sApiCoreV1Event {
      * @type {Date}
      * @memberof IoK8sApiCoreV1Event
      */
-    eventTime?: string;
+    eventTime?: Date;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1Event
      */
-    firstTimestamp?: string;
+    firstTimestamp?: Date;
     /**
      * 
      * @type {IoK8sApiCoreV1ObjectReference}
@@ -91,7 +95,7 @@ export interface IoK8sApiCoreV1Event {
      * @type {Date}
      * @memberof IoK8sApiCoreV1Event
      */
-    lastTimestamp?: string;
+    lastTimestamp?: Date;
     /**
      * A human-readable description of the status of this operation.
      * @type {string}
@@ -151,12 +155,10 @@ export interface IoK8sApiCoreV1Event {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Event interface.
  */
-export function instanceOfIoK8sApiCoreV1Event(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "involvedObject" in value;
-    isInstance = isInstance && "metadata" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Event(value: object): value is IoK8sApiCoreV1Event {
+    if (!('involvedObject' in value) || value['involvedObject'] === undefined) return false;
+    if (!('metadata' in value) || value['metadata'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1EventFromJSON(json: any): IoK8sApiCoreV1Event {
@@ -164,57 +166,59 @@ export function IoK8sApiCoreV1EventFromJSON(json: any): IoK8sApiCoreV1Event {
 }
 
 export function IoK8sApiCoreV1EventFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Event {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'action': !exists(json, 'action') ? undefined : json['action'],
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'count': !exists(json, 'count') ? undefined : json['count'],
-        'eventTime': !exists(json, 'eventTime') ? undefined : json['eventTime'],
-        'firstTimestamp': !exists(json, 'firstTimestamp') ? undefined : json['firstTimestamp'],
+        'action': json['action'] == null ? undefined : json['action'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'count': json['count'] == null ? undefined : json['count'],
+        'eventTime': json['eventTime'] == null ? undefined : (new Date(json['eventTime'])),
+        'firstTimestamp': json['firstTimestamp'] == null ? undefined : (new Date(json['firstTimestamp'])),
         'involvedObject': IoK8sApiCoreV1ObjectReferenceFromJSON(json['involvedObject']),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'lastTimestamp': !exists(json, 'lastTimestamp') ? undefined : json['lastTimestamp'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'lastTimestamp': json['lastTimestamp'] == null ? undefined : (new Date(json['lastTimestamp'])),
+        'message': json['message'] == null ? undefined : json['message'],
         'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'related': !exists(json, 'related') ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['related']),
-        'reportingComponent': !exists(json, 'reportingComponent') ? undefined : json['reportingComponent'],
-        'reportingInstance': !exists(json, 'reportingInstance') ? undefined : json['reportingInstance'],
-        'series': !exists(json, 'series') ? undefined : IoK8sApiCoreV1EventSeriesFromJSON(json['series']),
-        'source': !exists(json, 'source') ? undefined : IoK8sApiCoreV1EventSourceFromJSON(json['source']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'related': json['related'] == null ? undefined : IoK8sApiCoreV1ObjectReferenceFromJSON(json['related']),
+        'reportingComponent': json['reportingComponent'] == null ? undefined : json['reportingComponent'],
+        'reportingInstance': json['reportingInstance'] == null ? undefined : json['reportingInstance'],
+        'series': json['series'] == null ? undefined : IoK8sApiCoreV1EventSeriesFromJSON(json['series']),
+        'source': json['source'] == null ? undefined : IoK8sApiCoreV1EventSourceFromJSON(json['source']),
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiCoreV1EventToJSON(value?: IoK8sApiCoreV1Event | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EventToJSON(json: any): IoK8sApiCoreV1Event {
+    return IoK8sApiCoreV1EventToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EventToJSONTyped(value?: IoK8sApiCoreV1Event | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'action': value.action,
-        'apiVersion': value.apiVersion,
-        'count': value.count,
-        'eventTime': value.eventTime === undefined ? undefined : (value.eventTime),
-        'firstTimestamp': value.firstTimestamp === undefined ? undefined : (value.firstTimestamp),
-        'involvedObject': IoK8sApiCoreV1ObjectReferenceToJSON(value.involvedObject),
-        'kind': value.kind,
-        'lastTimestamp': value.lastTimestamp === undefined ? undefined : (value.lastTimestamp),
-        'message': value.message,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'reason': value.reason,
-        'related': IoK8sApiCoreV1ObjectReferenceToJSON(value.related),
-        'reportingComponent': value.reportingComponent,
-        'reportingInstance': value.reportingInstance,
-        'series': IoK8sApiCoreV1EventSeriesToJSON(value.series),
-        'source': IoK8sApiCoreV1EventSourceToJSON(value.source),
-        'type': value.type,
+        'action': value['action'],
+        'apiVersion': value['apiVersion'],
+        'count': value['count'],
+        'eventTime': value['eventTime'] == null ? undefined : ((value['eventTime']).toISOString()),
+        'firstTimestamp': value['firstTimestamp'] == null ? undefined : ((value['firstTimestamp']).toISOString()),
+        'involvedObject': IoK8sApiCoreV1ObjectReferenceToJSON(value['involvedObject']),
+        'kind': value['kind'],
+        'lastTimestamp': value['lastTimestamp'] == null ? undefined : ((value['lastTimestamp']).toISOString()),
+        'message': value['message'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'reason': value['reason'],
+        'related': IoK8sApiCoreV1ObjectReferenceToJSON(value['related']),
+        'reportingComponent': value['reportingComponent'],
+        'reportingInstance': value['reportingInstance'],
+        'series': IoK8sApiCoreV1EventSeriesToJSON(value['series']),
+        'source': IoK8sApiCoreV1EventSourceToJSON(value['source']),
+        'type': value['type'],
     };
 }
 

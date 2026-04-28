@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiStorageV1alpha1VolumeAttributesClass } from './IoK8sApiStorageV1alpha1VolumeAttributesClass';
 import {
     IoK8sApiStorageV1alpha1VolumeAttributesClassFromJSON,

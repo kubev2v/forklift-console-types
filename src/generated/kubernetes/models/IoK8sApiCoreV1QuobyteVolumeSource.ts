@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
  * @export
@@ -60,12 +60,10 @@ export interface IoK8sApiCoreV1QuobyteVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1QuobyteVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1QuobyteVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "registry" in value;
-    isInstance = isInstance && "volume" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1QuobyteVolumeSource(value: object): value is IoK8sApiCoreV1QuobyteVolumeSource {
+    if (!('registry' in value) || value['registry'] === undefined) return false;
+    if (!('volume' in value) || value['volume'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1QuobyteVolumeSourceFromJSON(json: any): IoK8sApiCoreV1QuobyteVolumeSource {
@@ -73,35 +71,37 @@ export function IoK8sApiCoreV1QuobyteVolumeSourceFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1QuobyteVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1QuobyteVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'group': !exists(json, 'group') ? undefined : json['group'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
+        'group': json['group'] == null ? undefined : json['group'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
         'registry': json['registry'],
-        'tenant': !exists(json, 'tenant') ? undefined : json['tenant'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'tenant': json['tenant'] == null ? undefined : json['tenant'],
+        'user': json['user'] == null ? undefined : json['user'],
         'volume': json['volume'],
     };
 }
 
-export function IoK8sApiCoreV1QuobyteVolumeSourceToJSON(value?: IoK8sApiCoreV1QuobyteVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1QuobyteVolumeSourceToJSON(json: any): IoK8sApiCoreV1QuobyteVolumeSource {
+    return IoK8sApiCoreV1QuobyteVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1QuobyteVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1QuobyteVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'group': value.group,
-        'readOnly': value.readOnly,
-        'registry': value.registry,
-        'tenant': value.tenant,
-        'user': value.user,
-        'volume': value.volume,
+        'group': value['group'],
+        'readOnly': value['readOnly'],
+        'registry': value['registry'],
+        'tenant': value['tenant'],
+        'user': value['user'],
+        'volume': value['volume'],
     };
 }
 

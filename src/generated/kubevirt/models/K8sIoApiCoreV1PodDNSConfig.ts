@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1PodDNSConfigOption } from './K8sIoApiCoreV1PodDNSConfigOption';
 import {
     K8sIoApiCoreV1PodDNSConfigOptionFromJSON,
     K8sIoApiCoreV1PodDNSConfigOptionFromJSONTyped,
     K8sIoApiCoreV1PodDNSConfigOptionToJSON,
+    K8sIoApiCoreV1PodDNSConfigOptionToJSONTyped,
 } from './K8sIoApiCoreV1PodDNSConfigOption';
 
 /**
@@ -49,10 +50,8 @@ export interface K8sIoApiCoreV1PodDNSConfig {
 /**
  * Check if a given object implements the K8sIoApiCoreV1PodDNSConfig interface.
  */
-export function instanceOfK8sIoApiCoreV1PodDNSConfig(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1PodDNSConfig(value: object): value is K8sIoApiCoreV1PodDNSConfig {
+    return true;
 }
 
 export function K8sIoApiCoreV1PodDNSConfigFromJSON(json: any): K8sIoApiCoreV1PodDNSConfig {
@@ -60,29 +59,31 @@ export function K8sIoApiCoreV1PodDNSConfigFromJSON(json: any): K8sIoApiCoreV1Pod
 }
 
 export function K8sIoApiCoreV1PodDNSConfigFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1PodDNSConfig {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'nameservers': !exists(json, 'nameservers') ? undefined : json['nameservers'],
-        'options': !exists(json, 'options') ? undefined : ((json['options'] as Array<any>).map(K8sIoApiCoreV1PodDNSConfigOptionFromJSON)),
-        'searches': !exists(json, 'searches') ? undefined : json['searches'],
+        'nameservers': json['nameservers'] == null ? undefined : json['nameservers'],
+        'options': json['options'] == null ? undefined : ((json['options'] as Array<any>).map(K8sIoApiCoreV1PodDNSConfigOptionFromJSON)),
+        'searches': json['searches'] == null ? undefined : json['searches'],
     };
 }
 
-export function K8sIoApiCoreV1PodDNSConfigToJSON(value?: K8sIoApiCoreV1PodDNSConfig | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1PodDNSConfigToJSON(json: any): K8sIoApiCoreV1PodDNSConfig {
+    return K8sIoApiCoreV1PodDNSConfigToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1PodDNSConfigToJSONTyped(value?: K8sIoApiCoreV1PodDNSConfig | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'nameservers': value.nameservers,
-        'options': value.options === undefined ? undefined : ((value.options as Array<any>).map(K8sIoApiCoreV1PodDNSConfigOptionToJSON)),
-        'searches': value.searches,
+        'nameservers': value['nameservers'],
+        'options': value['options'] == null ? undefined : ((value['options'] as Array<any>).map(K8sIoApiCoreV1PodDNSConfigOptionToJSON)),
+        'searches': value['searches'],
     };
 }
 

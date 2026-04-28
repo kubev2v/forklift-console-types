@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscovery } from './K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscovery';
 import {
     K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSON,
     K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON,
+    K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscovery';
 import type { K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDR } from './K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDR';
 import {
     K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON,
     K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON,
+    K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDR';
 
 /**
@@ -73,12 +75,10 @@ export interface K8sIoApimachineryPkgApisMetaV1APIGroup {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1APIGroup interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1APIGroup(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "versions" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1APIGroup(value: object): value is K8sIoApimachineryPkgApisMetaV1APIGroup {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('versions' in value) || value['versions'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1APIGroupFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1APIGroup {
@@ -86,35 +86,37 @@ export function K8sIoApimachineryPkgApisMetaV1APIGroupFromJSON(json: any): K8sIo
 }
 
 export function K8sIoApimachineryPkgApisMetaV1APIGroupFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1APIGroup {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
         'name': json['name'],
-        'preferredVersion': !exists(json, 'preferredVersion') ? undefined : K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSON(json['preferredVersion']),
-        'serverAddressByClientCIDRs': !exists(json, 'serverAddressByClientCIDRs') ? undefined : ((json['serverAddressByClientCIDRs'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON)),
+        'preferredVersion': json['preferredVersion'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSON(json['preferredVersion']),
+        'serverAddressByClientCIDRs': json['serverAddressByClientCIDRs'] == null ? undefined : ((json['serverAddressByClientCIDRs'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON)),
         'versions': ((json['versions'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryFromJSON)),
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1APIGroupToJSON(value?: K8sIoApimachineryPkgApisMetaV1APIGroup | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1APIGroupToJSON(json: any): K8sIoApimachineryPkgApisMetaV1APIGroup {
+    return K8sIoApimachineryPkgApisMetaV1APIGroupToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1APIGroupToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1APIGroup | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'name': value.name,
-        'preferredVersion': K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON(value.preferredVersion),
-        'serverAddressByClientCIDRs': value.serverAddressByClientCIDRs === undefined ? undefined : ((value.serverAddressByClientCIDRs as Array<any>).map(K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON)),
-        'versions': ((value.versions as Array<any>).map(K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON)),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'preferredVersion': K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON(value['preferredVersion']),
+        'serverAddressByClientCIDRs': value['serverAddressByClientCIDRs'] == null ? undefined : ((value['serverAddressByClientCIDRs'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON)),
+        'versions': ((value['versions'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1GroupVersionForDiscoveryToJSON)),
     };
 }
 

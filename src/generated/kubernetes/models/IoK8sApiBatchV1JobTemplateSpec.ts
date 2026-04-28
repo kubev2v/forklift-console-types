@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiBatchV1JobSpec } from './IoK8sApiBatchV1JobSpec';
-import {
-    IoK8sApiBatchV1JobSpecFromJSON,
-    IoK8sApiBatchV1JobSpecFromJSONTyped,
-    IoK8sApiBatchV1JobSpecToJSON,
-} from './IoK8sApiBatchV1JobSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiBatchV1JobSpec } from './IoK8sApiBatchV1JobSpec';
+import {
+    IoK8sApiBatchV1JobSpecFromJSON,
+    IoK8sApiBatchV1JobSpecFromJSONTyped,
+    IoK8sApiBatchV1JobSpecToJSON,
+    IoK8sApiBatchV1JobSpecToJSONTyped,
+} from './IoK8sApiBatchV1JobSpec';
 
 /**
  * JobTemplateSpec describes the data a Job should have when created from a template
@@ -49,10 +51,8 @@ export interface IoK8sApiBatchV1JobTemplateSpec {
 /**
  * Check if a given object implements the IoK8sApiBatchV1JobTemplateSpec interface.
  */
-export function instanceOfIoK8sApiBatchV1JobTemplateSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1JobTemplateSpec(value: object): value is IoK8sApiBatchV1JobTemplateSpec {
+    return true;
 }
 
 export function IoK8sApiBatchV1JobTemplateSpecFromJSON(json: any): IoK8sApiBatchV1JobTemplateSpec {
@@ -60,27 +60,29 @@ export function IoK8sApiBatchV1JobTemplateSpecFromJSON(json: any): IoK8sApiBatch
 }
 
 export function IoK8sApiBatchV1JobTemplateSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1JobTemplateSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiBatchV1JobSpecFromJSON(json['spec']),
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiBatchV1JobSpecFromJSON(json['spec']),
     };
 }
 
-export function IoK8sApiBatchV1JobTemplateSpecToJSON(value?: IoK8sApiBatchV1JobTemplateSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1JobTemplateSpecToJSON(json: any): IoK8sApiBatchV1JobTemplateSpec {
+    return IoK8sApiBatchV1JobTemplateSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1JobTemplateSpecToJSONTyped(value?: IoK8sApiBatchV1JobTemplateSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiBatchV1JobSpecToJSON(value.spec),
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiBatchV1JobSpecToJSON(value['spec']),
     };
 }
 

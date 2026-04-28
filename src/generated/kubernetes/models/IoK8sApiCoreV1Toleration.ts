@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
  * @export
@@ -32,7 +32,7 @@ export interface IoK8sApiCoreV1Toleration {
      */
     key?: string;
     /**
-     * Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+     * Operator represents a key's relationship to the value. Valid operators are Exists, Equal, Lt, and Gt. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category. Lt and Gt perform numeric comparisons (requires feature gate TaintTolerationComparisonOperators).
      * @type {string}
      * @memberof IoK8sApiCoreV1Toleration
      */
@@ -54,10 +54,8 @@ export interface IoK8sApiCoreV1Toleration {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Toleration interface.
  */
-export function instanceOfIoK8sApiCoreV1Toleration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Toleration(value: object): value is IoK8sApiCoreV1Toleration {
+    return true;
 }
 
 export function IoK8sApiCoreV1TolerationFromJSON(json: any): IoK8sApiCoreV1Toleration {
@@ -65,33 +63,35 @@ export function IoK8sApiCoreV1TolerationFromJSON(json: any): IoK8sApiCoreV1Toler
 }
 
 export function IoK8sApiCoreV1TolerationFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Toleration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'effect': !exists(json, 'effect') ? undefined : json['effect'],
-        'key': !exists(json, 'key') ? undefined : json['key'],
-        'operator': !exists(json, 'operator') ? undefined : json['operator'],
-        'tolerationSeconds': !exists(json, 'tolerationSeconds') ? undefined : json['tolerationSeconds'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'effect': json['effect'] == null ? undefined : json['effect'],
+        'key': json['key'] == null ? undefined : json['key'],
+        'operator': json['operator'] == null ? undefined : json['operator'],
+        'tolerationSeconds': json['tolerationSeconds'] == null ? undefined : json['tolerationSeconds'],
+        'value': json['value'] == null ? undefined : json['value'],
     };
 }
 
-export function IoK8sApiCoreV1TolerationToJSON(value?: IoK8sApiCoreV1Toleration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1TolerationToJSON(json: any): IoK8sApiCoreV1Toleration {
+    return IoK8sApiCoreV1TolerationToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1TolerationToJSONTyped(value?: IoK8sApiCoreV1Toleration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'effect': value.effect,
-        'key': value.key,
-        'operator': value.operator,
-        'tolerationSeconds': value.tolerationSeconds,
-        'value': value.value,
+        'effect': value['effect'],
+        'key': value['key'],
+        'operator': value['operator'],
+        'tolerationSeconds': value['tolerationSeconds'],
+        'value': value['value'],
     };
 }
 

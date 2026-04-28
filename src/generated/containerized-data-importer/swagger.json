@@ -3346,7 +3346,7 @@
       "type": "string"
      },
      "volumeAttributesClassName": {
-      "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Alpha) Using this field requires the VolumeAttributesClass feature gate to be enabled.",
+      "description": "volumeAttributesClassName may be used to set the VolumeAttributesClass used by this claim. If specified, the CSI driver will create or update the volume with the attributes defined in the corresponding VolumeAttributesClass. This has a different purpose than storageClassName, it can be changed after the claim is created. An empty string value means that no VolumeAttributesClass will be applied to the claim but it's not allowed to reset this field to empty string once it is set. If unspecified and the PersistentVolumeClaim is unbound, the default VolumeAttributesClass will be set by the persistentvolume controller if it exists. If the resource referred to by volumeAttributesClass does not exist, this PersistentVolumeClaim will be set to a Pending state, as reflected by the modifyVolumeStatus field, until such as a resource exists. More info: https://kubernetes.io/docs/concepts/storage/volume-attributes-classes/ (Beta) Using this field requires the VolumeAttributesClass feature gate to be enabled (off by default).",
       "type": "string"
      },
      "volumeMode": {
@@ -3400,7 +3400,7 @@
       "$ref": "#/definitions/v1.LabelSelector"
      },
      "matchLabelKeys": {
-      "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.",
+      "description": "MatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key in (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both matchLabelKeys and labelSelector. Also, matchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).",
       "type": "array",
       "items": {
        "type": "string",
@@ -3409,7 +3409,7 @@
       "x-kubernetes-list-type": "atomic"
      },
      "mismatchLabelKeys": {
-      "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is an alpha field and requires enabling MatchLabelKeysInPodAffinity feature gate.",
+      "description": "MismatchLabelKeys is a set of pod label keys to select which pods will be taken into consideration. The keys are used to lookup values from the incoming pod labels, those key-value labels are merged with `labelSelector` as `key notin (value)` to select the group of existing pods which pods will be taken into consideration for the incoming pod's pod (anti) affinity. Keys that don't exist in the incoming pod labels will be ignored. The default value is empty. The same key is forbidden to exist in both mismatchLabelKeys and labelSelector. Also, mismatchLabelKeys cannot be set when labelSelector isn't set. This is a beta field and requires enabling MatchLabelKeysInPodAffinity feature gate (enabled by default).",
       "type": "array",
       "items": {
        "type": "string",
@@ -3507,6 +3507,10 @@
       "description": "Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.",
       "type": "string",
       "default": ""
+     },
+     "request": {
+      "description": "Request is the name chosen for a request in the referenced claim. If empty, everything from the claim is made available, otherwise only the result of this request.",
+      "type": "string"
      }
     }
    },
@@ -3938,7 +3942,7 @@
     "type": "object",
     "properties": {
      "dataVolumeTTLSeconds": {
-      "description": "DataVolumeTTLSeconds is the time in seconds after DataVolume completion it can be garbage collected. Disabled by default.",
+      "description": "DataVolumeTTLSeconds is the time in seconds after DataVolume completion it can be garbage collected. Disabled by default. Deprecated: Removed in v1.62.",
       "type": "integer",
       "format": "int32"
      },
@@ -3951,7 +3955,7 @@
       }
      },
      "filesystemOverhead": {
-      "description": "FilesystemOverhead describes the space reserved for overhead when using Filesystem volumes. A value is between 0 and 1, if not defined it is 0.055 (5.5% overhead)",
+      "description": "FilesystemOverhead describes the space reserved for overhead when using Filesystem volumes. A value is between 0 and 1, if not defined it is 0.06 (6% overhead)",
       "$ref": "#/definitions/v1beta1.FilesystemOverhead"
      },
      "imagePullSecrets": {
@@ -4396,6 +4400,10 @@
       "type": "string",
       "default": ""
      },
+     "serviceAccountName": {
+      "description": "ServiceAccountName is the name of the ServiceAccount for creating DataVolumes.",
+      "type": "string"
+     },
      "template": {
       "description": "Template specifies template for the DVs to be created",
       "default": {},
@@ -4529,10 +4537,33 @@
      }
     }
    },
+   "v1beta1.DataSourceRefSourceDataSource": {
+    "description": "DataSourceRefSourceDataSource serves as a reference to another DataSource Can be resolved into a DataVolumeSourcePVC or a DataVolumeSourceSnapshot The maximum depth of a reference chain may not exceed 1.",
+    "type": "object",
+    "required": [
+     "namespace",
+     "name"
+    ],
+    "properties": {
+     "name": {
+      "description": "The name of the source DataSource",
+      "type": "string",
+      "default": ""
+     },
+     "namespace": {
+      "description": "The namespace of the source DataSource",
+      "type": "string",
+      "default": ""
+     }
+    }
+   },
    "v1beta1.DataSourceSource": {
     "description": "DataSourceSource represents the source for our DataSource",
     "type": "object",
     "properties": {
+     "dataSource": {
+      "$ref": "#/definitions/v1beta1.DataSourceRefSourceDataSource"
+     },
      "pvc": {
       "$ref": "#/definitions/v1beta1.DataVolumeSourcePVC"
      },
@@ -4751,6 +4782,10 @@
       "description": "CertConfigMap is a configmap reference, containing a Certificate Authority(CA) public key, and a base64 encoded pem certificate",
       "type": "string"
      },
+     "checksum": {
+      "description": "Checksum is the expected checksum of the file. Format: \"algorithm:hash\", e.g., \"sha256:1234abcd...\" or \"md5:5678efgh...\" Supported algorithms: md5, sha1, sha256, sha512 If specified, the importer will verify the downloaded content matches this checksum",
+      "type": "string"
+     },
      "extraHeaders": {
       "description": "ExtraHeaders is a list of strings containing extra headers to include with HTTP transfer requests",
       "type": "array",
@@ -4794,6 +4829,10 @@
       "description": "DiskID provides id of a disk to be imported",
       "type": "string",
       "default": ""
+     },
+     "insecureSkipVerify": {
+      "description": "InsecureSkipVerify is a flag to skip certificate verification",
+      "type": "boolean"
      },
      "secretRef": {
       "description": "SecretRef provides the secret reference needed to access the ovirt-engine",
@@ -4861,6 +4900,10 @@
      "imageStream": {
       "description": "ImageStream is the name of image stream for import",
       "type": "string"
+     },
+     "platform": {
+      "description": "Platform describes the minimum runtime requirements of the image",
+      "$ref": "#/definitions/v1beta1.PlatformOptions"
      },
      "pullMethod": {
       "description": "PullMethod can be either \"pod\" (default import), or \"node\" (node docker cache based import)",
@@ -4930,6 +4973,10 @@
       "description": "BackingFile is the path to the virtual hard disk to migrate from vCenter/ESXi",
       "type": "string"
      },
+     "extraArgs": {
+      "description": "ExtraArgs is a reference to a ConfigMap containing extra arguments to pass directly to the VDDK library",
+      "type": "string"
+     },
      "initImageURL": {
       "description": "InitImageURL is an optional URL to an image containing an extracted VDDK library, overrides v2v-vmware config map",
       "type": "string"
@@ -4983,6 +5030,10 @@
      "pvc": {
       "description": "PVC is the PVC specification",
       "$ref": "#/definitions/v1.PersistentVolumeClaimSpec"
+     },
+     "serviceAccountName": {
+      "description": "ServiceAccountName for Importer and Uploader pod",
+      "type": "string"
      },
      "source": {
       "description": "Source is the src of the data for the requested DataVolume",
@@ -5125,6 +5176,15 @@
    "v1beta1.OldTLSProfile": {
     "description": "OldTLSProfile is a TLS security profile based on: https://wiki.mozilla.org/Security/Server_Side_TLS#Old_backward_compatibility",
     "type": "object"
+   },
+   "v1beta1.PlatformOptions": {
+    "type": "object",
+    "properties": {
+     "architecture": {
+      "description": "Architecture specifies the image target CPU architecture",
+      "type": "string"
+     }
+    }
    },
    "v1beta1.StorageSpec": {
     "description": "StorageSpec defines the Storage type specification",

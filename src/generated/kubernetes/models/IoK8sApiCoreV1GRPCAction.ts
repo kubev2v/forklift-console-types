@@ -12,9 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
- * 
+ * GRPCAction specifies an action involving a GRPC service.
  * @export
  * @interface IoK8sApiCoreV1GRPCAction
  */
@@ -38,11 +38,9 @@ export interface IoK8sApiCoreV1GRPCAction {
 /**
  * Check if a given object implements the IoK8sApiCoreV1GRPCAction interface.
  */
-export function instanceOfIoK8sApiCoreV1GRPCAction(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "port" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1GRPCAction(value: object): value is IoK8sApiCoreV1GRPCAction {
+    if (!('port' in value) || value['port'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1GRPCActionFromJSON(json: any): IoK8sApiCoreV1GRPCAction {
@@ -50,27 +48,29 @@ export function IoK8sApiCoreV1GRPCActionFromJSON(json: any): IoK8sApiCoreV1GRPCA
 }
 
 export function IoK8sApiCoreV1GRPCActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1GRPCAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'port': json['port'],
-        'service': !exists(json, 'service') ? undefined : json['service'],
+        'service': json['service'] == null ? undefined : json['service'],
     };
 }
 
-export function IoK8sApiCoreV1GRPCActionToJSON(value?: IoK8sApiCoreV1GRPCAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1GRPCActionToJSON(json: any): IoK8sApiCoreV1GRPCAction {
+    return IoK8sApiCoreV1GRPCActionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1GRPCActionToJSONTyped(value?: IoK8sApiCoreV1GRPCAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'port': value.port,
-        'service': value.service,
+        'port': value['port'],
+        'service': value['service'],
     };
 }
 

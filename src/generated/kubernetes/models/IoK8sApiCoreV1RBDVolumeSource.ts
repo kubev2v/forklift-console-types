@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LocalObjectReference } from './IoK8sApiCoreV1LocalObjectReference';
 import {
     IoK8sApiCoreV1LocalObjectReferenceFromJSON,
     IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1LocalObjectReferenceToJSON,
+    IoK8sApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1LocalObjectReference';
 
 /**
@@ -49,7 +50,7 @@ export interface IoK8sApiCoreV1RBDVolumeSource {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1RBDVolumeSource
      */
-    monitors: string[];
+    monitors: Array<string>;
     /**
      * pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
      * @type {string}
@@ -79,12 +80,10 @@ export interface IoK8sApiCoreV1RBDVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1RBDVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1RBDVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "image" in value;
-    isInstance = isInstance && "monitors" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1RBDVolumeSource(value: object): value is IoK8sApiCoreV1RBDVolumeSource {
+    if (!('image' in value) || value['image'] === undefined) return false;
+    if (!('monitors' in value) || value['monitors'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1RBDVolumeSourceFromJSON(json: any): IoK8sApiCoreV1RBDVolumeSource {
@@ -92,39 +91,41 @@ export function IoK8sApiCoreV1RBDVolumeSourceFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1RBDVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1RBDVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
         'image': json['image'],
-        'keyring': !exists(json, 'keyring') ? undefined : json['keyring'],
+        'keyring': json['keyring'] == null ? undefined : json['keyring'],
         'monitors': json['monitors'],
-        'pool': !exists(json, 'pool') ? undefined : json['pool'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'pool': json['pool'] == null ? undefined : json['pool'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'secretRef': json['secretRef'] == null ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['secretRef']),
+        'user': json['user'] == null ? undefined : json['user'],
     };
 }
 
-export function IoK8sApiCoreV1RBDVolumeSourceToJSON(value?: IoK8sApiCoreV1RBDVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1RBDVolumeSourceToJSON(json: any): IoK8sApiCoreV1RBDVolumeSource {
+    return IoK8sApiCoreV1RBDVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1RBDVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1RBDVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'image': value.image,
-        'keyring': value.keyring,
-        'monitors': value.monitors,
-        'pool': value.pool,
-        'readOnly': value.readOnly,
-        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value.secretRef),
-        'user': value.user,
+        'fsType': value['fsType'],
+        'image': value['image'],
+        'keyring': value['keyring'],
+        'monitors': value['monitors'],
+        'pool': value['pool'],
+        'readOnly': value['readOnly'],
+        'secretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value['secretRef']),
+        'user': value['user'],
     };
 }
 

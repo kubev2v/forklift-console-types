@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * If set (default), BIOS will be used.
  * @export
@@ -30,10 +30,8 @@ export interface V1BIOS {
 /**
  * Check if a given object implements the V1BIOS interface.
  */
-export function instanceOfV1BIOS(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1BIOS(value: object): value is V1BIOS {
+    return true;
 }
 
 export function V1BIOSFromJSON(json: any): V1BIOS {
@@ -41,25 +39,27 @@ export function V1BIOSFromJSON(json: any): V1BIOS {
 }
 
 export function V1BIOSFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1BIOS {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'useSerial': !exists(json, 'useSerial') ? undefined : json['useSerial'],
+        'useSerial': json['useSerial'] == null ? undefined : json['useSerial'],
     };
 }
 
-export function V1BIOSToJSON(value?: V1BIOS | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1BIOSToJSON(json: any): V1BIOS {
+    return V1BIOSToJSONTyped(json, false);
+}
+
+export function V1BIOSToJSONTyped(value?: V1BIOS | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'useSerial': value.useSerial,
+        'useSerial': value['useSerial'],
     };
 }
 

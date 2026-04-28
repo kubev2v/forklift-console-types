@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SecretVolumeSource adapts a Secret into a volume.
  * @export
@@ -42,10 +42,8 @@ export interface V1SecretVolumeSource {
 /**
  * Check if a given object implements the V1SecretVolumeSource interface.
  */
-export function instanceOfV1SecretVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1SecretVolumeSource(value: object): value is V1SecretVolumeSource {
+    return true;
 }
 
 export function V1SecretVolumeSourceFromJSON(json: any): V1SecretVolumeSource {
@@ -53,29 +51,31 @@ export function V1SecretVolumeSourceFromJSON(json: any): V1SecretVolumeSource {
 }
 
 export function V1SecretVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SecretVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
-        'secretName': !exists(json, 'secretName') ? undefined : json['secretName'],
-        'volumeLabel': !exists(json, 'volumeLabel') ? undefined : json['volumeLabel'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
+        'secretName': json['secretName'] == null ? undefined : json['secretName'],
+        'volumeLabel': json['volumeLabel'] == null ? undefined : json['volumeLabel'],
     };
 }
 
-export function V1SecretVolumeSourceToJSON(value?: V1SecretVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SecretVolumeSourceToJSON(json: any): V1SecretVolumeSource {
+    return V1SecretVolumeSourceToJSONTyped(json, false);
+}
+
+export function V1SecretVolumeSourceToJSONTyped(value?: V1SecretVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'optional': value.optional,
-        'secretName': value.secretName,
-        'volumeLabel': value.volumeLabel,
+        'optional': value['optional'],
+        'secretName': value['secretName'],
+        'volumeLabel': value['volumeLabel'],
     };
 }
 

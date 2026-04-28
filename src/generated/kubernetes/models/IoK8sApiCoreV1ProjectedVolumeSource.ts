@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1VolumeProjection } from './IoK8sApiCoreV1VolumeProjection';
 import {
     IoK8sApiCoreV1VolumeProjectionFromJSON,
     IoK8sApiCoreV1VolumeProjectionFromJSONTyped,
     IoK8sApiCoreV1VolumeProjectionToJSON,
+    IoK8sApiCoreV1VolumeProjectionToJSONTyped,
 } from './IoK8sApiCoreV1VolumeProjection';
 
 /**
@@ -33,7 +34,7 @@ export interface IoK8sApiCoreV1ProjectedVolumeSource {
      */
     defaultMode?: number;
     /**
-     * sources is the list of volume projections
+     * sources is the list of volume projections. Each entry in this list handles one source.
      * @type {Array<IoK8sApiCoreV1VolumeProjection>}
      * @memberof IoK8sApiCoreV1ProjectedVolumeSource
      */
@@ -43,10 +44,8 @@ export interface IoK8sApiCoreV1ProjectedVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ProjectedVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1ProjectedVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ProjectedVolumeSource(value: object): value is IoK8sApiCoreV1ProjectedVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1ProjectedVolumeSourceFromJSON(json: any): IoK8sApiCoreV1ProjectedVolumeSource {
@@ -54,27 +53,29 @@ export function IoK8sApiCoreV1ProjectedVolumeSourceFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiCoreV1ProjectedVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ProjectedVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'defaultMode': !exists(json, 'defaultMode') ? undefined : json['defaultMode'],
-        'sources': !exists(json, 'sources') ? undefined : ((json['sources'] as Array<any>).map(IoK8sApiCoreV1VolumeProjectionFromJSON)),
+        'defaultMode': json['defaultMode'] == null ? undefined : json['defaultMode'],
+        'sources': json['sources'] == null ? undefined : ((json['sources'] as Array<any>).map(IoK8sApiCoreV1VolumeProjectionFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1ProjectedVolumeSourceToJSON(value?: IoK8sApiCoreV1ProjectedVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ProjectedVolumeSourceToJSON(json: any): IoK8sApiCoreV1ProjectedVolumeSource {
+    return IoK8sApiCoreV1ProjectedVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ProjectedVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1ProjectedVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'defaultMode': value.defaultMode,
-        'sources': value.sources === undefined ? undefined : ((value.sources as Array<any>).map(IoK8sApiCoreV1VolumeProjectionToJSON)),
+        'defaultMode': value['defaultMode'],
+        'sources': value['sources'] == null ? undefined : ((value['sources'] as Array<any>).map(IoK8sApiCoreV1VolumeProjectionToJSON)),
     };
 }
 

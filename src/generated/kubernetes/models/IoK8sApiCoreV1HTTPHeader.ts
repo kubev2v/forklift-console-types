@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HTTPHeader describes a custom header to be used in HTTP probes
  * @export
@@ -36,12 +36,10 @@ export interface IoK8sApiCoreV1HTTPHeader {
 /**
  * Check if a given object implements the IoK8sApiCoreV1HTTPHeader interface.
  */
-export function instanceOfIoK8sApiCoreV1HTTPHeader(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "value" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1HTTPHeader(value: object): value is IoK8sApiCoreV1HTTPHeader {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('value' in value) || value['value'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1HTTPHeaderFromJSON(json: any): IoK8sApiCoreV1HTTPHeader {
@@ -49,7 +47,7 @@ export function IoK8sApiCoreV1HTTPHeaderFromJSON(json: any): IoK8sApiCoreV1HTTPH
 }
 
 export function IoK8sApiCoreV1HTTPHeaderFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1HTTPHeader {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -59,17 +57,19 @@ export function IoK8sApiCoreV1HTTPHeaderFromJSONTyped(json: any, ignoreDiscrimin
     };
 }
 
-export function IoK8sApiCoreV1HTTPHeaderToJSON(value?: IoK8sApiCoreV1HTTPHeader | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1HTTPHeaderToJSON(json: any): IoK8sApiCoreV1HTTPHeader {
+    return IoK8sApiCoreV1HTTPHeaderToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1HTTPHeaderToJSONTyped(value?: IoK8sApiCoreV1HTTPHeader | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'value': value.value,
+        'name': value['name'],
+        'value': value['value'],
     };
 }
 

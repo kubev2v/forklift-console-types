@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1ServiceBackendPort } from './IoK8sApiNetworkingV1ServiceBackendPort';
 import {
     IoK8sApiNetworkingV1ServiceBackendPortFromJSON,
     IoK8sApiNetworkingV1ServiceBackendPortFromJSONTyped,
     IoK8sApiNetworkingV1ServiceBackendPortToJSON,
+    IoK8sApiNetworkingV1ServiceBackendPortToJSONTyped,
 } from './IoK8sApiNetworkingV1ServiceBackendPort';
 
 /**
@@ -43,11 +44,9 @@ export interface IoK8sApiNetworkingV1IngressServiceBackend {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressServiceBackend interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressServiceBackend(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressServiceBackend(value: object): value is IoK8sApiNetworkingV1IngressServiceBackend {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressServiceBackendFromJSON(json: any): IoK8sApiNetworkingV1IngressServiceBackend {
@@ -55,27 +54,29 @@ export function IoK8sApiNetworkingV1IngressServiceBackendFromJSON(json: any): Io
 }
 
 export function IoK8sApiNetworkingV1IngressServiceBackendFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressServiceBackend {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'name': json['name'],
-        'port': !exists(json, 'port') ? undefined : IoK8sApiNetworkingV1ServiceBackendPortFromJSON(json['port']),
+        'port': json['port'] == null ? undefined : IoK8sApiNetworkingV1ServiceBackendPortFromJSON(json['port']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressServiceBackendToJSON(value?: IoK8sApiNetworkingV1IngressServiceBackend | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressServiceBackendToJSON(json: any): IoK8sApiNetworkingV1IngressServiceBackend {
+    return IoK8sApiNetworkingV1IngressServiceBackendToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressServiceBackendToJSONTyped(value?: IoK8sApiNetworkingV1IngressServiceBackend | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'port': IoK8sApiNetworkingV1ServiceBackendPortToJSON(value.port),
+        'name': value['name'],
+        'port': IoK8sApiNetworkingV1ServiceBackendPortToJSON(value['port']),
     };
 }
 

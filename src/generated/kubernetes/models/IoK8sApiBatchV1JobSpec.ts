@@ -12,24 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiBatchV1PodFailurePolicy } from './IoK8sApiBatchV1PodFailurePolicy';
 import {
     IoK8sApiBatchV1PodFailurePolicyFromJSON,
     IoK8sApiBatchV1PodFailurePolicyFromJSONTyped,
     IoK8sApiBatchV1PodFailurePolicyToJSON,
+    IoK8sApiBatchV1PodFailurePolicyToJSONTyped,
 } from './IoK8sApiBatchV1PodFailurePolicy';
+import type { IoK8sApiBatchV1SuccessPolicy } from './IoK8sApiBatchV1SuccessPolicy';
+import {
+    IoK8sApiBatchV1SuccessPolicyFromJSON,
+    IoK8sApiBatchV1SuccessPolicyFromJSONTyped,
+    IoK8sApiBatchV1SuccessPolicyToJSON,
+    IoK8sApiBatchV1SuccessPolicyToJSONTyped,
+} from './IoK8sApiBatchV1SuccessPolicy';
 import type { IoK8sApiCoreV1PodTemplateSpec } from './IoK8sApiCoreV1PodTemplateSpec';
 import {
     IoK8sApiCoreV1PodTemplateSpecFromJSON,
     IoK8sApiCoreV1PodTemplateSpecFromJSONTyped,
     IoK8sApiCoreV1PodTemplateSpecToJSON,
+    IoK8sApiCoreV1PodTemplateSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodTemplateSpec';
 import type { IoK8sApimachineryPkgApisMetaV1LabelSelector } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 import {
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1LabelSelector';
 
 /**
@@ -45,13 +55,13 @@ export interface IoK8sApiBatchV1JobSpec {
      */
     activeDeadlineSeconds?: number;
     /**
-     * Specifies the number of retries before marking this job failed. Defaults to 6
+     * Specifies the number of retries before marking this job failed. Defaults to 6, unless backoffLimitPerIndex (only Indexed Job) is specified. When backoffLimitPerIndex is specified, backoffLimit defaults to 2147483647.
      * @type {number}
      * @memberof IoK8sApiBatchV1JobSpec
      */
     backoffLimit?: number;
     /**
-     * Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable.
      * @type {number}
      * @memberof IoK8sApiBatchV1JobSpec
      */
@@ -75,13 +85,19 @@ export interface IoK8sApiBatchV1JobSpec {
      */
     completions?: number;
     /**
+     * ManagedBy field indicates the controller that manages a Job. The k8s Job controller reconciles jobs which don't have this field at all or the field value is the reserved string `kubernetes.io/job-controller`, but skips reconciling Jobs with a custom value for this field. The value must be a valid domain-prefixed path (e.g. acme.io/foo) - all characters before the first "/" must be a valid subdomain as defined by RFC 1123. All characters trailing the first "/" must be valid HTTP Path characters as defined by RFC 3986. The value cannot exceed 63 characters. This field is immutable.
+     * @type {string}
+     * @memberof IoK8sApiBatchV1JobSpec
+     */
+    managedBy?: string;
+    /**
      * manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
      * @type {boolean}
      * @memberof IoK8sApiBatchV1JobSpec
      */
     manualSelector?: boolean;
     /**
-     * Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is beta-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
+     * Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5.
      * @type {number}
      * @memberof IoK8sApiBatchV1JobSpec
      */
@@ -104,7 +120,7 @@ export interface IoK8sApiBatchV1JobSpec {
      * - Failed means to wait until a previously created Pod is fully terminated (has phase
      *   Failed or Succeeded) before creating a replacement Pod.
      * 
-     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an beta field. To use this, enable the JobPodReplacementPolicy feature toggle. This is on by default.
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use.
      * @type {string}
      * @memberof IoK8sApiBatchV1JobSpec
      */
@@ -115,6 +131,12 @@ export interface IoK8sApiBatchV1JobSpec {
      * @memberof IoK8sApiBatchV1JobSpec
      */
     selector?: IoK8sApimachineryPkgApisMetaV1LabelSelector;
+    /**
+     * 
+     * @type {IoK8sApiBatchV1SuccessPolicy}
+     * @memberof IoK8sApiBatchV1JobSpec
+     */
+    successPolicy?: IoK8sApiBatchV1SuccessPolicy;
     /**
      * suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
      * @type {boolean}
@@ -138,11 +160,9 @@ export interface IoK8sApiBatchV1JobSpec {
 /**
  * Check if a given object implements the IoK8sApiBatchV1JobSpec interface.
  */
-export function instanceOfIoK8sApiBatchV1JobSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "template" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1JobSpec(value: object): value is IoK8sApiBatchV1JobSpec {
+    if (!('template' in value) || value['template'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1JobSpecFromJSON(json: any): IoK8sApiBatchV1JobSpec {
@@ -150,51 +170,57 @@ export function IoK8sApiBatchV1JobSpecFromJSON(json: any): IoK8sApiBatchV1JobSpe
 }
 
 export function IoK8sApiBatchV1JobSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1JobSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'activeDeadlineSeconds': !exists(json, 'activeDeadlineSeconds') ? undefined : json['activeDeadlineSeconds'],
-        'backoffLimit': !exists(json, 'backoffLimit') ? undefined : json['backoffLimit'],
-        'backoffLimitPerIndex': !exists(json, 'backoffLimitPerIndex') ? undefined : json['backoffLimitPerIndex'],
-        'completionMode': !exists(json, 'completionMode') ? undefined : json['completionMode'],
-        'completions': !exists(json, 'completions') ? undefined : json['completions'],
-        'manualSelector': !exists(json, 'manualSelector') ? undefined : json['manualSelector'],
-        'maxFailedIndexes': !exists(json, 'maxFailedIndexes') ? undefined : json['maxFailedIndexes'],
-        'parallelism': !exists(json, 'parallelism') ? undefined : json['parallelism'],
-        'podFailurePolicy': !exists(json, 'podFailurePolicy') ? undefined : IoK8sApiBatchV1PodFailurePolicyFromJSON(json['podFailurePolicy']),
-        'podReplacementPolicy': !exists(json, 'podReplacementPolicy') ? undefined : json['podReplacementPolicy'],
-        'selector': !exists(json, 'selector') ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
-        'suspend': !exists(json, 'suspend') ? undefined : json['suspend'],
+        'activeDeadlineSeconds': json['activeDeadlineSeconds'] == null ? undefined : json['activeDeadlineSeconds'],
+        'backoffLimit': json['backoffLimit'] == null ? undefined : json['backoffLimit'],
+        'backoffLimitPerIndex': json['backoffLimitPerIndex'] == null ? undefined : json['backoffLimitPerIndex'],
+        'completionMode': json['completionMode'] == null ? undefined : json['completionMode'],
+        'completions': json['completions'] == null ? undefined : json['completions'],
+        'managedBy': json['managedBy'] == null ? undefined : json['managedBy'],
+        'manualSelector': json['manualSelector'] == null ? undefined : json['manualSelector'],
+        'maxFailedIndexes': json['maxFailedIndexes'] == null ? undefined : json['maxFailedIndexes'],
+        'parallelism': json['parallelism'] == null ? undefined : json['parallelism'],
+        'podFailurePolicy': json['podFailurePolicy'] == null ? undefined : IoK8sApiBatchV1PodFailurePolicyFromJSON(json['podFailurePolicy']),
+        'podReplacementPolicy': json['podReplacementPolicy'] == null ? undefined : json['podReplacementPolicy'],
+        'selector': json['selector'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
+        'successPolicy': json['successPolicy'] == null ? undefined : IoK8sApiBatchV1SuccessPolicyFromJSON(json['successPolicy']),
+        'suspend': json['suspend'] == null ? undefined : json['suspend'],
         'template': IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
-        'ttlSecondsAfterFinished': !exists(json, 'ttlSecondsAfterFinished') ? undefined : json['ttlSecondsAfterFinished'],
+        'ttlSecondsAfterFinished': json['ttlSecondsAfterFinished'] == null ? undefined : json['ttlSecondsAfterFinished'],
     };
 }
 
-export function IoK8sApiBatchV1JobSpecToJSON(value?: IoK8sApiBatchV1JobSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1JobSpecToJSON(json: any): IoK8sApiBatchV1JobSpec {
+    return IoK8sApiBatchV1JobSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1JobSpecToJSONTyped(value?: IoK8sApiBatchV1JobSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'activeDeadlineSeconds': value.activeDeadlineSeconds,
-        'backoffLimit': value.backoffLimit,
-        'backoffLimitPerIndex': value.backoffLimitPerIndex,
-        'completionMode': value.completionMode,
-        'completions': value.completions,
-        'manualSelector': value.manualSelector,
-        'maxFailedIndexes': value.maxFailedIndexes,
-        'parallelism': value.parallelism,
-        'podFailurePolicy': IoK8sApiBatchV1PodFailurePolicyToJSON(value.podFailurePolicy),
-        'podReplacementPolicy': value.podReplacementPolicy,
-        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'suspend': value.suspend,
-        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value.template),
-        'ttlSecondsAfterFinished': value.ttlSecondsAfterFinished,
+        'activeDeadlineSeconds': value['activeDeadlineSeconds'],
+        'backoffLimit': value['backoffLimit'],
+        'backoffLimitPerIndex': value['backoffLimitPerIndex'],
+        'completionMode': value['completionMode'],
+        'completions': value['completions'],
+        'managedBy': value['managedBy'],
+        'manualSelector': value['manualSelector'],
+        'maxFailedIndexes': value['maxFailedIndexes'],
+        'parallelism': value['parallelism'],
+        'podFailurePolicy': IoK8sApiBatchV1PodFailurePolicyToJSON(value['podFailurePolicy']),
+        'podReplacementPolicy': value['podReplacementPolicy'],
+        'selector': IoK8sApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'successPolicy': IoK8sApiBatchV1SuccessPolicyToJSON(value['successPolicy']),
+        'suspend': value['suspend'],
+        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value['template']),
+        'ttlSecondsAfterFinished': value['ttlSecondsAfterFinished'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * APIResource specifies the name of a resource and whether it is namespaced.
  * @export
@@ -84,15 +84,13 @@ export interface K8sIoApimachineryPkgApisMetaV1APIResource {
 /**
  * Check if a given object implements the K8sIoApimachineryPkgApisMetaV1APIResource interface.
  */
-export function instanceOfK8sIoApimachineryPkgApisMetaV1APIResource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "namespaced" in value;
-    isInstance = isInstance && "singularName" in value;
-    isInstance = isInstance && "verbs" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApimachineryPkgApisMetaV1APIResource(value: object): value is K8sIoApimachineryPkgApisMetaV1APIResource {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('namespaced' in value) || value['namespaced'] === undefined) return false;
+    if (!('singularName' in value) || value['singularName'] === undefined) return false;
+    if (!('verbs' in value) || value['verbs'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApimachineryPkgApisMetaV1APIResourceFromJSON(json: any): K8sIoApimachineryPkgApisMetaV1APIResource {
@@ -100,43 +98,45 @@ export function K8sIoApimachineryPkgApisMetaV1APIResourceFromJSON(json: any): K8
 }
 
 export function K8sIoApimachineryPkgApisMetaV1APIResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApimachineryPkgApisMetaV1APIResource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'categories': !exists(json, 'categories') ? undefined : json['categories'],
-        'group': !exists(json, 'group') ? undefined : json['group'],
+        'categories': json['categories'] == null ? undefined : json['categories'],
+        'group': json['group'] == null ? undefined : json['group'],
         'kind': json['kind'],
         'name': json['name'],
         'namespaced': json['namespaced'],
-        'shortNames': !exists(json, 'shortNames') ? undefined : json['shortNames'],
+        'shortNames': json['shortNames'] == null ? undefined : json['shortNames'],
         'singularName': json['singularName'],
-        'storageVersionHash': !exists(json, 'storageVersionHash') ? undefined : json['storageVersionHash'],
+        'storageVersionHash': json['storageVersionHash'] == null ? undefined : json['storageVersionHash'],
         'verbs': json['verbs'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
+        'version': json['version'] == null ? undefined : json['version'],
     };
 }
 
-export function K8sIoApimachineryPkgApisMetaV1APIResourceToJSON(value?: K8sIoApimachineryPkgApisMetaV1APIResource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApimachineryPkgApisMetaV1APIResourceToJSON(json: any): K8sIoApimachineryPkgApisMetaV1APIResource {
+    return K8sIoApimachineryPkgApisMetaV1APIResourceToJSONTyped(json, false);
+}
+
+export function K8sIoApimachineryPkgApisMetaV1APIResourceToJSONTyped(value?: K8sIoApimachineryPkgApisMetaV1APIResource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'categories': value.categories,
-        'group': value.group,
-        'kind': value.kind,
-        'name': value.name,
-        'namespaced': value.namespaced,
-        'shortNames': value.shortNames,
-        'singularName': value.singularName,
-        'storageVersionHash': value.storageVersionHash,
-        'verbs': value.verbs,
-        'version': value.version,
+        'categories': value['categories'],
+        'group': value['group'],
+        'kind': value['kind'],
+        'name': value['name'],
+        'namespaced': value['namespaced'],
+        'shortNames': value['shortNames'],
+        'singularName': value['singularName'],
+        'storageVersionHash': value['storageVersionHash'],
+        'verbs': value['verbs'],
+        'version': value['version'],
     };
 }
 

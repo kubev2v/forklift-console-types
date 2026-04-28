@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * FlowSchemaCondition describes conditions for a FlowSchema.
  * @export
@@ -24,7 +24,7 @@ export interface IoK8sApiFlowcontrolV1FlowSchemaCondition {
      * @type {Date}
      * @memberof IoK8sApiFlowcontrolV1FlowSchemaCondition
      */
-    lastTransitionTime?: string;
+    lastTransitionTime?: Date;
     /**
      * `message` is a human-readable message indicating details about last transition.
      * @type {string}
@@ -54,10 +54,8 @@ export interface IoK8sApiFlowcontrolV1FlowSchemaCondition {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1FlowSchemaCondition interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaCondition(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaCondition(value: object): value is IoK8sApiFlowcontrolV1FlowSchemaCondition {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaCondition {
@@ -65,33 +63,35 @@ export function IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSON(json: any): IoK
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1FlowSchemaCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'lastTransitionTime': !exists(json, 'lastTransitionTime') ? undefined : json['lastTransitionTime'],
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
-        'status': !exists(json, 'status') ? undefined : json['status'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
+        'status': json['status'] == null ? undefined : json['status'],
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1FlowSchemaConditionToJSON(value?: IoK8sApiFlowcontrolV1FlowSchemaCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1FlowSchemaConditionToJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaCondition {
+    return IoK8sApiFlowcontrolV1FlowSchemaConditionToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1FlowSchemaConditionToJSONTyped(value?: IoK8sApiFlowcontrolV1FlowSchemaCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'lastTransitionTime': value.lastTransitionTime === undefined ? undefined : (value.lastTransitionTime),
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

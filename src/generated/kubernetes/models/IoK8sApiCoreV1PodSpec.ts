@@ -12,90 +12,118 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1Affinity } from './IoK8sApiCoreV1Affinity';
-import {
-    IoK8sApiCoreV1AffinityFromJSON,
-    IoK8sApiCoreV1AffinityFromJSONTyped,
-    IoK8sApiCoreV1AffinityToJSON,
-} from './IoK8sApiCoreV1Affinity';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1Container } from './IoK8sApiCoreV1Container';
 import {
     IoK8sApiCoreV1ContainerFromJSON,
     IoK8sApiCoreV1ContainerFromJSONTyped,
     IoK8sApiCoreV1ContainerToJSON,
+    IoK8sApiCoreV1ContainerToJSONTyped,
 } from './IoK8sApiCoreV1Container';
-import type { IoK8sApiCoreV1EphemeralContainer } from './IoK8sApiCoreV1EphemeralContainer';
-import {
-    IoK8sApiCoreV1EphemeralContainerFromJSON,
-    IoK8sApiCoreV1EphemeralContainerFromJSONTyped,
-    IoK8sApiCoreV1EphemeralContainerToJSON,
-} from './IoK8sApiCoreV1EphemeralContainer';
-import type { IoK8sApiCoreV1HostAlias } from './IoK8sApiCoreV1HostAlias';
-import {
-    IoK8sApiCoreV1HostAliasFromJSON,
-    IoK8sApiCoreV1HostAliasFromJSONTyped,
-    IoK8sApiCoreV1HostAliasToJSON,
-} from './IoK8sApiCoreV1HostAlias';
 import type { IoK8sApiCoreV1LocalObjectReference } from './IoK8sApiCoreV1LocalObjectReference';
 import {
     IoK8sApiCoreV1LocalObjectReferenceFromJSON,
     IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1LocalObjectReferenceToJSON,
+    IoK8sApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1LocalObjectReference';
-import type { IoK8sApiCoreV1PodDNSConfig } from './IoK8sApiCoreV1PodDNSConfig';
+import type { IoK8sApiCoreV1ResourceRequirements } from './IoK8sApiCoreV1ResourceRequirements';
 import {
-    IoK8sApiCoreV1PodDNSConfigFromJSON,
-    IoK8sApiCoreV1PodDNSConfigFromJSONTyped,
-    IoK8sApiCoreV1PodDNSConfigToJSON,
-} from './IoK8sApiCoreV1PodDNSConfig';
-import type { IoK8sApiCoreV1PodOS } from './IoK8sApiCoreV1PodOS';
-import {
-    IoK8sApiCoreV1PodOSFromJSON,
-    IoK8sApiCoreV1PodOSFromJSONTyped,
-    IoK8sApiCoreV1PodOSToJSON,
-} from './IoK8sApiCoreV1PodOS';
-import type { IoK8sApiCoreV1PodReadinessGate } from './IoK8sApiCoreV1PodReadinessGate';
-import {
-    IoK8sApiCoreV1PodReadinessGateFromJSON,
-    IoK8sApiCoreV1PodReadinessGateFromJSONTyped,
-    IoK8sApiCoreV1PodReadinessGateToJSON,
-} from './IoK8sApiCoreV1PodReadinessGate';
-import type { IoK8sApiCoreV1PodResourceClaim } from './IoK8sApiCoreV1PodResourceClaim';
-import {
-    IoK8sApiCoreV1PodResourceClaimFromJSON,
-    IoK8sApiCoreV1PodResourceClaimFromJSONTyped,
-    IoK8sApiCoreV1PodResourceClaimToJSON,
-} from './IoK8sApiCoreV1PodResourceClaim';
-import type { IoK8sApiCoreV1PodSchedulingGate } from './IoK8sApiCoreV1PodSchedulingGate';
-import {
-    IoK8sApiCoreV1PodSchedulingGateFromJSON,
-    IoK8sApiCoreV1PodSchedulingGateFromJSONTyped,
-    IoK8sApiCoreV1PodSchedulingGateToJSON,
-} from './IoK8sApiCoreV1PodSchedulingGate';
+    IoK8sApiCoreV1ResourceRequirementsFromJSON,
+    IoK8sApiCoreV1ResourceRequirementsFromJSONTyped,
+    IoK8sApiCoreV1ResourceRequirementsToJSON,
+    IoK8sApiCoreV1ResourceRequirementsToJSONTyped,
+} from './IoK8sApiCoreV1ResourceRequirements';
 import type { IoK8sApiCoreV1PodSecurityContext } from './IoK8sApiCoreV1PodSecurityContext';
 import {
     IoK8sApiCoreV1PodSecurityContextFromJSON,
     IoK8sApiCoreV1PodSecurityContextFromJSONTyped,
     IoK8sApiCoreV1PodSecurityContextToJSON,
+    IoK8sApiCoreV1PodSecurityContextToJSONTyped,
 } from './IoK8sApiCoreV1PodSecurityContext';
-import type { IoK8sApiCoreV1Toleration } from './IoK8sApiCoreV1Toleration';
+import type { IoK8sApiCoreV1PodReadinessGate } from './IoK8sApiCoreV1PodReadinessGate';
 import {
-    IoK8sApiCoreV1TolerationFromJSON,
-    IoK8sApiCoreV1TolerationFromJSONTyped,
-    IoK8sApiCoreV1TolerationToJSON,
-} from './IoK8sApiCoreV1Toleration';
+    IoK8sApiCoreV1PodReadinessGateFromJSON,
+    IoK8sApiCoreV1PodReadinessGateFromJSONTyped,
+    IoK8sApiCoreV1PodReadinessGateToJSON,
+    IoK8sApiCoreV1PodReadinessGateToJSONTyped,
+} from './IoK8sApiCoreV1PodReadinessGate';
+import type { IoK8sApiCoreV1PodDNSConfig } from './IoK8sApiCoreV1PodDNSConfig';
+import {
+    IoK8sApiCoreV1PodDNSConfigFromJSON,
+    IoK8sApiCoreV1PodDNSConfigFromJSONTyped,
+    IoK8sApiCoreV1PodDNSConfigToJSON,
+    IoK8sApiCoreV1PodDNSConfigToJSONTyped,
+} from './IoK8sApiCoreV1PodDNSConfig';
+import type { IoK8sApiCoreV1PodResourceClaim } from './IoK8sApiCoreV1PodResourceClaim';
+import {
+    IoK8sApiCoreV1PodResourceClaimFromJSON,
+    IoK8sApiCoreV1PodResourceClaimFromJSONTyped,
+    IoK8sApiCoreV1PodResourceClaimToJSON,
+    IoK8sApiCoreV1PodResourceClaimToJSONTyped,
+} from './IoK8sApiCoreV1PodResourceClaim';
+import type { IoK8sApiCoreV1EphemeralContainer } from './IoK8sApiCoreV1EphemeralContainer';
+import {
+    IoK8sApiCoreV1EphemeralContainerFromJSON,
+    IoK8sApiCoreV1EphemeralContainerFromJSONTyped,
+    IoK8sApiCoreV1EphemeralContainerToJSON,
+    IoK8sApiCoreV1EphemeralContainerToJSONTyped,
+} from './IoK8sApiCoreV1EphemeralContainer';
+import type { IoK8sApiCoreV1PodSchedulingGate } from './IoK8sApiCoreV1PodSchedulingGate';
+import {
+    IoK8sApiCoreV1PodSchedulingGateFromJSON,
+    IoK8sApiCoreV1PodSchedulingGateFromJSONTyped,
+    IoK8sApiCoreV1PodSchedulingGateToJSON,
+    IoK8sApiCoreV1PodSchedulingGateToJSONTyped,
+} from './IoK8sApiCoreV1PodSchedulingGate';
 import type { IoK8sApiCoreV1TopologySpreadConstraint } from './IoK8sApiCoreV1TopologySpreadConstraint';
 import {
     IoK8sApiCoreV1TopologySpreadConstraintFromJSON,
     IoK8sApiCoreV1TopologySpreadConstraintFromJSONTyped,
     IoK8sApiCoreV1TopologySpreadConstraintToJSON,
+    IoK8sApiCoreV1TopologySpreadConstraintToJSONTyped,
 } from './IoK8sApiCoreV1TopologySpreadConstraint';
+import type { IoK8sApiCoreV1PodOS } from './IoK8sApiCoreV1PodOS';
+import {
+    IoK8sApiCoreV1PodOSFromJSON,
+    IoK8sApiCoreV1PodOSFromJSONTyped,
+    IoK8sApiCoreV1PodOSToJSON,
+    IoK8sApiCoreV1PodOSToJSONTyped,
+} from './IoK8sApiCoreV1PodOS';
+import type { IoK8sApiCoreV1HostAlias } from './IoK8sApiCoreV1HostAlias';
+import {
+    IoK8sApiCoreV1HostAliasFromJSON,
+    IoK8sApiCoreV1HostAliasFromJSONTyped,
+    IoK8sApiCoreV1HostAliasToJSON,
+    IoK8sApiCoreV1HostAliasToJSONTyped,
+} from './IoK8sApiCoreV1HostAlias';
+import type { IoK8sApiCoreV1PodSchedulingGroup } from './IoK8sApiCoreV1PodSchedulingGroup';
+import {
+    IoK8sApiCoreV1PodSchedulingGroupFromJSON,
+    IoK8sApiCoreV1PodSchedulingGroupFromJSONTyped,
+    IoK8sApiCoreV1PodSchedulingGroupToJSON,
+    IoK8sApiCoreV1PodSchedulingGroupToJSONTyped,
+} from './IoK8sApiCoreV1PodSchedulingGroup';
+import type { IoK8sApiCoreV1Affinity } from './IoK8sApiCoreV1Affinity';
+import {
+    IoK8sApiCoreV1AffinityFromJSON,
+    IoK8sApiCoreV1AffinityFromJSONTyped,
+    IoK8sApiCoreV1AffinityToJSON,
+    IoK8sApiCoreV1AffinityToJSONTyped,
+} from './IoK8sApiCoreV1Affinity';
+import type { IoK8sApiCoreV1Toleration } from './IoK8sApiCoreV1Toleration';
+import {
+    IoK8sApiCoreV1TolerationFromJSON,
+    IoK8sApiCoreV1TolerationFromJSONTyped,
+    IoK8sApiCoreV1TolerationToJSON,
+    IoK8sApiCoreV1TolerationToJSONTyped,
+} from './IoK8sApiCoreV1Toleration';
 import type { IoK8sApiCoreV1Volume } from './IoK8sApiCoreV1Volume';
 import {
     IoK8sApiCoreV1VolumeFromJSON,
     IoK8sApiCoreV1VolumeFromJSONTyped,
     IoK8sApiCoreV1VolumeToJSON,
+    IoK8sApiCoreV1VolumeToJSONTyped,
 } from './IoK8sApiCoreV1Volume';
 
 /**
@@ -153,7 +181,7 @@ export interface IoK8sApiCoreV1PodSpec {
      */
     ephemeralContainers?: Array<IoK8sApiCoreV1EphemeralContainer>;
     /**
-     * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+     * HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified.
      * @type {Array<IoK8sApiCoreV1HostAlias>}
      * @memberof IoK8sApiCoreV1PodSpec
      */
@@ -165,7 +193,7 @@ export interface IoK8sApiCoreV1PodSpec {
      */
     hostIPC?: boolean;
     /**
-     * Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+     * Host networking requested for this pod. Use the host's network namespace. When using HostNetwork you should specify ports so the scheduler is aware. When `hostNetwork` is true, specified `hostPort` fields in port definitions must match `containerPort`, and unspecified `hostPort` fields in port definitions are defaulted to match `containerPort`. Default to false.
      * @type {boolean}
      * @memberof IoK8sApiCoreV1PodSpec
      */
@@ -177,7 +205,7 @@ export interface IoK8sApiCoreV1PodSpec {
      */
     hostPID?: boolean;
     /**
-     * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host.
      * @type {boolean}
      * @memberof IoK8sApiCoreV1PodSpec
      */
@@ -189,19 +217,27 @@ export interface IoK8sApiCoreV1PodSpec {
      */
     hostname?: string;
     /**
+     * HostnameOverride specifies an explicit override for the pod's hostname as perceived by the pod. This field only specifies the pod's hostname and does not affect its DNS records. When this field is set to a non-empty string: - It takes precedence over the values set in `hostname` and `subdomain`. - The Pod's hostname will be set to this value. - `setHostnameAsFQDN` must be nil or set to false. - `hostNetwork` must be set to false.
+     * 
+     * This field must be a valid DNS subdomain as defined in RFC 1123 and contain at most 64 characters. Requires the HostnameOverride feature gate to be enabled.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1PodSpec
+     */
+    hostnameOverride?: string;
+    /**
      * ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
      * @type {Array<IoK8sApiCoreV1LocalObjectReference>}
      * @memberof IoK8sApiCoreV1PodSpec
      */
     imagePullSecrets?: Array<IoK8sApiCoreV1LocalObjectReference>;
     /**
-     * List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+     * List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
      * @type {Array<IoK8sApiCoreV1Container>}
      * @memberof IoK8sApiCoreV1PodSpec
      */
     initContainers?: Array<IoK8sApiCoreV1Container>;
     /**
-     * NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
+     * NodeName indicates in which node this pod is scheduled. If empty, this pod is a candidate for scheduling by the scheduler defined in schedulerName. Once this field is set, the kubelet for this node becomes responsible for the lifecycle of this pod. This field should not be used to express a desire for the pod to be scheduled on a specific node. https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename
      * @type {string}
      * @memberof IoK8sApiCoreV1PodSpec
      */
@@ -251,13 +287,19 @@ export interface IoK8sApiCoreV1PodSpec {
     /**
      * ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
      * 
-     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * This is a stable field but requires that the DynamicResourceAllocation feature gate is enabled.
      * 
      * This field is immutable.
      * @type {Array<IoK8sApiCoreV1PodResourceClaim>}
      * @memberof IoK8sApiCoreV1PodSpec
      */
     resourceClaims?: Array<IoK8sApiCoreV1PodResourceClaim>;
+    /**
+     * 
+     * @type {IoK8sApiCoreV1ResourceRequirements}
+     * @memberof IoK8sApiCoreV1PodSpec
+     */
+    resources?: IoK8sApiCoreV1ResourceRequirements;
     /**
      * Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * @type {string}
@@ -280,12 +322,16 @@ export interface IoK8sApiCoreV1PodSpec {
      * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
      * 
      * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
-     * 
-     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
      * @type {Array<IoK8sApiCoreV1PodSchedulingGate>}
      * @memberof IoK8sApiCoreV1PodSpec
      */
     schedulingGates?: Array<IoK8sApiCoreV1PodSchedulingGate>;
+    /**
+     * 
+     * @type {IoK8sApiCoreV1PodSchedulingGroup}
+     * @memberof IoK8sApiCoreV1PodSpec
+     */
+    schedulingGroup?: IoK8sApiCoreV1PodSchedulingGroup;
     /**
      * 
      * @type {IoK8sApiCoreV1PodSecurityContext}
@@ -293,7 +339,7 @@ export interface IoK8sApiCoreV1PodSpec {
      */
     securityContext?: IoK8sApiCoreV1PodSecurityContext;
     /**
-     * DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+     * DeprecatedServiceAccount is a deprecated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
      * @type {string}
      * @memberof IoK8sApiCoreV1PodSpec
      */
@@ -305,7 +351,7 @@ export interface IoK8sApiCoreV1PodSpec {
      */
     serviceAccountName?: string;
     /**
-     * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+     * If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
      * @type {boolean}
      * @memberof IoK8sApiCoreV1PodSpec
      */
@@ -351,11 +397,9 @@ export interface IoK8sApiCoreV1PodSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1PodSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1PodSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "containers" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1PodSpec(value: object): value is IoK8sApiCoreV1PodSpec {
+    if (!('containers' in value) || value['containers'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1PodSpecFromJSON(json: any): IoK8sApiCoreV1PodSpec {
@@ -363,101 +407,109 @@ export function IoK8sApiCoreV1PodSpecFromJSON(json: any): IoK8sApiCoreV1PodSpec 
 }
 
 export function IoK8sApiCoreV1PodSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1PodSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'activeDeadlineSeconds': !exists(json, 'activeDeadlineSeconds') ? undefined : json['activeDeadlineSeconds'],
-        'affinity': !exists(json, 'affinity') ? undefined : IoK8sApiCoreV1AffinityFromJSON(json['affinity']),
-        'automountServiceAccountToken': !exists(json, 'automountServiceAccountToken') ? undefined : json['automountServiceAccountToken'],
+        'activeDeadlineSeconds': json['activeDeadlineSeconds'] == null ? undefined : json['activeDeadlineSeconds'],
+        'affinity': json['affinity'] == null ? undefined : IoK8sApiCoreV1AffinityFromJSON(json['affinity']),
+        'automountServiceAccountToken': json['automountServiceAccountToken'] == null ? undefined : json['automountServiceAccountToken'],
         'containers': ((json['containers'] as Array<any>).map(IoK8sApiCoreV1ContainerFromJSON)),
-        'dnsConfig': !exists(json, 'dnsConfig') ? undefined : IoK8sApiCoreV1PodDNSConfigFromJSON(json['dnsConfig']),
-        'dnsPolicy': !exists(json, 'dnsPolicy') ? undefined : json['dnsPolicy'],
-        'enableServiceLinks': !exists(json, 'enableServiceLinks') ? undefined : json['enableServiceLinks'],
-        'ephemeralContainers': !exists(json, 'ephemeralContainers') ? undefined : ((json['ephemeralContainers'] as Array<any>).map(IoK8sApiCoreV1EphemeralContainerFromJSON)),
-        'hostAliases': !exists(json, 'hostAliases') ? undefined : ((json['hostAliases'] as Array<any>).map(IoK8sApiCoreV1HostAliasFromJSON)),
-        'hostIPC': !exists(json, 'hostIPC') ? undefined : json['hostIPC'],
-        'hostNetwork': !exists(json, 'hostNetwork') ? undefined : json['hostNetwork'],
-        'hostPID': !exists(json, 'hostPID') ? undefined : json['hostPID'],
-        'hostUsers': !exists(json, 'hostUsers') ? undefined : json['hostUsers'],
-        'hostname': !exists(json, 'hostname') ? undefined : json['hostname'],
-        'imagePullSecrets': !exists(json, 'imagePullSecrets') ? undefined : ((json['imagePullSecrets'] as Array<any>).map(IoK8sApiCoreV1LocalObjectReferenceFromJSON)),
-        'initContainers': !exists(json, 'initContainers') ? undefined : ((json['initContainers'] as Array<any>).map(IoK8sApiCoreV1ContainerFromJSON)),
-        'nodeName': !exists(json, 'nodeName') ? undefined : json['nodeName'],
-        'nodeSelector': !exists(json, 'nodeSelector') ? undefined : json['nodeSelector'],
-        'os': !exists(json, 'os') ? undefined : IoK8sApiCoreV1PodOSFromJSON(json['os']),
-        'overhead': !exists(json, 'overhead') ? undefined : json['overhead'],
-        'preemptionPolicy': !exists(json, 'preemptionPolicy') ? undefined : json['preemptionPolicy'],
-        'priority': !exists(json, 'priority') ? undefined : json['priority'],
-        'priorityClassName': !exists(json, 'priorityClassName') ? undefined : json['priorityClassName'],
-        'readinessGates': !exists(json, 'readinessGates') ? undefined : ((json['readinessGates'] as Array<any>).map(IoK8sApiCoreV1PodReadinessGateFromJSON)),
-        'resourceClaims': !exists(json, 'resourceClaims') ? undefined : ((json['resourceClaims'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimFromJSON)),
-        'restartPolicy': !exists(json, 'restartPolicy') ? undefined : json['restartPolicy'],
-        'runtimeClassName': !exists(json, 'runtimeClassName') ? undefined : json['runtimeClassName'],
-        'schedulerName': !exists(json, 'schedulerName') ? undefined : json['schedulerName'],
-        'schedulingGates': !exists(json, 'schedulingGates') ? undefined : ((json['schedulingGates'] as Array<any>).map(IoK8sApiCoreV1PodSchedulingGateFromJSON)),
-        'securityContext': !exists(json, 'securityContext') ? undefined : IoK8sApiCoreV1PodSecurityContextFromJSON(json['securityContext']),
-        'serviceAccount': !exists(json, 'serviceAccount') ? undefined : json['serviceAccount'],
-        'serviceAccountName': !exists(json, 'serviceAccountName') ? undefined : json['serviceAccountName'],
-        'setHostnameAsFQDN': !exists(json, 'setHostnameAsFQDN') ? undefined : json['setHostnameAsFQDN'],
-        'shareProcessNamespace': !exists(json, 'shareProcessNamespace') ? undefined : json['shareProcessNamespace'],
-        'subdomain': !exists(json, 'subdomain') ? undefined : json['subdomain'],
-        'terminationGracePeriodSeconds': !exists(json, 'terminationGracePeriodSeconds') ? undefined : json['terminationGracePeriodSeconds'],
-        'tolerations': !exists(json, 'tolerations') ? undefined : ((json['tolerations'] as Array<any>).map(IoK8sApiCoreV1TolerationFromJSON)),
-        'topologySpreadConstraints': !exists(json, 'topologySpreadConstraints') ? undefined : ((json['topologySpreadConstraints'] as Array<any>).map(IoK8sApiCoreV1TopologySpreadConstraintFromJSON)),
-        'volumes': !exists(json, 'volumes') ? undefined : ((json['volumes'] as Array<any>).map(IoK8sApiCoreV1VolumeFromJSON)),
+        'dnsConfig': json['dnsConfig'] == null ? undefined : IoK8sApiCoreV1PodDNSConfigFromJSON(json['dnsConfig']),
+        'dnsPolicy': json['dnsPolicy'] == null ? undefined : json['dnsPolicy'],
+        'enableServiceLinks': json['enableServiceLinks'] == null ? undefined : json['enableServiceLinks'],
+        'ephemeralContainers': json['ephemeralContainers'] == null ? undefined : ((json['ephemeralContainers'] as Array<any>).map(IoK8sApiCoreV1EphemeralContainerFromJSON)),
+        'hostAliases': json['hostAliases'] == null ? undefined : ((json['hostAliases'] as Array<any>).map(IoK8sApiCoreV1HostAliasFromJSON)),
+        'hostIPC': json['hostIPC'] == null ? undefined : json['hostIPC'],
+        'hostNetwork': json['hostNetwork'] == null ? undefined : json['hostNetwork'],
+        'hostPID': json['hostPID'] == null ? undefined : json['hostPID'],
+        'hostUsers': json['hostUsers'] == null ? undefined : json['hostUsers'],
+        'hostname': json['hostname'] == null ? undefined : json['hostname'],
+        'hostnameOverride': json['hostnameOverride'] == null ? undefined : json['hostnameOverride'],
+        'imagePullSecrets': json['imagePullSecrets'] == null ? undefined : ((json['imagePullSecrets'] as Array<any>).map(IoK8sApiCoreV1LocalObjectReferenceFromJSON)),
+        'initContainers': json['initContainers'] == null ? undefined : ((json['initContainers'] as Array<any>).map(IoK8sApiCoreV1ContainerFromJSON)),
+        'nodeName': json['nodeName'] == null ? undefined : json['nodeName'],
+        'nodeSelector': json['nodeSelector'] == null ? undefined : json['nodeSelector'],
+        'os': json['os'] == null ? undefined : IoK8sApiCoreV1PodOSFromJSON(json['os']),
+        'overhead': json['overhead'] == null ? undefined : json['overhead'],
+        'preemptionPolicy': json['preemptionPolicy'] == null ? undefined : json['preemptionPolicy'],
+        'priority': json['priority'] == null ? undefined : json['priority'],
+        'priorityClassName': json['priorityClassName'] == null ? undefined : json['priorityClassName'],
+        'readinessGates': json['readinessGates'] == null ? undefined : ((json['readinessGates'] as Array<any>).map(IoK8sApiCoreV1PodReadinessGateFromJSON)),
+        'resourceClaims': json['resourceClaims'] == null ? undefined : ((json['resourceClaims'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimFromJSON)),
+        'resources': json['resources'] == null ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
+        'restartPolicy': json['restartPolicy'] == null ? undefined : json['restartPolicy'],
+        'runtimeClassName': json['runtimeClassName'] == null ? undefined : json['runtimeClassName'],
+        'schedulerName': json['schedulerName'] == null ? undefined : json['schedulerName'],
+        'schedulingGates': json['schedulingGates'] == null ? undefined : ((json['schedulingGates'] as Array<any>).map(IoK8sApiCoreV1PodSchedulingGateFromJSON)),
+        'schedulingGroup': json['schedulingGroup'] == null ? undefined : IoK8sApiCoreV1PodSchedulingGroupFromJSON(json['schedulingGroup']),
+        'securityContext': json['securityContext'] == null ? undefined : IoK8sApiCoreV1PodSecurityContextFromJSON(json['securityContext']),
+        'serviceAccount': json['serviceAccount'] == null ? undefined : json['serviceAccount'],
+        'serviceAccountName': json['serviceAccountName'] == null ? undefined : json['serviceAccountName'],
+        'setHostnameAsFQDN': json['setHostnameAsFQDN'] == null ? undefined : json['setHostnameAsFQDN'],
+        'shareProcessNamespace': json['shareProcessNamespace'] == null ? undefined : json['shareProcessNamespace'],
+        'subdomain': json['subdomain'] == null ? undefined : json['subdomain'],
+        'terminationGracePeriodSeconds': json['terminationGracePeriodSeconds'] == null ? undefined : json['terminationGracePeriodSeconds'],
+        'tolerations': json['tolerations'] == null ? undefined : ((json['tolerations'] as Array<any>).map(IoK8sApiCoreV1TolerationFromJSON)),
+        'topologySpreadConstraints': json['topologySpreadConstraints'] == null ? undefined : ((json['topologySpreadConstraints'] as Array<any>).map(IoK8sApiCoreV1TopologySpreadConstraintFromJSON)),
+        'volumes': json['volumes'] == null ? undefined : ((json['volumes'] as Array<any>).map(IoK8sApiCoreV1VolumeFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1PodSpecToJSON(value?: IoK8sApiCoreV1PodSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodSpecToJSON(json: any): IoK8sApiCoreV1PodSpec {
+    return IoK8sApiCoreV1PodSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodSpecToJSONTyped(value?: IoK8sApiCoreV1PodSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'activeDeadlineSeconds': value.activeDeadlineSeconds,
-        'affinity': IoK8sApiCoreV1AffinityToJSON(value.affinity),
-        'automountServiceAccountToken': value.automountServiceAccountToken,
-        'containers': ((value.containers as Array<any>).map(IoK8sApiCoreV1ContainerToJSON)),
-        'dnsConfig': IoK8sApiCoreV1PodDNSConfigToJSON(value.dnsConfig),
-        'dnsPolicy': value.dnsPolicy,
-        'enableServiceLinks': value.enableServiceLinks,
-        'ephemeralContainers': value.ephemeralContainers === undefined ? undefined : ((value.ephemeralContainers as Array<any>).map(IoK8sApiCoreV1EphemeralContainerToJSON)),
-        'hostAliases': value.hostAliases === undefined ? undefined : ((value.hostAliases as Array<any>).map(IoK8sApiCoreV1HostAliasToJSON)),
-        'hostIPC': value.hostIPC,
-        'hostNetwork': value.hostNetwork,
-        'hostPID': value.hostPID,
-        'hostUsers': value.hostUsers,
-        'hostname': value.hostname,
-        'imagePullSecrets': value.imagePullSecrets === undefined ? undefined : ((value.imagePullSecrets as Array<any>).map(IoK8sApiCoreV1LocalObjectReferenceToJSON)),
-        'initContainers': value.initContainers === undefined ? undefined : ((value.initContainers as Array<any>).map(IoK8sApiCoreV1ContainerToJSON)),
-        'nodeName': value.nodeName,
-        'nodeSelector': value.nodeSelector,
-        'os': IoK8sApiCoreV1PodOSToJSON(value.os),
-        'overhead': value.overhead,
-        'preemptionPolicy': value.preemptionPolicy,
-        'priority': value.priority,
-        'priorityClassName': value.priorityClassName,
-        'readinessGates': value.readinessGates === undefined ? undefined : ((value.readinessGates as Array<any>).map(IoK8sApiCoreV1PodReadinessGateToJSON)),
-        'resourceClaims': value.resourceClaims === undefined ? undefined : ((value.resourceClaims as Array<any>).map(IoK8sApiCoreV1PodResourceClaimToJSON)),
-        'restartPolicy': value.restartPolicy,
-        'runtimeClassName': value.runtimeClassName,
-        'schedulerName': value.schedulerName,
-        'schedulingGates': value.schedulingGates === undefined ? undefined : ((value.schedulingGates as Array<any>).map(IoK8sApiCoreV1PodSchedulingGateToJSON)),
-        'securityContext': IoK8sApiCoreV1PodSecurityContextToJSON(value.securityContext),
-        'serviceAccount': value.serviceAccount,
-        'serviceAccountName': value.serviceAccountName,
-        'setHostnameAsFQDN': value.setHostnameAsFQDN,
-        'shareProcessNamespace': value.shareProcessNamespace,
-        'subdomain': value.subdomain,
-        'terminationGracePeriodSeconds': value.terminationGracePeriodSeconds,
-        'tolerations': value.tolerations === undefined ? undefined : ((value.tolerations as Array<any>).map(IoK8sApiCoreV1TolerationToJSON)),
-        'topologySpreadConstraints': value.topologySpreadConstraints === undefined ? undefined : ((value.topologySpreadConstraints as Array<any>).map(IoK8sApiCoreV1TopologySpreadConstraintToJSON)),
-        'volumes': value.volumes === undefined ? undefined : ((value.volumes as Array<any>).map(IoK8sApiCoreV1VolumeToJSON)),
+        'activeDeadlineSeconds': value['activeDeadlineSeconds'],
+        'affinity': IoK8sApiCoreV1AffinityToJSON(value['affinity']),
+        'automountServiceAccountToken': value['automountServiceAccountToken'],
+        'containers': ((value['containers'] as Array<any>).map(IoK8sApiCoreV1ContainerToJSON)),
+        'dnsConfig': IoK8sApiCoreV1PodDNSConfigToJSON(value['dnsConfig']),
+        'dnsPolicy': value['dnsPolicy'],
+        'enableServiceLinks': value['enableServiceLinks'],
+        'ephemeralContainers': value['ephemeralContainers'] == null ? undefined : ((value['ephemeralContainers'] as Array<any>).map(IoK8sApiCoreV1EphemeralContainerToJSON)),
+        'hostAliases': value['hostAliases'] == null ? undefined : ((value['hostAliases'] as Array<any>).map(IoK8sApiCoreV1HostAliasToJSON)),
+        'hostIPC': value['hostIPC'],
+        'hostNetwork': value['hostNetwork'],
+        'hostPID': value['hostPID'],
+        'hostUsers': value['hostUsers'],
+        'hostname': value['hostname'],
+        'hostnameOverride': value['hostnameOverride'],
+        'imagePullSecrets': value['imagePullSecrets'] == null ? undefined : ((value['imagePullSecrets'] as Array<any>).map(IoK8sApiCoreV1LocalObjectReferenceToJSON)),
+        'initContainers': value['initContainers'] == null ? undefined : ((value['initContainers'] as Array<any>).map(IoK8sApiCoreV1ContainerToJSON)),
+        'nodeName': value['nodeName'],
+        'nodeSelector': value['nodeSelector'],
+        'os': IoK8sApiCoreV1PodOSToJSON(value['os']),
+        'overhead': value['overhead'],
+        'preemptionPolicy': value['preemptionPolicy'],
+        'priority': value['priority'],
+        'priorityClassName': value['priorityClassName'],
+        'readinessGates': value['readinessGates'] == null ? undefined : ((value['readinessGates'] as Array<any>).map(IoK8sApiCoreV1PodReadinessGateToJSON)),
+        'resourceClaims': value['resourceClaims'] == null ? undefined : ((value['resourceClaims'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimToJSON)),
+        'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value['resources']),
+        'restartPolicy': value['restartPolicy'],
+        'runtimeClassName': value['runtimeClassName'],
+        'schedulerName': value['schedulerName'],
+        'schedulingGates': value['schedulingGates'] == null ? undefined : ((value['schedulingGates'] as Array<any>).map(IoK8sApiCoreV1PodSchedulingGateToJSON)),
+        'schedulingGroup': IoK8sApiCoreV1PodSchedulingGroupToJSON(value['schedulingGroup']),
+        'securityContext': IoK8sApiCoreV1PodSecurityContextToJSON(value['securityContext']),
+        'serviceAccount': value['serviceAccount'],
+        'serviceAccountName': value['serviceAccountName'],
+        'setHostnameAsFQDN': value['setHostnameAsFQDN'],
+        'shareProcessNamespace': value['shareProcessNamespace'],
+        'subdomain': value['subdomain'],
+        'terminationGracePeriodSeconds': value['terminationGracePeriodSeconds'],
+        'tolerations': value['tolerations'] == null ? undefined : ((value['tolerations'] as Array<any>).map(IoK8sApiCoreV1TolerationToJSON)),
+        'topologySpreadConstraints': value['topologySpreadConstraints'] == null ? undefined : ((value['topologySpreadConstraints'] as Array<any>).map(IoK8sApiCoreV1TopologySpreadConstraintToJSON)),
+        'volumes': value['volumes'] == null ? undefined : ((value['volumes'] as Array<any>).map(IoK8sApiCoreV1VolumeToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CertificateSigningRequestSpec contains the certificate request.
  * @export
@@ -38,16 +38,16 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestSpec {
     expirationSeconds?: number;
     /**
      * extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
-     * @type {{ [key: string]: string[]; }}
+     * @type {{ [key: string]: Array<string>; }}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestSpec
      */
-    extra?: { [key: string]: string[]; };
+    extra?: { [key: string]: Array<string>; };
     /**
      * groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
      * @type {Array<string>}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestSpec
      */
-    groups?: string[];
+    groups?: Array<string>;
     /**
      * request contains an x509 certificate signing request encoded in a "CERTIFICATE REQUEST" PEM block. When serialized as JSON or YAML, the data is additionally base64-encoded.
      * @type {string}
@@ -104,7 +104,7 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestSpec
      */
-    usages?: string[];
+    usages?: Array<string>;
     /**
      * username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
      * @type {string}
@@ -116,12 +116,10 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestSpec {
 /**
  * Check if a given object implements the IoK8sApiCertificatesV1CertificateSigningRequestSpec interface.
  */
-export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequestSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "request" in value;
-    isInstance = isInstance && "signerName" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCertificatesV1CertificateSigningRequestSpec(value: object): value is IoK8sApiCertificatesV1CertificateSigningRequestSpec {
+    if (!('request' in value) || value['request'] === undefined) return false;
+    if (!('signerName' in value) || value['signerName'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequestSpec {
@@ -129,39 +127,41 @@ export function IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSON(json
 }
 
 export function IoK8sApiCertificatesV1CertificateSigningRequestSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCertificatesV1CertificateSigningRequestSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'expirationSeconds': !exists(json, 'expirationSeconds') ? undefined : json['expirationSeconds'],
-        'extra': !exists(json, 'extra') ? undefined : json['extra'],
-        'groups': !exists(json, 'groups') ? undefined : json['groups'],
+        'expirationSeconds': json['expirationSeconds'] == null ? undefined : json['expirationSeconds'],
+        'extra': json['extra'] == null ? undefined : json['extra'],
+        'groups': json['groups'] == null ? undefined : json['groups'],
         'request': json['request'],
         'signerName': json['signerName'],
-        'uid': !exists(json, 'uid') ? undefined : json['uid'],
-        'usages': !exists(json, 'usages') ? undefined : json['usages'],
-        'username': !exists(json, 'username') ? undefined : json['username'],
+        'uid': json['uid'] == null ? undefined : json['uid'],
+        'usages': json['usages'] == null ? undefined : json['usages'],
+        'username': json['username'] == null ? undefined : json['username'],
     };
 }
 
-export function IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSON(value?: IoK8sApiCertificatesV1CertificateSigningRequestSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSON(json: any): IoK8sApiCertificatesV1CertificateSigningRequestSpec {
+    return IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCertificatesV1CertificateSigningRequestSpecToJSONTyped(value?: IoK8sApiCertificatesV1CertificateSigningRequestSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'expirationSeconds': value.expirationSeconds,
-        'extra': value.extra,
-        'groups': value.groups,
-        'request': value.request,
-        'signerName': value.signerName,
-        'uid': value.uid,
-        'usages': value.usages,
-        'username': value.username,
+        'expirationSeconds': value['expirationSeconds'],
+        'extra': value['extra'],
+        'groups': value['groups'],
+        'request': value['request'],
+        'signerName': value['signerName'],
+        'uid': value['uid'],
+        'usages': value['usages'],
+        'username': value['username'],
     };
 }
 

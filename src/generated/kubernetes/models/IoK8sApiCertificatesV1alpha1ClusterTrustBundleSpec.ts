@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ClusterTrustBundleSpec contains the signer and trust anchors.
  * @export
@@ -48,11 +48,9 @@ export interface IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec {
 /**
  * Check if a given object implements the IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec interface.
  */
-export function instanceOfIoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "trustBundle" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec(value: object): value is IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec {
+    if (!('trustBundle' in value) || value['trustBundle'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecFromJSON(json: any): IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec {
@@ -60,27 +58,29 @@ export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecFromJSON(json:
 }
 
 export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'signerName': !exists(json, 'signerName') ? undefined : json['signerName'],
+        'signerName': json['signerName'] == null ? undefined : json['signerName'],
         'trustBundle': json['trustBundle'],
     };
 }
 
-export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSON(value?: IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSON(json: any): IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec {
+    return IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpecToJSONTyped(value?: IoK8sApiCertificatesV1alpha1ClusterTrustBundleSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'signerName': value.signerName,
-        'trustBundle': value.trustBundle,
+        'signerName': value['signerName'],
+        'trustBundle': value['trustBundle'],
     };
 }
 

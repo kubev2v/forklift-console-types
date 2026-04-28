@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1ServicePort } from './IoK8sApiCoreV1ServicePort';
-import {
-    IoK8sApiCoreV1ServicePortFromJSON,
-    IoK8sApiCoreV1ServicePortFromJSONTyped,
-    IoK8sApiCoreV1ServicePortToJSON,
-} from './IoK8sApiCoreV1ServicePort';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1SessionAffinityConfig } from './IoK8sApiCoreV1SessionAffinityConfig';
 import {
     IoK8sApiCoreV1SessionAffinityConfigFromJSON,
     IoK8sApiCoreV1SessionAffinityConfigFromJSONTyped,
     IoK8sApiCoreV1SessionAffinityConfigToJSON,
+    IoK8sApiCoreV1SessionAffinityConfigToJSONTyped,
 } from './IoK8sApiCoreV1SessionAffinityConfig';
+import type { IoK8sApiCoreV1ServicePort } from './IoK8sApiCoreV1ServicePort';
+import {
+    IoK8sApiCoreV1ServicePortFromJSON,
+    IoK8sApiCoreV1ServicePortFromJSONTyped,
+    IoK8sApiCoreV1ServicePortToJSON,
+    IoK8sApiCoreV1ServicePortToJSONTyped,
+} from './IoK8sApiCoreV1ServicePort';
 
 /**
  * ServiceSpec describes the attributes that a user creates on a service.
@@ -51,13 +53,13 @@ export interface IoK8sApiCoreV1ServiceSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ServiceSpec
      */
-    clusterIPs?: string[];
+    clusterIPs?: Array<string>;
     /**
      * externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ServiceSpec
      */
-    externalIPs?: string[];
+    externalIPs?: Array<string>;
     /**
      * externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
      * @type {string}
@@ -89,7 +91,7 @@ export interface IoK8sApiCoreV1ServiceSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ServiceSpec
      */
-    ipFamilies?: string[];
+    ipFamilies?: Array<string>;
     /**
      * IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
      * @type {string}
@@ -113,7 +115,7 @@ export interface IoK8sApiCoreV1ServiceSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ServiceSpec
      */
-    loadBalancerSourceRanges?: string[];
+    loadBalancerSourceRanges?: Array<string>;
     /**
      * The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
      * @type {Array<IoK8sApiCoreV1ServicePort>}
@@ -145,6 +147,12 @@ export interface IoK8sApiCoreV1ServiceSpec {
      */
     sessionAffinityConfig?: IoK8sApiCoreV1SessionAffinityConfig;
     /**
+     * TrafficDistribution offers a way to express preferences for how traffic is distributed to Service endpoints. Implementations can use this field as a hint, but are not required to guarantee strict adherence. If the field is not set, the implementation will apply its default routing strategy. If set to "PreferClose", implementations should prioritize endpoints that are in the same zone.
+     * @type {string}
+     * @memberof IoK8sApiCoreV1ServiceSpec
+     */
+    trafficDistribution?: string;
+    /**
      * type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
      * @type {string}
      * @memberof IoK8sApiCoreV1ServiceSpec
@@ -155,10 +163,8 @@ export interface IoK8sApiCoreV1ServiceSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ServiceSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1ServiceSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ServiceSpec(value: object): value is IoK8sApiCoreV1ServiceSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1ServiceSpecFromJSON(json: any): IoK8sApiCoreV1ServiceSpec {
@@ -166,61 +172,65 @@ export function IoK8sApiCoreV1ServiceSpecFromJSON(json: any): IoK8sApiCoreV1Serv
 }
 
 export function IoK8sApiCoreV1ServiceSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ServiceSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allocateLoadBalancerNodePorts': !exists(json, 'allocateLoadBalancerNodePorts') ? undefined : json['allocateLoadBalancerNodePorts'],
-        'clusterIP': !exists(json, 'clusterIP') ? undefined : json['clusterIP'],
-        'clusterIPs': !exists(json, 'clusterIPs') ? undefined : json['clusterIPs'],
-        'externalIPs': !exists(json, 'externalIPs') ? undefined : json['externalIPs'],
-        'externalName': !exists(json, 'externalName') ? undefined : json['externalName'],
-        'externalTrafficPolicy': !exists(json, 'externalTrafficPolicy') ? undefined : json['externalTrafficPolicy'],
-        'healthCheckNodePort': !exists(json, 'healthCheckNodePort') ? undefined : json['healthCheckNodePort'],
-        'internalTrafficPolicy': !exists(json, 'internalTrafficPolicy') ? undefined : json['internalTrafficPolicy'],
-        'ipFamilies': !exists(json, 'ipFamilies') ? undefined : json['ipFamilies'],
-        'ipFamilyPolicy': !exists(json, 'ipFamilyPolicy') ? undefined : json['ipFamilyPolicy'],
-        'loadBalancerClass': !exists(json, 'loadBalancerClass') ? undefined : json['loadBalancerClass'],
-        'loadBalancerIP': !exists(json, 'loadBalancerIP') ? undefined : json['loadBalancerIP'],
-        'loadBalancerSourceRanges': !exists(json, 'loadBalancerSourceRanges') ? undefined : json['loadBalancerSourceRanges'],
-        'ports': !exists(json, 'ports') ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1ServicePortFromJSON)),
-        'publishNotReadyAddresses': !exists(json, 'publishNotReadyAddresses') ? undefined : json['publishNotReadyAddresses'],
-        'selector': !exists(json, 'selector') ? undefined : json['selector'],
-        'sessionAffinity': !exists(json, 'sessionAffinity') ? undefined : json['sessionAffinity'],
-        'sessionAffinityConfig': !exists(json, 'sessionAffinityConfig') ? undefined : IoK8sApiCoreV1SessionAffinityConfigFromJSON(json['sessionAffinityConfig']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'allocateLoadBalancerNodePorts': json['allocateLoadBalancerNodePorts'] == null ? undefined : json['allocateLoadBalancerNodePorts'],
+        'clusterIP': json['clusterIP'] == null ? undefined : json['clusterIP'],
+        'clusterIPs': json['clusterIPs'] == null ? undefined : json['clusterIPs'],
+        'externalIPs': json['externalIPs'] == null ? undefined : json['externalIPs'],
+        'externalName': json['externalName'] == null ? undefined : json['externalName'],
+        'externalTrafficPolicy': json['externalTrafficPolicy'] == null ? undefined : json['externalTrafficPolicy'],
+        'healthCheckNodePort': json['healthCheckNodePort'] == null ? undefined : json['healthCheckNodePort'],
+        'internalTrafficPolicy': json['internalTrafficPolicy'] == null ? undefined : json['internalTrafficPolicy'],
+        'ipFamilies': json['ipFamilies'] == null ? undefined : json['ipFamilies'],
+        'ipFamilyPolicy': json['ipFamilyPolicy'] == null ? undefined : json['ipFamilyPolicy'],
+        'loadBalancerClass': json['loadBalancerClass'] == null ? undefined : json['loadBalancerClass'],
+        'loadBalancerIP': json['loadBalancerIP'] == null ? undefined : json['loadBalancerIP'],
+        'loadBalancerSourceRanges': json['loadBalancerSourceRanges'] == null ? undefined : json['loadBalancerSourceRanges'],
+        'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1ServicePortFromJSON)),
+        'publishNotReadyAddresses': json['publishNotReadyAddresses'] == null ? undefined : json['publishNotReadyAddresses'],
+        'selector': json['selector'] == null ? undefined : json['selector'],
+        'sessionAffinity': json['sessionAffinity'] == null ? undefined : json['sessionAffinity'],
+        'sessionAffinityConfig': json['sessionAffinityConfig'] == null ? undefined : IoK8sApiCoreV1SessionAffinityConfigFromJSON(json['sessionAffinityConfig']),
+        'trafficDistribution': json['trafficDistribution'] == null ? undefined : json['trafficDistribution'],
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiCoreV1ServiceSpecToJSON(value?: IoK8sApiCoreV1ServiceSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ServiceSpecToJSON(json: any): IoK8sApiCoreV1ServiceSpec {
+    return IoK8sApiCoreV1ServiceSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ServiceSpecToJSONTyped(value?: IoK8sApiCoreV1ServiceSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allocateLoadBalancerNodePorts': value.allocateLoadBalancerNodePorts,
-        'clusterIP': value.clusterIP,
-        'clusterIPs': value.clusterIPs,
-        'externalIPs': value.externalIPs,
-        'externalName': value.externalName,
-        'externalTrafficPolicy': value.externalTrafficPolicy,
-        'healthCheckNodePort': value.healthCheckNodePort,
-        'internalTrafficPolicy': value.internalTrafficPolicy,
-        'ipFamilies': value.ipFamilies,
-        'ipFamilyPolicy': value.ipFamilyPolicy,
-        'loadBalancerClass': value.loadBalancerClass,
-        'loadBalancerIP': value.loadBalancerIP,
-        'loadBalancerSourceRanges': value.loadBalancerSourceRanges,
-        'ports': value.ports === undefined ? undefined : ((value.ports as Array<any>).map(IoK8sApiCoreV1ServicePortToJSON)),
-        'publishNotReadyAddresses': value.publishNotReadyAddresses,
-        'selector': value.selector,
-        'sessionAffinity': value.sessionAffinity,
-        'sessionAffinityConfig': IoK8sApiCoreV1SessionAffinityConfigToJSON(value.sessionAffinityConfig),
-        'type': value.type,
+        'allocateLoadBalancerNodePorts': value['allocateLoadBalancerNodePorts'],
+        'clusterIP': value['clusterIP'],
+        'clusterIPs': value['clusterIPs'],
+        'externalIPs': value['externalIPs'],
+        'externalName': value['externalName'],
+        'externalTrafficPolicy': value['externalTrafficPolicy'],
+        'healthCheckNodePort': value['healthCheckNodePort'],
+        'internalTrafficPolicy': value['internalTrafficPolicy'],
+        'ipFamilies': value['ipFamilies'],
+        'ipFamilyPolicy': value['ipFamilyPolicy'],
+        'loadBalancerClass': value['loadBalancerClass'],
+        'loadBalancerIP': value['loadBalancerIP'],
+        'loadBalancerSourceRanges': value['loadBalancerSourceRanges'],
+        'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(IoK8sApiCoreV1ServicePortToJSON)),
+        'publishNotReadyAddresses': value['publishNotReadyAddresses'],
+        'selector': value['selector'],
+        'sessionAffinity': value['sessionAffinity'],
+        'sessionAffinityConfig': IoK8sApiCoreV1SessionAffinityConfigToJSON(value['sessionAffinityConfig']),
+        'trafficDistribution': value['trafficDistribution'],
+        'type': value['type'],
     };
 }
 

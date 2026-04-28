@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1ClockOffsetUTC } from './V1ClockOffsetUTC';
 import {
     V1ClockOffsetUTCFromJSON,
     V1ClockOffsetUTCFromJSONTyped,
     V1ClockOffsetUTCToJSON,
+    V1ClockOffsetUTCToJSONTyped,
 } from './V1ClockOffsetUTC';
 
 /**
@@ -43,10 +44,8 @@ export interface V1ClockOffset {
 /**
  * Check if a given object implements the V1ClockOffset interface.
  */
-export function instanceOfV1ClockOffset(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ClockOffset(value: object): value is V1ClockOffset {
+    return true;
 }
 
 export function V1ClockOffsetFromJSON(json: any): V1ClockOffset {
@@ -54,27 +53,29 @@ export function V1ClockOffsetFromJSON(json: any): V1ClockOffset {
 }
 
 export function V1ClockOffsetFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ClockOffset {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'timezone': !exists(json, 'timezone') ? undefined : json['timezone'],
-        'utc': !exists(json, 'utc') ? undefined : V1ClockOffsetUTCFromJSON(json['utc']),
+        'timezone': json['timezone'] == null ? undefined : json['timezone'],
+        'utc': json['utc'] == null ? undefined : V1ClockOffsetUTCFromJSON(json['utc']),
     };
 }
 
-export function V1ClockOffsetToJSON(value?: V1ClockOffset | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ClockOffsetToJSON(json: any): V1ClockOffset {
+    return V1ClockOffsetToJSONTyped(json, false);
+}
+
+export function V1ClockOffsetToJSONTyped(value?: V1ClockOffset | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'timezone': value.timezone,
-        'utc': V1ClockOffsetUTCToJSON(value.utc),
+        'timezone': value['timezone'],
+        'utc': V1ClockOffsetUTCToJSON(value['utc']),
     };
 }
 

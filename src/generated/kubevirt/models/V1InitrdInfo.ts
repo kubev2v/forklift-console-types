@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * InitrdInfo show info about the initrd file
  * @export
@@ -30,10 +30,8 @@ export interface V1InitrdInfo {
 /**
  * Check if a given object implements the V1InitrdInfo interface.
  */
-export function instanceOfV1InitrdInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1InitrdInfo(value: object): value is V1InitrdInfo {
+    return true;
 }
 
 export function V1InitrdInfoFromJSON(json: any): V1InitrdInfo {
@@ -41,25 +39,27 @@ export function V1InitrdInfoFromJSON(json: any): V1InitrdInfo {
 }
 
 export function V1InitrdInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1InitrdInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'checksum': !exists(json, 'checksum') ? undefined : json['checksum'],
+        'checksum': json['checksum'] == null ? undefined : json['checksum'],
     };
 }
 
-export function V1InitrdInfoToJSON(value?: V1InitrdInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1InitrdInfoToJSON(json: any): V1InitrdInfo {
+    return V1InitrdInfoToJSONTyped(json, false);
+}
+
+export function V1InitrdInfoToJSONTyped(value?: V1InitrdInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'checksum': value.checksum,
+        'checksum': value['checksum'],
     };
 }
 

@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition';
-import {
-    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionFromJSON,
-    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionFromJSONTyped,
-    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionToJSON,
-} from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames';
 import {
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSON,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSONTyped,
     IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSONTyped,
 } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNames';
+import type { IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition } from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition';
+import {
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionFromJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionFromJSONTyped,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionToJSON,
+    IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionToJSONTyped,
+} from './IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition';
 
 /**
  * CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
@@ -45,20 +47,24 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
      */
     conditions?: Array<IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition>;
     /**
+     * The generation observed by the CRD controller.
+     * @type {number}
+     * @memberof IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus
+     */
+    observedGeneration?: number;
+    /**
      * storedVersions lists all versions of CustomResources that were ever persisted. Tracking these versions allows a migration path for stored versions in etcd. The field is mutable so a migration controller can finish a migration to another version (ensuring no old objects are left in storage), and then remove the rest of the versions from this list. Versions may not be removed from `spec.versions` while they exist in this list.
      * @type {Array<string>}
      * @memberof IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus
      */
-    storedVersions?: string[];
+    storedVersions?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus interface.
  */
-export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus(value: object): value is IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus {
+    return true;
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatusFromJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus {
@@ -66,29 +72,33 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceD
 }
 
 export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'acceptedNames': !exists(json, 'acceptedNames') ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSON(json['acceptedNames']),
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionFromJSON)),
-        'storedVersions': !exists(json, 'storedVersions') ? undefined : json['storedVersions'],
+        'acceptedNames': json['acceptedNames'] == null ? undefined : IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesFromJSON(json['acceptedNames']),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionFromJSON)),
+        'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
+        'storedVersions': json['storedVersions'] == null ? undefined : json['storedVersions'],
     };
 }
 
-export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatusToJSON(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatusToJSON(json: any): IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus {
+    return IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatusToJSONTyped(value?: IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'acceptedNames': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON(value.acceptedNames),
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionToJSON)),
-        'storedVersions': value.storedVersions,
+        'acceptedNames': IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionNamesToJSON(value['acceptedNames']),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionConditionToJSON)),
+        'observedGeneration': value['observedGeneration'],
+        'storedVersions': value['storedVersions'],
     };
 }
 

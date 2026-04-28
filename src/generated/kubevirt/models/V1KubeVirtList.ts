@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApimachineryPkgApisMetaV1ListMeta } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import {
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON,
     K8sIoApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     K8sIoApimachineryPkgApisMetaV1ListMetaToJSON,
+    K8sIoApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './K8sIoApimachineryPkgApisMetaV1ListMeta';
 import type { V1KubeVirt } from './V1KubeVirt';
 import {
     V1KubeVirtFromJSON,
     V1KubeVirtFromJSONTyped,
     V1KubeVirtToJSON,
+    V1KubeVirtToJSONTyped,
 } from './V1KubeVirt';
 
 /**
@@ -61,11 +63,9 @@ export interface V1KubeVirtList {
 /**
  * Check if a given object implements the V1KubeVirtList interface.
  */
-export function instanceOfV1KubeVirtList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfV1KubeVirtList(value: object): value is V1KubeVirtList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function V1KubeVirtListFromJSON(json: any): V1KubeVirtList {
@@ -73,31 +73,33 @@ export function V1KubeVirtListFromJSON(json: any): V1KubeVirtList {
 }
 
 export function V1KubeVirtListFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1KubeVirtList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(V1KubeVirtFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function V1KubeVirtListToJSON(value?: V1KubeVirtList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1KubeVirtListToJSON(json: any): V1KubeVirtList {
+    return V1KubeVirtListToJSONTyped(json, false);
+}
+
+export function V1KubeVirtListToJSONTyped(value?: V1KubeVirtList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(V1KubeVirtToJSON)),
-        'kind': value.kind,
-        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(V1KubeVirtToJSON)),
+        'kind': value['kind'],
+        'metadata': K8sIoApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

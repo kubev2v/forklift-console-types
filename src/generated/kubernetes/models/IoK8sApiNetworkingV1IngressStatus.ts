@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiNetworkingV1IngressLoadBalancerStatus } from './IoK8sApiNetworkingV1IngressLoadBalancerStatus';
 import {
     IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSON,
     IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSONTyped,
     IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSON,
+    IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSONTyped,
 } from './IoK8sApiNetworkingV1IngressLoadBalancerStatus';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiNetworkingV1IngressStatus {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1IngressStatus interface.
  */
-export function instanceOfIoK8sApiNetworkingV1IngressStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1IngressStatus(value: object): value is IoK8sApiNetworkingV1IngressStatus {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1IngressStatusFromJSON(json: any): IoK8sApiNetworkingV1IngressStatus {
@@ -48,25 +47,27 @@ export function IoK8sApiNetworkingV1IngressStatusFromJSON(json: any): IoK8sApiNe
 }
 
 export function IoK8sApiNetworkingV1IngressStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1IngressStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'loadBalancer': !exists(json, 'loadBalancer') ? undefined : IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSON(json['loadBalancer']),
+        'loadBalancer': json['loadBalancer'] == null ? undefined : IoK8sApiNetworkingV1IngressLoadBalancerStatusFromJSON(json['loadBalancer']),
     };
 }
 
-export function IoK8sApiNetworkingV1IngressStatusToJSON(value?: IoK8sApiNetworkingV1IngressStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1IngressStatusToJSON(json: any): IoK8sApiNetworkingV1IngressStatus {
+    return IoK8sApiNetworkingV1IngressStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1IngressStatusToJSONTyped(value?: IoK8sApiNetworkingV1IngressStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'loadBalancer': IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSON(value.loadBalancer),
+        'loadBalancer': IoK8sApiNetworkingV1IngressLoadBalancerStatusToJSON(value['loadBalancer']),
     };
 }
 

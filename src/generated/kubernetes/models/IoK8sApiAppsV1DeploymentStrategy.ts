@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiAppsV1RollingUpdateDeployment } from './IoK8sApiAppsV1RollingUpdateDeployment';
 import {
     IoK8sApiAppsV1RollingUpdateDeploymentFromJSON,
     IoK8sApiAppsV1RollingUpdateDeploymentFromJSONTyped,
     IoK8sApiAppsV1RollingUpdateDeploymentToJSON,
+    IoK8sApiAppsV1RollingUpdateDeploymentToJSONTyped,
 } from './IoK8sApiAppsV1RollingUpdateDeployment';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiAppsV1DeploymentStrategy {
 /**
  * Check if a given object implements the IoK8sApiAppsV1DeploymentStrategy interface.
  */
-export function instanceOfIoK8sApiAppsV1DeploymentStrategy(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1DeploymentStrategy(value: object): value is IoK8sApiAppsV1DeploymentStrategy {
+    return true;
 }
 
 export function IoK8sApiAppsV1DeploymentStrategyFromJSON(json: any): IoK8sApiAppsV1DeploymentStrategy {
@@ -54,27 +53,29 @@ export function IoK8sApiAppsV1DeploymentStrategyFromJSON(json: any): IoK8sApiApp
 }
 
 export function IoK8sApiAppsV1DeploymentStrategyFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1DeploymentStrategy {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'rollingUpdate': !exists(json, 'rollingUpdate') ? undefined : IoK8sApiAppsV1RollingUpdateDeploymentFromJSON(json['rollingUpdate']),
-        'type': !exists(json, 'type') ? undefined : json['type'],
+        'rollingUpdate': json['rollingUpdate'] == null ? undefined : IoK8sApiAppsV1RollingUpdateDeploymentFromJSON(json['rollingUpdate']),
+        'type': json['type'] == null ? undefined : json['type'],
     };
 }
 
-export function IoK8sApiAppsV1DeploymentStrategyToJSON(value?: IoK8sApiAppsV1DeploymentStrategy | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1DeploymentStrategyToJSON(json: any): IoK8sApiAppsV1DeploymentStrategy {
+    return IoK8sApiAppsV1DeploymentStrategyToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1DeploymentStrategyToJSONTyped(value?: IoK8sApiAppsV1DeploymentStrategy | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'rollingUpdate': IoK8sApiAppsV1RollingUpdateDeploymentToJSON(value.rollingUpdate),
-        'type': value.type,
+        'rollingUpdate': IoK8sApiAppsV1RollingUpdateDeploymentToJSON(value['rollingUpdate']),
+        'type': value['type'],
     };
 }
 

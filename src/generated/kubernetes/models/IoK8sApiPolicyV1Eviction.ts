@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1DeleteOptions } from './IoK8sApimachineryPkgApisMetaV1DeleteOptions';
 import {
     IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSON,
     IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSON,
+    IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1DeleteOptions';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -61,10 +63,8 @@ export interface IoK8sApiPolicyV1Eviction {
 /**
  * Check if a given object implements the IoK8sApiPolicyV1Eviction interface.
  */
-export function instanceOfIoK8sApiPolicyV1Eviction(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiPolicyV1Eviction(value: object): value is IoK8sApiPolicyV1Eviction {
+    return true;
 }
 
 export function IoK8sApiPolicyV1EvictionFromJSON(json: any): IoK8sApiPolicyV1Eviction {
@@ -72,31 +72,33 @@ export function IoK8sApiPolicyV1EvictionFromJSON(json: any): IoK8sApiPolicyV1Evi
 }
 
 export function IoK8sApiPolicyV1EvictionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiPolicyV1Eviction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'deleteOptions': !exists(json, 'deleteOptions') ? undefined : IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSON(json['deleteOptions']),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'deleteOptions': json['deleteOptions'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1DeleteOptionsFromJSON(json['deleteOptions']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiPolicyV1EvictionToJSON(value?: IoK8sApiPolicyV1Eviction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiPolicyV1EvictionToJSON(json: any): IoK8sApiPolicyV1Eviction {
+    return IoK8sApiPolicyV1EvictionToJSONTyped(json, false);
+}
+
+export function IoK8sApiPolicyV1EvictionToJSONTyped(value?: IoK8sApiPolicyV1Eviction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'deleteOptions': IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSON(value.deleteOptions),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'deleteOptions': IoK8sApimachineryPkgApisMetaV1DeleteOptionsToJSON(value['deleteOptions']),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
     };
 }
 

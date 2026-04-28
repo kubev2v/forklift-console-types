@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR } from './IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR';
 import {
     IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON,
     IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON,
+    IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDR';
 
 /**
@@ -49,18 +50,16 @@ export interface IoK8sApimachineryPkgApisMetaV1APIVersions {
      * @type {Array<string>}
      * @memberof IoK8sApimachineryPkgApisMetaV1APIVersions
      */
-    versions: string[];
+    versions: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1APIVersions interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1APIVersions(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "serverAddressByClientCIDRs" in value;
-    isInstance = isInstance && "versions" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1APIVersions(value: object): value is IoK8sApimachineryPkgApisMetaV1APIVersions {
+    if (!('serverAddressByClientCIDRs' in value) || value['serverAddressByClientCIDRs'] === undefined) return false;
+    if (!('versions' in value) || value['versions'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1APIVersionsFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1APIVersions {
@@ -68,31 +67,33 @@ export function IoK8sApimachineryPkgApisMetaV1APIVersionsFromJSON(json: any): Io
 }
 
 export function IoK8sApimachineryPkgApisMetaV1APIVersionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1APIVersions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
         'serverAddressByClientCIDRs': ((json['serverAddressByClientCIDRs'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRFromJSON)),
         'versions': json['versions'],
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1APIVersionsToJSON(value?: IoK8sApimachineryPkgApisMetaV1APIVersions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1APIVersionsToJSON(json: any): IoK8sApimachineryPkgApisMetaV1APIVersions {
+    return IoK8sApimachineryPkgApisMetaV1APIVersionsToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1APIVersionsToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1APIVersions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'serverAddressByClientCIDRs': ((value.serverAddressByClientCIDRs as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON)),
-        'versions': value.versions,
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'serverAddressByClientCIDRs': ((value['serverAddressByClientCIDRs'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ServerAddressByClientCIDRToJSON)),
+        'versions': value['versions'],
     };
 }
 

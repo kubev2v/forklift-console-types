@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * NetworkPolicyPort describes a port to allow traffic on
  * @export
@@ -42,10 +42,8 @@ export interface IoK8sApiNetworkingV1NetworkPolicyPort {
 /**
  * Check if a given object implements the IoK8sApiNetworkingV1NetworkPolicyPort interface.
  */
-export function instanceOfIoK8sApiNetworkingV1NetworkPolicyPort(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiNetworkingV1NetworkPolicyPort(value: object): value is IoK8sApiNetworkingV1NetworkPolicyPort {
+    return true;
 }
 
 export function IoK8sApiNetworkingV1NetworkPolicyPortFromJSON(json: any): IoK8sApiNetworkingV1NetworkPolicyPort {
@@ -53,29 +51,31 @@ export function IoK8sApiNetworkingV1NetworkPolicyPortFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiNetworkingV1NetworkPolicyPortFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiNetworkingV1NetworkPolicyPort {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'endPort': !exists(json, 'endPort') ? undefined : json['endPort'],
-        'port': !exists(json, 'port') ? undefined : json['port'],
-        'protocol': !exists(json, 'protocol') ? undefined : json['protocol'],
+        'endPort': json['endPort'] == null ? undefined : json['endPort'],
+        'port': json['port'] == null ? undefined : json['port'],
+        'protocol': json['protocol'] == null ? undefined : json['protocol'],
     };
 }
 
-export function IoK8sApiNetworkingV1NetworkPolicyPortToJSON(value?: IoK8sApiNetworkingV1NetworkPolicyPort | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiNetworkingV1NetworkPolicyPortToJSON(json: any): IoK8sApiNetworkingV1NetworkPolicyPort {
+    return IoK8sApiNetworkingV1NetworkPolicyPortToJSONTyped(json, false);
+}
+
+export function IoK8sApiNetworkingV1NetworkPolicyPortToJSONTyped(value?: IoK8sApiNetworkingV1NetworkPolicyPort | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'endPort': value.endPort,
-        'port': value.port,
-        'protocol': value.protocol,
+        'endPort': value['endPort'],
+        'port': value['port'],
+        'protocol': value['protocol'],
     };
 }
 

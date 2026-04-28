@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1SecretReference } from './IoK8sApiCoreV1SecretReference';
 import {
     IoK8sApiCoreV1SecretReferenceFromJSON,
     IoK8sApiCoreV1SecretReferenceFromJSONTyped,
     IoK8sApiCoreV1SecretReferenceToJSON,
+    IoK8sApiCoreV1SecretReferenceToJSONTyped,
 } from './IoK8sApiCoreV1SecretReference';
 
 /**
@@ -61,11 +62,9 @@ export interface IoK8sApiCoreV1FlexPersistentVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1FlexPersistentVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1FlexPersistentVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "driver" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1FlexPersistentVolumeSource(value: object): value is IoK8sApiCoreV1FlexPersistentVolumeSource {
+    if (!('driver' in value) || value['driver'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1FlexPersistentVolumeSourceFromJSON(json: any): IoK8sApiCoreV1FlexPersistentVolumeSource {
@@ -73,33 +72,35 @@ export function IoK8sApiCoreV1FlexPersistentVolumeSourceFromJSON(json: any): IoK
 }
 
 export function IoK8sApiCoreV1FlexPersistentVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1FlexPersistentVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'driver': json['driver'],
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'options': !exists(json, 'options') ? undefined : json['options'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : IoK8sApiCoreV1SecretReferenceFromJSON(json['secretRef']),
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'options': json['options'] == null ? undefined : json['options'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'secretRef': json['secretRef'] == null ? undefined : IoK8sApiCoreV1SecretReferenceFromJSON(json['secretRef']),
     };
 }
 
-export function IoK8sApiCoreV1FlexPersistentVolumeSourceToJSON(value?: IoK8sApiCoreV1FlexPersistentVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1FlexPersistentVolumeSourceToJSON(json: any): IoK8sApiCoreV1FlexPersistentVolumeSource {
+    return IoK8sApiCoreV1FlexPersistentVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1FlexPersistentVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1FlexPersistentVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'driver': value.driver,
-        'fsType': value.fsType,
-        'options': value.options,
-        'readOnly': value.readOnly,
-        'secretRef': IoK8sApiCoreV1SecretReferenceToJSON(value.secretRef),
+        'driver': value['driver'],
+        'fsType': value['fsType'],
+        'options': value['options'],
+        'readOnly': value['readOnly'],
+        'secretRef': IoK8sApiCoreV1SecretReferenceToJSON(value['secretRef']),
     };
 }
 

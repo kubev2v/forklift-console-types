@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1CustomizeComponentsPatch } from './V1CustomizeComponentsPatch';
 import {
     V1CustomizeComponentsPatchFromJSON,
     V1CustomizeComponentsPatchFromJSONTyped,
     V1CustomizeComponentsPatchToJSON,
+    V1CustomizeComponentsPatchToJSONTyped,
 } from './V1CustomizeComponentsPatch';
 import type { V1Flags } from './V1Flags';
 import {
     V1FlagsFromJSON,
     V1FlagsFromJSONTyped,
     V1FlagsToJSON,
+    V1FlagsToJSONTyped,
 } from './V1Flags';
 
 /**
@@ -49,10 +51,8 @@ export interface V1CustomizeComponents {
 /**
  * Check if a given object implements the V1CustomizeComponents interface.
  */
-export function instanceOfV1CustomizeComponents(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1CustomizeComponents(value: object): value is V1CustomizeComponents {
+    return true;
 }
 
 export function V1CustomizeComponentsFromJSON(json: any): V1CustomizeComponents {
@@ -60,27 +60,29 @@ export function V1CustomizeComponentsFromJSON(json: any): V1CustomizeComponents 
 }
 
 export function V1CustomizeComponentsFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CustomizeComponents {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'flags': !exists(json, 'flags') ? undefined : V1FlagsFromJSON(json['flags']),
-        'patches': !exists(json, 'patches') ? undefined : ((json['patches'] as Array<any>).map(V1CustomizeComponentsPatchFromJSON)),
+        'flags': json['flags'] == null ? undefined : V1FlagsFromJSON(json['flags']),
+        'patches': json['patches'] == null ? undefined : ((json['patches'] as Array<any>).map(V1CustomizeComponentsPatchFromJSON)),
     };
 }
 
-export function V1CustomizeComponentsToJSON(value?: V1CustomizeComponents | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CustomizeComponentsToJSON(json: any): V1CustomizeComponents {
+    return V1CustomizeComponentsToJSONTyped(json, false);
+}
+
+export function V1CustomizeComponentsToJSONTyped(value?: V1CustomizeComponents | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'flags': V1FlagsToJSON(value.flags),
-        'patches': value.patches === undefined ? undefined : ((value.patches as Array<any>).map(V1CustomizeComponentsPatchToJSON)),
+        'flags': V1FlagsToJSON(value['flags']),
+        'patches': value['patches'] == null ? undefined : ((value['patches'] as Array<any>).map(V1CustomizeComponentsPatchToJSON)),
     };
 }
 

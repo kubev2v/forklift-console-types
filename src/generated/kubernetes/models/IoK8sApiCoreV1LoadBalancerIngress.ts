@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PortStatus } from './IoK8sApiCoreV1PortStatus';
 import {
     IoK8sApiCoreV1PortStatusFromJSON,
     IoK8sApiCoreV1PortStatusFromJSONTyped,
     IoK8sApiCoreV1PortStatusToJSON,
+    IoK8sApiCoreV1PortStatusToJSONTyped,
 } from './IoK8sApiCoreV1PortStatus';
 
 /**
@@ -55,10 +56,8 @@ export interface IoK8sApiCoreV1LoadBalancerIngress {
 /**
  * Check if a given object implements the IoK8sApiCoreV1LoadBalancerIngress interface.
  */
-export function instanceOfIoK8sApiCoreV1LoadBalancerIngress(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1LoadBalancerIngress(value: object): value is IoK8sApiCoreV1LoadBalancerIngress {
+    return true;
 }
 
 export function IoK8sApiCoreV1LoadBalancerIngressFromJSON(json: any): IoK8sApiCoreV1LoadBalancerIngress {
@@ -66,31 +65,33 @@ export function IoK8sApiCoreV1LoadBalancerIngressFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1LoadBalancerIngressFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1LoadBalancerIngress {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'hostname': !exists(json, 'hostname') ? undefined : json['hostname'],
-        'ip': !exists(json, 'ip') ? undefined : json['ip'],
-        'ipMode': !exists(json, 'ipMode') ? undefined : json['ipMode'],
-        'ports': !exists(json, 'ports') ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1PortStatusFromJSON)),
+        'hostname': json['hostname'] == null ? undefined : json['hostname'],
+        'ip': json['ip'] == null ? undefined : json['ip'],
+        'ipMode': json['ipMode'] == null ? undefined : json['ipMode'],
+        'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(IoK8sApiCoreV1PortStatusFromJSON)),
     };
 }
 
-export function IoK8sApiCoreV1LoadBalancerIngressToJSON(value?: IoK8sApiCoreV1LoadBalancerIngress | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1LoadBalancerIngressToJSON(json: any): IoK8sApiCoreV1LoadBalancerIngress {
+    return IoK8sApiCoreV1LoadBalancerIngressToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1LoadBalancerIngressToJSONTyped(value?: IoK8sApiCoreV1LoadBalancerIngress | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'hostname': value.hostname,
-        'ip': value.ip,
-        'ipMode': value.ipMode,
-        'ports': value.ports === undefined ? undefined : ((value.ports as Array<any>).map(IoK8sApiCoreV1PortStatusToJSON)),
+        'hostname': value['hostname'],
+        'ip': value['ip'],
+        'ipMode': value['ipMode'],
+        'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(IoK8sApiCoreV1PortStatusToJSON)),
     };
 }
 

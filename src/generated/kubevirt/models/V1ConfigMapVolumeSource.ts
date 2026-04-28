@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ConfigMapVolumeSource adapts a ConfigMap into a volume. More info: https://kubernetes.io/docs/concepts/storage/volumes/#configmap
  * @export
@@ -20,7 +20,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface V1ConfigMapVolumeSource {
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof V1ConfigMapVolumeSource
      */
@@ -42,10 +42,8 @@ export interface V1ConfigMapVolumeSource {
 /**
  * Check if a given object implements the V1ConfigMapVolumeSource interface.
  */
-export function instanceOfV1ConfigMapVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1ConfigMapVolumeSource(value: object): value is V1ConfigMapVolumeSource {
+    return true;
 }
 
 export function V1ConfigMapVolumeSourceFromJSON(json: any): V1ConfigMapVolumeSource {
@@ -53,29 +51,31 @@ export function V1ConfigMapVolumeSourceFromJSON(json: any): V1ConfigMapVolumeSou
 }
 
 export function V1ConfigMapVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1ConfigMapVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
-        'volumeLabel': !exists(json, 'volumeLabel') ? undefined : json['volumeLabel'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
+        'volumeLabel': json['volumeLabel'] == null ? undefined : json['volumeLabel'],
     };
 }
 
-export function V1ConfigMapVolumeSourceToJSON(value?: V1ConfigMapVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ConfigMapVolumeSourceToJSON(json: any): V1ConfigMapVolumeSource {
+    return V1ConfigMapVolumeSourceToJSONTyped(json, false);
+}
+
+export function V1ConfigMapVolumeSourceToJSONTyped(value?: V1ConfigMapVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'optional': value.optional,
-        'volumeLabel': value.volumeLabel,
+        'name': value['name'],
+        'optional': value['optional'],
+        'volumeLabel': value['volumeLabel'],
     };
 }
 

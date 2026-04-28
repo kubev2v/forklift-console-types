@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CPUTopology allows specifying the amount of cores, sockets and threads.
  * @export
@@ -42,10 +42,8 @@ export interface V1CPUTopology {
 /**
  * Check if a given object implements the V1CPUTopology interface.
  */
-export function instanceOfV1CPUTopology(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1CPUTopology(value: object): value is V1CPUTopology {
+    return true;
 }
 
 export function V1CPUTopologyFromJSON(json: any): V1CPUTopology {
@@ -53,29 +51,31 @@ export function V1CPUTopologyFromJSON(json: any): V1CPUTopology {
 }
 
 export function V1CPUTopologyFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CPUTopology {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'cores': !exists(json, 'cores') ? undefined : json['cores'],
-        'sockets': !exists(json, 'sockets') ? undefined : json['sockets'],
-        'threads': !exists(json, 'threads') ? undefined : json['threads'],
+        'cores': json['cores'] == null ? undefined : json['cores'],
+        'sockets': json['sockets'] == null ? undefined : json['sockets'],
+        'threads': json['threads'] == null ? undefined : json['threads'],
     };
 }
 
-export function V1CPUTopologyToJSON(value?: V1CPUTopology | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CPUTopologyToJSON(json: any): V1CPUTopology {
+    return V1CPUTopologyToJSONTyped(json, false);
+}
+
+export function V1CPUTopologyToJSONTyped(value?: V1CPUTopology | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'cores': value.cores,
-        'sockets': value.sockets,
-        'threads': value.threads,
+        'cores': value['cores'],
+        'sockets': value['sockets'],
+        'threads': value['threads'],
     };
 }
 

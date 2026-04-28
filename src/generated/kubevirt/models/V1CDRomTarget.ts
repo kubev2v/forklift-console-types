@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -42,10 +42,8 @@ export interface V1CDRomTarget {
 /**
  * Check if a given object implements the V1CDRomTarget interface.
  */
-export function instanceOfV1CDRomTarget(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1CDRomTarget(value: object): value is V1CDRomTarget {
+    return true;
 }
 
 export function V1CDRomTargetFromJSON(json: any): V1CDRomTarget {
@@ -53,29 +51,31 @@ export function V1CDRomTargetFromJSON(json: any): V1CDRomTarget {
 }
 
 export function V1CDRomTargetFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1CDRomTarget {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'bus': !exists(json, 'bus') ? undefined : json['bus'],
-        'readonly': !exists(json, 'readonly') ? undefined : json['readonly'],
-        'tray': !exists(json, 'tray') ? undefined : json['tray'],
+        'bus': json['bus'] == null ? undefined : json['bus'],
+        'readonly': json['readonly'] == null ? undefined : json['readonly'],
+        'tray': json['tray'] == null ? undefined : json['tray'],
     };
 }
 
-export function V1CDRomTargetToJSON(value?: V1CDRomTarget | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1CDRomTargetToJSON(json: any): V1CDRomTarget {
+    return V1CDRomTargetToJSONTyped(json, false);
+}
+
+export function V1CDRomTargetToJSONTyped(value?: V1CDRomTarget | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'bus': value.bus,
-        'readonly': value.readonly,
-        'tray': value.tray,
+        'bus': value['bus'],
+        'readonly': value['readonly'],
+        'tray': value['tray'],
     };
 }
 

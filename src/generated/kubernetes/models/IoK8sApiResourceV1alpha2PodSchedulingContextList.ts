@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { exists, mapValues } from '../../../runtime';
 import type { IoK8sApiResourceV1alpha2PodSchedulingContext } from './IoK8sApiResourceV1alpha2PodSchedulingContext';
 import {
     IoK8sApiResourceV1alpha2PodSchedulingContextFromJSON,

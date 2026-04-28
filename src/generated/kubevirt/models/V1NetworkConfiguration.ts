@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1InterfaceBindingPlugin } from './V1InterfaceBindingPlugin';
 import {
     V1InterfaceBindingPluginFromJSON,
     V1InterfaceBindingPluginFromJSONTyped,
     V1InterfaceBindingPluginToJSON,
+    V1InterfaceBindingPluginToJSONTyped,
 } from './V1InterfaceBindingPlugin';
 
 /**
@@ -45,7 +46,7 @@ export interface V1NetworkConfiguration {
      */
     permitBridgeInterfaceOnPodNetwork?: boolean;
     /**
-     * 
+     * DeprecatedPermitSlirpInterface is an alias for the deprecated PermitSlirpInterface. Deprecated: Removed in v1.3.
      * @type {boolean}
      * @memberof V1NetworkConfiguration
      */
@@ -55,10 +56,8 @@ export interface V1NetworkConfiguration {
 /**
  * Check if a given object implements the V1NetworkConfiguration interface.
  */
-export function instanceOfV1NetworkConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1NetworkConfiguration(value: object): value is V1NetworkConfiguration {
+    return true;
 }
 
 export function V1NetworkConfigurationFromJSON(json: any): V1NetworkConfiguration {
@@ -66,31 +65,33 @@ export function V1NetworkConfigurationFromJSON(json: any): V1NetworkConfiguratio
 }
 
 export function V1NetworkConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1NetworkConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'binding': !exists(json, 'binding') ? undefined : (mapValues(json['binding'], V1InterfaceBindingPluginFromJSON)),
-        'defaultNetworkInterface': !exists(json, 'defaultNetworkInterface') ? undefined : json['defaultNetworkInterface'],
-        'permitBridgeInterfaceOnPodNetwork': !exists(json, 'permitBridgeInterfaceOnPodNetwork') ? undefined : json['permitBridgeInterfaceOnPodNetwork'],
-        'permitSlirpInterface': !exists(json, 'permitSlirpInterface') ? undefined : json['permitSlirpInterface'],
+        'binding': json['binding'] == null ? undefined : (mapValues(json['binding'], V1InterfaceBindingPluginFromJSON)),
+        'defaultNetworkInterface': json['defaultNetworkInterface'] == null ? undefined : json['defaultNetworkInterface'],
+        'permitBridgeInterfaceOnPodNetwork': json['permitBridgeInterfaceOnPodNetwork'] == null ? undefined : json['permitBridgeInterfaceOnPodNetwork'],
+        'permitSlirpInterface': json['permitSlirpInterface'] == null ? undefined : json['permitSlirpInterface'],
     };
 }
 
-export function V1NetworkConfigurationToJSON(value?: V1NetworkConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1NetworkConfigurationToJSON(json: any): V1NetworkConfiguration {
+    return V1NetworkConfigurationToJSONTyped(json, false);
+}
+
+export function V1NetworkConfigurationToJSONTyped(value?: V1NetworkConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'binding': value.binding === undefined ? undefined : (mapValues(value.binding, V1InterfaceBindingPluginToJSON)),
-        'defaultNetworkInterface': value.defaultNetworkInterface,
-        'permitBridgeInterfaceOnPodNetwork': value.permitBridgeInterfaceOnPodNetwork,
-        'permitSlirpInterface': value.permitSlirpInterface,
+        'binding': value['binding'] == null ? undefined : (mapValues(value['binding'], V1InterfaceBindingPluginToJSON)),
+        'defaultNetworkInterface': value['defaultNetworkInterface'],
+        'permitBridgeInterfaceOnPodNetwork': value['permitBridgeInterfaceOnPodNetwork'],
+        'permitSlirpInterface': value['permitSlirpInterface'],
     };
 }
 

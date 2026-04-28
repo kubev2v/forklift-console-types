@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
  * @export
@@ -36,18 +36,16 @@ export interface IoK8sApiCoreV1ScopedResourceSelectorRequirement {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ScopedResourceSelectorRequirement
      */
-    values?: string[];
+    values?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ScopedResourceSelectorRequirement interface.
  */
-export function instanceOfIoK8sApiCoreV1ScopedResourceSelectorRequirement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "operator" in value;
-    isInstance = isInstance && "scopeName" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ScopedResourceSelectorRequirement(value: object): value is IoK8sApiCoreV1ScopedResourceSelectorRequirement {
+    if (!('operator' in value) || value['operator'] === undefined) return false;
+    if (!('scopeName' in value) || value['scopeName'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSON(json: any): IoK8sApiCoreV1ScopedResourceSelectorRequirement {
@@ -55,29 +53,31 @@ export function IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSON(json: an
 }
 
 export function IoK8sApiCoreV1ScopedResourceSelectorRequirementFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ScopedResourceSelectorRequirement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'operator': json['operator'],
         'scopeName': json['scopeName'],
-        'values': !exists(json, 'values') ? undefined : json['values'],
+        'values': json['values'] == null ? undefined : json['values'],
     };
 }
 
-export function IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSON(value?: IoK8sApiCoreV1ScopedResourceSelectorRequirement | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSON(json: any): IoK8sApiCoreV1ScopedResourceSelectorRequirement {
+    return IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ScopedResourceSelectorRequirementToJSONTyped(value?: IoK8sApiCoreV1ScopedResourceSelectorRequirement | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'operator': value.operator,
-        'scopeName': value.scopeName,
-        'values': value.values,
+        'operator': value['operator'],
+        'scopeName': value['scopeName'],
+        'values': value['values'],
     };
 }
 

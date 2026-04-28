@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiCoreV1SecretReference {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SecretReference interface.
  */
-export function instanceOfIoK8sApiCoreV1SecretReference(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SecretReference(value: object): value is IoK8sApiCoreV1SecretReference {
+    return true;
 }
 
 export function IoK8sApiCoreV1SecretReferenceFromJSON(json: any): IoK8sApiCoreV1SecretReference {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1SecretReferenceFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1SecretReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SecretReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'namespace': !exists(json, 'namespace') ? undefined : json['namespace'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'namespace': json['namespace'] == null ? undefined : json['namespace'],
     };
 }
 
-export function IoK8sApiCoreV1SecretReferenceToJSON(value?: IoK8sApiCoreV1SecretReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecretReferenceToJSON(json: any): IoK8sApiCoreV1SecretReference {
+    return IoK8sApiCoreV1SecretReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecretReferenceToJSONTyped(value?: IoK8sApiCoreV1SecretReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'namespace': value.namespace,
+        'name': value['name'],
+        'namespace': value['namespace'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SecretKeySelector selects a key of a Secret.
  * @export
@@ -26,7 +26,7 @@ export interface IoK8sApiCoreV1SecretKeySelector {
      */
     key: string;
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof IoK8sApiCoreV1SecretKeySelector
      */
@@ -42,11 +42,9 @@ export interface IoK8sApiCoreV1SecretKeySelector {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SecretKeySelector interface.
  */
-export function instanceOfIoK8sApiCoreV1SecretKeySelector(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SecretKeySelector(value: object): value is IoK8sApiCoreV1SecretKeySelector {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1SecretKeySelectorFromJSON(json: any): IoK8sApiCoreV1SecretKeySelector {
@@ -54,29 +52,31 @@ export function IoK8sApiCoreV1SecretKeySelectorFromJSON(json: any): IoK8sApiCore
 }
 
 export function IoK8sApiCoreV1SecretKeySelectorFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SecretKeySelector {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'key': json['key'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
     };
 }
 
-export function IoK8sApiCoreV1SecretKeySelectorToJSON(value?: IoK8sApiCoreV1SecretKeySelector | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SecretKeySelectorToJSON(json: any): IoK8sApiCoreV1SecretKeySelector {
+    return IoK8sApiCoreV1SecretKeySelectorToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SecretKeySelectorToJSONTyped(value?: IoK8sApiCoreV1SecretKeySelector | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'name': value.name,
-        'optional': value.optional,
+        'key': value['key'],
+        'name': value['name'],
+        'optional': value['optional'],
     };
 }
 

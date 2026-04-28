@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * VirtualMachineCondition represents the state of VirtualMachine
  * @export
@@ -43,21 +43,15 @@ export interface V1VirtualMachineCondition {
      * @memberof V1VirtualMachineCondition
      */
     type: string;
-
-    /** */
-    lastProbeTime?: string;
-    lastTransitionTime?: string;
 }
 
 /**
  * Check if a given object implements the V1VirtualMachineCondition interface.
  */
-export function instanceOfV1VirtualMachineCondition(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "status" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineCondition(value: object): value is V1VirtualMachineCondition {
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineConditionFromJSON(json: any): V1VirtualMachineCondition {
@@ -65,31 +59,33 @@ export function V1VirtualMachineConditionFromJSON(json: any): V1VirtualMachineCo
 }
 
 export function V1VirtualMachineConditionFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineCondition {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'message': !exists(json, 'message') ? undefined : json['message'],
-        'reason': !exists(json, 'reason') ? undefined : json['reason'],
+        'message': json['message'] == null ? undefined : json['message'],
+        'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
         'type': json['type'],
     };
 }
 
-export function V1VirtualMachineConditionToJSON(value?: V1VirtualMachineCondition | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineConditionToJSON(json: any): V1VirtualMachineCondition {
+    return V1VirtualMachineConditionToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineConditionToJSONTyped(value?: V1VirtualMachineCondition | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'message': value.message,
-        'reason': value.reason,
-        'status': value.status,
-        'type': value.type,
+        'message': value['message'],
+        'reason': value['reason'],
+        'status': value['status'],
+        'type': value['type'],
     };
 }
 

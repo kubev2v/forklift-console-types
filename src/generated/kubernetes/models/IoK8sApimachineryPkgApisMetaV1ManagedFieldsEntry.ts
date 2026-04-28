@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
  * @export
@@ -64,16 +64,14 @@ export interface IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry {
      * @type {Date}
      * @memberof IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry
      */
-    time?: string;
+    time?: Date;
 }
 
 /**
  * Check if a given object implements the IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry interface.
  */
-export function instanceOfIoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry(value: object): value is IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry {
+    return true;
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryFromJSON(json: any): IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry {
@@ -81,37 +79,39 @@ export function IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryFromJSON(json: a
 }
 
 export function IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'fieldsType': !exists(json, 'fieldsType') ? undefined : json['fieldsType'],
-        'fieldsV1': !exists(json, 'fieldsV1') ? undefined : json['fieldsV1'],
-        'manager': !exists(json, 'manager') ? undefined : json['manager'],
-        'operation': !exists(json, 'operation') ? undefined : json['operation'],
-        'subresource': !exists(json, 'subresource') ? undefined : json['subresource'],
-        'time': !exists(json, 'time') ? undefined : json['time'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'fieldsType': json['fieldsType'] == null ? undefined : json['fieldsType'],
+        'fieldsV1': json['fieldsV1'] == null ? undefined : json['fieldsV1'],
+        'manager': json['manager'] == null ? undefined : json['manager'],
+        'operation': json['operation'] == null ? undefined : json['operation'],
+        'subresource': json['subresource'] == null ? undefined : json['subresource'],
+        'time': json['time'] == null ? undefined : (new Date(json['time'])),
     };
 }
 
-export function IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryToJSON(value?: IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryToJSON(json: any): IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry {
+    return IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryToJSONTyped(json, false);
+}
+
+export function IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntryToJSONTyped(value?: IoK8sApimachineryPkgApisMetaV1ManagedFieldsEntry | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'fieldsType': value.fieldsType,
-        'fieldsV1': value.fieldsV1,
-        'manager': value.manager,
-        'operation': value.operation,
-        'subresource': value.subresource,
-        'time': value.time === undefined ? undefined : (value.time),
+        'apiVersion': value['apiVersion'],
+        'fieldsType': value['fieldsType'],
+        'fieldsV1': value['fieldsV1'],
+        'manager': value['manager'],
+        'operation': value['operation'],
+        'subresource': value['subresource'],
+        'time': value['time'] == null ? undefined : ((value['time']).toISOString()),
     };
 }
 

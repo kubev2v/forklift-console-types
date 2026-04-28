@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
  * 
@@ -22,7 +22,7 @@ import { exists, mapValues } from '../../runtime';
  */
 export interface IoK8sApiCoreV1ConfigMapEnvSource {
     /**
-     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+     * Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * @type {string}
      * @memberof IoK8sApiCoreV1ConfigMapEnvSource
      */
@@ -38,10 +38,8 @@ export interface IoK8sApiCoreV1ConfigMapEnvSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ConfigMapEnvSource interface.
  */
-export function instanceOfIoK8sApiCoreV1ConfigMapEnvSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ConfigMapEnvSource(value: object): value is IoK8sApiCoreV1ConfigMapEnvSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1ConfigMapEnvSourceFromJSON(json: any): IoK8sApiCoreV1ConfigMapEnvSource {
@@ -49,27 +47,29 @@ export function IoK8sApiCoreV1ConfigMapEnvSourceFromJSON(json: any): IoK8sApiCor
 }
 
 export function IoK8sApiCoreV1ConfigMapEnvSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ConfigMapEnvSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'optional': !exists(json, 'optional') ? undefined : json['optional'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'optional': json['optional'] == null ? undefined : json['optional'],
     };
 }
 
-export function IoK8sApiCoreV1ConfigMapEnvSourceToJSON(value?: IoK8sApiCoreV1ConfigMapEnvSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ConfigMapEnvSourceToJSON(json: any): IoK8sApiCoreV1ConfigMapEnvSource {
+    return IoK8sApiCoreV1ConfigMapEnvSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ConfigMapEnvSourceToJSONTyped(value?: IoK8sApiCoreV1ConfigMapEnvSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'name': value.name,
-        'optional': value.optional,
+        'name': value['name'],
+        'optional': value['optional'],
     };
 }
 

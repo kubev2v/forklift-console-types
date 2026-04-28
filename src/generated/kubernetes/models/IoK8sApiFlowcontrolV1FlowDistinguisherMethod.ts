@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * FlowDistinguisherMethod specifies the method of a flow distinguisher.
  * @export
@@ -30,11 +30,9 @@ export interface IoK8sApiFlowcontrolV1FlowDistinguisherMethod {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1FlowDistinguisherMethod interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1FlowDistinguisherMethod(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1FlowDistinguisherMethod(value: object): value is IoK8sApiFlowcontrolV1FlowDistinguisherMethod {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSON(json: any): IoK8sApiFlowcontrolV1FlowDistinguisherMethod {
@@ -42,7 +40,7 @@ export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSON(json: any):
 }
 
 export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1FlowDistinguisherMethod {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -51,16 +49,18 @@ export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodFromJSONTyped(json: 
     };
 }
 
-export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSON(value?: IoK8sApiFlowcontrolV1FlowDistinguisherMethod | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSON(json: any): IoK8sApiFlowcontrolV1FlowDistinguisherMethod {
+    return IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1FlowDistinguisherMethodToJSONTyped(value?: IoK8sApiFlowcontrolV1FlowDistinguisherMethod | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'type': value.type,
+        'type': value['type'],
     };
 }
 

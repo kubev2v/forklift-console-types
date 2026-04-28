@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { K8sIoApiCoreV1PodAffinityTerm } from './K8sIoApiCoreV1PodAffinityTerm';
 import {
     K8sIoApiCoreV1PodAffinityTermFromJSON,
     K8sIoApiCoreV1PodAffinityTermFromJSONTyped,
     K8sIoApiCoreV1PodAffinityTermToJSON,
+    K8sIoApiCoreV1PodAffinityTermToJSONTyped,
 } from './K8sIoApiCoreV1PodAffinityTerm';
 
 /**
@@ -43,12 +44,10 @@ export interface K8sIoApiCoreV1WeightedPodAffinityTerm {
 /**
  * Check if a given object implements the K8sIoApiCoreV1WeightedPodAffinityTerm interface.
  */
-export function instanceOfK8sIoApiCoreV1WeightedPodAffinityTerm(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "podAffinityTerm" in value;
-    isInstance = isInstance && "weight" in value;
-
-    return isInstance;
+export function instanceOfK8sIoApiCoreV1WeightedPodAffinityTerm(value: object): value is K8sIoApiCoreV1WeightedPodAffinityTerm {
+    if (!('podAffinityTerm' in value) || value['podAffinityTerm'] === undefined) return false;
+    if (!('weight' in value) || value['weight'] === undefined) return false;
+    return true;
 }
 
 export function K8sIoApiCoreV1WeightedPodAffinityTermFromJSON(json: any): K8sIoApiCoreV1WeightedPodAffinityTerm {
@@ -56,7 +55,7 @@ export function K8sIoApiCoreV1WeightedPodAffinityTermFromJSON(json: any): K8sIoA
 }
 
 export function K8sIoApiCoreV1WeightedPodAffinityTermFromJSONTyped(json: any, ignoreDiscriminator: boolean): K8sIoApiCoreV1WeightedPodAffinityTerm {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -66,17 +65,19 @@ export function K8sIoApiCoreV1WeightedPodAffinityTermFromJSONTyped(json: any, ig
     };
 }
 
-export function K8sIoApiCoreV1WeightedPodAffinityTermToJSON(value?: K8sIoApiCoreV1WeightedPodAffinityTerm | null): any {
-    if (value === undefined) {
-        return undefined;
+export function K8sIoApiCoreV1WeightedPodAffinityTermToJSON(json: any): K8sIoApiCoreV1WeightedPodAffinityTerm {
+    return K8sIoApiCoreV1WeightedPodAffinityTermToJSONTyped(json, false);
+}
+
+export function K8sIoApiCoreV1WeightedPodAffinityTermToJSONTyped(value?: K8sIoApiCoreV1WeightedPodAffinityTerm | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'podAffinityTerm': K8sIoApiCoreV1PodAffinityTermToJSON(value.podAffinityTerm),
-        'weight': value.weight,
+        'podAffinityTerm': K8sIoApiCoreV1PodAffinityTermToJSON(value['podAffinityTerm']),
+        'weight': value['weight'],
     };
 }
 

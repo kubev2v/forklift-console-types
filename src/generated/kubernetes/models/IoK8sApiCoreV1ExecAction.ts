@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * ExecAction describes a "run in container" action.
  * @export
@@ -24,16 +24,14 @@ export interface IoK8sApiCoreV1ExecAction {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1ExecAction
      */
-    command?: string[];
+    command?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1ExecAction interface.
  */
-export function instanceOfIoK8sApiCoreV1ExecAction(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ExecAction(value: object): value is IoK8sApiCoreV1ExecAction {
+    return true;
 }
 
 export function IoK8sApiCoreV1ExecActionFromJSON(json: any): IoK8sApiCoreV1ExecAction {
@@ -41,25 +39,27 @@ export function IoK8sApiCoreV1ExecActionFromJSON(json: any): IoK8sApiCoreV1ExecA
 }
 
 export function IoK8sApiCoreV1ExecActionFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ExecAction {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'command': !exists(json, 'command') ? undefined : json['command'],
+        'command': json['command'] == null ? undefined : json['command'],
     };
 }
 
-export function IoK8sApiCoreV1ExecActionToJSON(value?: IoK8sApiCoreV1ExecAction | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ExecActionToJSON(json: any): IoK8sApiCoreV1ExecAction {
+    return IoK8sApiCoreV1ExecActionToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ExecActionToJSONTyped(value?: IoK8sApiCoreV1ExecAction | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'command': value.command,
+        'command': value['command'],
     };
 }
 

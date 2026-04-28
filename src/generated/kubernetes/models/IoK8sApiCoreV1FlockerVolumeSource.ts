@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
  * @export
@@ -36,10 +36,8 @@ export interface IoK8sApiCoreV1FlockerVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1FlockerVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1FlockerVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1FlockerVolumeSource(value: object): value is IoK8sApiCoreV1FlockerVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1FlockerVolumeSourceFromJSON(json: any): IoK8sApiCoreV1FlockerVolumeSource {
@@ -47,27 +45,29 @@ export function IoK8sApiCoreV1FlockerVolumeSourceFromJSON(json: any): IoK8sApiCo
 }
 
 export function IoK8sApiCoreV1FlockerVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1FlockerVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'datasetName': !exists(json, 'datasetName') ? undefined : json['datasetName'],
-        'datasetUUID': !exists(json, 'datasetUUID') ? undefined : json['datasetUUID'],
+        'datasetName': json['datasetName'] == null ? undefined : json['datasetName'],
+        'datasetUUID': json['datasetUUID'] == null ? undefined : json['datasetUUID'],
     };
 }
 
-export function IoK8sApiCoreV1FlockerVolumeSourceToJSON(value?: IoK8sApiCoreV1FlockerVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1FlockerVolumeSourceToJSON(json: any): IoK8sApiCoreV1FlockerVolumeSource {
+    return IoK8sApiCoreV1FlockerVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1FlockerVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1FlockerVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'datasetName': value.datasetName,
-        'datasetUUID': value.datasetUUID,
+        'datasetName': value['datasetName'],
+        'datasetUUID': value['datasetUUID'],
     };
 }
 

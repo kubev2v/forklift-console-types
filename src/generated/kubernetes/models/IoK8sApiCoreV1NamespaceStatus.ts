@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1NamespaceCondition } from './IoK8sApiCoreV1NamespaceCondition';
 import {
     IoK8sApiCoreV1NamespaceConditionFromJSON,
     IoK8sApiCoreV1NamespaceConditionFromJSONTyped,
     IoK8sApiCoreV1NamespaceConditionToJSON,
+    IoK8sApiCoreV1NamespaceConditionToJSONTyped,
 } from './IoK8sApiCoreV1NamespaceCondition';
 
 /**
@@ -43,10 +44,8 @@ export interface IoK8sApiCoreV1NamespaceStatus {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NamespaceStatus interface.
  */
-export function instanceOfIoK8sApiCoreV1NamespaceStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NamespaceStatus(value: object): value is IoK8sApiCoreV1NamespaceStatus {
+    return true;
 }
 
 export function IoK8sApiCoreV1NamespaceStatusFromJSON(json: any): IoK8sApiCoreV1NamespaceStatus {
@@ -54,27 +53,29 @@ export function IoK8sApiCoreV1NamespaceStatusFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1NamespaceStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NamespaceStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1NamespaceConditionFromJSON)),
-        'phase': !exists(json, 'phase') ? undefined : json['phase'],
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiCoreV1NamespaceConditionFromJSON)),
+        'phase': json['phase'] == null ? undefined : json['phase'],
     };
 }
 
-export function IoK8sApiCoreV1NamespaceStatusToJSON(value?: IoK8sApiCoreV1NamespaceStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NamespaceStatusToJSON(json: any): IoK8sApiCoreV1NamespaceStatus {
+    return IoK8sApiCoreV1NamespaceStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NamespaceStatusToJSONTyped(value?: IoK8sApiCoreV1NamespaceStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiCoreV1NamespaceConditionToJSON)),
-        'phase': value.phase,
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiCoreV1NamespaceConditionToJSON)),
+        'phase': value['phase'],
     };
 }
 

@@ -12,24 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1PodSpec } from './IoK8sApiCoreV1PodSpec';
-import {
-    IoK8sApiCoreV1PodSpecFromJSON,
-    IoK8sApiCoreV1PodSpecFromJSONTyped,
-    IoK8sApiCoreV1PodSpecToJSON,
-} from './IoK8sApiCoreV1PodSpec';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodStatus } from './IoK8sApiCoreV1PodStatus';
 import {
     IoK8sApiCoreV1PodStatusFromJSON,
     IoK8sApiCoreV1PodStatusFromJSONTyped,
     IoK8sApiCoreV1PodStatusToJSON,
+    IoK8sApiCoreV1PodStatusToJSONTyped,
 } from './IoK8sApiCoreV1PodStatus';
+import type { IoK8sApiCoreV1PodSpec } from './IoK8sApiCoreV1PodSpec';
+import {
+    IoK8sApiCoreV1PodSpecFromJSON,
+    IoK8sApiCoreV1PodSpecFromJSONTyped,
+    IoK8sApiCoreV1PodSpecToJSON,
+    IoK8sApiCoreV1PodSpecToJSONTyped,
+} from './IoK8sApiCoreV1PodSpec';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 
 /**
@@ -73,10 +76,8 @@ export interface IoK8sApiCoreV1Pod {
 /**
  * Check if a given object implements the IoK8sApiCoreV1Pod interface.
  */
-export function instanceOfIoK8sApiCoreV1Pod(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1Pod(value: object): value is IoK8sApiCoreV1Pod {
+    return true;
 }
 
 export function IoK8sApiCoreV1PodFromJSON(json: any): IoK8sApiCoreV1Pod {
@@ -84,33 +85,35 @@ export function IoK8sApiCoreV1PodFromJSON(json: any): IoK8sApiCoreV1Pod {
 }
 
 export function IoK8sApiCoreV1PodFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1Pod {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'spec': !exists(json, 'spec') ? undefined : IoK8sApiCoreV1PodSpecFromJSON(json['spec']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiCoreV1PodStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'spec': json['spec'] == null ? undefined : IoK8sApiCoreV1PodSpecFromJSON(json['spec']),
+        'status': json['status'] == null ? undefined : IoK8sApiCoreV1PodStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiCoreV1PodToJSON(value?: IoK8sApiCoreV1Pod | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1PodToJSON(json: any): IoK8sApiCoreV1Pod {
+    return IoK8sApiCoreV1PodToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1PodToJSONTyped(value?: IoK8sApiCoreV1Pod | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'spec': IoK8sApiCoreV1PodSpecToJSON(value.spec),
-        'status': IoK8sApiCoreV1PodStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'spec': IoK8sApiCoreV1PodSpecToJSON(value['spec']),
+        'status': IoK8sApiCoreV1PodStatusToJSON(value['status']),
     };
 }
 

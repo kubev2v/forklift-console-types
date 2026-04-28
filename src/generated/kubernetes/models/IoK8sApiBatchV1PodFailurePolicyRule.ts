@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement } from './IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement';
 import {
     IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSON,
     IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSONTyped,
     IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSON,
+    IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSONTyped,
 } from './IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirement';
 import type { IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern } from './IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern';
 import {
     IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSON,
     IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSONTyped,
     IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSON,
+    IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSONTyped,
 } from './IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPattern';
 
 /**
@@ -39,8 +41,6 @@ export interface IoK8sApiBatchV1PodFailurePolicyRule {
      *   running pods are terminated.
      * - FailIndex: indicates that the pod's index is marked as Failed and will
      *   not be restarted.
-     *   This value is beta-level. It can be used when the
-     *   `JobBackoffLimitPerIndex` feature gate is enabled (enabled by default).
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.
      * - Count: indicates that the pod is handled in the default way - the
@@ -67,11 +67,9 @@ export interface IoK8sApiBatchV1PodFailurePolicyRule {
 /**
  * Check if a given object implements the IoK8sApiBatchV1PodFailurePolicyRule interface.
  */
-export function instanceOfIoK8sApiBatchV1PodFailurePolicyRule(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "action" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiBatchV1PodFailurePolicyRule(value: object): value is IoK8sApiBatchV1PodFailurePolicyRule {
+    if (!('action' in value) || value['action'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyRuleFromJSON(json: any): IoK8sApiBatchV1PodFailurePolicyRule {
@@ -79,29 +77,31 @@ export function IoK8sApiBatchV1PodFailurePolicyRuleFromJSON(json: any): IoK8sApi
 }
 
 export function IoK8sApiBatchV1PodFailurePolicyRuleFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiBatchV1PodFailurePolicyRule {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'action': json['action'],
-        'onExitCodes': !exists(json, 'onExitCodes') ? undefined : IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSON(json['onExitCodes']),
-        'onPodConditions': !exists(json, 'onPodConditions') ? undefined : ((json['onPodConditions'] as Array<any>).map(IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSON)),
+        'onExitCodes': json['onExitCodes'] == null ? undefined : IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementFromJSON(json['onExitCodes']),
+        'onPodConditions': json['onPodConditions'] == null ? undefined : ((json['onPodConditions'] as Array<any>).map(IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternFromJSON)),
     };
 }
 
-export function IoK8sApiBatchV1PodFailurePolicyRuleToJSON(value?: IoK8sApiBatchV1PodFailurePolicyRule | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiBatchV1PodFailurePolicyRuleToJSON(json: any): IoK8sApiBatchV1PodFailurePolicyRule {
+    return IoK8sApiBatchV1PodFailurePolicyRuleToJSONTyped(json, false);
+}
+
+export function IoK8sApiBatchV1PodFailurePolicyRuleToJSONTyped(value?: IoK8sApiBatchV1PodFailurePolicyRule | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'action': value.action,
-        'onExitCodes': IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSON(value.onExitCodes),
-        'onPodConditions': value.onPodConditions === undefined ? undefined : ((value.onPodConditions as Array<any>).map(IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSON)),
+        'action': value['action'],
+        'onExitCodes': IoK8sApiBatchV1PodFailurePolicyOnExitCodesRequirementToJSON(value['onExitCodes']),
+        'onPodConditions': value['onPodConditions'] == null ? undefined : ((value['onPodConditions'] as Array<any>).map(IoK8sApiBatchV1PodFailurePolicyOnPodConditionsPatternToJSON)),
     };
 }
 

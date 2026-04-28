@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents the multus cni network.
  * @export
@@ -36,11 +36,9 @@ export interface V1MultusNetwork {
 /**
  * Check if a given object implements the V1MultusNetwork interface.
  */
-export function instanceOfV1MultusNetwork(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "networkName" in value;
-
-    return isInstance;
+export function instanceOfV1MultusNetwork(value: object): value is V1MultusNetwork {
+    if (!('networkName' in value) || value['networkName'] === undefined) return false;
+    return true;
 }
 
 export function V1MultusNetworkFromJSON(json: any): V1MultusNetwork {
@@ -48,27 +46,29 @@ export function V1MultusNetworkFromJSON(json: any): V1MultusNetwork {
 }
 
 export function V1MultusNetworkFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1MultusNetwork {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        '_default': !exists(json, 'default') ? undefined : json['default'],
+        '_default': json['default'] == null ? undefined : json['default'],
         'networkName': json['networkName'],
     };
 }
 
-export function V1MultusNetworkToJSON(value?: V1MultusNetwork | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MultusNetworkToJSON(json: any): V1MultusNetwork {
+    return V1MultusNetworkToJSONTyped(json, false);
+}
+
+export function V1MultusNetworkToJSONTyped(value?: V1MultusNetwork | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'default': value._default,
-        'networkName': value.networkName,
+        'default': value['_default'],
+        'networkName': value['networkName'],
     };
 }
 

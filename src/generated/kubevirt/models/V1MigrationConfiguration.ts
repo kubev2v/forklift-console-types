@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * MigrationConfiguration holds migration options. Can be overridden for specific groups of VMs though migration policies. Visit https://kubevirt.io/user-guide/operations/migration_policies/ for more information.
  * @export
@@ -31,6 +31,12 @@ export interface V1MigrationConfiguration {
      * @memberof V1MigrationConfiguration
      */
     allowPostCopy?: boolean;
+    /**
+     * AllowWorkloadDisruption indicates that the migration shouldn't be canceled after acceptableCompletionTime is exceeded. Instead, if permitted, migration will be switched to post-copy or the VMI will be paused to allow the migration to complete
+     * @type {boolean}
+     * @memberof V1MigrationConfiguration
+     */
+    allowWorkloadDisruption?: boolean;
     /**
      * Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.
      * 
@@ -69,12 +75,12 @@ export interface V1MigrationConfiguration {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1MigrationConfiguration
      */
-    bandwidthPerMigration?: string;
+    bandwidthPerMigration?: object;
     /**
-     * CompletionTimeoutPerGiB is the maximum number of seconds per GiB a migration is allowed to take. If a live-migration takes longer to migrate than this value multiplied by the size of the VMI, the migration will be cancelled, unless AllowPostCopy is true. Defaults to 800
+     * CompletionTimeoutPerGiB is the maximum number of seconds per GiB a migration is allowed to take. If the timeout is reached, the migration will be either paused, switched to post-copy or cancelled depending on other settings. Defaults to 150
      * @type {number}
      * @memberof V1MigrationConfiguration
      */
@@ -127,15 +133,19 @@ export interface V1MigrationConfiguration {
      * @memberof V1MigrationConfiguration
      */
     unsafeMigrationOverride?: boolean;
+    /**
+     * UtilityVolumesTimeout is the maximum number of seconds a migration can wait in Pending state for utility volumes to be detached. If utility volumes are still present after this timeout, the migration will be marked as Failed. Defaults to 150
+     * @type {number}
+     * @memberof V1MigrationConfiguration
+     */
+    utilityVolumesTimeout?: number;
 }
 
 /**
  * Check if a given object implements the V1MigrationConfiguration interface.
  */
-export function instanceOfV1MigrationConfiguration(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1MigrationConfiguration(value: object): value is V1MigrationConfiguration {
+    return true;
 }
 
 export function V1MigrationConfigurationFromJSON(json: any): V1MigrationConfiguration {
@@ -143,47 +153,53 @@ export function V1MigrationConfigurationFromJSON(json: any): V1MigrationConfigur
 }
 
 export function V1MigrationConfigurationFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1MigrationConfiguration {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'allowAutoConverge': !exists(json, 'allowAutoConverge') ? undefined : json['allowAutoConverge'],
-        'allowPostCopy': !exists(json, 'allowPostCopy') ? undefined : json['allowPostCopy'],
-        'bandwidthPerMigration': !exists(json, 'bandwidthPerMigration') ? undefined : json['bandwidthPerMigration'],
-        'completionTimeoutPerGiB': !exists(json, 'completionTimeoutPerGiB') ? undefined : json['completionTimeoutPerGiB'],
-        'disableTLS': !exists(json, 'disableTLS') ? undefined : json['disableTLS'],
-        'matchSELinuxLevelOnMigration': !exists(json, 'matchSELinuxLevelOnMigration') ? undefined : json['matchSELinuxLevelOnMigration'],
-        'network': !exists(json, 'network') ? undefined : json['network'],
-        'nodeDrainTaintKey': !exists(json, 'nodeDrainTaintKey') ? undefined : json['nodeDrainTaintKey'],
-        'parallelMigrationsPerCluster': !exists(json, 'parallelMigrationsPerCluster') ? undefined : json['parallelMigrationsPerCluster'],
-        'parallelOutboundMigrationsPerNode': !exists(json, 'parallelOutboundMigrationsPerNode') ? undefined : json['parallelOutboundMigrationsPerNode'],
-        'progressTimeout': !exists(json, 'progressTimeout') ? undefined : json['progressTimeout'],
-        'unsafeMigrationOverride': !exists(json, 'unsafeMigrationOverride') ? undefined : json['unsafeMigrationOverride'],
+        'allowAutoConverge': json['allowAutoConverge'] == null ? undefined : json['allowAutoConverge'],
+        'allowPostCopy': json['allowPostCopy'] == null ? undefined : json['allowPostCopy'],
+        'allowWorkloadDisruption': json['allowWorkloadDisruption'] == null ? undefined : json['allowWorkloadDisruption'],
+        'bandwidthPerMigration': json['bandwidthPerMigration'] == null ? undefined : json['bandwidthPerMigration'],
+        'completionTimeoutPerGiB': json['completionTimeoutPerGiB'] == null ? undefined : json['completionTimeoutPerGiB'],
+        'disableTLS': json['disableTLS'] == null ? undefined : json['disableTLS'],
+        'matchSELinuxLevelOnMigration': json['matchSELinuxLevelOnMigration'] == null ? undefined : json['matchSELinuxLevelOnMigration'],
+        'network': json['network'] == null ? undefined : json['network'],
+        'nodeDrainTaintKey': json['nodeDrainTaintKey'] == null ? undefined : json['nodeDrainTaintKey'],
+        'parallelMigrationsPerCluster': json['parallelMigrationsPerCluster'] == null ? undefined : json['parallelMigrationsPerCluster'],
+        'parallelOutboundMigrationsPerNode': json['parallelOutboundMigrationsPerNode'] == null ? undefined : json['parallelOutboundMigrationsPerNode'],
+        'progressTimeout': json['progressTimeout'] == null ? undefined : json['progressTimeout'],
+        'unsafeMigrationOverride': json['unsafeMigrationOverride'] == null ? undefined : json['unsafeMigrationOverride'],
+        'utilityVolumesTimeout': json['utilityVolumesTimeout'] == null ? undefined : json['utilityVolumesTimeout'],
     };
 }
 
-export function V1MigrationConfigurationToJSON(value?: V1MigrationConfiguration | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1MigrationConfigurationToJSON(json: any): V1MigrationConfiguration {
+    return V1MigrationConfigurationToJSONTyped(json, false);
+}
+
+export function V1MigrationConfigurationToJSONTyped(value?: V1MigrationConfiguration | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'allowAutoConverge': value.allowAutoConverge,
-        'allowPostCopy': value.allowPostCopy,
-        'bandwidthPerMigration': value.bandwidthPerMigration,
-        'completionTimeoutPerGiB': value.completionTimeoutPerGiB,
-        'disableTLS': value.disableTLS,
-        'matchSELinuxLevelOnMigration': value.matchSELinuxLevelOnMigration,
-        'network': value.network,
-        'nodeDrainTaintKey': value.nodeDrainTaintKey,
-        'parallelMigrationsPerCluster': value.parallelMigrationsPerCluster,
-        'parallelOutboundMigrationsPerNode': value.parallelOutboundMigrationsPerNode,
-        'progressTimeout': value.progressTimeout,
-        'unsafeMigrationOverride': value.unsafeMigrationOverride,
+        'allowAutoConverge': value['allowAutoConverge'],
+        'allowPostCopy': value['allowPostCopy'],
+        'allowWorkloadDisruption': value['allowWorkloadDisruption'],
+        'bandwidthPerMigration': value['bandwidthPerMigration'],
+        'completionTimeoutPerGiB': value['completionTimeoutPerGiB'],
+        'disableTLS': value['disableTLS'],
+        'matchSELinuxLevelOnMigration': value['matchSELinuxLevelOnMigration'],
+        'network': value['network'],
+        'nodeDrainTaintKey': value['nodeDrainTaintKey'],
+        'parallelMigrationsPerCluster': value['parallelMigrationsPerCluster'],
+        'parallelOutboundMigrationsPerNode': value['parallelOutboundMigrationsPerNode'],
+        'progressTimeout': value['progressTimeout'],
+        'unsafeMigrationOverride': value['unsafeMigrationOverride'],
+        'utilityVolumesTimeout': value['utilityVolumesTimeout'],
     };
 }
 

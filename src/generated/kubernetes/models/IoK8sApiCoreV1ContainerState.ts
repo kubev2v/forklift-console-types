@@ -12,25 +12,28 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ContainerStateRunning } from './IoK8sApiCoreV1ContainerStateRunning';
 import {
     IoK8sApiCoreV1ContainerStateRunningFromJSON,
     IoK8sApiCoreV1ContainerStateRunningFromJSONTyped,
     IoK8sApiCoreV1ContainerStateRunningToJSON,
+    IoK8sApiCoreV1ContainerStateRunningToJSONTyped,
 } from './IoK8sApiCoreV1ContainerStateRunning';
-import type { IoK8sApiCoreV1ContainerStateTerminated } from './IoK8sApiCoreV1ContainerStateTerminated';
-import {
-    IoK8sApiCoreV1ContainerStateTerminatedFromJSON,
-    IoK8sApiCoreV1ContainerStateTerminatedFromJSONTyped,
-    IoK8sApiCoreV1ContainerStateTerminatedToJSON,
-} from './IoK8sApiCoreV1ContainerStateTerminated';
 import type { IoK8sApiCoreV1ContainerStateWaiting } from './IoK8sApiCoreV1ContainerStateWaiting';
 import {
     IoK8sApiCoreV1ContainerStateWaitingFromJSON,
     IoK8sApiCoreV1ContainerStateWaitingFromJSONTyped,
     IoK8sApiCoreV1ContainerStateWaitingToJSON,
+    IoK8sApiCoreV1ContainerStateWaitingToJSONTyped,
 } from './IoK8sApiCoreV1ContainerStateWaiting';
+import type { IoK8sApiCoreV1ContainerStateTerminated } from './IoK8sApiCoreV1ContainerStateTerminated';
+import {
+    IoK8sApiCoreV1ContainerStateTerminatedFromJSON,
+    IoK8sApiCoreV1ContainerStateTerminatedFromJSONTyped,
+    IoK8sApiCoreV1ContainerStateTerminatedToJSON,
+    IoK8sApiCoreV1ContainerStateTerminatedToJSONTyped,
+} from './IoK8sApiCoreV1ContainerStateTerminated';
 
 /**
  * ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
@@ -61,10 +64,8 @@ export interface IoK8sApiCoreV1ContainerState {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ContainerState interface.
  */
-export function instanceOfIoK8sApiCoreV1ContainerState(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ContainerState(value: object): value is IoK8sApiCoreV1ContainerState {
+    return true;
 }
 
 export function IoK8sApiCoreV1ContainerStateFromJSON(json: any): IoK8sApiCoreV1ContainerState {
@@ -72,29 +73,31 @@ export function IoK8sApiCoreV1ContainerStateFromJSON(json: any): IoK8sApiCoreV1C
 }
 
 export function IoK8sApiCoreV1ContainerStateFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ContainerState {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'running': !exists(json, 'running') ? undefined : IoK8sApiCoreV1ContainerStateRunningFromJSON(json['running']),
-        'terminated': !exists(json, 'terminated') ? undefined : IoK8sApiCoreV1ContainerStateTerminatedFromJSON(json['terminated']),
-        'waiting': !exists(json, 'waiting') ? undefined : IoK8sApiCoreV1ContainerStateWaitingFromJSON(json['waiting']),
+        'running': json['running'] == null ? undefined : IoK8sApiCoreV1ContainerStateRunningFromJSON(json['running']),
+        'terminated': json['terminated'] == null ? undefined : IoK8sApiCoreV1ContainerStateTerminatedFromJSON(json['terminated']),
+        'waiting': json['waiting'] == null ? undefined : IoK8sApiCoreV1ContainerStateWaitingFromJSON(json['waiting']),
     };
 }
 
-export function IoK8sApiCoreV1ContainerStateToJSON(value?: IoK8sApiCoreV1ContainerState | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ContainerStateToJSON(json: any): IoK8sApiCoreV1ContainerState {
+    return IoK8sApiCoreV1ContainerStateToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ContainerStateToJSONTyped(value?: IoK8sApiCoreV1ContainerState | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'running': IoK8sApiCoreV1ContainerStateRunningToJSON(value.running),
-        'terminated': IoK8sApiCoreV1ContainerStateTerminatedToJSON(value.terminated),
-        'waiting': IoK8sApiCoreV1ContainerStateWaitingToJSON(value.waiting),
+        'running': IoK8sApiCoreV1ContainerStateRunningToJSON(value['running']),
+        'terminated': IoK8sApiCoreV1ContainerStateTerminatedToJSON(value['terminated']),
+        'waiting': IoK8sApiCoreV1ContainerStateWaitingToJSON(value['waiting']),
     };
 }
 

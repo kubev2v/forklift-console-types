@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Chassis specifies the chassis info passed to the domain.
  * @export
@@ -54,10 +54,8 @@ export interface V1Chassis {
 /**
  * Check if a given object implements the V1Chassis interface.
  */
-export function instanceOfV1Chassis(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1Chassis(value: object): value is V1Chassis {
+    return true;
 }
 
 export function V1ChassisFromJSON(json: any): V1Chassis {
@@ -65,33 +63,35 @@ export function V1ChassisFromJSON(json: any): V1Chassis {
 }
 
 export function V1ChassisFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1Chassis {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'asset': !exists(json, 'asset') ? undefined : json['asset'],
-        'manufacturer': !exists(json, 'manufacturer') ? undefined : json['manufacturer'],
-        'serial': !exists(json, 'serial') ? undefined : json['serial'],
-        'sku': !exists(json, 'sku') ? undefined : json['sku'],
-        'version': !exists(json, 'version') ? undefined : json['version'],
+        'asset': json['asset'] == null ? undefined : json['asset'],
+        'manufacturer': json['manufacturer'] == null ? undefined : json['manufacturer'],
+        'serial': json['serial'] == null ? undefined : json['serial'],
+        'sku': json['sku'] == null ? undefined : json['sku'],
+        'version': json['version'] == null ? undefined : json['version'],
     };
 }
 
-export function V1ChassisToJSON(value?: V1Chassis | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1ChassisToJSON(json: any): V1Chassis {
+    return V1ChassisToJSONTyped(json, false);
+}
+
+export function V1ChassisToJSONTyped(value?: V1Chassis | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'asset': value.asset,
-        'manufacturer': value.manufacturer,
-        'serial': value.serial,
-        'sku': value.sku,
-        'version': value.version,
+        'asset': value['asset'],
+        'manufacturer': value['manufacturer'],
+        'serial': value['serial'],
+        'sku': value['sku'],
+        'version': value['version'],
     };
 }
 

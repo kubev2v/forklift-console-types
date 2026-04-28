@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1PodTemplateSpec } from './IoK8sApiCoreV1PodTemplateSpec';
 import {
     IoK8sApiCoreV1PodTemplateSpecFromJSON,
     IoK8sApiCoreV1PodTemplateSpecFromJSONTyped,
     IoK8sApiCoreV1PodTemplateSpecToJSON,
+    IoK8sApiCoreV1PodTemplateSpecToJSONTyped,
 } from './IoK8sApiCoreV1PodTemplateSpec';
 
 /**
@@ -55,10 +56,8 @@ export interface IoK8sApiCoreV1ReplicationControllerSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ReplicationControllerSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1ReplicationControllerSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ReplicationControllerSpec(value: object): value is IoK8sApiCoreV1ReplicationControllerSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1ReplicationControllerSpecFromJSON(json: any): IoK8sApiCoreV1ReplicationControllerSpec {
@@ -66,31 +65,33 @@ export function IoK8sApiCoreV1ReplicationControllerSpecFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiCoreV1ReplicationControllerSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ReplicationControllerSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'minReadySeconds': !exists(json, 'minReadySeconds') ? undefined : json['minReadySeconds'],
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
-        'selector': !exists(json, 'selector') ? undefined : json['selector'],
-        'template': !exists(json, 'template') ? undefined : IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
+        'minReadySeconds': json['minReadySeconds'] == null ? undefined : json['minReadySeconds'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
+        'selector': json['selector'] == null ? undefined : json['selector'],
+        'template': json['template'] == null ? undefined : IoK8sApiCoreV1PodTemplateSpecFromJSON(json['template']),
     };
 }
 
-export function IoK8sApiCoreV1ReplicationControllerSpecToJSON(value?: IoK8sApiCoreV1ReplicationControllerSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ReplicationControllerSpecToJSON(json: any): IoK8sApiCoreV1ReplicationControllerSpec {
+    return IoK8sApiCoreV1ReplicationControllerSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ReplicationControllerSpecToJSONTyped(value?: IoK8sApiCoreV1ReplicationControllerSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'minReadySeconds': value.minReadySeconds,
-        'replicas': value.replicas,
-        'selector': value.selector,
-        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value.template),
+        'minReadySeconds': value['minReadySeconds'],
+        'replicas': value['replicas'],
+        'selector': value['selector'],
+        'template': IoK8sApiCoreV1PodTemplateSpecToJSON(value['template']),
     };
 }
 

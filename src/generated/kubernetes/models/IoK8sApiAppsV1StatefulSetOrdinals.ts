@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
  * @export
@@ -33,10 +33,8 @@ export interface IoK8sApiAppsV1StatefulSetOrdinals {
 /**
  * Check if a given object implements the IoK8sApiAppsV1StatefulSetOrdinals interface.
  */
-export function instanceOfIoK8sApiAppsV1StatefulSetOrdinals(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAppsV1StatefulSetOrdinals(value: object): value is IoK8sApiAppsV1StatefulSetOrdinals {
+    return true;
 }
 
 export function IoK8sApiAppsV1StatefulSetOrdinalsFromJSON(json: any): IoK8sApiAppsV1StatefulSetOrdinals {
@@ -44,25 +42,27 @@ export function IoK8sApiAppsV1StatefulSetOrdinalsFromJSON(json: any): IoK8sApiAp
 }
 
 export function IoK8sApiAppsV1StatefulSetOrdinalsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAppsV1StatefulSetOrdinals {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'start': !exists(json, 'start') ? undefined : json['start'],
+        'start': json['start'] == null ? undefined : json['start'],
     };
 }
 
-export function IoK8sApiAppsV1StatefulSetOrdinalsToJSON(value?: IoK8sApiAppsV1StatefulSetOrdinals | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAppsV1StatefulSetOrdinalsToJSON(json: any): IoK8sApiAppsV1StatefulSetOrdinals {
+    return IoK8sApiAppsV1StatefulSetOrdinalsToJSONTyped(json, false);
+}
+
+export function IoK8sApiAppsV1StatefulSetOrdinalsToJSONTyped(value?: IoK8sApiAppsV1StatefulSetOrdinals | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'start': value.start,
+        'start': value['start'],
     };
 }
 

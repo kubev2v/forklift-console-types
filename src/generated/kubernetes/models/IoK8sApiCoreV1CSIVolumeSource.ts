@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1LocalObjectReference } from './IoK8sApiCoreV1LocalObjectReference';
 import {
     IoK8sApiCoreV1LocalObjectReferenceFromJSON,
     IoK8sApiCoreV1LocalObjectReferenceFromJSONTyped,
     IoK8sApiCoreV1LocalObjectReferenceToJSON,
+    IoK8sApiCoreV1LocalObjectReferenceToJSONTyped,
 } from './IoK8sApiCoreV1LocalObjectReference';
 
 /**
@@ -61,11 +62,9 @@ export interface IoK8sApiCoreV1CSIVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1CSIVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1CSIVolumeSource(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "driver" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1CSIVolumeSource(value: object): value is IoK8sApiCoreV1CSIVolumeSource {
+    if (!('driver' in value) || value['driver'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1CSIVolumeSourceFromJSON(json: any): IoK8sApiCoreV1CSIVolumeSource {
@@ -73,33 +72,35 @@ export function IoK8sApiCoreV1CSIVolumeSourceFromJSON(json: any): IoK8sApiCoreV1
 }
 
 export function IoK8sApiCoreV1CSIVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1CSIVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'driver': json['driver'],
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'nodePublishSecretRef': !exists(json, 'nodePublishSecretRef') ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['nodePublishSecretRef']),
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'volumeAttributes': !exists(json, 'volumeAttributes') ? undefined : json['volumeAttributes'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'nodePublishSecretRef': json['nodePublishSecretRef'] == null ? undefined : IoK8sApiCoreV1LocalObjectReferenceFromJSON(json['nodePublishSecretRef']),
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'volumeAttributes': json['volumeAttributes'] == null ? undefined : json['volumeAttributes'],
     };
 }
 
-export function IoK8sApiCoreV1CSIVolumeSourceToJSON(value?: IoK8sApiCoreV1CSIVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1CSIVolumeSourceToJSON(json: any): IoK8sApiCoreV1CSIVolumeSource {
+    return IoK8sApiCoreV1CSIVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1CSIVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1CSIVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'driver': value.driver,
-        'fsType': value.fsType,
-        'nodePublishSecretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value.nodePublishSecretRef),
-        'readOnly': value.readOnly,
-        'volumeAttributes': value.volumeAttributes,
+        'driver': value['driver'],
+        'fsType': value['fsType'],
+        'nodePublishSecretRef': IoK8sApiCoreV1LocalObjectReferenceToJSON(value['nodePublishSecretRef']),
+        'readOnly': value['readOnly'],
+        'volumeAttributes': value['volumeAttributes'],
     };
 }
 

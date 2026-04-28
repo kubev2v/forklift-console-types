@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
-import {
-    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
-    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
-    IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
-} from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import { mapValues } from '../../runtime';
 import type { IoK8sKubeAggregatorPkgApisApiregistrationV1APIService } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIService';
 import {
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceFromJSON,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceFromJSONTyped,
     IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSON,
+    IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSONTyped,
 } from './IoK8sKubeAggregatorPkgApisApiregistrationV1APIService';
+import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
+import {
+    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
+} from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
  * APIServiceList is a list of APIService objects.
@@ -61,11 +63,9 @@ export interface IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList {
 /**
  * Check if a given object implements the IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList interface.
  */
-export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList(value: object): value is IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListFromJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList {
@@ -73,31 +73,33 @@ export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListFromJSO
 }
 
 export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListToJSON(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListToJSON(json: any): IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList {
+    return IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListToJSONTyped(json, false);
+}
+
+export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceListToJSONTyped(value?: IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

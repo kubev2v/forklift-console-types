@@ -51,7 +51,7 @@ import {
  */
 export interface V1beta1CDIConfigSpec {
     /**
-     * DataVolumeTTLSeconds is the time in seconds after DataVolume completion it can be garbage collected. Disabled by default.
+     * DataVolumeTTLSeconds is the time in seconds after DataVolume completion it can be garbage collected. Disabled by default. Deprecated: Removed in v1.62.
      * @type {number}
      * @memberof V1beta1CDIConfigSpec
      */

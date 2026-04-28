@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
-import {
-    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
-    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
-    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
-} from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
+import { mapValues } from '../../runtime';
 import type { V1VirtualMachineInstanceTemplateSpec } from './V1VirtualMachineInstanceTemplateSpec';
 import {
     V1VirtualMachineInstanceTemplateSpecFromJSON,
     V1VirtualMachineInstanceTemplateSpecFromJSONTyped,
     V1VirtualMachineInstanceTemplateSpecToJSON,
+    V1VirtualMachineInstanceTemplateSpecToJSONTyped,
 } from './V1VirtualMachineInstanceTemplateSpec';
+import type { K8sIoApimachineryPkgApisMetaV1LabelSelector } from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
+import {
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON,
+    K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1LabelSelector';
 
 /**
  * 
@@ -61,12 +63,10 @@ export interface V1VirtualMachineInstanceReplicaSetSpec {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceReplicaSetSpec interface.
  */
-export function instanceOfV1VirtualMachineInstanceReplicaSetSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "selector" in value;
-    isInstance = isInstance && "template" in value;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceReplicaSetSpec(value: object): value is V1VirtualMachineInstanceReplicaSetSpec {
+    if (!('selector' in value) || value['selector'] === undefined) return false;
+    if (!('template' in value) || value['template'] === undefined) return false;
+    return true;
 }
 
 export function V1VirtualMachineInstanceReplicaSetSpecFromJSON(json: any): V1VirtualMachineInstanceReplicaSetSpec {
@@ -74,31 +74,33 @@ export function V1VirtualMachineInstanceReplicaSetSpecFromJSON(json: any): V1Vir
 }
 
 export function V1VirtualMachineInstanceReplicaSetSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceReplicaSetSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'paused': !exists(json, 'paused') ? undefined : json['paused'],
-        'replicas': !exists(json, 'replicas') ? undefined : json['replicas'],
+        'paused': json['paused'] == null ? undefined : json['paused'],
+        'replicas': json['replicas'] == null ? undefined : json['replicas'],
         'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['selector']),
         'template': V1VirtualMachineInstanceTemplateSpecFromJSON(json['template']),
     };
 }
 
-export function V1VirtualMachineInstanceReplicaSetSpecToJSON(value?: V1VirtualMachineInstanceReplicaSetSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceReplicaSetSpecToJSON(json: any): V1VirtualMachineInstanceReplicaSetSpec {
+    return V1VirtualMachineInstanceReplicaSetSpecToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceReplicaSetSpecToJSONTyped(value?: V1VirtualMachineInstanceReplicaSetSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'paused': value.paused,
-        'replicas': value.replicas,
-        'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value.selector),
-        'template': V1VirtualMachineInstanceTemplateSpecToJSON(value.template),
+        'paused': value['paused'],
+        'replicas': value['replicas'],
+        'selector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['selector']),
+        'template': V1VirtualMachineInstanceTemplateSpecToJSON(value['template']),
     };
 }
 

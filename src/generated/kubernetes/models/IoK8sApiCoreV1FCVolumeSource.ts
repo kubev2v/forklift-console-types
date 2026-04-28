@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
  * @export
@@ -42,22 +42,20 @@ export interface IoK8sApiCoreV1FCVolumeSource {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1FCVolumeSource
      */
-    targetWWNs?: string[];
+    targetWWNs?: Array<string>;
     /**
      * wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1FCVolumeSource
      */
-    wwids?: string[];
+    wwids?: Array<string>;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1FCVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1FCVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1FCVolumeSource(value: object): value is IoK8sApiCoreV1FCVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1FCVolumeSourceFromJSON(json: any): IoK8sApiCoreV1FCVolumeSource {
@@ -65,33 +63,35 @@ export function IoK8sApiCoreV1FCVolumeSourceFromJSON(json: any): IoK8sApiCoreV1F
 }
 
 export function IoK8sApiCoreV1FCVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1FCVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'fsType': !exists(json, 'fsType') ? undefined : json['fsType'],
-        'lun': !exists(json, 'lun') ? undefined : json['lun'],
-        'readOnly': !exists(json, 'readOnly') ? undefined : json['readOnly'],
-        'targetWWNs': !exists(json, 'targetWWNs') ? undefined : json['targetWWNs'],
-        'wwids': !exists(json, 'wwids') ? undefined : json['wwids'],
+        'fsType': json['fsType'] == null ? undefined : json['fsType'],
+        'lun': json['lun'] == null ? undefined : json['lun'],
+        'readOnly': json['readOnly'] == null ? undefined : json['readOnly'],
+        'targetWWNs': json['targetWWNs'] == null ? undefined : json['targetWWNs'],
+        'wwids': json['wwids'] == null ? undefined : json['wwids'],
     };
 }
 
-export function IoK8sApiCoreV1FCVolumeSourceToJSON(value?: IoK8sApiCoreV1FCVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1FCVolumeSourceToJSON(json: any): IoK8sApiCoreV1FCVolumeSource {
+    return IoK8sApiCoreV1FCVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1FCVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1FCVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'fsType': value.fsType,
-        'lun': value.lun,
-        'readOnly': value.readOnly,
-        'targetWWNs': value.targetWWNs,
-        'wwids': value.wwids,
+        'fsType': value['fsType'],
+        'lun': value['lun'],
+        'readOnly': value['readOnly'],
+        'targetWWNs': value['targetWWNs'],
+        'wwids': value['wwids'],
     };
 }
 

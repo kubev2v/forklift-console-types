@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Maps a string key to a path within a volume.
  * @export
@@ -42,12 +42,10 @@ export interface IoK8sApiCoreV1KeyToPath {
 /**
  * Check if a given object implements the IoK8sApiCoreV1KeyToPath interface.
  */
-export function instanceOfIoK8sApiCoreV1KeyToPath(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "key" in value;
-    isInstance = isInstance && "path" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1KeyToPath(value: object): value is IoK8sApiCoreV1KeyToPath {
+    if (!('key' in value) || value['key'] === undefined) return false;
+    if (!('path' in value) || value['path'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1KeyToPathFromJSON(json: any): IoK8sApiCoreV1KeyToPath {
@@ -55,29 +53,31 @@ export function IoK8sApiCoreV1KeyToPathFromJSON(json: any): IoK8sApiCoreV1KeyToP
 }
 
 export function IoK8sApiCoreV1KeyToPathFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1KeyToPath {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'key': json['key'],
-        'mode': !exists(json, 'mode') ? undefined : json['mode'],
+        'mode': json['mode'] == null ? undefined : json['mode'],
         'path': json['path'],
     };
 }
 
-export function IoK8sApiCoreV1KeyToPathToJSON(value?: IoK8sApiCoreV1KeyToPath | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1KeyToPathToJSON(json: any): IoK8sApiCoreV1KeyToPath {
+    return IoK8sApiCoreV1KeyToPathToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1KeyToPathToJSONTyped(value?: IoK8sApiCoreV1KeyToPath | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'key': value.key,
-        'mode': value.mode,
-        'path': value.path,
+        'key': value['key'],
+        'mode': value['mode'],
+        'path': value['path'],
     };
 }
 

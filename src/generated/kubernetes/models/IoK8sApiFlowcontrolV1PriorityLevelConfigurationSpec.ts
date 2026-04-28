@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration } from './IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration';
 import {
     IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSON,
     IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSONTyped,
     IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSON,
+    IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSONTyped,
 } from './IoK8sApiFlowcontrolV1ExemptPriorityLevelConfiguration';
 import type { IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration } from './IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration';
 import {
     IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSON,
     IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSONTyped,
     IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSON,
+    IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSONTyped,
 } from './IoK8sApiFlowcontrolV1LimitedPriorityLevelConfiguration';
 
 /**
@@ -55,11 +57,9 @@ export interface IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec(value: object): value is IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec {
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec {
@@ -67,29 +67,31 @@ export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSON(json
 }
 
 export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'exempt': !exists(json, 'exempt') ? undefined : IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSON(json['exempt']),
-        'limited': !exists(json, 'limited') ? undefined : IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSON(json['limited']),
+        'exempt': json['exempt'] == null ? undefined : IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationFromJSON(json['exempt']),
+        'limited': json['limited'] == null ? undefined : IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationFromJSON(json['limited']),
         'type': json['type'],
     };
 }
 
-export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSON(value?: IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSON(json: any): IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec {
+    return IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpecToJSONTyped(value?: IoK8sApiFlowcontrolV1PriorityLevelConfigurationSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'exempt': IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSON(value.exempt),
-        'limited': IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSON(value.limited),
-        'type': value.type,
+        'exempt': IoK8sApiFlowcontrolV1ExemptPriorityLevelConfigurationToJSON(value['exempt']),
+        'limited': IoK8sApiFlowcontrolV1LimitedPriorityLevelConfigurationToJSON(value['limited']),
+        'type': value['type'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * SELinuxOptions are the labels to be applied to the container
  * @export
@@ -48,10 +48,8 @@ export interface IoK8sApiCoreV1SELinuxOptions {
 /**
  * Check if a given object implements the IoK8sApiCoreV1SELinuxOptions interface.
  */
-export function instanceOfIoK8sApiCoreV1SELinuxOptions(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1SELinuxOptions(value: object): value is IoK8sApiCoreV1SELinuxOptions {
+    return true;
 }
 
 export function IoK8sApiCoreV1SELinuxOptionsFromJSON(json: any): IoK8sApiCoreV1SELinuxOptions {
@@ -59,31 +57,33 @@ export function IoK8sApiCoreV1SELinuxOptionsFromJSON(json: any): IoK8sApiCoreV1S
 }
 
 export function IoK8sApiCoreV1SELinuxOptionsFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1SELinuxOptions {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'level': !exists(json, 'level') ? undefined : json['level'],
-        'role': !exists(json, 'role') ? undefined : json['role'],
-        'type': !exists(json, 'type') ? undefined : json['type'],
-        'user': !exists(json, 'user') ? undefined : json['user'],
+        'level': json['level'] == null ? undefined : json['level'],
+        'role': json['role'] == null ? undefined : json['role'],
+        'type': json['type'] == null ? undefined : json['type'],
+        'user': json['user'] == null ? undefined : json['user'],
     };
 }
 
-export function IoK8sApiCoreV1SELinuxOptionsToJSON(value?: IoK8sApiCoreV1SELinuxOptions | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1SELinuxOptionsToJSON(json: any): IoK8sApiCoreV1SELinuxOptions {
+    return IoK8sApiCoreV1SELinuxOptionsToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1SELinuxOptionsToJSONTyped(value?: IoK8sApiCoreV1SELinuxOptions | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'level': value.level,
-        'role': value.role,
-        'type': value.type,
-        'user': value.user,
+        'level': value['level'],
+        'role': value['role'],
+        'type': value['type'],
+        'user': value['user'],
     };
 }
 

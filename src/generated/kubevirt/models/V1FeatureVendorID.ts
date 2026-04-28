@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1FeatureVendorID {
 /**
  * Check if a given object implements the V1FeatureVendorID interface.
  */
-export function instanceOfV1FeatureVendorID(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1FeatureVendorID(value: object): value is V1FeatureVendorID {
+    return true;
 }
 
 export function V1FeatureVendorIDFromJSON(json: any): V1FeatureVendorID {
@@ -47,27 +45,29 @@ export function V1FeatureVendorIDFromJSON(json: any): V1FeatureVendorID {
 }
 
 export function V1FeatureVendorIDFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1FeatureVendorID {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
-        'vendorid': !exists(json, 'vendorid') ? undefined : json['vendorid'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'vendorid': json['vendorid'] == null ? undefined : json['vendorid'],
     };
 }
 
-export function V1FeatureVendorIDToJSON(value?: V1FeatureVendorID | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FeatureVendorIDToJSON(json: any): V1FeatureVendorID {
+    return V1FeatureVendorIDToJSONTyped(json, false);
+}
+
+export function V1FeatureVendorIDToJSONTyped(value?: V1FeatureVendorID | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'enabled': value.enabled,
-        'vendorid': value.vendorid,
+        'enabled': value['enabled'],
+        'vendorid': value['vendorid'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents a disk created on the cluster level
  * @export
@@ -57,10 +57,10 @@ export interface V1HostDisk {
      * Non-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)
      * 
      * This format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.
-     * @type {string}
+     * @type {object}
      * @memberof V1HostDisk
      */
-    capacity?: string;
+    capacity?: object;
     /**
      * The path to HostDisk image located on the cluster
      * @type {string}
@@ -84,12 +84,10 @@ export interface V1HostDisk {
 /**
  * Check if a given object implements the V1HostDisk interface.
  */
-export function instanceOfV1HostDisk(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "path" in value;
-    isInstance = isInstance && "type" in value;
-
-    return isInstance;
+export function instanceOfV1HostDisk(value: object): value is V1HostDisk {
+    if (!('path' in value) || value['path'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
+    return true;
 }
 
 export function V1HostDiskFromJSON(json: any): V1HostDisk {
@@ -97,31 +95,33 @@ export function V1HostDiskFromJSON(json: any): V1HostDisk {
 }
 
 export function V1HostDiskFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1HostDisk {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'capacity': !exists(json, 'capacity') ? undefined : json['capacity'],
+        'capacity': json['capacity'] == null ? undefined : json['capacity'],
         'path': json['path'],
-        'shared': !exists(json, 'shared') ? undefined : json['shared'],
+        'shared': json['shared'] == null ? undefined : json['shared'],
         'type': json['type'],
     };
 }
 
-export function V1HostDiskToJSON(value?: V1HostDisk | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1HostDiskToJSON(json: any): V1HostDisk {
+    return V1HostDiskToJSONTyped(json, false);
+}
+
+export function V1HostDiskToJSONTyped(value?: V1HostDisk | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'capacity': value.capacity,
-        'path': value.path,
-        'shared': value.shared,
-        'type': value.type,
+        'capacity': value['capacity'],
+        'path': value['path'],
+        'shared': value['shared'],
+        'type': value['type'],
     };
 }
 

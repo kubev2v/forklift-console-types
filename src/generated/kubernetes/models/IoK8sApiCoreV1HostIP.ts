@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * HostIP represents a single IP address allocated to the host.
  * @export
@@ -24,16 +24,15 @@ export interface IoK8sApiCoreV1HostIP {
      * @type {string}
      * @memberof IoK8sApiCoreV1HostIP
      */
-    ip?: string;
+    ip: string;
 }
 
 /**
  * Check if a given object implements the IoK8sApiCoreV1HostIP interface.
  */
-export function instanceOfIoK8sApiCoreV1HostIP(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1HostIP(value: object): value is IoK8sApiCoreV1HostIP {
+    if (!('ip' in value) || value['ip'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1HostIPFromJSON(json: any): IoK8sApiCoreV1HostIP {
@@ -41,25 +40,27 @@ export function IoK8sApiCoreV1HostIPFromJSON(json: any): IoK8sApiCoreV1HostIP {
 }
 
 export function IoK8sApiCoreV1HostIPFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1HostIP {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'ip': !exists(json, 'ip') ? undefined : json['ip'],
+        'ip': json['ip'],
     };
 }
 
-export function IoK8sApiCoreV1HostIPToJSON(value?: IoK8sApiCoreV1HostIP | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1HostIPToJSON(json: any): IoK8sApiCoreV1HostIP {
+    return IoK8sApiCoreV1HostIPToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1HostIPToJSONTyped(value?: IoK8sApiCoreV1HostIP | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'ip': value.ip,
+        'ip': value['ip'],
     };
 }
 

@@ -47,6 +47,9 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
   metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
   /** spec
    * Hook specification.
+Local hooks require spec.image (playbook is optional if the image runs without an injected playbook).
+AAP hooks require spec.aap (image/playbook omitted for execution).
+Whether the spec is valid for execution is enforced by the hook and plan controllers (not by CRD admission rules).
    *
    * @required {false}
    */

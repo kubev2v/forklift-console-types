@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiStorageV1VolumeError } from './IoK8sApiStorageV1VolumeError';
 import {
     IoK8sApiStorageV1VolumeErrorFromJSON,
     IoK8sApiStorageV1VolumeErrorFromJSONTyped,
     IoK8sApiStorageV1VolumeErrorToJSON,
+    IoK8sApiStorageV1VolumeErrorToJSONTyped,
 } from './IoK8sApiStorageV1VolumeError';
 
 /**
@@ -55,11 +56,9 @@ export interface IoK8sApiStorageV1VolumeAttachmentStatus {
 /**
  * Check if a given object implements the IoK8sApiStorageV1VolumeAttachmentStatus interface.
  */
-export function instanceOfIoK8sApiStorageV1VolumeAttachmentStatus(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "attached" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiStorageV1VolumeAttachmentStatus(value: object): value is IoK8sApiStorageV1VolumeAttachmentStatus {
+    if (!('attached' in value) || value['attached'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentStatusFromJSON(json: any): IoK8sApiStorageV1VolumeAttachmentStatus {
@@ -67,31 +66,33 @@ export function IoK8sApiStorageV1VolumeAttachmentStatusFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiStorageV1VolumeAttachmentStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiStorageV1VolumeAttachmentStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'attachError': !exists(json, 'attachError') ? undefined : IoK8sApiStorageV1VolumeErrorFromJSON(json['attachError']),
+        'attachError': json['attachError'] == null ? undefined : IoK8sApiStorageV1VolumeErrorFromJSON(json['attachError']),
         'attached': json['attached'],
-        'attachmentMetadata': !exists(json, 'attachmentMetadata') ? undefined : json['attachmentMetadata'],
-        'detachError': !exists(json, 'detachError') ? undefined : IoK8sApiStorageV1VolumeErrorFromJSON(json['detachError']),
+        'attachmentMetadata': json['attachmentMetadata'] == null ? undefined : json['attachmentMetadata'],
+        'detachError': json['detachError'] == null ? undefined : IoK8sApiStorageV1VolumeErrorFromJSON(json['detachError']),
     };
 }
 
-export function IoK8sApiStorageV1VolumeAttachmentStatusToJSON(value?: IoK8sApiStorageV1VolumeAttachmentStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiStorageV1VolumeAttachmentStatusToJSON(json: any): IoK8sApiStorageV1VolumeAttachmentStatus {
+    return IoK8sApiStorageV1VolumeAttachmentStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiStorageV1VolumeAttachmentStatusToJSONTyped(value?: IoK8sApiStorageV1VolumeAttachmentStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'attachError': IoK8sApiStorageV1VolumeErrorToJSON(value.attachError),
-        'attached': value.attached,
-        'attachmentMetadata': value.attachmentMetadata,
-        'detachError': IoK8sApiStorageV1VolumeErrorToJSON(value.detachError),
+        'attachError': IoK8sApiStorageV1VolumeErrorToJSON(value['attachError']),
+        'attached': value['attached'],
+        'attachmentMetadata': value['attachmentMetadata'],
+        'detachError': IoK8sApiStorageV1VolumeErrorToJSON(value['detachError']),
     };
 }
 

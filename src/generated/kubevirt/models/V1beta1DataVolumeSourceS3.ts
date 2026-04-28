@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * DataVolumeSourceS3 provides the parameters to create a Data Volume from an S3 source
  * @export
@@ -42,11 +42,9 @@ export interface V1beta1DataVolumeSourceS3 {
 /**
  * Check if a given object implements the V1beta1DataVolumeSourceS3 interface.
  */
-export function instanceOfV1beta1DataVolumeSourceS3(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "url" in value;
-
-    return isInstance;
+export function instanceOfV1beta1DataVolumeSourceS3(value: object): value is V1beta1DataVolumeSourceS3 {
+    if (!('url' in value) || value['url'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1DataVolumeSourceS3FromJSON(json: any): V1beta1DataVolumeSourceS3 {
@@ -54,29 +52,31 @@ export function V1beta1DataVolumeSourceS3FromJSON(json: any): V1beta1DataVolumeS
 }
 
 export function V1beta1DataVolumeSourceS3FromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1DataVolumeSourceS3 {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'certConfigMap': !exists(json, 'certConfigMap') ? undefined : json['certConfigMap'],
-        'secretRef': !exists(json, 'secretRef') ? undefined : json['secretRef'],
+        'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
+        'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
         'url': json['url'],
     };
 }
 
-export function V1beta1DataVolumeSourceS3ToJSON(value?: V1beta1DataVolumeSourceS3 | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1DataVolumeSourceS3ToJSON(json: any): V1beta1DataVolumeSourceS3 {
+    return V1beta1DataVolumeSourceS3ToJSONTyped(json, false);
+}
+
+export function V1beta1DataVolumeSourceS3ToJSONTyped(value?: V1beta1DataVolumeSourceS3 | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'certConfigMap': value.certConfigMap,
-        'secretRef': value.secretRef,
-        'url': value.url,
+        'certConfigMap': value['certConfigMap'],
+        'secretRef': value['secretRef'],
+        'url': value['url'],
     };
 }
 

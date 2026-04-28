@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiCoreV1NodeConfigSource } from './IoK8sApiCoreV1NodeConfigSource';
-import {
-    IoK8sApiCoreV1NodeConfigSourceFromJSON,
-    IoK8sApiCoreV1NodeConfigSourceFromJSONTyped,
-    IoK8sApiCoreV1NodeConfigSourceToJSON,
-} from './IoK8sApiCoreV1NodeConfigSource';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1Taint } from './IoK8sApiCoreV1Taint';
 import {
     IoK8sApiCoreV1TaintFromJSON,
     IoK8sApiCoreV1TaintFromJSONTyped,
     IoK8sApiCoreV1TaintToJSON,
+    IoK8sApiCoreV1TaintToJSONTyped,
 } from './IoK8sApiCoreV1Taint';
+import type { IoK8sApiCoreV1NodeConfigSource } from './IoK8sApiCoreV1NodeConfigSource';
+import {
+    IoK8sApiCoreV1NodeConfigSourceFromJSON,
+    IoK8sApiCoreV1NodeConfigSourceFromJSONTyped,
+    IoK8sApiCoreV1NodeConfigSourceToJSON,
+    IoK8sApiCoreV1NodeConfigSourceToJSONTyped,
+} from './IoK8sApiCoreV1NodeConfigSource';
 
 /**
  * NodeSpec describes the attributes that a node is created with.
@@ -55,7 +57,7 @@ export interface IoK8sApiCoreV1NodeSpec {
      * @type {Array<string>}
      * @memberof IoK8sApiCoreV1NodeSpec
      */
-    podCIDRs?: string[];
+    podCIDRs?: Array<string>;
     /**
      * ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
      * @type {string}
@@ -79,10 +81,8 @@ export interface IoK8sApiCoreV1NodeSpec {
 /**
  * Check if a given object implements the IoK8sApiCoreV1NodeSpec interface.
  */
-export function instanceOfIoK8sApiCoreV1NodeSpec(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1NodeSpec(value: object): value is IoK8sApiCoreV1NodeSpec {
+    return true;
 }
 
 export function IoK8sApiCoreV1NodeSpecFromJSON(json: any): IoK8sApiCoreV1NodeSpec {
@@ -90,37 +90,39 @@ export function IoK8sApiCoreV1NodeSpecFromJSON(json: any): IoK8sApiCoreV1NodeSpe
 }
 
 export function IoK8sApiCoreV1NodeSpecFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1NodeSpec {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'configSource': !exists(json, 'configSource') ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['configSource']),
-        'externalID': !exists(json, 'externalID') ? undefined : json['externalID'],
-        'podCIDR': !exists(json, 'podCIDR') ? undefined : json['podCIDR'],
-        'podCIDRs': !exists(json, 'podCIDRs') ? undefined : json['podCIDRs'],
-        'providerID': !exists(json, 'providerID') ? undefined : json['providerID'],
-        'taints': !exists(json, 'taints') ? undefined : ((json['taints'] as Array<any>).map(IoK8sApiCoreV1TaintFromJSON)),
-        'unschedulable': !exists(json, 'unschedulable') ? undefined : json['unschedulable'],
+        'configSource': json['configSource'] == null ? undefined : IoK8sApiCoreV1NodeConfigSourceFromJSON(json['configSource']),
+        'externalID': json['externalID'] == null ? undefined : json['externalID'],
+        'podCIDR': json['podCIDR'] == null ? undefined : json['podCIDR'],
+        'podCIDRs': json['podCIDRs'] == null ? undefined : json['podCIDRs'],
+        'providerID': json['providerID'] == null ? undefined : json['providerID'],
+        'taints': json['taints'] == null ? undefined : ((json['taints'] as Array<any>).map(IoK8sApiCoreV1TaintFromJSON)),
+        'unschedulable': json['unschedulable'] == null ? undefined : json['unschedulable'],
     };
 }
 
-export function IoK8sApiCoreV1NodeSpecToJSON(value?: IoK8sApiCoreV1NodeSpec | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1NodeSpecToJSON(json: any): IoK8sApiCoreV1NodeSpec {
+    return IoK8sApiCoreV1NodeSpecToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1NodeSpecToJSONTyped(value?: IoK8sApiCoreV1NodeSpec | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'configSource': IoK8sApiCoreV1NodeConfigSourceToJSON(value.configSource),
-        'externalID': value.externalID,
-        'podCIDR': value.podCIDR,
-        'podCIDRs': value.podCIDRs,
-        'providerID': value.providerID,
-        'taints': value.taints === undefined ? undefined : ((value.taints as Array<any>).map(IoK8sApiCoreV1TaintToJSON)),
-        'unschedulable': value.unschedulable,
+        'configSource': IoK8sApiCoreV1NodeConfigSourceToJSON(value['configSource']),
+        'externalID': value['externalID'],
+        'podCIDR': value['podCIDR'],
+        'podCIDRs': value['podCIDRs'],
+        'providerID': value['providerID'],
+        'taints': value['taints'] == null ? undefined : ((value['taints'] as Array<any>).map(IoK8sApiCoreV1TaintToJSON)),
+        'unschedulable': value['unschedulable'],
     };
 }
 

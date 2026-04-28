@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { V1NUMA } from './V1NUMA';
 import {
     V1NUMAFromJSON,
     V1NUMAFromJSONTyped,
     V1NUMAToJSON,
+    V1NUMAToJSONTyped,
 } from './V1NUMA';
 import type { V1Realtime } from './V1Realtime';
 import {
     V1RealtimeFromJSON,
     V1RealtimeFromJSONTyped,
     V1RealtimeToJSON,
+    V1RealtimeToJSONTyped,
 } from './V1Realtime';
 
 /**
@@ -55,6 +57,12 @@ export interface V1beta1CPUInstancetype {
      */
     isolateEmulatorThread?: boolean;
     /**
+     * MaxSockets specifies the maximum amount of sockets that can be hotplugged
+     * @type {number}
+     * @memberof V1beta1CPUInstancetype
+     */
+    maxSockets?: number;
+    /**
      * Model specifies the CPU model inside the VMI. List of available models https://github.com/libvirt/libvirt/tree/master/src/cpu_map. It is possible to specify special cases like "host-passthrough" to get the same CPU as the node and "host-model" to get CPU closest to the node one. Defaults to host-model.
      * @type {string}
      * @memberof V1beta1CPUInstancetype
@@ -77,11 +85,9 @@ export interface V1beta1CPUInstancetype {
 /**
  * Check if a given object implements the V1beta1CPUInstancetype interface.
  */
-export function instanceOfV1beta1CPUInstancetype(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "guest" in value;
-
-    return isInstance;
+export function instanceOfV1beta1CPUInstancetype(value: object): value is V1beta1CPUInstancetype {
+    if (!('guest' in value) || value['guest'] === undefined) return false;
+    return true;
 }
 
 export function V1beta1CPUInstancetypeFromJSON(json: any): V1beta1CPUInstancetype {
@@ -89,35 +95,39 @@ export function V1beta1CPUInstancetypeFromJSON(json: any): V1beta1CPUInstancetyp
 }
 
 export function V1beta1CPUInstancetypeFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1beta1CPUInstancetype {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'dedicatedCPUPlacement': !exists(json, 'dedicatedCPUPlacement') ? undefined : json['dedicatedCPUPlacement'],
+        'dedicatedCPUPlacement': json['dedicatedCPUPlacement'] == null ? undefined : json['dedicatedCPUPlacement'],
         'guest': json['guest'],
-        'isolateEmulatorThread': !exists(json, 'isolateEmulatorThread') ? undefined : json['isolateEmulatorThread'],
-        'model': !exists(json, 'model') ? undefined : json['model'],
-        'numa': !exists(json, 'numa') ? undefined : V1NUMAFromJSON(json['numa']),
-        'realtime': !exists(json, 'realtime') ? undefined : V1RealtimeFromJSON(json['realtime']),
+        'isolateEmulatorThread': json['isolateEmulatorThread'] == null ? undefined : json['isolateEmulatorThread'],
+        'maxSockets': json['maxSockets'] == null ? undefined : json['maxSockets'],
+        'model': json['model'] == null ? undefined : json['model'],
+        'numa': json['numa'] == null ? undefined : V1NUMAFromJSON(json['numa']),
+        'realtime': json['realtime'] == null ? undefined : V1RealtimeFromJSON(json['realtime']),
     };
 }
 
-export function V1beta1CPUInstancetypeToJSON(value?: V1beta1CPUInstancetype | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1beta1CPUInstancetypeToJSON(json: any): V1beta1CPUInstancetype {
+    return V1beta1CPUInstancetypeToJSONTyped(json, false);
+}
+
+export function V1beta1CPUInstancetypeToJSONTyped(value?: V1beta1CPUInstancetype | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'dedicatedCPUPlacement': value.dedicatedCPUPlacement,
-        'guest': value.guest,
-        'isolateEmulatorThread': value.isolateEmulatorThread,
-        'model': value.model,
-        'numa': V1NUMAToJSON(value.numa),
-        'realtime': V1RealtimeToJSON(value.realtime),
+        'dedicatedCPUPlacement': value['dedicatedCPUPlacement'],
+        'guest': value['guest'],
+        'isolateEmulatorThread': value['isolateEmulatorThread'],
+        'maxSockets': value['maxSockets'],
+        'model': value['model'],
+        'numa': V1NUMAToJSON(value['numa']),
+        'realtime': V1RealtimeToJSON(value['realtime']),
     };
 }
 

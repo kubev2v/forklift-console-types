@@ -12,12 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiFlowcontrolV1FlowSchemaCondition } from './IoK8sApiFlowcontrolV1FlowSchemaCondition';
 import {
     IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSON,
     IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSONTyped,
     IoK8sApiFlowcontrolV1FlowSchemaConditionToJSON,
+    IoK8sApiFlowcontrolV1FlowSchemaConditionToJSONTyped,
 } from './IoK8sApiFlowcontrolV1FlowSchemaCondition';
 
 /**
@@ -37,10 +38,8 @@ export interface IoK8sApiFlowcontrolV1FlowSchemaStatus {
 /**
  * Check if a given object implements the IoK8sApiFlowcontrolV1FlowSchemaStatus interface.
  */
-export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaStatus(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiFlowcontrolV1FlowSchemaStatus(value: object): value is IoK8sApiFlowcontrolV1FlowSchemaStatus {
+    return true;
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaStatusFromJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaStatus {
@@ -48,25 +47,27 @@ export function IoK8sApiFlowcontrolV1FlowSchemaStatusFromJSON(json: any): IoK8sA
 }
 
 export function IoK8sApiFlowcontrolV1FlowSchemaStatusFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiFlowcontrolV1FlowSchemaStatus {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'conditions': !exists(json, 'conditions') ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSON)),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSON)),
     };
 }
 
-export function IoK8sApiFlowcontrolV1FlowSchemaStatusToJSON(value?: IoK8sApiFlowcontrolV1FlowSchemaStatus | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiFlowcontrolV1FlowSchemaStatusToJSON(json: any): IoK8sApiFlowcontrolV1FlowSchemaStatus {
+    return IoK8sApiFlowcontrolV1FlowSchemaStatusToJSONTyped(json, false);
+}
+
+export function IoK8sApiFlowcontrolV1FlowSchemaStatusToJSONTyped(value?: IoK8sApiFlowcontrolV1FlowSchemaStatus | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'conditions': value.conditions === undefined ? undefined : ((value.conditions as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaConditionToJSON)),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiFlowcontrolV1FlowSchemaConditionToJSON)),
     };
 }
 

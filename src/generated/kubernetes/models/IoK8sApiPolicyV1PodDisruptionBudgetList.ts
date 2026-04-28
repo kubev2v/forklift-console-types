@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiPolicyV1PodDisruptionBudget } from './IoK8sApiPolicyV1PodDisruptionBudget';
 import {
     IoK8sApiPolicyV1PodDisruptionBudgetFromJSON,
     IoK8sApiPolicyV1PodDisruptionBudgetFromJSONTyped,
     IoK8sApiPolicyV1PodDisruptionBudgetToJSON,
+    IoK8sApiPolicyV1PodDisruptionBudgetToJSONTyped,
 } from './IoK8sApiPolicyV1PodDisruptionBudget';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiPolicyV1PodDisruptionBudgetList {
 /**
  * Check if a given object implements the IoK8sApiPolicyV1PodDisruptionBudgetList interface.
  */
-export function instanceOfIoK8sApiPolicyV1PodDisruptionBudgetList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiPolicyV1PodDisruptionBudgetList(value: object): value is IoK8sApiPolicyV1PodDisruptionBudgetList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetListFromJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudgetList {
@@ -73,31 +73,33 @@ export function IoK8sApiPolicyV1PodDisruptionBudgetListFromJSON(json: any): IoK8
 }
 
 export function IoK8sApiPolicyV1PodDisruptionBudgetListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiPolicyV1PodDisruptionBudgetList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiPolicyV1PodDisruptionBudgetFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiPolicyV1PodDisruptionBudgetListToJSON(value?: IoK8sApiPolicyV1PodDisruptionBudgetList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiPolicyV1PodDisruptionBudgetListToJSON(json: any): IoK8sApiPolicyV1PodDisruptionBudgetList {
+    return IoK8sApiPolicyV1PodDisruptionBudgetListToJSONTyped(json, false);
+}
+
+export function IoK8sApiPolicyV1PodDisruptionBudgetListToJSONTyped(value?: IoK8sApiPolicyV1PodDisruptionBudgetList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiPolicyV1PodDisruptionBudgetToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiPolicyV1PodDisruptionBudgetToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

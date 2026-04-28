@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents the user's configuration to emulate sound cards in the VMI.
  * @export
@@ -36,11 +36,9 @@ export interface V1SoundDevice {
 /**
  * Check if a given object implements the V1SoundDevice interface.
  */
-export function instanceOfV1SoundDevice(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfV1SoundDevice(value: object): value is V1SoundDevice {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function V1SoundDeviceFromJSON(json: any): V1SoundDevice {
@@ -48,27 +46,29 @@ export function V1SoundDeviceFromJSON(json: any): V1SoundDevice {
 }
 
 export function V1SoundDeviceFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1SoundDevice {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'model': !exists(json, 'model') ? undefined : json['model'],
+        'model': json['model'] == null ? undefined : json['model'],
         'name': json['name'],
     };
 }
 
-export function V1SoundDeviceToJSON(value?: V1SoundDevice | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1SoundDeviceToJSON(json: any): V1SoundDevice {
+    return V1SoundDeviceToJSONTyped(json, false);
+}
+
+export function V1SoundDeviceToJSONTyped(value?: V1SoundDevice | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'model': value.model,
-        'name': value.name,
+        'model': value['model'],
+        'name': value['name'],
     };
 }
 

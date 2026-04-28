@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * 
  * @export
@@ -36,10 +36,8 @@ export interface V1FeatureSpinlocks {
 /**
  * Check if a given object implements the V1FeatureSpinlocks interface.
  */
-export function instanceOfV1FeatureSpinlocks(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1FeatureSpinlocks(value: object): value is V1FeatureSpinlocks {
+    return true;
 }
 
 export function V1FeatureSpinlocksFromJSON(json: any): V1FeatureSpinlocks {
@@ -47,27 +45,29 @@ export function V1FeatureSpinlocksFromJSON(json: any): V1FeatureSpinlocks {
 }
 
 export function V1FeatureSpinlocksFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1FeatureSpinlocks {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'enabled': !exists(json, 'enabled') ? undefined : json['enabled'],
-        'spinlocks': !exists(json, 'spinlocks') ? undefined : json['spinlocks'],
+        'enabled': json['enabled'] == null ? undefined : json['enabled'],
+        'spinlocks': json['spinlocks'] == null ? undefined : json['spinlocks'],
     };
 }
 
-export function V1FeatureSpinlocksToJSON(value?: V1FeatureSpinlocks | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1FeatureSpinlocksToJSON(json: any): V1FeatureSpinlocks {
+    return V1FeatureSpinlocksToJSONTyped(json, false);
+}
+
+export function V1FeatureSpinlocksToJSONTyped(value?: V1FeatureSpinlocks | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'enabled': value.enabled,
-        'spinlocks': value.spinlocks,
+        'enabled': value['enabled'],
+        'spinlocks': value['spinlocks'],
     };
 }
 

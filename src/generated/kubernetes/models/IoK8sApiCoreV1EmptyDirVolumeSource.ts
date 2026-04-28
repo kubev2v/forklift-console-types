@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
  * @export
@@ -72,10 +72,8 @@ export interface IoK8sApiCoreV1EmptyDirVolumeSource {
 /**
  * Check if a given object implements the IoK8sApiCoreV1EmptyDirVolumeSource interface.
  */
-export function instanceOfIoK8sApiCoreV1EmptyDirVolumeSource(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1EmptyDirVolumeSource(value: object): value is IoK8sApiCoreV1EmptyDirVolumeSource {
+    return true;
 }
 
 export function IoK8sApiCoreV1EmptyDirVolumeSourceFromJSON(json: any): IoK8sApiCoreV1EmptyDirVolumeSource {
@@ -83,27 +81,29 @@ export function IoK8sApiCoreV1EmptyDirVolumeSourceFromJSON(json: any): IoK8sApiC
 }
 
 export function IoK8sApiCoreV1EmptyDirVolumeSourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1EmptyDirVolumeSource {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'medium': !exists(json, 'medium') ? undefined : json['medium'],
-        'sizeLimit': !exists(json, 'sizeLimit') ? undefined : json['sizeLimit'],
+        'medium': json['medium'] == null ? undefined : json['medium'],
+        'sizeLimit': json['sizeLimit'] == null ? undefined : json['sizeLimit'],
     };
 }
 
-export function IoK8sApiCoreV1EmptyDirVolumeSourceToJSON(value?: IoK8sApiCoreV1EmptyDirVolumeSource | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1EmptyDirVolumeSourceToJSON(json: any): IoK8sApiCoreV1EmptyDirVolumeSource {
+    return IoK8sApiCoreV1EmptyDirVolumeSourceToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1EmptyDirVolumeSourceToJSONTyped(value?: IoK8sApiCoreV1EmptyDirVolumeSource | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'medium': value.medium,
-        'sizeLimit': value.sizeLimit,
+        'medium': value['medium'],
+        'sizeLimit': value['sizeLimit'],
     };
 }
 

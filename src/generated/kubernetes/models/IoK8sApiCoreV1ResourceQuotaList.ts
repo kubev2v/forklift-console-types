@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 import type { IoK8sApiCoreV1ResourceQuota } from './IoK8sApiCoreV1ResourceQuota';
 import {
     IoK8sApiCoreV1ResourceQuotaFromJSON,
     IoK8sApiCoreV1ResourceQuotaFromJSONTyped,
     IoK8sApiCoreV1ResourceQuotaToJSON,
+    IoK8sApiCoreV1ResourceQuotaToJSONTyped,
 } from './IoK8sApiCoreV1ResourceQuota';
 import type { IoK8sApimachineryPkgApisMetaV1ListMeta } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ListMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ListMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ListMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ListMeta';
 
 /**
@@ -61,11 +63,9 @@ export interface IoK8sApiCoreV1ResourceQuotaList {
 /**
  * Check if a given object implements the IoK8sApiCoreV1ResourceQuotaList interface.
  */
-export function instanceOfIoK8sApiCoreV1ResourceQuotaList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "items" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiCoreV1ResourceQuotaList(value: object): value is IoK8sApiCoreV1ResourceQuotaList {
+    if (!('items' in value) || value['items'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiCoreV1ResourceQuotaListFromJSON(json: any): IoK8sApiCoreV1ResourceQuotaList {
@@ -73,31 +73,33 @@ export function IoK8sApiCoreV1ResourceQuotaListFromJSON(json: any): IoK8sApiCore
 }
 
 export function IoK8sApiCoreV1ResourceQuotaListFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiCoreV1ResourceQuotaList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'items': ((json['items'] as Array<any>).map(IoK8sApiCoreV1ResourceQuotaFromJSON)),
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ListMetaFromJSON(json['metadata']),
     };
 }
 
-export function IoK8sApiCoreV1ResourceQuotaListToJSON(value?: IoK8sApiCoreV1ResourceQuotaList | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiCoreV1ResourceQuotaListToJSON(json: any): IoK8sApiCoreV1ResourceQuotaList {
+    return IoK8sApiCoreV1ResourceQuotaListToJSONTyped(json, false);
+}
+
+export function IoK8sApiCoreV1ResourceQuotaListToJSONTyped(value?: IoK8sApiCoreV1ResourceQuotaList | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'items': ((value.items as Array<any>).map(IoK8sApiCoreV1ResourceQuotaToJSON)),
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value.metadata),
+        'apiVersion': value['apiVersion'],
+        'items': ((value['items'] as Array<any>).map(IoK8sApiCoreV1ResourceQuotaToJSON)),
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ListMetaToJSON(value['metadata']),
     };
 }
 

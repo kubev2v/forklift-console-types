@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
+import { mapValues } from '../../runtime';
 /**
  * CrossVersionObjectReference contains enough information to let you identify the referred resource.
  * @export
@@ -42,12 +42,10 @@ export interface IoK8sApiAutoscalingV2CrossVersionObjectReference {
 /**
  * Check if a given object implements the IoK8sApiAutoscalingV2CrossVersionObjectReference interface.
  */
-export function instanceOfIoK8sApiAutoscalingV2CrossVersionObjectReference(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "kind" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
+export function instanceOfIoK8sApiAutoscalingV2CrossVersionObjectReference(value: object): value is IoK8sApiAutoscalingV2CrossVersionObjectReference {
+    if (!('kind' in value) || value['kind'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    return true;
 }
 
 export function IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON(json: any): IoK8sApiAutoscalingV2CrossVersionObjectReference {
@@ -55,29 +53,31 @@ export function IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSON(json: a
 }
 
 export function IoK8sApiAutoscalingV2CrossVersionObjectReferenceFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAutoscalingV2CrossVersionObjectReference {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'kind': json['kind'],
         'name': json['name'],
     };
 }
 
-export function IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(value?: IoK8sApiAutoscalingV2CrossVersionObjectReference | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSON(json: any): IoK8sApiAutoscalingV2CrossVersionObjectReference {
+    return IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSONTyped(json, false);
+}
+
+export function IoK8sApiAutoscalingV2CrossVersionObjectReferenceToJSONTyped(value?: IoK8sApiAutoscalingV2CrossVersionObjectReference | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'name': value.name,
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'name': value['name'],
     };
 }
 

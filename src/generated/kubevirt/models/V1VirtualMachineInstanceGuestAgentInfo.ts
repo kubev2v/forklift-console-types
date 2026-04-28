@@ -12,30 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { V1GuestAgentCommandInfo } from './V1GuestAgentCommandInfo';
-import {
-    V1GuestAgentCommandInfoFromJSON,
-    V1GuestAgentCommandInfoFromJSONTyped,
-    V1GuestAgentCommandInfoToJSON,
-} from './V1GuestAgentCommandInfo';
-import type { V1VirtualMachineInstanceFileSystemInfo } from './V1VirtualMachineInstanceFileSystemInfo';
-import {
-    V1VirtualMachineInstanceFileSystemInfoFromJSON,
-    V1VirtualMachineInstanceFileSystemInfoFromJSONTyped,
-    V1VirtualMachineInstanceFileSystemInfoToJSON,
-} from './V1VirtualMachineInstanceFileSystemInfo';
+import { mapValues } from '../../runtime';
 import type { V1VirtualMachineInstanceGuestOSInfo } from './V1VirtualMachineInstanceGuestOSInfo';
 import {
     V1VirtualMachineInstanceGuestOSInfoFromJSON,
     V1VirtualMachineInstanceGuestOSInfoFromJSONTyped,
     V1VirtualMachineInstanceGuestOSInfoToJSON,
+    V1VirtualMachineInstanceGuestOSInfoToJSONTyped,
 } from './V1VirtualMachineInstanceGuestOSInfo';
+import type { V1VirtualMachineInstanceFileSystemInfo } from './V1VirtualMachineInstanceFileSystemInfo';
+import {
+    V1VirtualMachineInstanceFileSystemInfoFromJSON,
+    V1VirtualMachineInstanceFileSystemInfoFromJSONTyped,
+    V1VirtualMachineInstanceFileSystemInfoToJSON,
+    V1VirtualMachineInstanceFileSystemInfoToJSONTyped,
+} from './V1VirtualMachineInstanceFileSystemInfo';
+import type { V1GuestAgentCommandInfo } from './V1GuestAgentCommandInfo';
+import {
+    V1GuestAgentCommandInfoFromJSON,
+    V1GuestAgentCommandInfoFromJSONTyped,
+    V1GuestAgentCommandInfoToJSON,
+    V1GuestAgentCommandInfoToJSONTyped,
+} from './V1GuestAgentCommandInfo';
 import type { V1VirtualMachineInstanceGuestOSUser } from './V1VirtualMachineInstanceGuestOSUser';
 import {
     V1VirtualMachineInstanceGuestOSUserFromJSON,
     V1VirtualMachineInstanceGuestOSUserFromJSONTyped,
     V1VirtualMachineInstanceGuestOSUserToJSON,
+    V1VirtualMachineInstanceGuestOSUserToJSONTyped,
 } from './V1VirtualMachineInstanceGuestOSUser';
 
 /**
@@ -51,7 +55,7 @@ export interface V1VirtualMachineInstanceGuestAgentInfo {
      */
     apiVersion?: string;
     /**
-     * FSFreezeStatus is the state of the fs of the guest it can be either frozen or thawed
+     * FSFreezeStatus indicates whether a freeze operation was requested for the guest filesystem. It will be set to "frozen" if the request was made, or unset otherwise. This does not reflect the actual state of the guest filesystem.
      * @type {string}
      * @memberof V1VirtualMachineInstanceGuestAgentInfo
      */
@@ -109,10 +113,8 @@ export interface V1VirtualMachineInstanceGuestAgentInfo {
 /**
  * Check if a given object implements the V1VirtualMachineInstanceGuestAgentInfo interface.
  */
-export function instanceOfV1VirtualMachineInstanceGuestAgentInfo(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfV1VirtualMachineInstanceGuestAgentInfo(value: object): value is V1VirtualMachineInstanceGuestAgentInfo {
+    return true;
 }
 
 export function V1VirtualMachineInstanceGuestAgentInfoFromJSON(json: any): V1VirtualMachineInstanceGuestAgentInfo {
@@ -120,43 +122,45 @@ export function V1VirtualMachineInstanceGuestAgentInfoFromJSON(json: any): V1Vir
 }
 
 export function V1VirtualMachineInstanceGuestAgentInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean): V1VirtualMachineInstanceGuestAgentInfo {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'fsFreezeStatus': !exists(json, 'fsFreezeStatus') ? undefined : json['fsFreezeStatus'],
-        'fsInfo': !exists(json, 'fsInfo') ? undefined : V1VirtualMachineInstanceFileSystemInfoFromJSON(json['fsInfo']),
-        'guestAgentVersion': !exists(json, 'guestAgentVersion') ? undefined : json['guestAgentVersion'],
-        'hostname': !exists(json, 'hostname') ? undefined : json['hostname'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'os': !exists(json, 'os') ? undefined : V1VirtualMachineInstanceGuestOSInfoFromJSON(json['os']),
-        'supportedCommands': !exists(json, 'supportedCommands') ? undefined : ((json['supportedCommands'] as Array<any>).map(V1GuestAgentCommandInfoFromJSON)),
-        'timezone': !exists(json, 'timezone') ? undefined : json['timezone'],
-        'userList': !exists(json, 'userList') ? undefined : ((json['userList'] as Array<any>).map(V1VirtualMachineInstanceGuestOSUserFromJSON)),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'fsFreezeStatus': json['fsFreezeStatus'] == null ? undefined : json['fsFreezeStatus'],
+        'fsInfo': json['fsInfo'] == null ? undefined : V1VirtualMachineInstanceFileSystemInfoFromJSON(json['fsInfo']),
+        'guestAgentVersion': json['guestAgentVersion'] == null ? undefined : json['guestAgentVersion'],
+        'hostname': json['hostname'] == null ? undefined : json['hostname'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'os': json['os'] == null ? undefined : V1VirtualMachineInstanceGuestOSInfoFromJSON(json['os']),
+        'supportedCommands': json['supportedCommands'] == null ? undefined : ((json['supportedCommands'] as Array<any>).map(V1GuestAgentCommandInfoFromJSON)),
+        'timezone': json['timezone'] == null ? undefined : json['timezone'],
+        'userList': json['userList'] == null ? undefined : ((json['userList'] as Array<any>).map(V1VirtualMachineInstanceGuestOSUserFromJSON)),
     };
 }
 
-export function V1VirtualMachineInstanceGuestAgentInfoToJSON(value?: V1VirtualMachineInstanceGuestAgentInfo | null): any {
-    if (value === undefined) {
-        return undefined;
+export function V1VirtualMachineInstanceGuestAgentInfoToJSON(json: any): V1VirtualMachineInstanceGuestAgentInfo {
+    return V1VirtualMachineInstanceGuestAgentInfoToJSONTyped(json, false);
+}
+
+export function V1VirtualMachineInstanceGuestAgentInfoToJSONTyped(value?: V1VirtualMachineInstanceGuestAgentInfo | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'fsFreezeStatus': value.fsFreezeStatus,
-        'fsInfo': V1VirtualMachineInstanceFileSystemInfoToJSON(value.fsInfo),
-        'guestAgentVersion': value.guestAgentVersion,
-        'hostname': value.hostname,
-        'kind': value.kind,
-        'os': V1VirtualMachineInstanceGuestOSInfoToJSON(value.os),
-        'supportedCommands': value.supportedCommands === undefined ? undefined : ((value.supportedCommands as Array<any>).map(V1GuestAgentCommandInfoToJSON)),
-        'timezone': value.timezone,
-        'userList': value.userList === undefined ? undefined : ((value.userList as Array<any>).map(V1VirtualMachineInstanceGuestOSUserToJSON)),
+        'apiVersion': value['apiVersion'],
+        'fsFreezeStatus': value['fsFreezeStatus'],
+        'fsInfo': V1VirtualMachineInstanceFileSystemInfoToJSON(value['fsInfo']),
+        'guestAgentVersion': value['guestAgentVersion'],
+        'hostname': value['hostname'],
+        'kind': value['kind'],
+        'os': V1VirtualMachineInstanceGuestOSInfoToJSON(value['os']),
+        'supportedCommands': value['supportedCommands'] == null ? undefined : ((value['supportedCommands'] as Array<any>).map(V1GuestAgentCommandInfoToJSON)),
+        'timezone': value['timezone'],
+        'userList': value['userList'] == null ? undefined : ((value['userList'] as Array<any>).map(V1VirtualMachineInstanceGuestOSUserToJSON)),
     };
 }
 

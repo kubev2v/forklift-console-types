@@ -12,19 +12,21 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../../runtime';
-import type { IoK8sApiAuthenticationV1SelfSubjectReviewStatus } from './IoK8sApiAuthenticationV1SelfSubjectReviewStatus';
-import {
-    IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSON,
-    IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSONTyped,
-    IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSON,
-} from './IoK8sApiAuthenticationV1SelfSubjectReviewStatus';
+import { mapValues } from '../../runtime';
 import type { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
 import {
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSONTyped,
     IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON,
+    IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSONTyped,
 } from './IoK8sApimachineryPkgApisMetaV1ObjectMeta';
+import type { IoK8sApiAuthenticationV1SelfSubjectReviewStatus } from './IoK8sApiAuthenticationV1SelfSubjectReviewStatus';
+import {
+    IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSON,
+    IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSONTyped,
+    IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSON,
+    IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSONTyped,
+} from './IoK8sApiAuthenticationV1SelfSubjectReviewStatus';
 
 /**
  * SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
@@ -61,10 +63,8 @@ export interface IoK8sApiAuthenticationV1SelfSubjectReview {
 /**
  * Check if a given object implements the IoK8sApiAuthenticationV1SelfSubjectReview interface.
  */
-export function instanceOfIoK8sApiAuthenticationV1SelfSubjectReview(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfIoK8sApiAuthenticationV1SelfSubjectReview(value: object): value is IoK8sApiAuthenticationV1SelfSubjectReview {
+    return true;
 }
 
 export function IoK8sApiAuthenticationV1SelfSubjectReviewFromJSON(json: any): IoK8sApiAuthenticationV1SelfSubjectReview {
@@ -72,31 +72,33 @@ export function IoK8sApiAuthenticationV1SelfSubjectReviewFromJSON(json: any): Io
 }
 
 export function IoK8sApiAuthenticationV1SelfSubjectReviewFromJSONTyped(json: any, ignoreDiscriminator: boolean): IoK8sApiAuthenticationV1SelfSubjectReview {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'apiVersion': !exists(json, 'apiVersion') ? undefined : json['apiVersion'],
-        'kind': !exists(json, 'kind') ? undefined : json['kind'],
-        'metadata': !exists(json, 'metadata') ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
-        'status': !exists(json, 'status') ? undefined : IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSON(json['status']),
+        'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
+        'kind': json['kind'] == null ? undefined : json['kind'],
+        'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
+        'status': json['status'] == null ? undefined : IoK8sApiAuthenticationV1SelfSubjectReviewStatusFromJSON(json['status']),
     };
 }
 
-export function IoK8sApiAuthenticationV1SelfSubjectReviewToJSON(value?: IoK8sApiAuthenticationV1SelfSubjectReview | null): any {
-    if (value === undefined) {
-        return undefined;
+export function IoK8sApiAuthenticationV1SelfSubjectReviewToJSON(json: any): IoK8sApiAuthenticationV1SelfSubjectReview {
+    return IoK8sApiAuthenticationV1SelfSubjectReviewToJSONTyped(json, false);
+}
+
+export function IoK8sApiAuthenticationV1SelfSubjectReviewToJSONTyped(value?: IoK8sApiAuthenticationV1SelfSubjectReview | null, ignoreDiscriminator: boolean = false): any {
+    if (value == null) {
+        return value;
     }
-    if (value === null) {
-        return null;
-    }
+
     return {
         
-        'apiVersion': value.apiVersion,
-        'kind': value.kind,
-        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value.metadata),
-        'status': IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSON(value.status),
+        'apiVersion': value['apiVersion'],
+        'kind': value['kind'],
+        'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
+        'status': IoK8sApiAuthenticationV1SelfSubjectReviewStatusToJSON(value['status']),
     };
 }
 
