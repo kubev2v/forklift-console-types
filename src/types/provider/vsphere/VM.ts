@@ -14,6 +14,12 @@ export interface VSphereVM extends TypedVSphereResource {
   powerState: string;
   // Host              string          `json:"host"`
   host: string;
+  // GuestName                string `json:"guestName"`
+  guestName: string;
+  // GuestNameFromVmwareTools string `json:"guestNameFromVmwareTools"`
+  guestNameFromVmwareTools: string;
+  // GuestID                  string `json:"guestId"`
+  guestId: string;
   // Networks          []model.Ref     `json:"networks"`
   networks: Ref[];
   // Disks             []model.Disk    `json:"disks"`
