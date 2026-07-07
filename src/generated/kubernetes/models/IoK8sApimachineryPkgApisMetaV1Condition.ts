@@ -79,7 +79,7 @@ export function IoK8sApimachineryPkgApisMetaV1ConditionFromJSONTyped(json: any, 
     }
     return {
         
-        'lastTransitionTime': (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'],
         'message': json['message'],
         'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
         'reason': json['reason'],
@@ -99,7 +99,7 @@ export function IoK8sApimachineryPkgApisMetaV1ConditionToJSONTyped(value?: IoK8s
 
     return {
         
-        'lastTransitionTime': ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'],
         'message': value['message'],
         'observedGeneration': value['observedGeneration'],
         'reason': value['reason'],

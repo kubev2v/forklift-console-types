@@ -42,7 +42,7 @@ export interface IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus {
      * @type {Date}
      * @memberof IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatus
      */
-    lastScaleTime?: Date;
+    lastScaleTime?: string;
     /**
      * observedGeneration is the most recent generation observed by this autoscaler.
      * @type {number}
@@ -73,7 +73,7 @@ export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusFromJSONTyped(
         'currentCPUUtilizationPercentage': json['currentCPUUtilizationPercentage'] == null ? undefined : json['currentCPUUtilizationPercentage'],
         'currentReplicas': json['currentReplicas'],
         'desiredReplicas': json['desiredReplicas'],
-        'lastScaleTime': json['lastScaleTime'] == null ? undefined : (new Date(json['lastScaleTime'])),
+        'lastScaleTime': json['lastScaleTime'] == null ? undefined : json['lastScaleTime'],
         'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
     };
 }
@@ -92,7 +92,7 @@ export function IoK8sApiAutoscalingV1HorizontalPodAutoscalerStatusToJSONTyped(va
         'currentCPUUtilizationPercentage': value['currentCPUUtilizationPercentage'],
         'currentReplicas': value['currentReplicas'],
         'desiredReplicas': value['desiredReplicas'],
-        'lastScaleTime': value['lastScaleTime'] == null ? undefined : ((value['lastScaleTime']).toISOString()),
+        'lastScaleTime': value['lastScaleTime'] == null ? undefined : value['lastScaleTime'],
         'observedGeneration': value['observedGeneration'],
     };
 }

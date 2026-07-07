@@ -24,7 +24,7 @@ export interface IoK8sApiCoreV1NamespaceCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1NamespaceCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Human-readable message indicating details about last transition.
      * @type {string}
@@ -70,7 +70,7 @@ export function IoK8sApiCoreV1NamespaceConditionFromJSONTyped(json: any, ignoreD
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -89,7 +89,7 @@ export function IoK8sApiCoreV1NamespaceConditionToJSONTyped(value?: IoK8sApiCore
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

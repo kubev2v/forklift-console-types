@@ -32,7 +32,7 @@ export interface V1alpha1BackupCheckpoint {
      * @type {Date}
      * @memberof V1alpha1BackupCheckpoint
      */
-    creationTime?: Date;
+    creationTime?: string;
     /**
      * 
      * @type {string}
@@ -64,7 +64,7 @@ export function V1alpha1BackupCheckpointFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'creationTime': json['creationTime'] == null ? undefined : (new Date(json['creationTime'])),
+        'creationTime': json['creationTime'] == null ? undefined : json['creationTime'],
         'name': json['name'] == null ? undefined : json['name'],
         'volumes': json['volumes'] == null ? undefined : ((json['volumes'] as Array<any>).map(V1alpha1BackupVolumeInfoFromJSON)),
     };
@@ -81,7 +81,7 @@ export function V1alpha1BackupCheckpointToJSONTyped(value?: V1alpha1BackupCheckp
 
     return {
         
-        'creationTime': value['creationTime'] == null ? undefined : ((value['creationTime']).toISOString()),
+        'creationTime': value['creationTime'] == null ? undefined : value['creationTime'],
         'name': value['name'],
         'volumes': value['volumes'] == null ? undefined : ((value['volumes'] as Array<any>).map(V1alpha1BackupVolumeInfoToJSON)),
     };

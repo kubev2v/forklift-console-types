@@ -24,7 +24,7 @@ export interface IoK8sApiAppsV1StatefulSetCondition {
      * @type {Date}
      * @memberof IoK8sApiAppsV1StatefulSetCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * A human readable message indicating details about the transition.
      * @type {string}
@@ -70,7 +70,7 @@ export function IoK8sApiAppsV1StatefulSetConditionFromJSONTyped(json: any, ignor
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -89,7 +89,7 @@ export function IoK8sApiAppsV1StatefulSetConditionToJSONTyped(value?: IoK8sApiAp
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

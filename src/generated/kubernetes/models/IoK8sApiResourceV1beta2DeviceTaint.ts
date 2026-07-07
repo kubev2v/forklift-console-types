@@ -38,7 +38,7 @@ export interface IoK8sApiResourceV1beta2DeviceTaint {
      * @type {Date}
      * @memberof IoK8sApiResourceV1beta2DeviceTaint
      */
-    timeAdded?: Date;
+    timeAdded?: string;
     /**
      * The taint value corresponding to the taint key. Must be a label value.
      * @type {string}
@@ -68,7 +68,7 @@ export function IoK8sApiResourceV1beta2DeviceTaintFromJSONTyped(json: any, ignor
         
         'effect': json['effect'],
         'key': json['key'],
-        'timeAdded': json['timeAdded'] == null ? undefined : (new Date(json['timeAdded'])),
+        'timeAdded': json['timeAdded'] == null ? undefined : json['timeAdded'],
         'value': json['value'] == null ? undefined : json['value'],
     };
 }
@@ -86,7 +86,7 @@ export function IoK8sApiResourceV1beta2DeviceTaintToJSONTyped(value?: IoK8sApiRe
         
         'effect': value['effect'],
         'key': value['key'],
-        'timeAdded': value['timeAdded'] == null ? undefined : ((value['timeAdded']).toISOString()),
+        'timeAdded': value['timeAdded'] == null ? undefined : value['timeAdded'],
         'value': value['value'],
     };
 }

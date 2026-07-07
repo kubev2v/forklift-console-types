@@ -39,7 +39,7 @@ export interface IoK8sApiResourceV1AllocationResult {
      * @type {Date}
      * @memberof IoK8sApiResourceV1AllocationResult
      */
-    allocationTimestamp?: Date;
+    allocationTimestamp?: string;
     /**
      * 
      * @type {IoK8sApiResourceV1DeviceAllocationResult}
@@ -71,7 +71,7 @@ export function IoK8sApiResourceV1AllocationResultFromJSONTyped(json: any, ignor
     }
     return {
         
-        'allocationTimestamp': json['allocationTimestamp'] == null ? undefined : (new Date(json['allocationTimestamp'])),
+        'allocationTimestamp': json['allocationTimestamp'] == null ? undefined : json['allocationTimestamp'],
         'devices': json['devices'] == null ? undefined : IoK8sApiResourceV1DeviceAllocationResultFromJSON(json['devices']),
         'nodeSelector': json['nodeSelector'] == null ? undefined : IoK8sApiCoreV1NodeSelectorFromJSON(json['nodeSelector']),
     };
@@ -88,7 +88,7 @@ export function IoK8sApiResourceV1AllocationResultToJSONTyped(value?: IoK8sApiRe
 
     return {
         
-        'allocationTimestamp': value['allocationTimestamp'] == null ? undefined : ((value['allocationTimestamp']).toISOString()),
+        'allocationTimestamp': value['allocationTimestamp'] == null ? undefined : value['allocationTimestamp'],
         'devices': IoK8sApiResourceV1DeviceAllocationResultToJSON(value['devices']),
         'nodeSelector': IoK8sApiCoreV1NodeSelectorToJSON(value['nodeSelector']),
     };

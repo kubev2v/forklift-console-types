@@ -36,7 +36,7 @@ export interface IoK8sApiCoreV1ContainerStateTerminated {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ContainerStateTerminated
      */
-    finishedAt?: Date;
+    finishedAt?: string;
     /**
      * Message regarding the last termination of the container
      * @type {string}
@@ -60,7 +60,7 @@ export interface IoK8sApiCoreV1ContainerStateTerminated {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ContainerStateTerminated
      */
-    startedAt?: Date;
+    startedAt?: string;
 }
 
 /**
@@ -83,11 +83,11 @@ export function IoK8sApiCoreV1ContainerStateTerminatedFromJSONTyped(json: any, i
         
         'containerID': json['containerID'] == null ? undefined : json['containerID'],
         'exitCode': json['exitCode'],
-        'finishedAt': json['finishedAt'] == null ? undefined : (new Date(json['finishedAt'])),
+        'finishedAt': json['finishedAt'] == null ? undefined : json['finishedAt'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'signal': json['signal'] == null ? undefined : json['signal'],
-        'startedAt': json['startedAt'] == null ? undefined : (new Date(json['startedAt'])),
+        'startedAt': json['startedAt'] == null ? undefined : json['startedAt'],
     };
 }
 
@@ -104,11 +104,11 @@ export function IoK8sApiCoreV1ContainerStateTerminatedToJSONTyped(value?: IoK8sA
         
         'containerID': value['containerID'],
         'exitCode': value['exitCode'],
-        'finishedAt': value['finishedAt'] == null ? undefined : ((value['finishedAt']).toISOString()),
+        'finishedAt': value['finishedAt'] == null ? undefined : value['finishedAt'],
         'message': value['message'],
         'reason': value['reason'],
         'signal': value['signal'],
-        'startedAt': value['startedAt'] == null ? undefined : ((value['startedAt']).toISOString()),
+        'startedAt': value['startedAt'] == null ? undefined : value['startedAt'],
     };
 }
 

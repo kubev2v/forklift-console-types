@@ -24,7 +24,7 @@ export interface IoK8sApiFlowcontrolV1FlowSchemaCondition {
      * @type {Date}
      * @memberof IoK8sApiFlowcontrolV1FlowSchemaCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * `message` is a human-readable message indicating details about last transition.
      * @type {string}
@@ -68,7 +68,7 @@ export function IoK8sApiFlowcontrolV1FlowSchemaConditionFromJSONTyped(json: any,
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'] == null ? undefined : json['status'],
@@ -87,7 +87,7 @@ export function IoK8sApiFlowcontrolV1FlowSchemaConditionToJSONTyped(value?: IoK8
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

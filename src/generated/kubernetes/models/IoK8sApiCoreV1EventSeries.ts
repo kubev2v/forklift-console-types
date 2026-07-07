@@ -30,7 +30,7 @@ export interface IoK8sApiCoreV1EventSeries {
      * @type {Date}
      * @memberof IoK8sApiCoreV1EventSeries
      */
-    lastObservedTime?: Date;
+    lastObservedTime?: string;
 }
 
 /**
@@ -51,7 +51,7 @@ export function IoK8sApiCoreV1EventSeriesFromJSONTyped(json: any, ignoreDiscrimi
     return {
         
         'count': json['count'] == null ? undefined : json['count'],
-        'lastObservedTime': json['lastObservedTime'] == null ? undefined : (new Date(json['lastObservedTime'])),
+        'lastObservedTime': json['lastObservedTime'] == null ? undefined : json['lastObservedTime'],
     };
 }
 
@@ -67,7 +67,7 @@ export function IoK8sApiCoreV1EventSeriesToJSONTyped(value?: IoK8sApiCoreV1Event
     return {
         
         'count': value['count'],
-        'lastObservedTime': value['lastObservedTime'] == null ? undefined : ((value['lastObservedTime']).toISOString()),
+        'lastObservedTime': value['lastObservedTime'] == null ? undefined : value['lastObservedTime'],
     };
 }
 

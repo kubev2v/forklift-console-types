@@ -24,13 +24,13 @@ export interface IoK8sApiAppsV1DeploymentCondition {
      * @type {Date}
      * @memberof IoK8sApiAppsV1DeploymentCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiAppsV1DeploymentCondition
      */
-    lastUpdateTime?: Date;
+    lastUpdateTime?: string;
     /**
      * A human readable message indicating details about the transition.
      * @type {string}
@@ -76,8 +76,8 @@ export function IoK8sApiAppsV1DeploymentConditionFromJSONTyped(json: any, ignore
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
-        'lastUpdateTime': json['lastUpdateTime'] == null ? undefined : (new Date(json['lastUpdateTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
+        'lastUpdateTime': json['lastUpdateTime'] == null ? undefined : json['lastUpdateTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -96,8 +96,8 @@ export function IoK8sApiAppsV1DeploymentConditionToJSONTyped(value?: IoK8sApiApp
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
-        'lastUpdateTime': value['lastUpdateTime'] == null ? undefined : ((value['lastUpdateTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
+        'lastUpdateTime': value['lastUpdateTime'] == null ? undefined : value['lastUpdateTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

@@ -38,13 +38,13 @@ export interface IoK8sApiBatchV1CronJobStatus {
      * @type {Date}
      * @memberof IoK8sApiBatchV1CronJobStatus
      */
-    lastScheduleTime?: Date;
+    lastScheduleTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiBatchV1CronJobStatus
      */
-    lastSuccessfulTime?: Date;
+    lastSuccessfulTime?: string;
 }
 
 /**
@@ -65,8 +65,8 @@ export function IoK8sApiBatchV1CronJobStatusFromJSONTyped(json: any, ignoreDiscr
     return {
         
         'active': json['active'] == null ? undefined : ((json['active'] as Array<any>).map(IoK8sApiCoreV1ObjectReferenceFromJSON)),
-        'lastScheduleTime': json['lastScheduleTime'] == null ? undefined : (new Date(json['lastScheduleTime'])),
-        'lastSuccessfulTime': json['lastSuccessfulTime'] == null ? undefined : (new Date(json['lastSuccessfulTime'])),
+        'lastScheduleTime': json['lastScheduleTime'] == null ? undefined : json['lastScheduleTime'],
+        'lastSuccessfulTime': json['lastSuccessfulTime'] == null ? undefined : json['lastSuccessfulTime'],
     };
 }
 
@@ -82,8 +82,8 @@ export function IoK8sApiBatchV1CronJobStatusToJSONTyped(value?: IoK8sApiBatchV1C
     return {
         
         'active': value['active'] == null ? undefined : ((value['active'] as Array<any>).map(IoK8sApiCoreV1ObjectReferenceToJSON)),
-        'lastScheduleTime': value['lastScheduleTime'] == null ? undefined : ((value['lastScheduleTime']).toISOString()),
-        'lastSuccessfulTime': value['lastSuccessfulTime'] == null ? undefined : ((value['lastSuccessfulTime']).toISOString()),
+        'lastScheduleTime': value['lastScheduleTime'] == null ? undefined : value['lastScheduleTime'],
+        'lastSuccessfulTime': value['lastSuccessfulTime'] == null ? undefined : value['lastSuccessfulTime'],
     };
 }
 

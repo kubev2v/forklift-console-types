@@ -24,13 +24,13 @@ export interface IoK8sApiCoreV1NodeCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1NodeCondition
      */
-    lastHeartbeatTime?: Date;
+    lastHeartbeatTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1NodeCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Human readable message indicating details about last transition.
      * @type {string}
@@ -76,8 +76,8 @@ export function IoK8sApiCoreV1NodeConditionFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'lastHeartbeatTime': json['lastHeartbeatTime'] == null ? undefined : (new Date(json['lastHeartbeatTime'])),
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastHeartbeatTime': json['lastHeartbeatTime'] == null ? undefined : json['lastHeartbeatTime'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -96,8 +96,8 @@ export function IoK8sApiCoreV1NodeConditionToJSONTyped(value?: IoK8sApiCoreV1Nod
 
     return {
         
-        'lastHeartbeatTime': value['lastHeartbeatTime'] == null ? undefined : ((value['lastHeartbeatTime']).toISOString()),
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastHeartbeatTime': value['lastHeartbeatTime'] == null ? undefined : value['lastHeartbeatTime'],
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

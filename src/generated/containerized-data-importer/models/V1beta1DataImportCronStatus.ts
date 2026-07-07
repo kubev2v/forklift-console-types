@@ -55,13 +55,13 @@ export interface V1beta1DataImportCronStatus {
      * @type {Date}
      * @memberof V1beta1DataImportCronStatus
      */
-    lastExecutionTimestamp?: Date;
+    lastExecutionTimestamp?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof V1beta1DataImportCronStatus
      */
-    lastImportTimestamp?: Date;
+    lastImportTimestamp?: string;
     /**
      * 
      * @type {V1beta1DataVolumeSourcePVC}
@@ -95,8 +95,8 @@ export function V1beta1DataImportCronStatusFromJSONTyped(json: any, ignoreDiscri
         
         'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1beta1DataImportCronConditionFromJSON)),
         'currentImports': json['currentImports'] == null ? undefined : ((json['currentImports'] as Array<any>).map(V1beta1ImportStatusFromJSON)),
-        'lastExecutionTimestamp': json['lastExecutionTimestamp'] == null ? undefined : (new Date(json['lastExecutionTimestamp'])),
-        'lastImportTimestamp': json['lastImportTimestamp'] == null ? undefined : (new Date(json['lastImportTimestamp'])),
+        'lastExecutionTimestamp': json['lastExecutionTimestamp'] == null ? undefined : json['lastExecutionTimestamp'],
+        'lastImportTimestamp': json['lastImportTimestamp'] == null ? undefined : json['lastImportTimestamp'],
         'lastImportedPVC': json['lastImportedPVC'] == null ? undefined : V1beta1DataVolumeSourcePVCFromJSON(json['lastImportedPVC']),
         'sourceFormat': json['sourceFormat'] == null ? undefined : json['sourceFormat'],
     };
@@ -110,8 +110,8 @@ export function V1beta1DataImportCronStatusToJSON(value?: V1beta1DataImportCronS
         
         'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1beta1DataImportCronConditionToJSON)),
         'currentImports': value['currentImports'] == null ? undefined : ((value['currentImports'] as Array<any>).map(V1beta1ImportStatusToJSON)),
-        'lastExecutionTimestamp': value['lastExecutionTimestamp'] == null ? undefined : ((value['lastExecutionTimestamp']).toISOString()),
-        'lastImportTimestamp': value['lastImportTimestamp'] == null ? undefined : ((value['lastImportTimestamp']).toISOString()),
+        'lastExecutionTimestamp': value['lastExecutionTimestamp'] == null ? undefined : value['lastExecutionTimestamp'],
+        'lastImportTimestamp': value['lastImportTimestamp'] == null ? undefined : value['lastImportTimestamp'],
         'lastImportedPVC': V1beta1DataVolumeSourcePVCToJSON(value['lastImportedPVC']),
         'sourceFormat': value['sourceFormat'],
     };

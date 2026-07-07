@@ -57,7 +57,7 @@ export interface V1beta1VirtualMachineRestoreStatus {
      * @type {Date}
      * @memberof V1beta1VirtualMachineRestoreStatus
      */
-    restoreTime?: Date;
+    restoreTime?: string;
     /**
      * 
      * @type {Array<V1beta1VolumeRestore>}
@@ -86,7 +86,7 @@ export function V1beta1VirtualMachineRestoreStatusFromJSONTyped(json: any, ignor
         'complete': json['complete'] == null ? undefined : json['complete'],
         'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1beta1ConditionFromJSON)),
         'deletedDataVolumes': json['deletedDataVolumes'] == null ? undefined : json['deletedDataVolumes'],
-        'restoreTime': json['restoreTime'] == null ? undefined : (new Date(json['restoreTime'])),
+        'restoreTime': json['restoreTime'] == null ? undefined : json['restoreTime'],
         'restores': json['restores'] == null ? undefined : ((json['restores'] as Array<any>).map(V1beta1VolumeRestoreFromJSON)),
     };
 }
@@ -105,7 +105,7 @@ export function V1beta1VirtualMachineRestoreStatusToJSONTyped(value?: V1beta1Vir
         'complete': value['complete'],
         'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1beta1ConditionToJSON)),
         'deletedDataVolumes': value['deletedDataVolumes'],
-        'restoreTime': value['restoreTime'] == null ? undefined : ((value['restoreTime']).toISOString()),
+        'restoreTime': value['restoreTime'] == null ? undefined : value['restoreTime'],
         'restores': value['restores'] == null ? undefined : ((value['restores'] as Array<any>).map(V1beta1VolumeRestoreToJSON)),
     };
 }

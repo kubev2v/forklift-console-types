@@ -24,7 +24,7 @@ export interface IoK8sApiApiserverinternalV1alpha1StorageVersionCondition {
      * @type {Date}
      * @memberof IoK8sApiApiserverinternalV1alpha1StorageVersionCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * message is a human readable string indicating details about the transition.
      * @type {string}
@@ -78,7 +78,7 @@ export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionFromJSON
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'],
         'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
         'reason': json['reason'],
@@ -98,7 +98,7 @@ export function IoK8sApiApiserverinternalV1alpha1StorageVersionConditionToJSONTy
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'observedGeneration': value['observedGeneration'],
         'reason': value['reason'],

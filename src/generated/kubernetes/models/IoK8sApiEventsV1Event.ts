@@ -71,13 +71,13 @@ export interface IoK8sApiEventsV1Event {
      * @type {Date}
      * @memberof IoK8sApiEventsV1Event
      */
-    deprecatedFirstTimestamp?: Date;
+    deprecatedFirstTimestamp?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiEventsV1Event
      */
-    deprecatedLastTimestamp?: Date;
+    deprecatedLastTimestamp?: string;
     /**
      * 
      * @type {IoK8sApiCoreV1EventSource}
@@ -173,10 +173,10 @@ export function IoK8sApiEventsV1EventFromJSONTyped(json: any, ignoreDiscriminato
         'action': json['action'] == null ? undefined : json['action'],
         'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'deprecatedCount': json['deprecatedCount'] == null ? undefined : json['deprecatedCount'],
-        'deprecatedFirstTimestamp': json['deprecatedFirstTimestamp'] == null ? undefined : (new Date(json['deprecatedFirstTimestamp'])),
-        'deprecatedLastTimestamp': json['deprecatedLastTimestamp'] == null ? undefined : (new Date(json['deprecatedLastTimestamp'])),
+        'deprecatedFirstTimestamp': json['deprecatedFirstTimestamp'] == null ? undefined : json['deprecatedFirstTimestamp'],
+        'deprecatedLastTimestamp': json['deprecatedLastTimestamp'] == null ? undefined : json['deprecatedLastTimestamp'],
         'deprecatedSource': json['deprecatedSource'] == null ? undefined : IoK8sApiCoreV1EventSourceFromJSON(json['deprecatedSource']),
-        'eventTime': (new Date(json['eventTime'])),
+        'eventTime': json['eventTime'],
         'kind': json['kind'] == null ? undefined : json['kind'],
         'metadata': json['metadata'] == null ? undefined : IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'note': json['note'] == null ? undefined : json['note'],
@@ -204,10 +204,10 @@ export function IoK8sApiEventsV1EventToJSONTyped(value?: IoK8sApiEventsV1Event |
         'action': value['action'],
         'apiVersion': value['apiVersion'],
         'deprecatedCount': value['deprecatedCount'],
-        'deprecatedFirstTimestamp': value['deprecatedFirstTimestamp'] == null ? undefined : ((value['deprecatedFirstTimestamp']).toISOString()),
-        'deprecatedLastTimestamp': value['deprecatedLastTimestamp'] == null ? undefined : ((value['deprecatedLastTimestamp']).toISOString()),
+        'deprecatedFirstTimestamp': value['deprecatedFirstTimestamp'] == null ? undefined : value['deprecatedFirstTimestamp'],
+        'deprecatedLastTimestamp': value['deprecatedLastTimestamp'] == null ? undefined : value['deprecatedLastTimestamp'],
         'deprecatedSource': IoK8sApiCoreV1EventSourceToJSON(value['deprecatedSource']),
-        'eventTime': ((value['eventTime']).toISOString()),
+        'eventTime': value['eventTime'],
         'kind': value['kind'],
         'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
         'note': value['note'],

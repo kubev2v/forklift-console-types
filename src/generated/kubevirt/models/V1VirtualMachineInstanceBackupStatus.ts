@@ -56,7 +56,7 @@ export interface V1VirtualMachineInstanceBackupStatus {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceBackupStatus
      */
-    endTimestamp?: Date;
+    endTimestamp?: string;
     /**
      * Failed indicates that the backup failed
      * @type {boolean}
@@ -68,7 +68,7 @@ export interface V1VirtualMachineInstanceBackupStatus {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceBackupStatus
      */
-    startTimestamp?: Date;
+    startTimestamp?: string;
     /**
      * Volumes lists the volumes included in the backup
      * @type {Array<V1alpha1BackupVolumeInfo>}
@@ -98,9 +98,9 @@ export function V1VirtualMachineInstanceBackupStatusFromJSONTyped(json: any, ign
         'backupName': json['backupName'] == null ? undefined : json['backupName'],
         'checkpointName': json['checkpointName'] == null ? undefined : json['checkpointName'],
         'completed': json['completed'] == null ? undefined : json['completed'],
-        'endTimestamp': json['endTimestamp'] == null ? undefined : (new Date(json['endTimestamp'])),
+        'endTimestamp': json['endTimestamp'] == null ? undefined : json['endTimestamp'],
         'failed': json['failed'] == null ? undefined : json['failed'],
-        'startTimestamp': json['startTimestamp'] == null ? undefined : (new Date(json['startTimestamp'])),
+        'startTimestamp': json['startTimestamp'] == null ? undefined : json['startTimestamp'],
         'volumes': json['volumes'] == null ? undefined : ((json['volumes'] as Array<any>).map(V1alpha1BackupVolumeInfoFromJSON)),
     };
 }
@@ -120,9 +120,9 @@ export function V1VirtualMachineInstanceBackupStatusToJSONTyped(value?: V1Virtua
         'backupName': value['backupName'],
         'checkpointName': value['checkpointName'],
         'completed': value['completed'],
-        'endTimestamp': value['endTimestamp'] == null ? undefined : ((value['endTimestamp']).toISOString()),
+        'endTimestamp': value['endTimestamp'] == null ? undefined : value['endTimestamp'],
         'failed': value['failed'],
-        'startTimestamp': value['startTimestamp'] == null ? undefined : ((value['startTimestamp']).toISOString()),
+        'startTimestamp': value['startTimestamp'] == null ? undefined : value['startTimestamp'],
         'volumes': value['volumes'] == null ? undefined : ((value['volumes'] as Array<any>).map(V1alpha1BackupVolumeInfoToJSON)),
     };
 }

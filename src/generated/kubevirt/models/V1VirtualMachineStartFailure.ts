@@ -36,7 +36,7 @@ export interface V1VirtualMachineStartFailure {
      * @type {Date}
      * @memberof V1VirtualMachineStartFailure
      */
-    retryAfterTimestamp?: Date;
+    retryAfterTimestamp?: string;
 }
 
 /**
@@ -58,7 +58,7 @@ export function V1VirtualMachineStartFailureFromJSONTyped(json: any, ignoreDiscr
         
         'consecutiveFailCount': json['consecutiveFailCount'] == null ? undefined : json['consecutiveFailCount'],
         'lastFailedVMIUID': json['lastFailedVMIUID'] == null ? undefined : json['lastFailedVMIUID'],
-        'retryAfterTimestamp': json['retryAfterTimestamp'] == null ? undefined : (new Date(json['retryAfterTimestamp'])),
+        'retryAfterTimestamp': json['retryAfterTimestamp'] == null ? undefined : json['retryAfterTimestamp'],
     };
 }
 
@@ -75,7 +75,7 @@ export function V1VirtualMachineStartFailureToJSONTyped(value?: V1VirtualMachine
         
         'consecutiveFailCount': value['consecutiveFailCount'],
         'lastFailedVMIUID': value['lastFailedVMIUID'],
-        'retryAfterTimestamp': value['retryAfterTimestamp'] == null ? undefined : ((value['retryAfterTimestamp']).toISOString()),
+        'retryAfterTimestamp': value['retryAfterTimestamp'] == null ? undefined : value['retryAfterTimestamp'],
     };
 }
 

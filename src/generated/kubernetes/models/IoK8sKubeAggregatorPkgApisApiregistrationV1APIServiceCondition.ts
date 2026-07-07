@@ -24,7 +24,7 @@ export interface IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceCondition 
      * @type {Date}
      * @memberof IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Human-readable message indicating details about last transition.
      * @type {string}
@@ -70,7 +70,7 @@ export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionFr
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -89,7 +89,7 @@ export function IoK8sKubeAggregatorPkgApisApiregistrationV1APIServiceConditionTo
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

@@ -30,13 +30,13 @@ export interface V1DomainMemoryDumpInfo {
      * @type {Date}
      * @memberof V1DomainMemoryDumpInfo
      */
-    endTimestamp?: Date;
+    endTimestamp?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof V1DomainMemoryDumpInfo
      */
-    startTimestamp?: Date;
+    startTimestamp?: string;
     /**
      * TargetFileName is the name of the memory dump output
      * @type {string}
@@ -63,8 +63,8 @@ export function V1DomainMemoryDumpInfoFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'claimName': json['claimName'] == null ? undefined : json['claimName'],
-        'endTimestamp': json['endTimestamp'] == null ? undefined : (new Date(json['endTimestamp'])),
-        'startTimestamp': json['startTimestamp'] == null ? undefined : (new Date(json['startTimestamp'])),
+        'endTimestamp': json['endTimestamp'] == null ? undefined : json['endTimestamp'],
+        'startTimestamp': json['startTimestamp'] == null ? undefined : json['startTimestamp'],
         'targetFileName': json['targetFileName'] == null ? undefined : json['targetFileName'],
     };
 }
@@ -81,8 +81,8 @@ export function V1DomainMemoryDumpInfoToJSONTyped(value?: V1DomainMemoryDumpInfo
     return {
         
         'claimName': value['claimName'],
-        'endTimestamp': value['endTimestamp'] == null ? undefined : ((value['endTimestamp']).toISOString()),
-        'startTimestamp': value['startTimestamp'] == null ? undefined : ((value['startTimestamp']).toISOString()),
+        'endTimestamp': value['endTimestamp'] == null ? undefined : value['endTimestamp'],
+        'startTimestamp': value['startTimestamp'] == null ? undefined : value['startTimestamp'],
         'targetFileName': value['targetFileName'],
     };
 }

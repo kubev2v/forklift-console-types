@@ -32,7 +32,7 @@ export interface IoK8sApiCertificatesV1beta1PodCertificateRequestStatus {
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1beta1PodCertificateRequestStatus
      */
-    beginRefreshAt?: Date;
+    beginRefreshAt?: string;
     /**
      * certificateChain is populated with an issued certificate by the signer. This field is set via the /status subresource. Once populated, this field is immutable.
      * 
@@ -63,13 +63,13 @@ export interface IoK8sApiCertificatesV1beta1PodCertificateRequestStatus {
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1beta1PodCertificateRequestStatus
      */
-    notAfter?: Date;
+    notAfter?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1beta1PodCertificateRequestStatus
      */
-    notBefore?: Date;
+    notBefore?: string;
 }
 
 /**
@@ -89,11 +89,11 @@ export function IoK8sApiCertificatesV1beta1PodCertificateRequestStatusFromJSONTy
     }
     return {
         
-        'beginRefreshAt': json['beginRefreshAt'] == null ? undefined : (new Date(json['beginRefreshAt'])),
+        'beginRefreshAt': json['beginRefreshAt'] == null ? undefined : json['beginRefreshAt'],
         'certificateChain': json['certificateChain'] == null ? undefined : json['certificateChain'],
         'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ConditionFromJSON)),
-        'notAfter': json['notAfter'] == null ? undefined : (new Date(json['notAfter'])),
-        'notBefore': json['notBefore'] == null ? undefined : (new Date(json['notBefore'])),
+        'notAfter': json['notAfter'] == null ? undefined : json['notAfter'],
+        'notBefore': json['notBefore'] == null ? undefined : json['notBefore'],
     };
 }
 
@@ -108,11 +108,11 @@ export function IoK8sApiCertificatesV1beta1PodCertificateRequestStatusToJSONType
 
     return {
         
-        'beginRefreshAt': value['beginRefreshAt'] == null ? undefined : ((value['beginRefreshAt']).toISOString()),
+        'beginRefreshAt': value['beginRefreshAt'] == null ? undefined : value['beginRefreshAt'],
         'certificateChain': value['certificateChain'],
         'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApimachineryPkgApisMetaV1ConditionToJSON)),
-        'notAfter': value['notAfter'] == null ? undefined : ((value['notAfter']).toISOString()),
-        'notBefore': value['notBefore'] == null ? undefined : ((value['notBefore']).toISOString()),
+        'notAfter': value['notAfter'] == null ? undefined : value['notAfter'],
+        'notBefore': value['notBefore'] == null ? undefined : value['notBefore'],
     };
 }
 

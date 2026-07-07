@@ -24,7 +24,7 @@ export interface IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResource
      * @type {Date}
      * @memberof IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceDefinitionCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * message is a human-readable message indicating details about last transition.
      * @type {string}
@@ -76,7 +76,7 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceD
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
         'reason': json['reason'] == null ? undefined : json['reason'],
@@ -96,7 +96,7 @@ export function IoK8sApiextensionsApiserverPkgApisApiextensionsV1CustomResourceD
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'observedGeneration': value['observedGeneration'],
         'reason': value['reason'],

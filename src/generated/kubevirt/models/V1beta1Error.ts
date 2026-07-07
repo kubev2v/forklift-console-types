@@ -30,7 +30,7 @@ export interface V1beta1Error {
      * @type {Date}
      * @memberof V1beta1Error
      */
-    time?: Date;
+    time?: string;
 }
 
 /**
@@ -51,7 +51,7 @@ export function V1beta1ErrorFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'message': json['message'] == null ? undefined : json['message'],
-        'time': json['time'] == null ? undefined : (new Date(json['time'])),
+        'time': json['time'] == null ? undefined : json['time'],
     };
 }
 
@@ -67,7 +67,7 @@ export function V1beta1ErrorToJSONTyped(value?: V1beta1Error | null, ignoreDiscr
     return {
         
         'message': value['message'],
-        'time': value['time'] == null ? undefined : ((value['time']).toISOString()),
+        'time': value['time'] == null ? undefined : value['time'],
     };
 }
 

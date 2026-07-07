@@ -24,7 +24,7 @@ export interface IoK8sApiCoreV1ContainerStateRunning {
      * @type {Date}
      * @memberof IoK8sApiCoreV1ContainerStateRunning
      */
-    startedAt?: Date;
+    startedAt?: string;
 }
 
 /**
@@ -44,7 +44,7 @@ export function IoK8sApiCoreV1ContainerStateRunningFromJSONTyped(json: any, igno
     }
     return {
         
-        'startedAt': json['startedAt'] == null ? undefined : (new Date(json['startedAt'])),
+        'startedAt': json['startedAt'] == null ? undefined : json['startedAt'],
     };
 }
 
@@ -59,7 +59,7 @@ export function IoK8sApiCoreV1ContainerStateRunningToJSONTyped(value?: IoK8sApiC
 
     return {
         
-        'startedAt': value['startedAt'] == null ? undefined : ((value['startedAt']).toISOString()),
+        'startedAt': value['startedAt'] == null ? undefined : value['startedAt'],
     };
 }
 

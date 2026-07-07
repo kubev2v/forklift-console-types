@@ -32,7 +32,7 @@ export interface V1beta1VolumeSnapshotStatus {
      * @type {Date}
      * @memberof V1beta1VolumeSnapshotStatus
      */
-    creationTime?: Date;
+    creationTime?: string;
     /**
      * 
      * @type {V1beta1Error}
@@ -71,7 +71,7 @@ export function V1beta1VolumeSnapshotStatusFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'creationTime': json['creationTime'] == null ? undefined : (new Date(json['creationTime'])),
+        'creationTime': json['creationTime'] == null ? undefined : json['creationTime'],
         'error': json['error'] == null ? undefined : V1beta1ErrorFromJSON(json['error']),
         'readyToUse': json['readyToUse'] == null ? undefined : json['readyToUse'],
         'volumeSnapshotName': json['volumeSnapshotName'],
@@ -89,7 +89,7 @@ export function V1beta1VolumeSnapshotStatusToJSONTyped(value?: V1beta1VolumeSnap
 
     return {
         
-        'creationTime': value['creationTime'] == null ? undefined : ((value['creationTime']).toISOString()),
+        'creationTime': value['creationTime'] == null ? undefined : value['creationTime'],
         'error': V1beta1ErrorToJSON(value['error']),
         'readyToUse': value['readyToUse'],
         'volumeSnapshotName': value['volumeSnapshotName'],

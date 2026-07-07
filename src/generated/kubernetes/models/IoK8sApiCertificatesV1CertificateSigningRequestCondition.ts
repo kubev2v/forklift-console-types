@@ -24,13 +24,13 @@ export interface IoK8sApiCertificatesV1CertificateSigningRequestCondition {
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCertificatesV1CertificateSigningRequestCondition
      */
-    lastUpdateTime?: Date;
+    lastUpdateTime?: string;
     /**
      * message contains a human readable message with details about the request state
      * @type {string}
@@ -86,8 +86,8 @@ export function IoK8sApiCertificatesV1CertificateSigningRequestConditionFromJSON
     }
     return {
         
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
-        'lastUpdateTime': json['lastUpdateTime'] == null ? undefined : (new Date(json['lastUpdateTime'])),
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
+        'lastUpdateTime': json['lastUpdateTime'] == null ? undefined : json['lastUpdateTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -106,8 +106,8 @@ export function IoK8sApiCertificatesV1CertificateSigningRequestConditionToJSONTy
 
     return {
         
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
-        'lastUpdateTime': value['lastUpdateTime'] == null ? undefined : ((value['lastUpdateTime']).toISOString()),
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
+        'lastUpdateTime': value['lastUpdateTime'] == null ? undefined : value['lastUpdateTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],
