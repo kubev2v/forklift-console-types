@@ -69,7 +69,7 @@ export interface V1beta1VirtualMachineExportStatus {
      * @type {Date}
      * @memberof V1beta1VirtualMachineExportStatus
      */
-    ttlExpirationTime?: Date;
+    ttlExpirationTime?: string;
     /**
      * VirtualMachineName shows the name of the source virtual machine if the source is either a VirtualMachine or a VirtualMachineSnapshot. This is mainly to easily identify the source VirtualMachine in case of a VirtualMachineSnapshot
      * @type {string}
@@ -100,7 +100,7 @@ export function V1beta1VirtualMachineExportStatusFromJSONTyped(json: any, ignore
         'phase': json['phase'] == null ? undefined : json['phase'],
         'serviceName': json['serviceName'] == null ? undefined : json['serviceName'],
         'tokenSecretRef': json['tokenSecretRef'] == null ? undefined : json['tokenSecretRef'],
-        'ttlExpirationTime': json['ttlExpirationTime'] == null ? undefined : (new Date(json['ttlExpirationTime'])),
+        'ttlExpirationTime': json['ttlExpirationTime'] == null ? undefined : json['ttlExpirationTime'],
         'virtualMachineName': json['virtualMachineName'] == null ? undefined : json['virtualMachineName'],
     };
 }
@@ -121,7 +121,7 @@ export function V1beta1VirtualMachineExportStatusToJSONTyped(value?: V1beta1Virt
         'phase': value['phase'],
         'serviceName': value['serviceName'],
         'tokenSecretRef': value['tokenSecretRef'],
-        'ttlExpirationTime': value['ttlExpirationTime'] == null ? undefined : ((value['ttlExpirationTime']).toISOString()),
+        'ttlExpirationTime': value['ttlExpirationTime'] == null ? undefined : value['ttlExpirationTime'],
         'virtualMachineName': value['virtualMachineName'],
     };
 }

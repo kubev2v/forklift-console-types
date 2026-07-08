@@ -13,6 +13,7 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { FieldsV1 } from '../../../types/k8s/FieldsV1';
 /**
  * ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
  * @export
@@ -40,7 +41,7 @@ export interface V1ManagedFieldsEntry {
      * @type {object}
      * @memberof V1ManagedFieldsEntry
      */
-    fieldsV1?: object;
+    fieldsV1?: FieldsV1;
     /**
      * Manager is an identifier of the workflow managing these fields.
      * @type {string}
@@ -64,7 +65,7 @@ export interface V1ManagedFieldsEntry {
      * @type {Date}
      * @memberof V1ManagedFieldsEntry
      */
-    time?: Date;
+    time?: string;
 }
 
 /**
@@ -90,7 +91,7 @@ export function V1ManagedFieldsEntryFromJSONTyped(json: any, ignoreDiscriminator
         'manager': json['manager'] == null ? undefined : json['manager'],
         'operation': json['operation'] == null ? undefined : json['operation'],
         'subresource': json['subresource'] == null ? undefined : json['subresource'],
-        'time': json['time'] == null ? undefined : (new Date(json['time'])),
+        'time': json['time'] == null ? undefined : json['time'],
     };
 }
 
@@ -106,7 +107,7 @@ export function V1ManagedFieldsEntryToJSON(value?: V1ManagedFieldsEntry | null):
         'manager': value['manager'],
         'operation': value['operation'],
         'subresource': value['subresource'],
-        'time': value['time'] == null ? undefined : ((value['time']).toISOString()),
+        'time': value['time'] == null ? undefined : value['time'],
     };
 }
 

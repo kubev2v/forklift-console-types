@@ -60,7 +60,7 @@ export interface V1VirtualMachineInstanceMigrationTargetState {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationTargetState
      */
-    domainReadyTimestamp?: Date;
+    domainReadyTimestamp?: string;
     /**
      * The Source VirtualMachineInstanceMigration object associated with this migration
      * @type {string}
@@ -140,7 +140,7 @@ export function V1VirtualMachineInstanceMigrationTargetStateFromJSONTyped(json: 
         'domainDetected': json['domainDetected'] == null ? undefined : json['domainDetected'],
         'domainName': json['domainName'] == null ? undefined : json['domainName'],
         'domainNamespace': json['domainNamespace'] == null ? undefined : json['domainNamespace'],
-        'domainReadyTimestamp': json['domainReadyTimestamp'] == null ? undefined : (new Date(json['domainReadyTimestamp'])),
+        'domainReadyTimestamp': json['domainReadyTimestamp'] == null ? undefined : json['domainReadyTimestamp'],
         'migrationUID': json['migrationUID'] == null ? undefined : json['migrationUID'],
         'node': json['node'] == null ? undefined : json['node'],
         'nodeAddress': json['nodeAddress'] == null ? undefined : json['nodeAddress'],
@@ -170,7 +170,7 @@ export function V1VirtualMachineInstanceMigrationTargetStateToJSONTyped(value?: 
         'domainDetected': value['domainDetected'],
         'domainName': value['domainName'],
         'domainNamespace': value['domainNamespace'],
-        'domainReadyTimestamp': value['domainReadyTimestamp'] == null ? undefined : ((value['domainReadyTimestamp']).toISOString()),
+        'domainReadyTimestamp': value['domainReadyTimestamp'] == null ? undefined : value['domainReadyTimestamp'],
         'migrationUID': value['migrationUID'],
         'node': value['node'],
         'nodeAddress': value['nodeAddress'],

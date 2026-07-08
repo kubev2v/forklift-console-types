@@ -24,7 +24,7 @@ export interface IoK8sApiAuthenticationV1TokenRequestStatus {
      * @type {Date}
      * @memberof IoK8sApiAuthenticationV1TokenRequestStatus
      */
-    expirationTimestamp?: Date;
+    expirationTimestamp?: string;
     /**
      * token is the opaque bearer token.
      * @type {string}
@@ -50,7 +50,7 @@ export function IoK8sApiAuthenticationV1TokenRequestStatusFromJSONTyped(json: an
     }
     return {
         
-        'expirationTimestamp': json['expirationTimestamp'] == null ? undefined : (new Date(json['expirationTimestamp'])),
+        'expirationTimestamp': json['expirationTimestamp'] == null ? undefined : json['expirationTimestamp'],
         'token': json['token'] == null ? undefined : json['token'],
     };
 }
@@ -66,7 +66,7 @@ export function IoK8sApiAuthenticationV1TokenRequestStatusToJSONTyped(value?: Io
 
     return {
         
-        'expirationTimestamp': value['expirationTimestamp'] == null ? undefined : ((value['expirationTimestamp']).toISOString()),
+        'expirationTimestamp': value['expirationTimestamp'] == null ? undefined : value['expirationTimestamp'],
         'token': value['token'],
     };
 }

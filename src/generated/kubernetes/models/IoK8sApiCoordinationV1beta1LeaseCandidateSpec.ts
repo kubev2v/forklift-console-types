@@ -42,13 +42,13 @@ export interface IoK8sApiCoordinationV1beta1LeaseCandidateSpec {
      * @type {Date}
      * @memberof IoK8sApiCoordinationV1beta1LeaseCandidateSpec
      */
-    pingTime?: Date;
+    pingTime?: string;
     /**
      * MicroTime is version of Time with microsecond level precision.
      * @type {Date}
      * @memberof IoK8sApiCoordinationV1beta1LeaseCandidateSpec
      */
-    renewTime?: Date;
+    renewTime?: string;
     /**
      * Strategy is the strategy that coordinated leader election will use for picking the leader. If multiple candidates for the same Lease return different strategies, the strategy provided by the candidate with the latest BinaryVersion will be used. If there is still conflict, this is a user error and coordinated leader election will not operate the Lease until resolved.
      * @type {string}
@@ -80,8 +80,8 @@ export function IoK8sApiCoordinationV1beta1LeaseCandidateSpecFromJSONTyped(json:
         'binaryVersion': json['binaryVersion'],
         'emulationVersion': json['emulationVersion'] == null ? undefined : json['emulationVersion'],
         'leaseName': json['leaseName'],
-        'pingTime': json['pingTime'] == null ? undefined : (new Date(json['pingTime'])),
-        'renewTime': json['renewTime'] == null ? undefined : (new Date(json['renewTime'])),
+        'pingTime': json['pingTime'] == null ? undefined : json['pingTime'],
+        'renewTime': json['renewTime'] == null ? undefined : json['renewTime'],
         'strategy': json['strategy'],
     };
 }
@@ -100,8 +100,8 @@ export function IoK8sApiCoordinationV1beta1LeaseCandidateSpecToJSONTyped(value?:
         'binaryVersion': value['binaryVersion'],
         'emulationVersion': value['emulationVersion'],
         'leaseName': value['leaseName'],
-        'pingTime': value['pingTime'] == null ? undefined : ((value['pingTime']).toISOString()),
-        'renewTime': value['renewTime'] == null ? undefined : ((value['renewTime']).toISOString()),
+        'pingTime': value['pingTime'] == null ? undefined : value['pingTime'],
+        'renewTime': value['renewTime'] == null ? undefined : value['renewTime'],
         'strategy': value['strategy'],
     };
 }

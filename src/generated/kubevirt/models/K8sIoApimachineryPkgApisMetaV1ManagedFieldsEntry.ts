@@ -13,6 +13,7 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { FieldsV1 } from '../../../types/k8s/FieldsV1';
 /**
  * ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
  * @export
@@ -40,7 +41,7 @@ export interface K8sIoApimachineryPkgApisMetaV1ManagedFieldsEntry {
      * @type {object}
      * @memberof K8sIoApimachineryPkgApisMetaV1ManagedFieldsEntry
      */
-    fieldsV1?: object;
+    fieldsV1?: FieldsV1;
     /**
      * Manager is an identifier of the workflow managing these fields.
      * @type {string}
@@ -64,7 +65,7 @@ export interface K8sIoApimachineryPkgApisMetaV1ManagedFieldsEntry {
      * @type {Date}
      * @memberof K8sIoApimachineryPkgApisMetaV1ManagedFieldsEntry
      */
-    time?: Date;
+    time?: string;
 }
 
 /**
@@ -90,7 +91,7 @@ export function K8sIoApimachineryPkgApisMetaV1ManagedFieldsEntryFromJSONTyped(js
         'manager': json['manager'] == null ? undefined : json['manager'],
         'operation': json['operation'] == null ? undefined : json['operation'],
         'subresource': json['subresource'] == null ? undefined : json['subresource'],
-        'time': json['time'] == null ? undefined : (new Date(json['time'])),
+        'time': json['time'] == null ? undefined : json['time'],
     };
 }
 
@@ -111,7 +112,7 @@ export function K8sIoApimachineryPkgApisMetaV1ManagedFieldsEntryToJSONTyped(valu
         'manager': value['manager'],
         'operation': value['operation'],
         'subresource': value['subresource'],
-        'time': value['time'] == null ? undefined : ((value['time']).toISOString()),
+        'time': value['time'] == null ? undefined : value['time'],
     };
 }
 

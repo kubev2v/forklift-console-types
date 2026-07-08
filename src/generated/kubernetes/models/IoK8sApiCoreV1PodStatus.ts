@@ -205,7 +205,7 @@ export interface IoK8sApiCoreV1PodStatus {
      * @type {Date}
      * @memberof IoK8sApiCoreV1PodStatus
      */
-    startTime?: Date;
+    startTime?: string;
 }
 
 /**
@@ -245,7 +245,7 @@ export function IoK8sApiCoreV1PodStatusFromJSONTyped(json: any, ignoreDiscrimina
         'resize': json['resize'] == null ? undefined : json['resize'],
         'resourceClaimStatuses': json['resourceClaimStatuses'] == null ? undefined : ((json['resourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimStatusFromJSON)),
         'resources': json['resources'] == null ? undefined : IoK8sApiCoreV1ResourceRequirementsFromJSON(json['resources']),
-        'startTime': json['startTime'] == null ? undefined : (new Date(json['startTime'])),
+        'startTime': json['startTime'] == null ? undefined : json['startTime'],
     };
 }
 
@@ -280,7 +280,7 @@ export function IoK8sApiCoreV1PodStatusToJSONTyped(value?: IoK8sApiCoreV1PodStat
         'resize': value['resize'],
         'resourceClaimStatuses': value['resourceClaimStatuses'] == null ? undefined : ((value['resourceClaimStatuses'] as Array<any>).map(IoK8sApiCoreV1PodResourceClaimStatusToJSON)),
         'resources': IoK8sApiCoreV1ResourceRequirementsToJSON(value['resources']),
-        'startTime': value['startTime'] == null ? undefined : ((value['startTime']).toISOString()),
+        'startTime': value['startTime'] == null ? undefined : value['startTime'],
     };
 }
 

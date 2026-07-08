@@ -38,7 +38,7 @@ export interface IoK8sApiStorageV1VolumeError {
      * @type {Date}
      * @memberof IoK8sApiStorageV1VolumeError
      */
-    time?: Date;
+    time?: string;
 }
 
 /**
@@ -60,7 +60,7 @@ export function IoK8sApiStorageV1VolumeErrorFromJSONTyped(json: any, ignoreDiscr
         
         'errorCode': json['errorCode'] == null ? undefined : json['errorCode'],
         'message': json['message'] == null ? undefined : json['message'],
-        'time': json['time'] == null ? undefined : (new Date(json['time'])),
+        'time': json['time'] == null ? undefined : json['time'],
     };
 }
 
@@ -77,7 +77,7 @@ export function IoK8sApiStorageV1VolumeErrorToJSONTyped(value?: IoK8sApiStorageV
         
         'errorCode': value['errorCode'],
         'message': value['message'],
-        'time': value['time'] == null ? undefined : ((value['time']).toISOString()),
+        'time': value['time'] == null ? undefined : value['time'],
     };
 }
 

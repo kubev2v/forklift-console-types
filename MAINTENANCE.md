@@ -387,6 +387,7 @@ Track which upstream versions are currently included. **Update this table after 
 | `./scripts/update-cdi.sh [version]` | Update CDI DataVolume types |
 | `./scripts/check-conflicts.sh` | Detect export conflicts between KubeVirt and CDI |
 | `./scripts/fix-timestamp-types.sh` | Fix ObjectMeta timestamp types (Date → string) |
+| `./scripts/fix-fields-v1-types.sh` | Fix ManagedFieldsEntry fieldsV1 types (object → FieldsV1) |
 
 All scripts accept an optional version argument (branch name or tag). Default is `main` or `master`.
 
@@ -399,6 +400,7 @@ After running any update script, run the post-generation fix script:
 
 ```bash
 npm run fix:timestamps
+npm run fix:fields-v1
 ```
 
 ### ObjectMeta Timestamp Types
@@ -408,3 +410,15 @@ The `openapi-generator` maps OpenAPI `date-time` format fields to TypeScript `Da
 The `fix:timestamps` script patches all generated `ObjectMeta` types (Kubernetes, KubeVirt, CDI) to use `string` instead of `Date` for these fields, maintaining compatibility with the Console SDK.
 
 This fix was introduced after the Kubernetes v1.36.0 update exposed the incompatibility (see PR #26).
+
+### ManagedFieldsEntry FieldsV1 Types
+
+The `openapi-generator` maps OpenAPI object schemas to TypeScript `object` for `fieldsV1`. However, `@openshift-console/dynamic-plugin-sdk` (via `@openshift/api-types`) expects the recursive `FieldsV1` interface:
+
+```typescript
+interface FieldsV1 {
+  [field: string]: FieldsV1 | Record<string, never>;
+}
+```
+
+The `fix:fields-v1` script patches all generated `ManagedFieldsEntry` types (Kubernetes, KubeVirt, CDI) to use the shared `FieldsV1` type from `src/types/k8s/FieldsV1.ts`, maintaining compatibility with the Console SDK.

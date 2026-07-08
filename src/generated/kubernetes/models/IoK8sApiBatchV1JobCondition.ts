@@ -24,13 +24,13 @@ export interface IoK8sApiBatchV1JobCondition {
      * @type {Date}
      * @memberof IoK8sApiBatchV1JobCondition
      */
-    lastProbeTime?: Date;
+    lastProbeTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiBatchV1JobCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Human readable message indicating details about last transition.
      * @type {string}
@@ -76,8 +76,8 @@ export function IoK8sApiBatchV1JobConditionFromJSONTyped(json: any, ignoreDiscri
     }
     return {
         
-        'lastProbeTime': json['lastProbeTime'] == null ? undefined : (new Date(json['lastProbeTime'])),
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastProbeTime': json['lastProbeTime'] == null ? undefined : json['lastProbeTime'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'reason': json['reason'] == null ? undefined : json['reason'],
         'status': json['status'],
@@ -96,8 +96,8 @@ export function IoK8sApiBatchV1JobConditionToJSONTyped(value?: IoK8sApiBatchV1Jo
 
     return {
         
-        'lastProbeTime': value['lastProbeTime'] == null ? undefined : ((value['lastProbeTime']).toISOString()),
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastProbeTime': value['lastProbeTime'] == null ? undefined : value['lastProbeTime'],
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'reason': value['reason'],
         'status': value['status'],

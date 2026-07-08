@@ -53,7 +53,7 @@ export function IoK8sApiEventsV1EventSeriesFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'count': json['count'],
-        'lastObservedTime': (new Date(json['lastObservedTime'])),
+        'lastObservedTime': json['lastObservedTime'],
     };
 }
 
@@ -69,7 +69,7 @@ export function IoK8sApiEventsV1EventSeriesToJSONTyped(value?: IoK8sApiEventsV1E
     return {
         
         'count': value['count'],
-        'lastObservedTime': ((value['lastObservedTime']).toISOString()),
+        'lastObservedTime': value['lastObservedTime'],
     };
 }
 

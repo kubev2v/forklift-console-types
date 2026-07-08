@@ -38,7 +38,7 @@ export interface V1beta1VirtualMachineCloneStatus {
      * @type {Date}
      * @memberof V1beta1VirtualMachineCloneStatus
      */
-    creationTime?: Date;
+    creationTime?: string;
     /**
      * 
      * @type {string}
@@ -83,7 +83,7 @@ export function V1beta1VirtualMachineCloneStatusFromJSONTyped(json: any, ignoreD
     return {
         
         'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1beta1ConditionFromJSON)),
-        'creationTime': json['creationTime'] == null ? undefined : (new Date(json['creationTime'])),
+        'creationTime': json['creationTime'] == null ? undefined : json['creationTime'],
         'phase': json['phase'] == null ? undefined : json['phase'],
         'restoreName': json['restoreName'] == null ? undefined : json['restoreName'],
         'snapshotName': json['snapshotName'] == null ? undefined : json['snapshotName'],
@@ -103,7 +103,7 @@ export function V1beta1VirtualMachineCloneStatusToJSONTyped(value?: V1beta1Virtu
     return {
         
         'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1beta1ConditionToJSON)),
-        'creationTime': value['creationTime'] == null ? undefined : ((value['creationTime']).toISOString()),
+        'creationTime': value['creationTime'] == null ? undefined : value['creationTime'],
         'phase': value['phase'],
         'restoreName': value['restoreName'],
         'snapshotName': value['snapshotName'],

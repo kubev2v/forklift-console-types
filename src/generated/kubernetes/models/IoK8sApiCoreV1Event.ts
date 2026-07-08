@@ -71,13 +71,13 @@ export interface IoK8sApiCoreV1Event {
      * @type {Date}
      * @memberof IoK8sApiCoreV1Event
      */
-    eventTime?: Date;
+    eventTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1Event
      */
-    firstTimestamp?: Date;
+    firstTimestamp?: string;
     /**
      * 
      * @type {IoK8sApiCoreV1ObjectReference}
@@ -95,7 +95,7 @@ export interface IoK8sApiCoreV1Event {
      * @type {Date}
      * @memberof IoK8sApiCoreV1Event
      */
-    lastTimestamp?: Date;
+    lastTimestamp?: string;
     /**
      * A human-readable description of the status of this operation.
      * @type {string}
@@ -174,11 +174,11 @@ export function IoK8sApiCoreV1EventFromJSONTyped(json: any, ignoreDiscriminator:
         'action': json['action'] == null ? undefined : json['action'],
         'apiVersion': json['apiVersion'] == null ? undefined : json['apiVersion'],
         'count': json['count'] == null ? undefined : json['count'],
-        'eventTime': json['eventTime'] == null ? undefined : (new Date(json['eventTime'])),
-        'firstTimestamp': json['firstTimestamp'] == null ? undefined : (new Date(json['firstTimestamp'])),
+        'eventTime': json['eventTime'] == null ? undefined : json['eventTime'],
+        'firstTimestamp': json['firstTimestamp'] == null ? undefined : json['firstTimestamp'],
         'involvedObject': IoK8sApiCoreV1ObjectReferenceFromJSON(json['involvedObject']),
         'kind': json['kind'] == null ? undefined : json['kind'],
-        'lastTimestamp': json['lastTimestamp'] == null ? undefined : (new Date(json['lastTimestamp'])),
+        'lastTimestamp': json['lastTimestamp'] == null ? undefined : json['lastTimestamp'],
         'message': json['message'] == null ? undefined : json['message'],
         'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaFromJSON(json['metadata']),
         'reason': json['reason'] == null ? undefined : json['reason'],
@@ -205,11 +205,11 @@ export function IoK8sApiCoreV1EventToJSONTyped(value?: IoK8sApiCoreV1Event | nul
         'action': value['action'],
         'apiVersion': value['apiVersion'],
         'count': value['count'],
-        'eventTime': value['eventTime'] == null ? undefined : ((value['eventTime']).toISOString()),
-        'firstTimestamp': value['firstTimestamp'] == null ? undefined : ((value['firstTimestamp']).toISOString()),
+        'eventTime': value['eventTime'] == null ? undefined : value['eventTime'],
+        'firstTimestamp': value['firstTimestamp'] == null ? undefined : value['firstTimestamp'],
         'involvedObject': IoK8sApiCoreV1ObjectReferenceToJSON(value['involvedObject']),
         'kind': value['kind'],
-        'lastTimestamp': value['lastTimestamp'] == null ? undefined : ((value['lastTimestamp']).toISOString()),
+        'lastTimestamp': value['lastTimestamp'] == null ? undefined : value['lastTimestamp'],
         'message': value['message'],
         'metadata': IoK8sApimachineryPkgApisMetaV1ObjectMetaToJSON(value['metadata']),
         'reason': value['reason'],

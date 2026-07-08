@@ -51,7 +51,7 @@ export interface IoK8sApiBatchV1JobStatus {
      * @type {Date}
      * @memberof IoK8sApiBatchV1JobStatus
      */
-    completionTime?: Date;
+    completionTime?: string;
     /**
      * The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true.
      * 
@@ -85,7 +85,7 @@ export interface IoK8sApiBatchV1JobStatus {
      * @type {Date}
      * @memberof IoK8sApiBatchV1JobStatus
      */
-    startTime?: Date;
+    startTime?: string;
     /**
      * The number of pods which reached phase Succeeded. The value increases monotonically for a given spec. However, it may decrease in reaction to scale down of elastic indexed jobs.
      * @type {number}
@@ -127,12 +127,12 @@ export function IoK8sApiBatchV1JobStatusFromJSONTyped(json: any, ignoreDiscrimin
         
         'active': json['active'] == null ? undefined : json['active'],
         'completedIndexes': json['completedIndexes'] == null ? undefined : json['completedIndexes'],
-        'completionTime': json['completionTime'] == null ? undefined : (new Date(json['completionTime'])),
+        'completionTime': json['completionTime'] == null ? undefined : json['completionTime'],
         'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(IoK8sApiBatchV1JobConditionFromJSON)),
         'failed': json['failed'] == null ? undefined : json['failed'],
         'failedIndexes': json['failedIndexes'] == null ? undefined : json['failedIndexes'],
         'ready': json['ready'] == null ? undefined : json['ready'],
-        'startTime': json['startTime'] == null ? undefined : (new Date(json['startTime'])),
+        'startTime': json['startTime'] == null ? undefined : json['startTime'],
         'succeeded': json['succeeded'] == null ? undefined : json['succeeded'],
         'terminating': json['terminating'] == null ? undefined : json['terminating'],
         'uncountedTerminatedPods': json['uncountedTerminatedPods'] == null ? undefined : IoK8sApiBatchV1UncountedTerminatedPodsFromJSON(json['uncountedTerminatedPods']),
@@ -152,12 +152,12 @@ export function IoK8sApiBatchV1JobStatusToJSONTyped(value?: IoK8sApiBatchV1JobSt
         
         'active': value['active'],
         'completedIndexes': value['completedIndexes'],
-        'completionTime': value['completionTime'] == null ? undefined : ((value['completionTime']).toISOString()),
+        'completionTime': value['completionTime'] == null ? undefined : value['completionTime'],
         'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(IoK8sApiBatchV1JobConditionToJSON)),
         'failed': value['failed'],
         'failedIndexes': value['failedIndexes'],
         'ready': value['ready'],
-        'startTime': value['startTime'] == null ? undefined : ((value['startTime']).toISOString()),
+        'startTime': value['startTime'] == null ? undefined : value['startTime'],
         'succeeded': value['succeeded'],
         'terminating': value['terminating'],
         'uncountedTerminatedPods': IoK8sApiBatchV1UncountedTerminatedPodsToJSON(value['uncountedTerminatedPods']),

@@ -30,7 +30,7 @@ export interface V1VirtualMachineMemoryDumpRequest {
      * @type {Date}
      * @memberof V1VirtualMachineMemoryDumpRequest
      */
-    endTimestamp?: Date;
+    endTimestamp?: string;
     /**
      * FileName represents the name of the output file
      * @type {string}
@@ -60,7 +60,7 @@ export interface V1VirtualMachineMemoryDumpRequest {
      * @type {Date}
      * @memberof V1VirtualMachineMemoryDumpRequest
      */
-    startTimestamp?: Date;
+    startTimestamp?: string;
 }
 
 /**
@@ -83,12 +83,12 @@ export function V1VirtualMachineMemoryDumpRequestFromJSONTyped(json: any, ignore
     return {
         
         'claimName': json['claimName'],
-        'endTimestamp': json['endTimestamp'] == null ? undefined : (new Date(json['endTimestamp'])),
+        'endTimestamp': json['endTimestamp'] == null ? undefined : json['endTimestamp'],
         'fileName': json['fileName'] == null ? undefined : json['fileName'],
         'message': json['message'] == null ? undefined : json['message'],
         'phase': json['phase'],
         'remove': json['remove'] == null ? undefined : json['remove'],
-        'startTimestamp': json['startTimestamp'] == null ? undefined : (new Date(json['startTimestamp'])),
+        'startTimestamp': json['startTimestamp'] == null ? undefined : json['startTimestamp'],
     };
 }
 
@@ -104,12 +104,12 @@ export function V1VirtualMachineMemoryDumpRequestToJSONTyped(value?: V1VirtualMa
     return {
         
         'claimName': value['claimName'],
-        'endTimestamp': value['endTimestamp'] == null ? undefined : ((value['endTimestamp']).toISOString()),
+        'endTimestamp': value['endTimestamp'] == null ? undefined : value['endTimestamp'],
         'fileName': value['fileName'],
         'message': value['message'],
         'phase': value['phase'],
         'remove': value['remove'],
-        'startTimestamp': value['startTimestamp'] == null ? undefined : ((value['startTimestamp']).toISOString()),
+        'startTimestamp': value['startTimestamp'] == null ? undefined : value['startTimestamp'],
     };
 }
 

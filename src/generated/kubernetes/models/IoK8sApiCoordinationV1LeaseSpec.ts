@@ -24,7 +24,7 @@ export interface IoK8sApiCoordinationV1LeaseSpec {
      * @type {Date}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
-    acquireTime?: Date;
+    acquireTime?: string;
     /**
      * holderIdentity contains the identity of the holder of a current lease. If Coordinated Leader Election is used, the holder identity must be equal to the elected LeaseCandidate.metadata.name field.
      * @type {string}
@@ -54,7 +54,7 @@ export interface IoK8sApiCoordinationV1LeaseSpec {
      * @type {Date}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
-    renewTime?: Date;
+    renewTime?: string;
     /**
      * Strategy indicates the strategy for picking the leader for coordinated leader election. If the field is not specified, there is no active coordination for this lease. (Alpha) Using this field requires the CoordinatedLeaderElection feature gate to be enabled.
      * @type {string}
@@ -80,12 +80,12 @@ export function IoK8sApiCoordinationV1LeaseSpecFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'acquireTime': json['acquireTime'] == null ? undefined : (new Date(json['acquireTime'])),
+        'acquireTime': json['acquireTime'] == null ? undefined : json['acquireTime'],
         'holderIdentity': json['holderIdentity'] == null ? undefined : json['holderIdentity'],
         'leaseDurationSeconds': json['leaseDurationSeconds'] == null ? undefined : json['leaseDurationSeconds'],
         'leaseTransitions': json['leaseTransitions'] == null ? undefined : json['leaseTransitions'],
         'preferredHolder': json['preferredHolder'] == null ? undefined : json['preferredHolder'],
-        'renewTime': json['renewTime'] == null ? undefined : (new Date(json['renewTime'])),
+        'renewTime': json['renewTime'] == null ? undefined : json['renewTime'],
         'strategy': json['strategy'] == null ? undefined : json['strategy'],
     };
 }
@@ -101,12 +101,12 @@ export function IoK8sApiCoordinationV1LeaseSpecToJSONTyped(value?: IoK8sApiCoord
 
     return {
         
-        'acquireTime': value['acquireTime'] == null ? undefined : ((value['acquireTime']).toISOString()),
+        'acquireTime': value['acquireTime'] == null ? undefined : value['acquireTime'],
         'holderIdentity': value['holderIdentity'],
         'leaseDurationSeconds': value['leaseDurationSeconds'],
         'leaseTransitions': value['leaseTransitions'],
         'preferredHolder': value['preferredHolder'],
-        'renewTime': value['renewTime'] == null ? undefined : ((value['renewTime']).toISOString()),
+        'renewTime': value['renewTime'] == null ? undefined : value['renewTime'],
         'strategy': value['strategy'],
     };
 }

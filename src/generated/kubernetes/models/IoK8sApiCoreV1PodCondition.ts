@@ -24,13 +24,13 @@ export interface IoK8sApiCoreV1PodCondition {
      * @type {Date}
      * @memberof IoK8sApiCoreV1PodCondition
      */
-    lastProbeTime?: Date;
+    lastProbeTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {Date}
      * @memberof IoK8sApiCoreV1PodCondition
      */
-    lastTransitionTime?: Date;
+    lastTransitionTime?: string;
     /**
      * Human-readable message indicating details about last transition.
      * @type {string}
@@ -82,8 +82,8 @@ export function IoK8sApiCoreV1PodConditionFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'lastProbeTime': json['lastProbeTime'] == null ? undefined : (new Date(json['lastProbeTime'])),
-        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : (new Date(json['lastTransitionTime'])),
+        'lastProbeTime': json['lastProbeTime'] == null ? undefined : json['lastProbeTime'],
+        'lastTransitionTime': json['lastTransitionTime'] == null ? undefined : json['lastTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'observedGeneration': json['observedGeneration'] == null ? undefined : json['observedGeneration'],
         'reason': json['reason'] == null ? undefined : json['reason'],
@@ -103,8 +103,8 @@ export function IoK8sApiCoreV1PodConditionToJSONTyped(value?: IoK8sApiCoreV1PodC
 
     return {
         
-        'lastProbeTime': value['lastProbeTime'] == null ? undefined : ((value['lastProbeTime']).toISOString()),
-        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : ((value['lastTransitionTime']).toISOString()),
+        'lastProbeTime': value['lastProbeTime'] == null ? undefined : value['lastProbeTime'],
+        'lastTransitionTime': value['lastTransitionTime'] == null ? undefined : value['lastTransitionTime'],
         'message': value['message'],
         'observedGeneration': value['observedGeneration'],
         'reason': value['reason'],

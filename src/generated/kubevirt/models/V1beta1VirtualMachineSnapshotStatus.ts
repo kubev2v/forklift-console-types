@@ -59,7 +59,7 @@ export interface V1beta1VirtualMachineSnapshotStatus {
      * @type {Date}
      * @memberof V1beta1VirtualMachineSnapshotStatus
      */
-    creationTime?: Date;
+    creationTime?: string;
     /**
      * 
      * @type {V1beta1Error}
@@ -128,7 +128,7 @@ export function V1beta1VirtualMachineSnapshotStatusFromJSONTyped(json: any, igno
     return {
         
         'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1beta1ConditionFromJSON)),
-        'creationTime': json['creationTime'] == null ? undefined : (new Date(json['creationTime'])),
+        'creationTime': json['creationTime'] == null ? undefined : json['creationTime'],
         'error': json['error'] == null ? undefined : V1beta1ErrorFromJSON(json['error']),
         'indications': json['indications'] == null ? undefined : json['indications'],
         'phase': json['phase'] == null ? undefined : json['phase'],
@@ -152,7 +152,7 @@ export function V1beta1VirtualMachineSnapshotStatusToJSONTyped(value?: V1beta1Vi
     return {
         
         'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1beta1ConditionToJSON)),
-        'creationTime': value['creationTime'] == null ? undefined : ((value['creationTime']).toISOString()),
+        'creationTime': value['creationTime'] == null ? undefined : value['creationTime'],
         'error': V1beta1ErrorToJSON(value['error']),
         'indications': value['indications'],
         'phase': value['phase'],

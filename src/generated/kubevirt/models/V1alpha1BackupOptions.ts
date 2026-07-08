@@ -42,7 +42,7 @@ export interface V1alpha1BackupOptions {
      * @type {Date}
      * @memberof V1alpha1BackupOptions
      */
-    backupStartTime?: Date;
+    backupStartTime?: string;
     /**
      * 
      * @type {string}
@@ -113,7 +113,7 @@ export function V1alpha1BackupOptionsFromJSONTyped(json: any, ignoreDiscriminato
         'backupCert': json['backupCert'] == null ? undefined : json['backupCert'],
         'backupKey': json['backupKey'] == null ? undefined : json['backupKey'],
         'backupName': json['backupName'] == null ? undefined : json['backupName'],
-        'backupStartTime': json['backupStartTime'] == null ? undefined : (new Date(json['backupStartTime'])),
+        'backupStartTime': json['backupStartTime'] == null ? undefined : json['backupStartTime'],
         'caCert': json['caCert'] == null ? undefined : json['caCert'],
         'cmd': json['cmd'] == null ? undefined : json['cmd'],
         'exportServerAddr': json['exportServerAddr'] == null ? undefined : json['exportServerAddr'],
@@ -139,7 +139,7 @@ export function V1alpha1BackupOptionsToJSONTyped(value?: V1alpha1BackupOptions |
         'backupCert': value['backupCert'],
         'backupKey': value['backupKey'],
         'backupName': value['backupName'],
-        'backupStartTime': value['backupStartTime'] == null ? undefined : ((value['backupStartTime']).toISOString()),
+        'backupStartTime': value['backupStartTime'] == null ? undefined : value['backupStartTime'],
         'caCert': value['caCert'],
         'cmd': value['cmd'],
         'exportServerAddr': value['exportServerAddr'],

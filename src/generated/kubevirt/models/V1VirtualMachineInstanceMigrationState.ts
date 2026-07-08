@@ -64,7 +64,7 @@ export interface V1VirtualMachineInstanceMigrationState {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    endTimestamp?: Date;
+    endTimestamp?: string;
     /**
      * Indicates that the migration failed
      * @type {boolean}
@@ -136,7 +136,7 @@ export interface V1VirtualMachineInstanceMigrationState {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    startTimestamp?: Date;
+    startTimestamp?: string;
     /**
      * The UID of the target attachment pod for hotplug volumes
      * @type {string}
@@ -220,7 +220,7 @@ export interface V1VirtualMachineInstanceMigrationState {
      * @type {Date}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    targetNodeDomainReadyTimestamp?: Date;
+    targetNodeDomainReadyTimestamp?: string;
     /**
      * If the VMI requires dedicated CPUs, this field will hold the numa topology on the target node
      * @type {string}
@@ -267,7 +267,7 @@ export function V1VirtualMachineInstanceMigrationStateFromJSONTyped(json: any, i
         'abortRequested': json['abortRequested'] == null ? undefined : json['abortRequested'],
         'abortStatus': json['abortStatus'] == null ? undefined : json['abortStatus'],
         'completed': json['completed'] == null ? undefined : json['completed'],
-        'endTimestamp': json['endTimestamp'] == null ? undefined : (new Date(json['endTimestamp'])),
+        'endTimestamp': json['endTimestamp'] == null ? undefined : json['endTimestamp'],
         'failed': json['failed'] == null ? undefined : json['failed'],
         'failureReason': json['failureReason'] == null ? undefined : json['failureReason'],
         'migrationConfiguration': json['migrationConfiguration'] == null ? undefined : V1MigrationConfigurationFromJSON(json['migrationConfiguration']),
@@ -279,7 +279,7 @@ export function V1VirtualMachineInstanceMigrationStateFromJSONTyped(json: any, i
         'sourcePersistentStatePVCName': json['sourcePersistentStatePVCName'] == null ? undefined : json['sourcePersistentStatePVCName'],
         'sourcePod': json['sourcePod'] == null ? undefined : json['sourcePod'],
         'sourceState': json['sourceState'] == null ? undefined : V1VirtualMachineInstanceMigrationSourceStateFromJSON(json['sourceState']),
-        'startTimestamp': json['startTimestamp'] == null ? undefined : (new Date(json['startTimestamp'])),
+        'startTimestamp': json['startTimestamp'] == null ? undefined : json['startTimestamp'],
         'targetAttachmentPodUID': json['targetAttachmentPodUID'] == null ? undefined : json['targetAttachmentPodUID'],
         'targetCPUSet': json['targetCPUSet'] == null ? undefined : json['targetCPUSet'],
         'targetDirectMigrationNodePorts': json['targetDirectMigrationNodePorts'] == null ? undefined : json['targetDirectMigrationNodePorts'],
@@ -287,7 +287,7 @@ export function V1VirtualMachineInstanceMigrationStateFromJSONTyped(json: any, i
         'targetNode': json['targetNode'] == null ? undefined : json['targetNode'],
         'targetNodeAddress': json['targetNodeAddress'] == null ? undefined : json['targetNodeAddress'],
         'targetNodeDomainDetected': json['targetNodeDomainDetected'] == null ? undefined : json['targetNodeDomainDetected'],
-        'targetNodeDomainReadyTimestamp': json['targetNodeDomainReadyTimestamp'] == null ? undefined : (new Date(json['targetNodeDomainReadyTimestamp'])),
+        'targetNodeDomainReadyTimestamp': json['targetNodeDomainReadyTimestamp'] == null ? undefined : json['targetNodeDomainReadyTimestamp'],
         'targetNodeTopology': json['targetNodeTopology'] == null ? undefined : json['targetNodeTopology'],
         'targetPersistentStatePVCName': json['targetPersistentStatePVCName'] == null ? undefined : json['targetPersistentStatePVCName'],
         'targetPod': json['targetPod'] == null ? undefined : json['targetPod'],
@@ -309,7 +309,7 @@ export function V1VirtualMachineInstanceMigrationStateToJSONTyped(value?: V1Virt
         'abortRequested': value['abortRequested'],
         'abortStatus': value['abortStatus'],
         'completed': value['completed'],
-        'endTimestamp': value['endTimestamp'] == null ? undefined : ((value['endTimestamp']).toISOString()),
+        'endTimestamp': value['endTimestamp'] == null ? undefined : value['endTimestamp'],
         'failed': value['failed'],
         'failureReason': value['failureReason'],
         'migrationConfiguration': V1MigrationConfigurationToJSON(value['migrationConfiguration']),
@@ -321,7 +321,7 @@ export function V1VirtualMachineInstanceMigrationStateToJSONTyped(value?: V1Virt
         'sourcePersistentStatePVCName': value['sourcePersistentStatePVCName'],
         'sourcePod': value['sourcePod'],
         'sourceState': V1VirtualMachineInstanceMigrationSourceStateToJSON(value['sourceState']),
-        'startTimestamp': value['startTimestamp'] == null ? undefined : ((value['startTimestamp']).toISOString()),
+        'startTimestamp': value['startTimestamp'] == null ? undefined : value['startTimestamp'],
         'targetAttachmentPodUID': value['targetAttachmentPodUID'],
         'targetCPUSet': value['targetCPUSet'],
         'targetDirectMigrationNodePorts': value['targetDirectMigrationNodePorts'],
@@ -329,7 +329,7 @@ export function V1VirtualMachineInstanceMigrationStateToJSONTyped(value?: V1Virt
         'targetNode': value['targetNode'],
         'targetNodeAddress': value['targetNodeAddress'],
         'targetNodeDomainDetected': value['targetNodeDomainDetected'],
-        'targetNodeDomainReadyTimestamp': value['targetNodeDomainReadyTimestamp'] == null ? undefined : ((value['targetNodeDomainReadyTimestamp']).toISOString()),
+        'targetNodeDomainReadyTimestamp': value['targetNodeDomainReadyTimestamp'] == null ? undefined : value['targetNodeDomainReadyTimestamp'],
         'targetNodeTopology': value['targetNodeTopology'],
         'targetPersistentStatePVCName': value['targetPersistentStatePVCName'],
         'targetPod': value['targetPod'],

@@ -36,7 +36,7 @@ export interface IoK8sApiCoreV1Taint {
      * @type {Date}
      * @memberof IoK8sApiCoreV1Taint
      */
-    timeAdded?: Date;
+    timeAdded?: string;
     /**
      * The taint value corresponding to the taint key.
      * @type {string}
@@ -66,7 +66,7 @@ export function IoK8sApiCoreV1TaintFromJSONTyped(json: any, ignoreDiscriminator:
         
         'effect': json['effect'],
         'key': json['key'],
-        'timeAdded': json['timeAdded'] == null ? undefined : (new Date(json['timeAdded'])),
+        'timeAdded': json['timeAdded'] == null ? undefined : json['timeAdded'],
         'value': json['value'] == null ? undefined : json['value'],
     };
 }
@@ -84,7 +84,7 @@ export function IoK8sApiCoreV1TaintToJSONTyped(value?: IoK8sApiCoreV1Taint | nul
         
         'effect': value['effect'],
         'key': value['key'],
-        'timeAdded': value['timeAdded'] == null ? undefined : ((value['timeAdded']).toISOString()),
+        'timeAdded': value['timeAdded'] == null ? undefined : value['timeAdded'],
         'value': value['value'],
     };
 }

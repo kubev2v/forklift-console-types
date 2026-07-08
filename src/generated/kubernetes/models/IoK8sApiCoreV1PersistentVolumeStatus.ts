@@ -24,7 +24,7 @@ export interface IoK8sApiCoreV1PersistentVolumeStatus {
      * @type {Date}
      * @memberof IoK8sApiCoreV1PersistentVolumeStatus
      */
-    lastPhaseTransitionTime?: Date;
+    lastPhaseTransitionTime?: string;
     /**
      * message is a human-readable message indicating details about why the volume is in this state.
      * @type {string}
@@ -62,7 +62,7 @@ export function IoK8sApiCoreV1PersistentVolumeStatusFromJSONTyped(json: any, ign
     }
     return {
         
-        'lastPhaseTransitionTime': json['lastPhaseTransitionTime'] == null ? undefined : (new Date(json['lastPhaseTransitionTime'])),
+        'lastPhaseTransitionTime': json['lastPhaseTransitionTime'] == null ? undefined : json['lastPhaseTransitionTime'],
         'message': json['message'] == null ? undefined : json['message'],
         'phase': json['phase'] == null ? undefined : json['phase'],
         'reason': json['reason'] == null ? undefined : json['reason'],
@@ -80,7 +80,7 @@ export function IoK8sApiCoreV1PersistentVolumeStatusToJSONTyped(value?: IoK8sApi
 
     return {
         
-        'lastPhaseTransitionTime': value['lastPhaseTransitionTime'] == null ? undefined : ((value['lastPhaseTransitionTime']).toISOString()),
+        'lastPhaseTransitionTime': value['lastPhaseTransitionTime'] == null ? undefined : value['lastPhaseTransitionTime'],
         'message': value['message'],
         'phase': value['phase'],
         'reason': value['reason'],

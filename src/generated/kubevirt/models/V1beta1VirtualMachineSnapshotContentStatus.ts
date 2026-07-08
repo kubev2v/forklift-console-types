@@ -39,7 +39,7 @@ export interface V1beta1VirtualMachineSnapshotContentStatus {
      * @type {Date}
      * @memberof V1beta1VirtualMachineSnapshotContentStatus
      */
-    creationTime?: Date;
+    creationTime?: string;
     /**
      * 
      * @type {V1beta1Error}
@@ -77,7 +77,7 @@ export function V1beta1VirtualMachineSnapshotContentStatusFromJSONTyped(json: an
     }
     return {
         
-        'creationTime': json['creationTime'] == null ? undefined : (new Date(json['creationTime'])),
+        'creationTime': json['creationTime'] == null ? undefined : json['creationTime'],
         'error': json['error'] == null ? undefined : V1beta1ErrorFromJSON(json['error']),
         'readyToUse': json['readyToUse'] == null ? undefined : json['readyToUse'],
         'volumeSnapshotStatus': json['volumeSnapshotStatus'] == null ? undefined : ((json['volumeSnapshotStatus'] as Array<any>).map(V1beta1VolumeSnapshotStatusFromJSON)),
@@ -95,7 +95,7 @@ export function V1beta1VirtualMachineSnapshotContentStatusToJSONTyped(value?: V1
 
     return {
         
-        'creationTime': value['creationTime'] == null ? undefined : ((value['creationTime']).toISOString()),
+        'creationTime': value['creationTime'] == null ? undefined : value['creationTime'],
         'error': V1beta1ErrorToJSON(value['error']),
         'readyToUse': value['readyToUse'],
         'volumeSnapshotStatus': value['volumeSnapshotStatus'] == null ? undefined : ((value['volumeSnapshotStatus'] as Array<any>).map(V1beta1VolumeSnapshotStatusToJSON)),
