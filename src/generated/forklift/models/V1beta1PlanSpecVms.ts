@@ -182,6 +182,16 @@ When explicitly set to false, RDM disks are attached as regular disks for this V
    * @required {false}
    */
   rootDisk?: string;
+  /** scsiReservation
+   * SCSIReservation controls whether SCSI persistent reservation is enabled for
+shared RDM LUN disks on this VM. Requires rdmAsLun=true to have any effect.
+When nil (default), the plan-level scsiReservation value is used.
+When explicitly set to true, shared RDM LUNs for this VM get lun.reservation=true.
+When explicitly set to false, shared RDM LUNs for this VM get lun.reservation=false.
+   *
+   * @required {false}
+   */
+  scsiReservation?: boolean;
   /** targetName
    * TargetName specifies a custom name for the VM in the target cluster.
 If not provided, the original VM name will be used and automatically adjusted to meet k8s DNS1123 requirements.

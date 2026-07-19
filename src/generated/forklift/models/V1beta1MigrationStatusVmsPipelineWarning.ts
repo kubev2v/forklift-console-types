@@ -10,15 +10,20 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
-export interface V1beta1VSphereXcopyVolumePopulatorStatus {
-  /** progress
+/**
+ * Warning.
+ *
+ * @export
+ */
+export interface V1beta1MigrationStatusVmsPipelineWarning {
+  /** phase
    *
-   * @required {false}
+   * @required {true}
    */
-  progress?: string;
-  /** xcopyUsed
+  phase: string;
+  /** reasons
    *
-   * @required {false}
+   * @required {true}
    */
-  xcopyUsed?: string;
+  reasons: string[];
 }

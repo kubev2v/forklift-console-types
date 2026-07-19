@@ -17,6 +17,11 @@ to offload the copy to Vsphere and the storage array.
  * @export
  */
 export interface V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig {
+  /** dedicatedMigrationHosts
+   *
+   * @required {false}
+   */
+  dedicatedMigrationHosts?: string[];
   /** secretRef
    * SecretRef is the name of the secret with the storage credentials for the plugin.
 The secret should reside in the same namespace where the source provider is.

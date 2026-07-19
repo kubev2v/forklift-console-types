@@ -12,6 +12,7 @@
 
 import { V1beta1MigrationStatusVmsPipelineTasksError } from './V1beta1MigrationStatusVmsPipelineTasksError';
 import { V1beta1MigrationStatusVmsPipelineTasksProgress } from './V1beta1MigrationStatusVmsPipelineTasksProgress';
+import { V1beta1MigrationStatusVmsPipelineTasksWarning } from './V1beta1MigrationStatusVmsPipelineTasksWarning';
 
 /**
  * Migration task.
@@ -76,4 +77,10 @@ export interface V1beta1MigrationStatusVmsPipelineTasks {
    * @format {date-time}
    */
   started?: string;
+  /** warning
+   * Warning.
+   *
+   * @required {false}
+   */
+  warning?: V1beta1MigrationStatusVmsPipelineTasksWarning;
 }
