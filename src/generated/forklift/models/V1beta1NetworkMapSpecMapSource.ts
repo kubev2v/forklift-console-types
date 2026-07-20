@@ -45,4 +45,11 @@ Only relevant for an openshift source.
    * @required {false}
    */
   type?: string;
+  /** vlan
+   * VLAN identifier (numeric string, valid range 1-4094) for network disambiguation.
+   *
+   * @required {false}
+   * @pattern {^([1-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|409[0-4])$}
+   */
+  vlan?: string;
 }

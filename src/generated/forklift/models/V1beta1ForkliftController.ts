@@ -14,19 +14,26 @@ import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../kubernetes/model
 import { V1beta1ForkliftControllerSpec } from './V1beta1ForkliftControllerSpec';
 
 /**
- * ForkliftController is the Schema for the forkliftcontrollers API
+ * ForkliftController is the Schema for the forkliftcontrollers API.
  *
  * @export
  */
 export interface V1beta1ForkliftController {
   /** apiVersion
-   * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+   * APIVersion defines the versioned schema of this representation of an object.
+Servers should convert recognized schemas to the latest internal value, and
+may reject unrecognized values.
+More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
    *
    * @required {true}
    */
   apiVersion: string;
   /** kind
-   * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+   * Kind is a string value representing the REST resource this object represents.
+Servers may infer this from the endpoint the client submits requests to.
+Cannot be updated.
+In CamelCase.
+More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
    *
    * @required {true}
    */
@@ -38,14 +45,15 @@ export interface V1beta1ForkliftController {
    */
   metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
   /** spec
-   * Spec defines the desired state of ForkliftController
+   * ForkliftControllerSpec defines the desired state of ForkliftController.
    *
    * @required {false}
-   * @originalType {V1beta1ForkliftControllerSpec}
    */
-  spec?: {};
+  spec?: V1beta1ForkliftControllerSpec;
   /** status
-   * Status defines the observed state of ForkliftController
+   * ForkliftControllerStatus defines the observed state of ForkliftController.
+Status is managed by the Ansible operator and may contain arbitrary fields
+including conditions with Ansible-specific metadata.
    *
    * @required {false}
    * @originalType {not defined}

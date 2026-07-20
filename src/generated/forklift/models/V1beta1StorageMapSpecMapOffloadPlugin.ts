@@ -10,6 +10,7 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
+import { V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport } from './V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport';
 import { V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig } from './V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig';
 
 /**
@@ -18,11 +19,19 @@ import { V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig } from './V1bet
  * @export
  */
 export interface V1beta1StorageMapSpecMapOffloadPlugin {
+  /** csiVolumeImport
+   * CsiVolumeImport uses the CSI driver's native import capability to migrate VVol/RDM disks.
+The controller creates a PVC with import annotations; the CSI driver clones the source array
+volume directly — no populator pod, no CR, no service account is launched.
+   *
+   * @required {false}
+   */
+  csiVolumeImport?: V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport;
   /** vsphereXcopyConfig
    * VSphereXcopyPluginConfig works with the Vsphere Xcopy Volume Populator
 to offload the copy to Vsphere and the storage array.
    *
-   * @required {true}
+   * @required {false}
    */
-  vsphereXcopyConfig: V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig;
+  vsphereXcopyConfig?: V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig;
 }

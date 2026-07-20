@@ -11,6 +11,13 @@
  */
 
 export interface V1beta1VSphereXcopyVolumePopulatorSpec {
+  /** migrationHost
+   * MigrationHost is the ESXi host ID to use for the XCOPY operation.
+If empty, the host where the source VM is registered will be used.
+   *
+   * @required {false}
+   */
+  migrationHost?: string;
   /** secretName
    * The secret name with vsphere and storage credentials
    *

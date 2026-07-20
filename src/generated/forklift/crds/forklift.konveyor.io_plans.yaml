@@ -1422,6 +1422,15 @@ spec:
                   - true (default): Inspection step runs before transferring any disks and may fail if it detects the migration would fail.
                   - false: No inspection is performed before disk transfer.
                 type: boolean
+              scsiReservation:
+                description: |-
+                  SCSIReservation controls whether SCSI persistent reservation is enabled for
+                  shared RDM LUN disks. Requires rdmAsLun=true to have any effect.
+                  When false (default), shared RDM LUNs are migrated without persistent reservation.
+                  When true, shared RDM LUNs are configured with KubeVirt lun.reservation=true,
+                  which is required for workloads that use SCSI PR-based fencing (e.g. shared-disk clusters).
+                  Can be overridden per VM via spec.vms[].scsiReservation.
+                type: boolean
               serviceAccount:
                 description: |-
                   ServiceAccount is the name of the ServiceAccount to use for migration
@@ -1447,6 +1456,37 @@ spec:
                   - false (default): Add zone-based node selector using value from provider's spec.settings.target-az
                   - true: Skip adding zone-based node selector
                 type: boolean
+              tagMapping:
+                description: |-
+                  TagMapping configures how vSphere tags are converted to Kubernetes labels on the destination VM.
+                  Only applicable to vSphere sources; ignored for other providers (EC2, Hyper-V, oVirt, OpenStack).
+                  If not specified, all tags become labels (default behavior).
+                  If specified with Disabled: true, no tags become labels.
+                  If specified with LabelTags, only those tags become labels; others are ignored.
+                  Custom attributes always become annotations regardless of this setting.
+                  Examples:
+                    tagMapping:
+                      disabled: true
+
+                    tagMapping:
+                      labelTags:
+                        - owner
+                        - cost-center
+                        - environment
+                properties:
+                  disabled:
+                    description: |-
+                      Disabled completely prevents all tags from being converted to labels.
+                      When true, LabelTags is ignored and no tag labels are applied.
+                    type: boolean
+                  labelTags:
+                    description: |-
+                      LabelTags filters which vSphere tags become labels (case-insensitive).
+                      Empty means all tags become labels. Ignored when Disabled is true.
+                    items:
+                      type: string
+                    type: array
+                type: object
               targetAffinity:
                 description: |-
                   TargetAffinity allows specifying hard- and soft-affinity for VMs.
@@ -2698,6 +2738,14 @@ spec:
                     rootDisk:
                       description: Choose the primary disk the VM boots from
                       type: string
+                    scsiReservation:
+                      description: |-
+                        SCSIReservation controls whether SCSI persistent reservation is enabled for
+                        shared RDM LUN disks on this VM. Requires rdmAsLun=true to have any effect.
+                        When nil (default), the plan-level scsiReservation value is used.
+                        When explicitly set to true, shared RDM LUNs for this VM get lun.reservation=true.
+                        When explicitly set to false, shared RDM LUNs for this VM get lun.reservation=false.
+                      type: boolean
                     targetName:
                       description: |-
                         TargetName specifies a custom name for the VM in the target cluster.
@@ -3417,11 +3465,37 @@ spec:
                                       description: Started timestamp.
                                       format: date-time
                                       type: string
+                                    warning:
+                                      description: Warning.
+                                      properties:
+                                        phase:
+                                          type: string
+                                        reasons:
+                                          items:
+                                            type: string
+                                          type: array
+                                      required:
+                                      - phase
+                                      - reasons
+                                      type: object
                                   required:
                                   - name
                                   - progress
                                   type: object
                                 type: array
+                              warning:
+                                description: Warning.
+                                properties:
+                                  phase:
+                                    type: string
+                                  reasons:
+                                    items:
+                                      type: string
+                                    type: array
+                                required:
+                                - phase
+                                - reasons
+                                type: object
                             required:
                             - name
                             - progress
@@ -3467,6 +3541,14 @@ spec:
                         rootDisk:
                           description: Choose the primary disk the VM boots from
                           type: string
+                        scsiReservation:
+                          description: |-
+                            SCSIReservation controls whether SCSI persistent reservation is enabled for
+                            shared RDM LUN disks on this VM. Requires rdmAsLun=true to have any effect.
+                            When nil (default), the plan-level scsiReservation value is used.
+                            When explicitly set to true, shared RDM LUNs for this VM get lun.reservation=true.
+                            When explicitly set to false, shared RDM LUNs for this VM get lun.reservation=false.
+                          type: boolean
                         started:
                           description: Started timestamp.
                           format: date-time

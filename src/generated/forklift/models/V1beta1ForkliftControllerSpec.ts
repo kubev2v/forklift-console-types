@@ -11,738 +11,1115 @@
  */
 
 /**
- * Spec defines the desired state of ForkliftController
+ * ForkliftControllerSpec defines the desired state of ForkliftController.
  *
  * @export
  */
 export interface V1beta1ForkliftControllerSpec {
-  /** feature_ui_plugin
-   * Enable UI plugin (default: true)
+  /** aap_ca_secret_name
+   * Name of the Secret containing a custom CA certificate (data key: ca.crt) for AAP TLS verification.
    *
+   * @required {false}
+   */
+  aap_ca_secret_name?: string;
+  /** aap_insecure_skip_verify
+   * Skip TLS certificate verification when connecting to AAP.
+   *
+   * @required {false}
    * @required {false}
    * @originalType {string}
    */
-  feature_ui_plugin?: 'true' | 'false';
-  /** feature_validation
-   * Enable validation service (default: true)
+  aap_insecure_skip_verify?: 'true' | 'false';
+  /** aap_timeout
+   * Default timeout in seconds for AAP HTTP calls and job polling.
    *
    * @required {false}
-   * @originalType {string}
+   * @format {int32}
+   * @originalType {integer}
    */
-  feature_validation?: 'true' | 'false';
-  /** feature_volume_populator
-   * Enable volume populators (default: true)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_volume_populator?: 'true' | 'false';
-  /** feature_copy_offload
-   * Enable copy offload plugins (default: true)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_copy_offload?: 'true' | 'false';
-  /** feature_ocp_live_migration
-   * Enable OCP live migration (default: false)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_ocp_live_migration?: 'true' | 'false';
-  /** feature_ova_appliance_management
-   * Enable OVF-based appliance management endpoints (OVA, HyperV)  (default: false)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_ova_appliance_management?: 'true' | 'false';
-  /** feature_vmware_system_serial_number
-   * Use VMware system serial numbers (default: true)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_vmware_system_serial_number?: 'true' | 'false';
-  /** feature_auth_required
-   * Require authentication (default: true)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_auth_required?: 'true' | 'false';
-  /** feature_cli_download
-   * Enable CLI download service (default: true)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_cli_download?: 'true' | 'false';
-  /** feature_vsphere_vmware_driver_removal
-   * Run VMware driver removal scripts during Windows vSphere conversion (default: false)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  feature_vsphere_vmware_driver_removal?: 'true' | 'false';
-  /** controller_image_fqin
-   * Controller pod image
-   *
-   * @required {false}
-   */
-  controller_image_fqin?: string;
-  /** virt_v2v_image_fqin
-   * Virt-v2v conversion image used by migration pods
-   *
-   * @required {false}
-   */
-  virt_v2v_image_fqin?: string;
-  /** virt_v2v_image_xfs_fqin
-   * Virt-v2v XFS conversion image used by migration pods
-   *
-   * @required {false}
-   */
-  virt_v2v_image_xfs_fqin?: string;
-  /** vddk_image
-   * VDDK image for VMware disk access
-   *
-   * @required {false}
-   */
-  vddk_image?: string;
-  /** api_image_fqin
-   * API service image
-   *
-   * @required {false}
-   */
-  api_image_fqin?: string;
-  /** cli_download_image_fqin
-   * CLI download service image
-   *
-   * @required {false}
-   */
-  cli_download_image_fqin?: string;
-  /** ui_plugin_image_fqin
-   * UI plugin image
-   *
-   * @required {false}
-   */
-  ui_plugin_image_fqin?: string;
-  /** validation_image_fqin
-   * Validation service image
-   *
-   * @required {false}
-   */
-  validation_image_fqin?: string;
-  /** populator_controller_image_fqin
-   * Volume populator controller image
-   *
-   * @required {false}
-   */
-  populator_controller_image_fqin?: string;
-  /** populator_ovirt_image_fqin
-   * oVirt populator image
-   *
-   * @required {false}
-   */
-  populator_ovirt_image_fqin?: string;
-  /** populator_openstack_image_fqin
-   * OpenStack populator image
-   *
-   * @required {false}
-   */
-  populator_openstack_image_fqin?: string;
-  /** populator_vsphere_copy_offload_image_fqin
-   * vSphere xcopy populator image
-   *
-   * @required {false}
-   */
-  populator_vsphere_copy_offload_image_fqin?: string;
-  /** ova_provider_server_fqin
-   * OVA provider server image
-   *
-   * @required {false}
-   */
-  ova_provider_server_fqin?: string;
-  /** hyperv_provider_server_fqin
-   * HyperV provider server image
-   *
-   * @required {false}
-   */
-  hyperv_provider_server_fqin?: string;
-  /** must_gather_image_fqin
-   * Must-gather debugging image
-   *
-   * @required {false}
-   */
-  must_gather_image_fqin?: string;
-  /** ova_proxy_fqin
-   * OVA inventory proxy image
-   *
-   * @required {false}
-   */
-  ova_proxy_fqin?: string;
-  /** controller_container_limits_cpu
-   * Controller CPU limit (default: 500m)
-   *
-   * @required {false}
-   */
-  controller_container_limits_cpu?: string;
-  /** controller_container_limits_memory
-   * Controller memory limit (default: 800Mi)
-   *
-   * @required {false}
-   */
-  controller_container_limits_memory?: string;
-  /** controller_container_requests_cpu
-   * Controller CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  controller_container_requests_cpu?: string;
-  /** controller_container_requests_memory
-   * Controller memory request (default: 350Mi)
-   *
-   * @required {false}
-   */
-  controller_container_requests_memory?: string;
-  /** controller_transfer_network
-   * Optional NAD name for controller pod transfer network (format: 'namespace/network-name')
-   *
-   * @required {false}
-   */
-  controller_transfer_network?: string;
-  /** inventory_container_limits_cpu
-   * Inventory CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  inventory_container_limits_cpu?: string;
-  /** inventory_container_limits_memory
-   * Inventory memory limit (default: 1Gi)
-   *
-   * @required {false}
-   */
-  inventory_container_limits_memory?: string;
-  /** inventory_container_requests_cpu
-   * Inventory CPU request (default: 500m)
-   *
-   * @required {false}
-   */
-  inventory_container_requests_cpu?: string;
-  /** inventory_container_requests_memory
-   * Inventory memory request (default: 500Mi)
-   *
-   * @required {false}
-   */
-  inventory_container_requests_memory?: string;
-  /** inventory_route_timeout
-   * Inventory route timeout (default: 360s)
-   *
-   * @required {false}
-   */
-  inventory_route_timeout?: string;
-  /** api_container_limits_cpu
-   * API service CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  api_container_limits_cpu?: string;
-  /** api_container_limits_memory
-   * API service memory limit (default: 1Gi)
-   *
-   * @required {false}
-   */
-  api_container_limits_memory?: string;
-  /** api_container_requests_cpu
-   * API service CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  api_container_requests_cpu?: string;
-  /** api_container_requests_memory
-   * API service memory request (default: 150Mi)
-   *
-   * @required {false}
-   */
-  api_container_requests_memory?: string;
-  /** cli_download_container_limits_cpu
-   * CLI download service CPU limit (default: 100m)
-   *
-   * @required {false}
-   */
-  cli_download_container_limits_cpu?: string;
-  /** cli_download_container_limits_memory
-   * CLI download service memory limit (default: 128Mi)
-   *
-   * @required {false}
-   */
-  cli_download_container_limits_memory?: string;
-  /** cli_download_container_requests_cpu
-   * CLI download service CPU request (default: 50m)
-   *
-   * @required {false}
-   */
-  cli_download_container_requests_cpu?: string;
-  /** cli_download_container_requests_memory
-   * CLI download service memory request (default: 64Mi)
-   *
-   * @required {false}
-   */
-  cli_download_container_requests_memory?: string;
-  /** ui_plugin_container_limits_cpu
-   * UI plugin CPU limit (default: 100m)
-   *
-   * @required {false}
-   */
-  ui_plugin_container_limits_cpu?: string;
-  /** ui_plugin_container_limits_memory
-   * UI plugin memory limit (default: 800Mi)
-   *
-   * @required {false}
-   */
-  ui_plugin_container_limits_memory?: string;
-  /** ui_plugin_container_requests_cpu
-   * UI plugin CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  ui_plugin_container_requests_cpu?: string;
-  /** ui_plugin_container_requests_memory
-   * UI plugin memory request (default: 150Mi)
-   *
-   * @required {false}
-   */
-  ui_plugin_container_requests_memory?: string;
-  /** validation_container_limits_cpu
-   * Validation CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  validation_container_limits_cpu?: string;
-  /** validation_container_limits_memory
-   * Validation memory limit (default: 300Mi)
-   *
-   * @required {false}
-   */
-  validation_container_limits_memory?: string;
-  /** validation_container_requests_cpu
-   * Validation CPU request (default: 400m)
-   *
-   * @required {false}
-   */
-  validation_container_requests_cpu?: string;
-  /** validation_container_requests_memory
-   * Validation memory request (default: 50Mi)
-   *
-   * @required {false}
-   */
-  validation_container_requests_memory?: string;
-  /** validation_policy_agent_search_interval
-   * Policy agent search interval in seconds (default: 120)
-   *
-   * @required {false}
-   */
-  validation_policy_agent_search_interval?: undefined;
-  /** validation_extra_volume_name
-   * Volume name for extra validation rules (default: validation-extra-rules)
-   *
-   * @required {false}
-   */
-  validation_extra_volume_name?: string;
-  /** validation_extra_volume_mountpath
-   * Mount path for extra validation rules (default: /usr/share/opa/policies/extra)
-   *
-   * @required {false}
-   */
-  validation_extra_volume_mountpath?: string;
-  /** ovirt_osmap_configmap_name
-   * ConfigMap name for oVirt OS mappings (default: forklift-ovirt-osmap)
-   *
-   * @required {false}
-   */
-  ovirt_osmap_configmap_name?: string;
-  /** vsphere_osmap_configmap_name
-   * ConfigMap name for vSphere OS mappings (default: forklift-vsphere-osmap)
-   *
-   * @required {false}
-   */
-  vsphere_osmap_configmap_name?: string;
-  /** virt_customize_configmap_name
-   * ConfigMap name for virt-customize configuration (default: forklift-virt-customize)
-   *
-   * @required {false}
-   */
-  virt_customize_configmap_name?: string;
-  /** controller_migration_service_account
-   * Global default ServiceAccount for migration pods in the target namespace. Overridden by Plan-level serviceAccount.
-   *
-   * @required {false}
-   */
-  controller_migration_service_account?: string;
-  /** controller_max_vm_inflight
-   * Max concurrent VM migrations (default: 20)
-   *
-   * @required {false}
-   */
-  controller_max_vm_inflight?: undefined;
-  /** controller_precopy_interval
-   * Precopy interval in minutes (default: 60)
-   *
-   * @required {false}
-   */
-  controller_precopy_interval?: undefined;
-  /** controller_blocker_grace_period_minutes
-   * How long Critical/Error blocker conditions must persist before failing an active migration, in minutes (default: 5)
-   *
-   * @required {false}
-   */
-  controller_blocker_grace_period_minutes?: undefined;
-  /** controller_host_lease_namespace
-   * Namespace for host lease objects (default: openshift-mtv)
-   *
-   * @required {false}
-   */
-  controller_host_lease_namespace?: string;
-  /** controller_host_lease_duration_seconds
-   * Host lease duration in seconds (default: 10)
-   *
-   * @required {false}
-   */
-  controller_host_lease_duration_seconds?: undefined;
-  /** controller_max_concurrent_reconciles
-   * Max concurrent reconciles (default: 10)
-   *
-   * @required {false}
-   */
-  controller_max_concurrent_reconciles?: undefined;
-  /** controller_snapshot_removal_timeout_minuts
-   * Snapshot removal timeout in minutes (default: 120)
-   *
-   * @required {false}
-   */
-  controller_snapshot_removal_timeout_minuts?: undefined;
-  /** controller_snapshot_status_check_rate_seconds
-   * Snapshot status check rate in seconds (default: 10)
-   *
-   * @required {false}
-   */
-  controller_snapshot_status_check_rate_seconds?: undefined;
-  /** controller_cleanup_retries
-   * Cleanup retry count (default: 10)
-   *
-   * @required {false}
-   */
-  controller_cleanup_retries?: undefined;
-  /** controller_snapshot_removal_check_retries
-   * Snapshot removal retries (default: 20)
-   *
-   * @required {false}
-   */
-  controller_snapshot_removal_check_retries?: undefined;
-  /** controller_vddk_job_active_deadline_sec
-   * VDDK job timeout in seconds (default: 300)
-   *
-   * @required {false}
-   */
-  controller_vddk_job_active_deadline_sec?: undefined;
-  /** controller_tls_connection_timeout_sec
-   * TLS connection timeout seconds (default: 5)
-   *
-   * @required {false}
-   */
-  controller_tls_connection_timeout_sec?: undefined;
-  /** controller_max_parent_backing_retries
-   * Max retries when getting parent disks (default: 10)
-   *
-   * @required {false}
-   */
-  controller_max_parent_backing_retries?: undefined;
-  /** aap_url
-   * Ansible Automation Platform base URL (e.g. https://aap.example.com). Required for centralized AAP connection together with aap_token_secret_name; omit when hooks use spec.aap.url and spec.aap.tokenSecret.
-   *
-   * @required {false}
-   */
-  aap_url?: string;
+  aap_timeout?: number;
   /** aap_token_secret_name
-   * Name of the Secret in the operator namespace containing the AAP API Bearer token (data key: token). Required for centralized AAP connection together with aap_url; omit when hooks use per-hook spec.aap.url and tokenSecret.
+   * Name of the Secret containing the AAP API Bearer token (data key: token).
    *
    * @required {false}
    */
   aap_token_secret_name?: string;
-  /** aap_timeout
-   * Default timeout in seconds for AAP HTTP calls and job polling when Hook spec.deadline is 0 (optional).
+  /** aap_url
+   * Ansible Automation Platform base URL.
+Required for centralized AAP connection together with aap_token_secret_name.
    *
    * @required {false}
    */
-  aap_timeout?: undefined;
-  /** controller_vsphere_incremental_backup
-   * Use vSphere incremental backup (default: true)
+  aap_url?: string;
+  /** api_container_limits_cpu
+   * API service CPU limit.
    *
    * @required {false}
-   * @originalType {string}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
    */
-  controller_vsphere_incremental_backup?: 'true' | 'false';
+  api_container_limits_cpu?: string;
+  /** api_container_limits_memory
+   * API service memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  api_container_limits_memory?: string;
+  /** api_container_requests_cpu
+   * API service CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  api_container_requests_cpu?: string;
+  /** api_container_requests_memory
+   * API service memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {150Mi}
+   */
+  api_container_requests_memory?: string;
+  /** api_image_fqin
+   * API service image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  api_image_fqin?: string;
+  /** cli_download_container_limits_cpu
+   * CLI download service CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  cli_download_container_limits_cpu?: string;
+  /** cli_download_container_limits_memory
+   * CLI download service memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  cli_download_container_limits_memory?: string;
+  /** cli_download_container_requests_cpu
+   * CLI download service CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  cli_download_container_requests_cpu?: string;
+  /** cli_download_container_requests_memory
+   * CLI download service memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {512Mi}
+   */
+  cli_download_container_requests_memory?: string;
+  /** cli_download_image_fqin
+   * CLI download service image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  cli_download_image_fqin?: string;
+  /** controller_block_overhead
+   * Block overhead in bytes.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {0}
+   * @originalType {integer}
+   */
+  controller_block_overhead?: number;
+  /** controller_blocker_grace_period_minutes
+   * How long Critical/Error blocker conditions must persist before failing an active migration, in minutes.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {5}
+   * @originalType {integer}
+   */
+  controller_blocker_grace_period_minutes?: number;
+  /** controller_cleanup_retries
+   * Cleanup retry count.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {10}
+   * @originalType {integer}
+   */
+  controller_cleanup_retries?: number;
+  /** controller_container_limits_cpu
+   * Controller CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {2}
+   */
+  controller_container_limits_cpu?: string;
+  /** controller_container_limits_memory
+   * Controller memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {800Mi}
+   */
+  controller_container_limits_memory?: string;
+  /** controller_container_requests_cpu
+   * Controller CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  controller_container_requests_cpu?: string;
+  /** controller_container_requests_memory
+   * Controller memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {350Mi}
+   */
+  controller_container_requests_memory?: string;
+  /** controller_filesystem_overhead
+   * Filesystem overhead percentage.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {10}
+   * @originalType {integer}
+   */
+  controller_filesystem_overhead?: number;
+  /** controller_host_lease_duration_seconds
+   * Host lease duration in seconds.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {10}
+   * @originalType {integer}
+   */
+  controller_host_lease_duration_seconds?: number;
+  /** controller_host_lease_namespace
+   * Namespace for host lease objects.
+   *
+   * @required {false}
+   * @required {openshift-mtv}
+   */
+  controller_host_lease_namespace?: string;
+  /** controller_hyperv_refresh_interval
+   * HyperV inventory refresh interval as a Go duration.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(s|m|h)$}
+   * @required {10s}
+   */
+  controller_hyperv_refresh_interval?: string;
+  /** controller_hyperv_validation_timeout
+   * Timeout for HyperV SMB disk validation HTTP calls as a Go duration.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(s|m|h)$}
+   * @required {30s}
+   */
+  controller_hyperv_validation_timeout?: string;
+  /** controller_image_fqin
+   * Controller pod image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  controller_image_fqin?: string;
+  /** controller_log_level
+   * Log verbosity level.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {3}
+   * @originalType {integer}
+   */
+  controller_log_level?: number;
+  /** controller_max_concurrent_reconciles
+   * Max concurrent reconciles.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {10}
+   * @originalType {integer}
+   */
+  controller_max_concurrent_reconciles?: number;
+  /** controller_max_parent_backing_retries
+   * Max retries when getting parent disks.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {10}
+   * @originalType {integer}
+   */
+  controller_max_parent_backing_retries?: number;
+  /** controller_max_populator_inflight
+   * Max concurrent populator pods per ESXi host.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {20}
+   * @originalType {integer}
+   */
+  controller_max_populator_inflight?: number;
+  /** controller_max_vm_inflight
+   * Max concurrent VM migrations.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {20}
+   * @originalType {integer}
+   */
+  controller_max_vm_inflight?: number;
+  /** controller_migration_service_account
+   * Global default ServiceAccount for migration pods in the target namespace.
+Overridden by Plan-level serviceAccount.
+   *
+   * @required {false}
+   */
+  controller_migration_service_account?: string;
   /** controller_ovirt_warm_migration
-   * Enable oVirt warm migration (default: true)
+   * Enable oVirt warm migration.
    *
    * @required {false}
+   * @required {true}
    * @originalType {string}
    */
   controller_ovirt_warm_migration?: 'true' | 'false';
-  /** controller_retain_precopy_importer_pods
-   * Retain precopy pods (default: false)
+  /** controller_precopy_interval
+   * Precopy interval in minutes.
    *
+   * @required {false}
+   * @format {int32}
+   * @required {60}
+   * @originalType {integer}
+   */
+  controller_precopy_interval?: number;
+  /** controller_retain_populator_pods
+   * Retain populator pods after migration for debugging.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  controller_retain_populator_pods?: 'true' | 'false';
+  /** controller_retain_precopy_importer_pods
+   * Retain precopy pods.
+   *
+   * @required {false}
    * @required {false}
    * @originalType {string}
    */
   controller_retain_precopy_importer_pods?: 'true' | 'false';
-  /** controller_static_udn_ip_addresses
-   * Enable static udn IP addresses feature (default: false)
+  /** controller_snapshot_removal_check_retries
+   * Snapshot removal retries.
    *
    * @required {false}
+   * @format {int32}
+   * @required {20}
+   * @originalType {integer}
+   */
+  controller_snapshot_removal_check_retries?: number;
+  /** controller_snapshot_removal_timeout_minuts
+   * Snapshot removal timeout in minutes.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {120}
+   * @originalType {integer}
+   */
+  controller_snapshot_removal_timeout_minuts?: number;
+  /** controller_snapshot_status_check_rate_seconds
+   * Snapshot status check rate in seconds.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {10}
+   * @originalType {integer}
+   */
+  controller_snapshot_status_check_rate_seconds?: number;
+  /** controller_static_udn_ip_addresses
+   * Enable static UDN IP addresses feature.
+   *
+   * @required {false}
+   * @required {true}
    * @originalType {string}
    */
   controller_static_udn_ip_addresses?: 'true' | 'false';
-  /** controller_filesystem_overhead
-   * Filesystem overhead percentage (default: 10)
+  /** controller_tls_connection_timeout_sec
+   * TLS connection timeout seconds.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {5}
+   * @originalType {integer}
+   */
+  controller_tls_connection_timeout_sec?: number;
+  /** controller_transfer_network
+   * Optional NAD name for controller pod transfer network (format: 'namespace/network-name').
    *
    * @required {false}
    */
-  controller_filesystem_overhead?: undefined;
-  /** controller_block_overhead
-   * Block overhead in bytes (default: 0)
+  controller_transfer_network?: string;
+  /** controller_vddk_job_active_deadline_sec
+   * VDDK job timeout in seconds.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {300}
+   * @originalType {integer}
+   */
+  controller_vddk_job_active_deadline_sec?: number;
+  /** controller_vsphere_incremental_backup
+   * Use vSphere incremental backup.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  controller_vsphere_incremental_backup?: 'true' | 'false';
+  /** controller_windows_reboot_timeout
+   * Timeout in seconds for the wait-for-reboot step.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {1800}
+   * @originalType {integer}
+   */
+  controller_windows_reboot_timeout?: number;
+  /** deep_inspection_image_fqin
+   * Deep inspection image. Optional. If left empty, the operator automatically sets this from the release payload.
    *
    * @required {false}
    */
-  controller_block_overhead?: undefined;
+  deep_inspection_image_fqin?: string;
+  /** deep_inspection_image_xfs_fqin
+   * Deep inspection XFS image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  deep_inspection_image_xfs_fqin?: string;
+  /** feature_auth_required
+   * Require authentication.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_auth_required?: 'true' | 'false';
+  /** feature_cli_download
+   * Enable CLI download service.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_cli_download?: 'true' | 'false';
+  /** feature_copy_offload
+   * Enable copy offload plugins.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_copy_offload?: 'true' | 'false';
+  /** feature_mcp_server
+   * Enable MCP server deployment (requires OpenShift with Lightspeed).
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_mcp_server?: 'true' | 'false';
+  /** feature_ocp_live_migration
+   * Enable OCP live migration.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_ocp_live_migration?: 'true' | 'false';
+  /** feature_ova_appliance_management
+   * Enable OVF-based appliance management endpoints (OVA, HyperV).
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_ova_appliance_management?: 'true' | 'false';
+  /** feature_ui_plugin
+   * Enable UI plugin.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_ui_plugin?: 'true' | 'false';
+  /** feature_use_conversion_cr
+   * Delegate VM conversion to Conversion CRs instead of managing it directly.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_use_conversion_cr?: 'true' | 'false';
+  /** feature_validation
+   * Enable validation service.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_validation?: 'true' | 'false';
+  /** feature_vmware_system_serial_number
+   * Use VMware system serial numbers.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_vmware_system_serial_number?: 'true' | 'false';
+  /** feature_volume_populator
+   * Enable volume populators.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_volume_populator?: 'true' | 'false';
+  /** feature_vsphere_vmware_driver_removal
+   * Run VMware driver removal scripts during Windows vSphere conversion.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_vsphere_vmware_driver_removal?: 'true' | 'false';
+  /** feature_windows_registry_network_config
+   * Use registry-based network configuration scripts for Windows static IP setup.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_windows_registry_network_config?: 'true' | 'false';
+  /** feature_windows_wait_for_reboot
+   * Enable automatic wait-for-reboot step for Windows VM migrations.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  feature_windows_wait_for_reboot?: 'true' | 'false';
+  /** feature_xfs_repair_ignore
+   * Ignore xfs_repair exit status during conversion.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_xfs_repair_ignore?: 'true' | 'false';
+  /** hooks_container_limits_cpu
+   * Hooks CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  hooks_container_limits_cpu?: string;
+  /** hooks_container_limits_memory
+   * Hooks memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  hooks_container_limits_memory?: string;
+  /** hooks_container_requests_cpu
+   * Hooks CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  hooks_container_requests_cpu?: string;
+  /** hooks_container_requests_memory
+   * Hooks memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {150Mi}
+   */
+  hooks_container_requests_memory?: string;
+  /** hyperv_container_limits_cpu
+   * HyperV CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  hyperv_container_limits_cpu?: string;
+  /** hyperv_container_limits_memory
+   * HyperV memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  hyperv_container_limits_memory?: string;
+  /** hyperv_container_requests_cpu
+   * HyperV CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  hyperv_container_requests_cpu?: string;
+  /** hyperv_container_requests_memory
+   * HyperV memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {512Mi}
+   */
+  hyperv_container_requests_memory?: string;
+  /** hyperv_provider_server_fqin
+   * HyperV provider server image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  hyperv_provider_server_fqin?: string;
+  /** image_pull_policy
+   * Image pull policy.
+   *
+   * @required {false}
+   * @required {Always}
+   * @originalType {string}
+   */
+  image_pull_policy?: 'Always' | 'IfNotPresent' | 'Never';
+  /** inventory_container_limits_cpu
+   * Inventory CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {2}
+   */
+  inventory_container_limits_cpu?: string;
+  /** inventory_container_limits_memory
+   * Inventory memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  inventory_container_limits_memory?: string;
+  /** inventory_container_requests_cpu
+   * Inventory CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {500m}
+   */
+  inventory_container_requests_cpu?: string;
+  /** inventory_container_requests_memory
+   * Inventory memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {500Mi}
+   */
+  inventory_container_requests_memory?: string;
+  /** inventory_route_timeout
+   * Inventory route timeout.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(s|m|h)$}
+   * @required {360s}
+   */
+  inventory_route_timeout?: string;
+  /** k8s_cluster
+   * Whether running on Kubernetes (vs OpenShift).
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  k8s_cluster?: 'true' | 'false';
+  /** mcp_server_container_limits_cpu
+   * MCP server CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  mcp_server_container_limits_cpu?: string;
+  /** mcp_server_container_limits_memory
+   * MCP server memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {512Mi}
+   */
+  mcp_server_container_limits_memory?: string;
+  /** mcp_server_container_requests_cpu
+   * MCP server CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  mcp_server_container_requests_cpu?: string;
+  /** mcp_server_container_requests_memory
+   * MCP server memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {256Mi}
+   */
+  mcp_server_container_requests_memory?: string;
+  /** mcp_server_kube_insecure
+   * Skip TLS verification for in-cluster MCP calls.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  mcp_server_kube_insecure?: 'true' | 'false';
+  /** mcp_server_lightspeed_integration
+   * Register MCP server with OpenShift Lightspeed.
+   *
+   * @required {false}
+   * @required {true}
+   * @originalType {string}
+   */
+  mcp_server_lightspeed_integration?: 'true' | 'false';
+  /** mcp_server_lightspeed_set_mcp_gate
+   * Add MCPServer to OLSConfig featureGates when registering with Lightspeed.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  mcp_server_lightspeed_set_mcp_gate?: 'true' | 'false';
+  /** mcp_server_max_response_chars
+   * MCP server max response chars, 0 for unlimited.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {0}
+   * @originalType {integer}
+   */
+  mcp_server_max_response_chars?: number;
+  /** mcp_server_output_format
+   * MCP server output format.
+   *
+   * @required {false}
+   * @required {markdown}
+   * @originalType {string}
+   */
+  mcp_server_output_format?: 'markdown' | 'text' | 'json';
+  /** mcp_server_read_only
+   * Run MCP server in read-only mode.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  mcp_server_read_only?: 'true' | 'false';
+  /** mcp_server_verbose
+   * MCP server verbosity level.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {2}
+   * @originalType {integer}
+   */
+  mcp_server_verbose?: number;
+  /** metric_interval
+   * Metrics scrape interval.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(s|m|h)$}
+   * @required {30s}
+   */
+  metric_interval?: string;
+  /** must_gather_image_fqin
+   * Must-gather debugging image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  must_gather_image_fqin?: string;
+  /** naa_oui_map_configmap_name
+   * ConfigMap name for custom NAA OUI to storage vendor mappings.
+   *
+   * @required {false}
+   * @required {forklift-naa-oui-map}
+   */
+  naa_oui_map_configmap_name?: string;
+  /** ova_container_limits_cpu
+   * OVA CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  ova_container_limits_cpu?: string;
+  /** ova_container_limits_memory
+   * OVA memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  ova_container_limits_memory?: string;
+  /** ova_container_requests_cpu
+   * OVA CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  ova_container_requests_cpu?: string;
+  /** ova_container_requests_memory
+   * OVA memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {512Mi}
+   */
+  ova_container_requests_memory?: string;
+  /** ova_provider_server_fqin
+   * OVA provider server image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  ova_provider_server_fqin?: string;
+  /** ova_proxy_container_limits_cpu
+   * OVA Proxy CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  ova_proxy_container_limits_cpu?: string;
+  /** ova_proxy_container_limits_memory
+   * OVA Proxy memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  ova_proxy_container_limits_memory?: string;
+  /** ova_proxy_container_requests_cpu
+   * OVA Proxy CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {250m}
+   */
+  ova_proxy_container_requests_cpu?: string;
+  /** ova_proxy_container_requests_memory
+   * OVA Proxy memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {512Mi}
+   */
+  ova_proxy_container_requests_memory?: string;
+  /** ova_proxy_fqin
+   * OVA inventory proxy image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  ova_proxy_fqin?: string;
+  /** ova_proxy_route_timeout
+   * OVA Proxy route timeout.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(s|m|h)$}
+   * @required {360s}
+   */
+  ova_proxy_route_timeout?: string;
+  /** ovirt_osmap_configmap_name
+   * ConfigMap name for oVirt OS mappings.
+   *
+   * @required {false}
+   * @required {forklift-ovirt-osmap}
+   */
+  ovirt_osmap_configmap_name?: string;
+  /** populator_container_limits_cpu
+   * Volume Populator CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  populator_container_limits_cpu?: string;
+  /** populator_container_limits_memory
+   * Volume Populator memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
+   */
+  populator_container_limits_memory?: string;
+  /** populator_container_requests_cpu
+   * Volume Populator CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  populator_container_requests_cpu?: string;
+  /** populator_container_requests_memory
+   * Volume Populator memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {512Mi}
+   */
+  populator_container_requests_memory?: string;
+  /** populator_controller_image_fqin
+   * Volume populator controller image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  populator_controller_image_fqin?: string;
+  /** populator_openstack_image_fqin
+   * OpenStack populator image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  populator_openstack_image_fqin?: string;
+  /** populator_ovirt_image_fqin
+   * oVirt populator image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  populator_ovirt_image_fqin?: string;
+  /** populator_vsphere_copy_offload_image_fqin
+   * vSphere xcopy populator image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  populator_vsphere_copy_offload_image_fqin?: string;
+  /** ui_plugin_container_limits_cpu
+   * UI plugin CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  ui_plugin_container_limits_cpu?: string;
+  /** ui_plugin_container_limits_memory
+   * UI plugin memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {800Mi}
+   */
+  ui_plugin_container_limits_memory?: string;
+  /** ui_plugin_container_requests_cpu
+   * UI plugin CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {100m}
+   */
+  ui_plugin_container_requests_cpu?: string;
+  /** ui_plugin_container_requests_memory
+   * UI plugin memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {150Mi}
+   */
+  ui_plugin_container_requests_memory?: string;
+  /** ui_plugin_image_fqin
+   * UI plugin image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  ui_plugin_image_fqin?: string;
+  /** validation_container_limits_cpu
+   * Validation CPU limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
+   */
+  validation_container_limits_cpu?: string;
+  /** validation_container_limits_memory
+   * Validation memory limit.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {300Mi}
+   */
+  validation_container_limits_memory?: string;
+  /** validation_container_requests_cpu
+   * Validation CPU request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {400m}
+   */
+  validation_container_requests_cpu?: string;
+  /** validation_container_requests_memory
+   * Validation memory request.
+   *
+   * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {50Mi}
+   */
+  validation_container_requests_memory?: string;
+  /** validation_extra_volume_mountpath
+   * Mount path for extra validation rules.
+   *
+   * @required {false}
+   * @required {/usr/share/opa/policies/extra}
+   */
+  validation_extra_volume_mountpath?: string;
+  /** validation_extra_volume_name
+   * Volume name for extra validation rules.
+   *
+   * @required {false}
+   * @required {validation-extra-rules}
+   */
+  validation_extra_volume_name?: string;
+  /** validation_image_fqin
+   * Validation service image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  validation_image_fqin?: string;
+  /** validation_policy_agent_search_interval
+   * Policy agent search interval in seconds.
+   *
+   * @required {false}
+   * @format {int32}
+   * @required {120}
+   * @originalType {integer}
+   */
+  validation_policy_agent_search_interval?: number;
+  /** vddk_image
+   * VDDK image for VMware disk access. Optional. If left empty, no VDDK image is configured.
+   *
+   * @required {false}
+   */
+  vddk_image?: string;
+  /** virt_customize_configmap_name
+   * ConfigMap name for virt-customize configuration.
+   *
+   * @required {false}
+   * @required {forklift-virt-customize}
+   */
+  virt_customize_configmap_name?: string;
   /** virt_v2v_container_limits_cpu
-   * virt-v2v CPU limit (default: 4000m)
+   * Virt-v2v CPU limit.
    *
    * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {4000m}
    */
   virt_v2v_container_limits_cpu?: string;
   /** virt_v2v_container_limits_memory
-   * virt-v2v memory limit (default: 8Gi)
+   * Virt-v2v memory limit.
    *
    * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {8Gi}
    */
   virt_v2v_container_limits_memory?: string;
   /** virt_v2v_container_requests_cpu
-   * virt-v2v CPU request (default: 1000m)
+   * Virt-v2v CPU request.
    *
    * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1000m}
    */
   virt_v2v_container_requests_cpu?: string;
   /** virt_v2v_container_requests_memory
-   * virt-v2v memory request (default: 1Gi)
+   * Virt-v2v memory request.
    *
    * @required {false}
+   * @pattern {^[0-9]+(\.[0-9]+)?(m|k|M|G|T|P|E|Ki|Mi|Gi|Ti|Pi|Ei)?$}
+   * @required {1Gi}
    */
   virt_v2v_container_requests_memory?: string;
   /** virt_v2v_dont_request_kvm
-   * Don't request KVM for virt-v2v
+   * Don't request KVM for virt-v2v. Optional. If left empty, the operator automatically sets this from the environment.
    *
    * @required {false}
    * @originalType {string}
    */
   virt_v2v_dont_request_kvm?: 'true' | 'false';
   /** virt_v2v_extra_args
-   * Additional arguments for virt-v2v conversion
+   * Additional arguments for virt-v2v conversion. Optional. If left empty, the operator automatically sets this from the environment.
    *
    * @required {false}
    */
   virt_v2v_extra_args?: string;
-  /** virt_v2v_inspector_extra_args
-   * Additional arguments for virt-v2v-inspector
-   *
-   * @required {false}
-   */
-  virt_v2v_inspector_extra_args?: string;
   /** virt_v2v_extra_conf_config_map
-   * ConfigMap name containing extra virt-v2v configuration
+   * ConfigMap name containing extra virt-v2v configuration. Optional. If left empty, the operator automatically sets this from the environment.
    *
    * @required {false}
    */
   virt_v2v_extra_conf_config_map?: string;
-  /** virt_v2v_memsize
-   * Memory (in MB) allocated for the virt-v2v conversion appliance (default: virt-v2v chooses)
+  /** virt_v2v_image_fqin
+   * Virt-v2v conversion image. Optional. If left empty, the operator automatically sets this from the release payload.
    *
    * @required {false}
-   * @format {int64}
+   */
+  virt_v2v_image_fqin?: string;
+  /** virt_v2v_image_xfs_fqin
+   * Virt-v2v XFS conversion image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  virt_v2v_image_xfs_fqin?: string;
+  /** virt_v2v_inspector_extra_args
+   * Additional arguments for virt-v2v-inspector. Optional. If left empty, the operator automatically sets this from the environment.
+   *
+   * @required {false}
+   */
+  virt_v2v_inspector_extra_args?: string;
+  /** virt_v2v_memsize
+   * Memory (in MB) allocated for the virt-v2v conversion appliance.
+   *
+   * @required {false}
+   * @format {int32}
    * @originalType {integer}
    */
   virt_v2v_memsize?: number;
   /** virt_v2v_smp
-   * Number of virtual CPUs for the virt-v2v conversion appliance (default: virt-v2v chooses)
+   * Number of virtual CPUs for the virt-v2v conversion appliance.
    *
    * @required {false}
-   * @format {int64}
+   * @format {int32}
    * @originalType {integer}
    */
   virt_v2v_smp?: number;
-  /** hooks_container_limits_cpu
-   * Hooks CPU limit (default: 1000m)
+  /** vsphere_osmap_configmap_name
+   * ConfigMap name for vSphere OS mappings.
    *
    * @required {false}
+   * @required {forklift-vsphere-osmap}
    */
-  hooks_container_limits_cpu?: string;
-  /** hooks_container_limits_memory
-   * Hooks memory limit (default: 1Gi)
+  vsphere_osmap_configmap_name?: string;
+  /** wait_for_final_snapshot_consolidation
+   * Wait for final snapshot removal and consolidation in a VMware warm migration.
    *
    * @required {false}
-   */
-  hooks_container_limits_memory?: string;
-  /** hooks_container_requests_cpu
-   * Hooks CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  hooks_container_requests_cpu?: string;
-  /** hooks_container_requests_memory
-   * Hooks memory request (default: 150Mi)
-   *
-   * @required {false}
-   */
-  hooks_container_requests_memory?: string;
-  /** ova_container_limits_cpu
-   * OVA CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  ova_container_limits_cpu?: string;
-  /** ova_container_limits_memory
-   * OVA memory limit (default: 1Gi)
-   *
-   * @required {false}
-   */
-  ova_container_limits_memory?: string;
-  /** ova_container_requests_cpu
-   * OVA CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  ova_container_requests_cpu?: string;
-  /** ova_container_requests_memory
-   * OVA memory request (default: 150Mi)
-   *
-   * @required {false}
-   */
-  ova_container_requests_memory?: string;
-  /** hyperv_container_limits_cpu
-   * HyperV CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  hyperv_container_limits_cpu?: string;
-  /** hyperv_container_limits_memory
-   * HyperV memory limit (default: 1Gi)
-   *
-   * @required {false}
-   */
-  hyperv_container_limits_memory?: string;
-  /** hyperv_container_requests_cpu
-   * HyperV CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  hyperv_container_requests_cpu?: string;
-  /** hyperv_container_requests_memory
-   * HyperV memory request (default: 512Mi)
-   *
-   * @required {false}
-   */
-  hyperv_container_requests_memory?: string;
-  /** controller_hyperv_refresh_interval
-   * HyperV inventory refresh interval as a Go duration (default: 10s)
-   *
-   * @required {false}
-   */
-  controller_hyperv_refresh_interval?: string;
-  /** controller_hyperv_validation_timeout
-   * Timeout for HyperV SMB disk validation HTTP calls as a Go duration (default: 30s)
-   *
-   * @required {false}
-   */
-  controller_hyperv_validation_timeout?: string;
-  /** ova_proxy_container_limits_cpu
-   * OVA Proxy CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  ova_proxy_container_limits_cpu?: string;
-  /** ova_proxy_container_limits_memory
-   * OVA Proxy memory limit (default: 1Gi)
-   *
-   * @required {false}
-   */
-  ova_proxy_container_limits_memory?: string;
-  /** ova_proxy_container_requests_cpu
-   * OVA Proxy CPU request (default: 250m)
-   *
-   * @required {false}
-   */
-  ova_proxy_container_requests_cpu?: string;
-  /** ova_proxy_container_requests_memory
-   * OVA Proxy memory request (default: 512Mi)
-   *
-   * @required {false}
-   */
-  ova_proxy_container_requests_memory?: string;
-  /** ova_proxy_route_timeout
-   * OVA Proxy route timeout (default: 360s)
-   *
-   * @required {false}
-   */
-  ova_proxy_route_timeout?: string;
-  /** populator_container_limits_cpu
-   * Volume Populator CPU limit (default: 1000m)
-   *
-   * @required {false}
-   */
-  populator_container_limits_cpu?: string;
-  /** populator_container_limits_memory
-   * Volume Populator memory limit (default: 1Gi)
-   *
-   * @required {false}
-   */
-  populator_container_limits_memory?: string;
-  /** populator_container_requests_cpu
-   * Volume Populator CPU request (default: 100m)
-   *
-   * @required {false}
-   */
-  populator_container_requests_cpu?: string;
-  /** populator_container_requests_memory
-   * Volume Populator memory request (default: 512Mi)
-   *
-   * @required {false}
-   */
-  populator_container_requests_memory?: string;
-  /** controller_log_level
-   * Log verbosity level (default: 3)
-   *
-   * @required {false}
-   */
-  controller_log_level?: undefined;
-  /** image_pull_policy
-   * Image pull policy (default: Always)
-   *
-   * @required {false}
+   * @required {true}
    * @originalType {string}
    */
-  image_pull_policy?: 'Always' | 'IfNotPresent' | 'Never';
-  /** k8s_cluster
-   * Whether running on Kubernetes (vs OpenShift) (default: false)
-   *
-   * @required {false}
-   * @originalType {string}
-   */
-  k8s_cluster?: 'true' | 'false';
-  /** metric_interval
-   * Metrics scrape interval (default: 30s)
-   *
-   * @required {false}
-   */
-  metric_interval?: string;
+  wait_for_final_snapshot_consolidation?: 'true' | 'false';
 }

@@ -14,6 +14,7 @@ import { V1beta1PlanSpecConvertorAffinity } from './V1beta1PlanSpecConvertorAffi
 import { V1beta1PlanSpecCustomizationScripts } from './V1beta1PlanSpecCustomizationScripts';
 import { V1beta1PlanSpecMap } from './V1beta1PlanSpecMap';
 import { V1beta1PlanSpecProvider } from './V1beta1PlanSpecProvider';
+import { V1beta1PlanSpecTagMapping } from './V1beta1PlanSpecTagMapping';
 import { V1beta1PlanSpecTargetAffinity } from './V1beta1PlanSpecTargetAffinity';
 import { V1beta1PlanSpecTransferNetwork } from './V1beta1PlanSpecTransferNetwork';
 import { V1beta1PlanSpecVms } from './V1beta1PlanSpecVms';
@@ -313,6 +314,17 @@ direct SCSI access, such as shared storage clusters or database applications.
    * @required {true}
    */
   runPreflightInspection?: boolean;
+  /** scsiReservation
+   * SCSIReservation controls whether SCSI persistent reservation is enabled for
+shared RDM LUN disks. Requires rdmAsLun=true to have any effect.
+When false (default), shared RDM LUNs are migrated without persistent reservation.
+When true, shared RDM LUNs are configured with KubeVirt lun.reservation=true,
+which is required for workloads that use SCSI PR-based fencing (e.g. shared-disk clusters).
+Can be overridden per VM via spec.vms[].scsiReservation.
+   *
+   * @required {false}
+   */
+  scsiReservation?: boolean;
   /** serviceAccount
    * ServiceAccount is the name of the ServiceAccount to use for migration
 pods in the target namespace. Overrides the global setting.
@@ -344,6 +356,26 @@ Currently supported for EC2 provider only.
    * @required {false}
    */
   skipZoneNodeSelector?: boolean;
+  /** tagMapping
+   * TagMapping configures how vSphere tags are converted to Kubernetes labels on the destination VM.
+Only applicable to vSphere sources; ignored for other providers (EC2, Hyper-V, oVirt, OpenStack).
+If not specified, all tags become labels (default behavior).
+If specified with Disabled: true, no tags become labels.
+If specified with LabelTags, only those tags become labels; others are ignored.
+Custom attributes always become annotations regardless of this setting.
+Examples:
+  tagMapping:
+    disabled: true
+
+  tagMapping:
+    labelTags:
+      - owner
+      - cost-center
+      - environment
+   *
+   * @required {false}
+   */
+  tagMapping?: V1beta1PlanSpecTagMapping;
   /** targetAffinity
    * TargetAffinity allows specifying hard- and soft-affinity for VMs.
 it is possible to write matching rules against workloads (VMs and Pods) and Nodes.
