@@ -24,7 +24,7 @@
     "update:kubevirt": "./scripts/update-kubevirt.sh",
     "update:cdi": "./scripts/update-cdi.sh",
     "check:conflicts": "./scripts/check-conflicts.sh",
-    "align:k8s-base": "./scripts/align-k8s-base-types.sh"
+    "align:k8s-base": "node ./scripts/align-k8s-base/align.mjs"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.13.4",

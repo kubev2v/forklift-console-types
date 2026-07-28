@@ -386,7 +386,7 @@ Track which upstream versions are currently included. **Update this table after 
 | `./scripts/update-kubevirt.sh [version]` | Update KubeVirt VM types |
 | `./scripts/update-cdi.sh [version]` | Update CDI DataVolume types |
 | `./scripts/check-conflicts.sh` | Detect export conflicts between KubeVirt and CDI |
-| `./scripts/align-k8s-base-types.sh` | Align ObjectMeta/ManagedFieldsEntry with `@openshift/api-types` and convert remaining Date timestamps to string |
+| `./scripts/align-k8s-base/align.mjs` | Align ObjectMeta/ManagedFieldsEntry with `@openshift/api-types` (via TS templates) and convert remaining Date timestamps to string |
 
 All scripts accept an optional version argument (branch name or tag). Default is `main` or `master`.
 
@@ -401,11 +401,13 @@ After running any update script, align generated K8s base types with `@openshift
 npm run align:k8s-base
 ```
 
+This runs the Node orchestrator at `scripts/align-k8s-base/align.mjs`, which renders pure TypeScript templates from `scripts/align-k8s-base/templates/` and rewrites remaining timestamp types under `src/generated/`.
+
 ### ObjectMeta / ManagedFieldsEntry Shims
 
 OpenAPI generation produces separate `ObjectMeta` and `ManagedFieldsEntry` models under Kubernetes, KubeVirt, and CDI. Those duplicates drift from Console SDK expectations (`ObjectMetadata`, recursive `FieldsV1`, string timestamps).
 
-`align:k8s-base` overwrites the six generated model files with thin shims that:
+`align:k8s-base` overwrites the six generated model files with thin shims (from `ObjectMeta.ts.template` / `ManagedFieldsEntry.ts.template`) that:
 
 - Alias each generated type to `ObjectMetadata` or `ManagedFieldsEntry` from `@openshift/api-types`
 - Keep `instanceOf*`, `*FromJSON`, and `*ToJSON` stubs so other generated call sites keep compiling
