@@ -1,9 +1,9 @@
-import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../generated';
+import type { ObjectMetadata } from '@openshift/api-types';
 
 export interface V1NetworkAttachmentDefinition {
   kind: 'NetworkAttachmentDefinition';
   apiVersion: 'k8s.cni.cncf.io/v1';
-  metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
+  metadata?: ObjectMetadata;
   spec?: {
     config?: string; // JSON string of a CnoConfig type.
   };

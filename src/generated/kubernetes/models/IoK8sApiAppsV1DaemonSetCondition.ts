@@ -21,7 +21,7 @@ import { mapValues } from '../../runtime';
 export interface IoK8sApiAppsV1DaemonSetCondition {
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiAppsV1DaemonSetCondition
      */
     lastTransitionTime?: string;

@@ -33,7 +33,7 @@ export interface IoK8sApiCoreV1ContainerStateTerminated {
     exitCode: number;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoreV1ContainerStateTerminated
      */
     finishedAt?: string;
@@ -57,7 +57,7 @@ export interface IoK8sApiCoreV1ContainerStateTerminated {
     signal?: number;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoreV1ContainerStateTerminated
      */
     startedAt?: string;

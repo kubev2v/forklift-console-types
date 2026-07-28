@@ -21,13 +21,13 @@ import { mapValues } from '../../runtime';
 export interface V1beta1DataImportCronCondition {
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1beta1DataImportCronCondition
      */
     lastHeartbeatTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1beta1DataImportCronCondition
      */
     lastTransitionTime?: string;

@@ -27,10 +27,10 @@ export interface IoK8sApiEventsV1EventSeries {
     count: number;
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiEventsV1EventSeries
      */
-    lastObservedTime: Date;
+    lastObservedTime: string;
 }
 
 /**

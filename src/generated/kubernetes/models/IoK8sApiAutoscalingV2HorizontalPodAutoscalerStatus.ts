@@ -60,7 +60,7 @@ export interface IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus {
     desiredReplicas: number;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiAutoscalingV2HorizontalPodAutoscalerStatus
      */
     lastScaleTime?: string;

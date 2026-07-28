@@ -21,7 +21,7 @@ import { mapValues } from '../../runtime';
 export interface IoK8sApiCoordinationV1LeaseSpec {
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
     acquireTime?: string;
@@ -51,7 +51,7 @@ export interface IoK8sApiCoordinationV1LeaseSpec {
     preferredHolder?: string;
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoordinationV1LeaseSpec
      */
     renewTime?: string;

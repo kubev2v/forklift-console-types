@@ -21,10 +21,10 @@ import { mapValues } from '../../runtime';
 export interface IoK8sApimachineryPkgApisMetaV1Condition {
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApimachineryPkgApisMetaV1Condition
      */
-    lastTransitionTime: Date;
+    lastTransitionTime: string;
     /**
      * message is a human readable message indicating details about the transition. This may be an empty string.
      * @type {string}

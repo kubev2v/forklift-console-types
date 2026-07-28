@@ -9,6 +9,7 @@ export default [
       format: 'cjs',
       sourcemap: true,
     },
+    external: ['@openshift/api-types'],
     plugins: [
       typescript({
         tsconfig: './tsconfig.json',
