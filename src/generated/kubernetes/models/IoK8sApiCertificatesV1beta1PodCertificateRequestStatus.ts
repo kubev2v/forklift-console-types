@@ -29,7 +29,7 @@ import {
 export interface IoK8sApiCertificatesV1beta1PodCertificateRequestStatus {
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCertificatesV1beta1PodCertificateRequestStatus
      */
     beginRefreshAt?: string;
@@ -60,13 +60,13 @@ export interface IoK8sApiCertificatesV1beta1PodCertificateRequestStatus {
     conditions?: Array<IoK8sApimachineryPkgApisMetaV1Condition>;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCertificatesV1beta1PodCertificateRequestStatus
      */
     notAfter?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCertificatesV1beta1PodCertificateRequestStatus
      */
     notBefore?: string;

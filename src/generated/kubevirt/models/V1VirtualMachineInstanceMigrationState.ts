@@ -61,7 +61,7 @@ export interface V1VirtualMachineInstanceMigrationState {
     completed?: boolean;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
     endTimestamp?: string;
@@ -133,7 +133,7 @@ export interface V1VirtualMachineInstanceMigrationState {
     sourceState?: V1VirtualMachineInstanceMigrationSourceState;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
     startTimestamp?: string;
@@ -217,7 +217,7 @@ export interface V1VirtualMachineInstanceMigrationState {
     targetNodeDomainDetected?: boolean;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
     targetNodeDomainReadyTimestamp?: string;

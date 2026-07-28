@@ -68,13 +68,13 @@ export interface IoK8sApiCoreV1Event {
     count?: number;
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoreV1Event
      */
     eventTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoreV1Event
      */
     firstTimestamp?: string;
@@ -92,7 +92,7 @@ export interface IoK8sApiCoreV1Event {
     kind?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoreV1Event
      */
     lastTimestamp?: string;

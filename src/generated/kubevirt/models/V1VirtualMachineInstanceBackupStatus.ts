@@ -53,7 +53,7 @@ export interface V1VirtualMachineInstanceBackupStatus {
     completed?: boolean;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineInstanceBackupStatus
      */
     endTimestamp?: string;
@@ -65,7 +65,7 @@ export interface V1VirtualMachineInstanceBackupStatus {
     failed?: boolean;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineInstanceBackupStatus
      */
     startTimestamp?: string;

@@ -35,13 +35,13 @@ export interface IoK8sApiBatchV1CronJobStatus {
     active?: Array<IoK8sApiCoreV1ObjectReference>;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiBatchV1CronJobStatus
      */
     lastScheduleTime?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiBatchV1CronJobStatus
      */
     lastSuccessfulTime?: string;

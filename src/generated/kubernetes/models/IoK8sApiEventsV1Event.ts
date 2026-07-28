@@ -68,13 +68,13 @@ export interface IoK8sApiEventsV1Event {
     deprecatedCount?: number;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiEventsV1Event
      */
     deprecatedFirstTimestamp?: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiEventsV1Event
      */
     deprecatedLastTimestamp?: string;
@@ -86,10 +86,10 @@ export interface IoK8sApiEventsV1Event {
     deprecatedSource?: IoK8sApiCoreV1EventSource;
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiEventsV1Event
      */
-    eventTime: Date;
+    eventTime: string;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * @type {string}

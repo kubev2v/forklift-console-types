@@ -386,8 +386,7 @@ Track which upstream versions are currently included. **Update this table after 
 | `./scripts/update-kubevirt.sh [version]` | Update KubeVirt VM types |
 | `./scripts/update-cdi.sh [version]` | Update CDI DataVolume types |
 | `./scripts/check-conflicts.sh` | Detect export conflicts between KubeVirt and CDI |
-| `./scripts/fix-timestamp-types.sh` | Fix ObjectMeta timestamp types (Date → string) |
-| `./scripts/fix-fields-v1-types.sh` | Fix ManagedFieldsEntry fieldsV1 types (object → FieldsV1) |
+| `./scripts/align-k8s-base-types.sh` | Align ObjectMeta/ManagedFieldsEntry with `@openshift/api-types` and convert remaining Date timestamps to string |
 
 All scripts accept an optional version argument (branch name or tag). Default is `main` or `master`.
 
@@ -396,29 +395,27 @@ All scripts accept an optional version argument (branch name or tag). Default is
 
 ## Post-Generation Fixes
 
-After running any update script, run the post-generation fix script:
+After running any update script, align generated K8s base types with `@openshift/api-types`:
 
 ```bash
-npm run fix:timestamps
-npm run fix:fields-v1
+npm run align:k8s-base
 ```
 
-### ObjectMeta Timestamp Types
+### ObjectMeta / ManagedFieldsEntry Shims
 
-The `openapi-generator` maps OpenAPI `date-time` format fields to TypeScript `Date`. However, the Kubernetes API returns ISO 8601 strings for timestamp fields, and `@openshift-console/dynamic-plugin-sdk` types `creationTimestamp` and `deletionTimestamp` as `string`.
+OpenAPI generation produces separate `ObjectMeta` and `ManagedFieldsEntry` models under Kubernetes, KubeVirt, and CDI. Those duplicates drift from Console SDK expectations (`ObjectMetadata`, recursive `FieldsV1`, string timestamps).
 
-The `fix:timestamps` script patches all generated `ObjectMeta` types (Kubernetes, KubeVirt, CDI) to use `string` instead of `Date` for these fields, maintaining compatibility with the Console SDK.
+`align:k8s-base` overwrites the six generated model files with thin shims that:
 
-This fix was introduced after the Kubernetes v1.36.0 update exposed the incompatibility (see PR #26).
+- Alias each generated type to `ObjectMetadata` or `ManagedFieldsEntry` from `@openshift/api-types`
+- Keep `instanceOf*`, `*FromJSON`, and `*ToJSON` stubs so other generated call sites keep compiling
 
-### ManagedFieldsEntry FieldsV1 Types
+Hand-written shared types in `src/types/k8s/K8sResourceCommon.ts` re-export `K8sResourceCommon`, `ObjectMetadata`, `ManagedFieldsEntry`, and `FieldsV1` from `@openshift/api-types`.
 
-The `openapi-generator` maps OpenAPI object schemas to TypeScript `object` for `fieldsV1`. However, `@openshift-console/dynamic-plugin-sdk` (via `@openshift/api-types`) expects the recursive `FieldsV1` interface:
+### Remaining Date → string Timestamps
 
-```typescript
-interface FieldsV1 {
-  [field: string]: FieldsV1 | Record<string, never>;
-}
-```
+The `openapi-generator` maps OpenAPI `date-time` fields to TypeScript `Date`, but the Kubernetes API returns ISO 8601 strings and the Console SDK types timestamps as `string`.
 
-The `fix:fields-v1` script patches all generated `ManagedFieldsEntry` types (Kubernetes, KubeVirt, CDI) to use the shared `FieldsV1` type from `src/types/k8s/FieldsV1.ts`, maintaining compatibility with the Console SDK.
+After writing the shims, `align:k8s-base` also converts remaining timestamp fields under `src/generated/**/*.ts` from `Date` to `string` (optional and required fields, map values, and FromJSON/ToJSON Date parsing), matching the previous `fix:timestamps` behavior.
+
+This alignment was introduced to adopt `@openshift/api-types` (MTV-6057) and supersedes the older `fix:timestamps` / `fix:fields-v1` scripts.

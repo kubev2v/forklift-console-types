@@ -36,7 +36,7 @@ import {
 export interface IoK8sApiResourceV1beta2AllocationResult {
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiResourceV1beta2AllocationResult
      */
     allocationTimestamp?: string;

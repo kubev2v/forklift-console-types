@@ -39,13 +39,13 @@ export interface IoK8sApiCoordinationV1alpha2LeaseCandidateSpec {
     leaseName: string;
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoordinationV1alpha2LeaseCandidateSpec
      */
     pingTime?: string;
     /**
      * MicroTime is version of Time with microsecond level precision.
-     * @type {Date}
+     * @type {string}
      * @memberof IoK8sApiCoordinationV1alpha2LeaseCandidateSpec
      */
     renewTime?: string;

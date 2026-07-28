@@ -27,7 +27,7 @@ export interface V1VirtualMachineMemoryDumpRequest {
     claimName: string;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineMemoryDumpRequest
      */
     endTimestamp?: string;
@@ -57,7 +57,7 @@ export interface V1VirtualMachineMemoryDumpRequest {
     remove?: boolean;
     /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
-     * @type {Date}
+     * @type {string}
      * @memberof V1VirtualMachineMemoryDumpRequest
      */
     startTimestamp?: string;
