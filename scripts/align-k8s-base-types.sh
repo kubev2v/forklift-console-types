@@ -26,6 +26,16 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 GENERATED_DIR="$PROJECT_ROOT/src/generated"
 
+# Portable in-place sed (works on both BSD and GNU sed)
+sed_inplace() {
+  local file="$1"
+  shift
+  local tmp
+  tmp="$(mktemp "${file}.XXXXXX")"
+  sed "$@" "$file" > "$tmp"
+  mv "$tmp" "$file"
+}
+
 echo -e "${BLUE}========================================${NC}"
 echo -e "${BLUE}Aligning K8s base types${NC}"
 echo -e "${BLUE}========================================${NC}"
@@ -158,22 +168,21 @@ fix_timestamp_file() {
 
   if grep -qE '(\?: Date;|: Date;|\[key: string\]: Date;|@type \{Date\}|new Date\(json\[|toISOString\(\))' "$file"; then
     # Optional and required Date field annotations → string
-    sed -i '' \
+    sed_inplace "$file" \
       -e 's/\?: Date;/\?: string;/g' \
       -e 's/: Date;/: string;/g' \
       -e 's/\[key: string\]: Date;/[key: string]: string;/g' \
       -e 's/@type {Date}/@type {string}/g' \
-      -e 's/@type {{ \[key: string\]: Date; }}/@type {{ [key: string]: string; }}/g' \
-      "$file"
+      -e 's/@type {{ \[key: string\]: Date; }}/@type {{ [key: string]: string; }}/g'
 
     # FromJSON Date parsing → passthrough
     if grep -q "(new Date(json\[" "$file"; then
-      sed -i '' "s/(new Date(json\['\([^']*\)'\]))/json['\1']/g" "$file"
+      sed_inplace "$file" "s/(new Date(json\['\([^']*\)'\]))/json['\1']/g"
     fi
 
     # ToJSON toISOString → passthrough
     if grep -q "toISOString()" "$file"; then
-      sed -i '' "s/((value\['\([^']*\)'\])\.toISOString())/value['\1']/g" "$file"
+      sed_inplace "$file" "s/((value\['\([^']*\)'\])\.toISOString())/value['\1']/g"
     fi
 
     echo -e "${GREEN}  ✓ ${relative_path}: Date types → string${NC}"
