@@ -109,9 +109,7 @@ function convertDateTimestamps(content) {
   next = next.split(': Date;').join(': string;');
   next = next.split('[key: string]: Date;').join('[key: string]: string;');
   next = next.split('@type {Date}').join('@type {string}');
-  next = next
-    .split('@type {{ [key: string]: Date; }}')
-    .join('@type {{ [key: string]: string; }}');
+  next = next.split('@type {{ [key: string]: Date; }}').join('@type {{ [key: string]: string; }}');
 
   // FromJSON: (new Date(json['FIELD'])) → json['FIELD']
   next = next.replace(/\(new Date\(json\['([^']+)'\]\)\)/g, "json['$1']");
