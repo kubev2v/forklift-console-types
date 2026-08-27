@@ -12,6 +12,7 @@
 
 import { V1beta1MigrationSpecCancel } from './V1beta1MigrationSpecCancel';
 import { V1beta1MigrationSpecPlan } from './V1beta1MigrationSpecPlan';
+import { V1beta1MigrationSpecVmCutover } from './V1beta1MigrationSpecVmCutover';
 
 /**
  * MigrationSpec defines the desired state of Migration
@@ -40,4 +41,19 @@ If present, this will override the value set on the Plan.
    * @required {true}
    */
   plan: V1beta1MigrationSpecPlan;
+  /** resumeConversion
+   * ResumeConversion skips disk copy and runs only the virt-v2v
+conversion step, reusing PVCs from a previous failed migration.
+Valid for any plan whose disk copy and conversion are separate
+phases and whose disk copy completed before conversion failed.
+   *
+   * @required {false}
+   */
+  resumeConversion?: boolean;
+  /** vmCutover
+   * VMCutover associates a VM with a per-VM cutover time.
+   *
+   * @required {false}
+   */
+  vmCutover?: V1beta1MigrationSpecVmCutover[];
 }

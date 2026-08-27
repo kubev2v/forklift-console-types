@@ -285,6 +285,22 @@ Overridden by Plan-level serviceAccount.
    * @required {false}
    */
   controller_migration_service_account?: string;
+  /** controller_ocp_pvc_name_template
+   * Global default Go template for generating PVC names during OpenShift (OCP) migrations.
+Used when the Plan-level pvcNameTemplate is empty. When this field is also empty,
+the controller falls back to "\{\{.SourcePVCName\}\}" (preserves the source PVC name).
+Does not apply to non-OCP providers (see controller_pvc_name_template).
+
+IMPORTANT: Curly braces must be escaped with a backslash (\{ and \}) to avoid
+conflicts with the operator's Ansible/Jinja2 templating engine.
+The controller unescapes them before parsing the Go template.
+
+Example: "\{\{.SourcePVCNamespace\}\}-\{\{.SourcePVCName\}\}"
+   *
+   * @required {false}
+   * @pattern {^([^{}\\]|\\.)*$}
+   */
+  controller_ocp_pvc_name_template?: string;
   /** controller_ovirt_warm_migration
    * Enable oVirt warm migration.
    *
@@ -302,6 +318,23 @@ Overridden by Plan-level serviceAccount.
    * @originalType {integer}
    */
   controller_precopy_interval?: number;
+  /** controller_pvc_name_template
+   * Global default Go template for generating PVC names during non-OCP migrations.
+Used when the Plan-level pvcNameTemplate is empty. When this field is also empty,
+the controller falls back to the hardcoded default:
+"\{\{trunc 15 .PlanName\}\}-\{\{trunc 15 .TargetVmName\}\}-disk-\{\{.DiskIndex\}\}".
+Does not apply to OpenShift sources (see controller_ocp_pvc_name_template).
+
+IMPORTANT: Curly braces must be escaped with a backslash (\{ and \}) to avoid
+conflicts with the operator's Ansible/Jinja2 templating engine.
+The controller unescapes them before parsing the Go template.
+
+Example: "\{\{trunc 10 .PlanName\}\}-\{\{.TargetVmName\}\}-\{\{.DiskIndex\}\}"
+   *
+   * @required {false}
+   * @pattern {^([^{}\\]|\\.)*$}
+   */
+  controller_pvc_name_template?: string;
   /** controller_retain_populator_pods
    * Retain populator pods after migration for debugging.
    *

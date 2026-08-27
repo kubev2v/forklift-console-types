@@ -1,8 +1,8 @@
 /** Unified file containing typed provider secrets */
 
-import { OVirtHost, VSphereHost } from './provider';
+import { NutanixHost, OVirtHost, VSphereHost } from './provider';
 
 /**
  * General provider host inventory
  */
-export type ProviderHost = OVirtHost | VSphereHost;
+export type ProviderHost = OVirtHost | VSphereHost | NutanixHost;

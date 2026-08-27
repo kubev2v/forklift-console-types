@@ -1,5 +1,6 @@
 import {
   HypervProvider,
+  NutanixProvider,
   OpenshiftProvider,
   OpenstackProvider,
   OvaProvider,
@@ -17,4 +18,5 @@ export interface ProvidersInventoryList {
   vsphere?: VSphereProvider[] | null;
   ova?: OvaProvider[] | null;
   hyperv?: HypervProvider[] | null;
+  nutanix?: NutanixProvider[] | null;
 }

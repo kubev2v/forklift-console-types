@@ -31,6 +31,13 @@ export interface V1beta1PlanStatus {
    * @required {false}
    */
   migration?: V1beta1PlanStatusMigration;
+  /** netAppShiftDestination
+   * NetAppShiftDestination indicates whether the plan's storage map resolves to a NetApp
+Shift/Trident destination StorageClass.
+   *
+   * @required {false}
+   */
+  netAppShiftDestination?: boolean;
   /** observedGeneration
    * The most recent generation observed by the controller.
    *

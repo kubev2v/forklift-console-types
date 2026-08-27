@@ -30,5 +30,5 @@ export interface V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport {
    * @required {true}
    * @originalType {string}
    */
-  storageVendorProduct: 'primera3par';
+  storageVendorProduct: 'primera3par' | 'ontap';
 }
