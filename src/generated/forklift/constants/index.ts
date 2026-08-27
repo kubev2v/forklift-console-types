@@ -1,3 +1,4 @@
+export * from './ConversionModel.v1beta1';
 export * from './ForkliftControllerModel.v1beta1';
 export * from './HookModel.v1beta1';
 export * from './HostModel.v1beta1';

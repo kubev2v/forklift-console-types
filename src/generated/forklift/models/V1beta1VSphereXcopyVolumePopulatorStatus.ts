@@ -11,11 +11,51 @@
  */
 
 export interface V1beta1VSphereXcopyVolumePopulatorStatus {
+  /** allocatedBytes
+   *
+   * @required {false}
+   */
+  allocatedBytes?: string;
+  /** cloneMethod
+   *
+   * @required {false}
+   */
+  cloneMethod?: string;
+  /** copyDurationSeconds
+   *
+   * @required {false}
+   */
+  copyDurationSeconds?: string;
   /** progress
    *
    * @required {false}
    */
   progress?: string;
+  /** provisionedBytes
+   *
+   * @required {false}
+   */
+  provisionedBytes?: string;
+  /** result
+   *
+   * @required {false}
+   */
+  result?: string;
+  /** storageProtocol
+   *
+   * @required {false}
+   */
+  storageProtocol?: string;
+  /** storageVendor
+   *
+   * @required {false}
+   */
+  storageVendor?: string;
+  /** vibVersion
+   *
+   * @required {false}
+   */
+  vibVersion?: string;
   /** xcopyUsed
    *
    * @required {false}

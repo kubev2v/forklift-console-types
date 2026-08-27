@@ -9,7 +9,15 @@ import {
   VSphereProviderSecret,
 } from './secret';
 
-export type ProviderType = 'openshift' | 'vsphere' | 'ovirt' | 'openstack' | 'ova' | 'hyperv';
+export type ProviderType =
+  | 'openshift'
+  | 'vsphere'
+  | 'ovirt'
+  | 'openstack'
+  | 'ova'
+  | 'hyperv'
+  | 'ec2'
+  | 'nutanix';
 
 /**
  * Provider secret containing credentials and other confidential information

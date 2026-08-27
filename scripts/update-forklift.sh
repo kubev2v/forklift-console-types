@@ -33,6 +33,7 @@ BASE_URL="https://raw.githubusercontent.com/kubev2v/forklift/${VERSION}/operator
 
 # List of CRD files to download
 CRDS=(
+  "forklift.konveyor.io_conversions.yaml"
   "forklift.konveyor.io_forkliftcontrollers.yaml"
   "forklift.konveyor.io_hooks.yaml"
   "forklift.konveyor.io_hosts.yaml"
@@ -98,28 +99,20 @@ find "$MODEL_DIR" -type f -name "*.ts" -exec sed -i 's/\.\/IoK8sApimachineryPkgA
 echo -e "${GREEN}  ✓ Fixed ObjectMeta imports${NC}"
 echo ""
 
-# Step 6: Regenerate models index
+# Step 6: Regenerate models index (all nested models, not only top-level CRDs)
 echo -e "${YELLOW}Step 6: Regenerating models index...${NC}"
 MODEL_INDEX_FILE="$MODEL_DIR/index.ts"
 
-# Create index header
-echo "// @index(['./*', /IoK8sApimachineryPkgApisMetaV1ObjectMeta/g], f => \`export * from '\${f.path}';\`)" > "$MODEL_INDEX_FILE"
-
-# Generate exports for all models (excluding index.ts and ObjectMeta)
-for FILE in "$MODEL_DIR"/*.ts; do
-  FILENAME=$(basename "$FILE")
-  if [ "$FILENAME" != "index.ts" ] && [ "$FILENAME" != "IoK8sApimachineryPkgApisMetaV1ObjectMeta.ts" ]; then
-    echo "export * from './${FILENAME%.*}';" >> "$MODEL_INDEX_FILE"
-  fi
-done | sort
-
-# Re-sort the exports (excluding the header)
 {
-  head -1 "$MODEL_INDEX_FILE"
-  tail -n +2 "$MODEL_INDEX_FILE" | sort
+  echo "// @index(['./*', /IoK8sApimachineryPkgApisMetaV1ObjectMeta/g], f => \`export * from '\${f.path}';\`)"
+  for FILE in "$MODEL_DIR"/*.ts; do
+    FILENAME=$(basename "$FILE")
+    if [ "$FILENAME" != "index.ts" ] && [ "$FILENAME" != "IoK8sApimachineryPkgApisMetaV1ObjectMeta.ts" ]; then
+      echo "export * from './${FILENAME%.*}';"
+    fi
+  done | sort
   echo '// @endindex'
-} > "${MODEL_INDEX_FILE}.tmp"
-mv "${MODEL_INDEX_FILE}.tmp" "$MODEL_INDEX_FILE"
+} > "$MODEL_INDEX_FILE"
 
 echo -e "${GREEN}  ✓ Regenerated models index${NC}"
 echo ""

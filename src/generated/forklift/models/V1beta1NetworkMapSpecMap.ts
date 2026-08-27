@@ -25,6 +25,13 @@ export interface V1beta1NetworkMapSpecMap {
    * @required {true}
    */
   destination: V1beta1NetworkMapSpecMapDestination;
+  /** networkIPMode
+   * Network IP mode for this network, overrides plan-level preserveStaticIPs.
+   *
+   * @required {false}
+   * @originalType {string}
+   */
+  networkIPMode?: 'preserve' | 'dhcp' | 'none';
   /** source
    * Source network.
    *
