@@ -28,7 +28,7 @@ import {
  */
 export interface V1GPU {
     /**
-     * ClaimName needs to be provided from the list vmi.spec.resourceClaims[].name where this device is allocated
+     * ClaimName references the name of an entry in the VMI's spec.resourceClaims[] array. The referenced entry may use either resourceClaimName or resourceClaimTemplateName.
      * @type {string}
      * @memberof V1GPU
      */
@@ -46,7 +46,7 @@ export interface V1GPU {
      */
     name: string;
     /**
-     * RequestName needs to be provided from resourceClaim.spec.devices.requests[].name where this device is requested
+     * RequestName specifies which request from the ResourceClaim/ResourceClaimTemplate spec.devices.requests array this claim request corresponds to.
      * @type {string}
      * @memberof V1GPU
      */

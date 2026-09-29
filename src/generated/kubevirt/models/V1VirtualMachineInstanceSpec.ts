@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { V1VirtualMachineInstanceResourceClaim } from './V1VirtualMachineInstanceResourceClaim';
+import {
+    V1VirtualMachineInstanceResourceClaimFromJSON,
+    V1VirtualMachineInstanceResourceClaimFromJSONTyped,
+    V1VirtualMachineInstanceResourceClaimToJSON,
+    V1VirtualMachineInstanceResourceClaimToJSONTyped,
+} from './V1VirtualMachineInstanceResourceClaim';
 import type { V1Network } from './V1Network';
 import {
     V1NetworkFromJSON,
@@ -83,13 +90,6 @@ import {
     V1DomainSpecToJSON,
     V1DomainSpecToJSONTyped,
 } from './V1DomainSpec';
-import type { K8sIoApiCoreV1PodResourceClaim } from './K8sIoApiCoreV1PodResourceClaim';
-import {
-    K8sIoApiCoreV1PodResourceClaimFromJSON,
-    K8sIoApiCoreV1PodResourceClaimFromJSONTyped,
-    K8sIoApiCoreV1PodResourceClaimToJSON,
-    K8sIoApiCoreV1PodResourceClaimToJSONTyped,
-} from './K8sIoApiCoreV1PodResourceClaim';
 
 /**
  * VirtualMachineInstanceSpec is a description of a VirtualMachineInstance.
@@ -186,17 +186,23 @@ export interface V1VirtualMachineInstanceSpec {
      * 
      * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate in kubernetes
      *  https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/
-     * This field should only be configured if one of the feature-gates GPUsWithDRA or HostDevicesWithDRA is enabled. This feature is in alpha.
-     * @type {Array<K8sIoApiCoreV1PodResourceClaim>}
+     * This field should only be configured if one of the feature-gates GPUsWithDRA, HostDevicesWithDRA, or NetworkDevicesWithDRA is enabled. This feature is in alpha.
+     * @type {Array<V1VirtualMachineInstanceResourceClaim>}
      * @memberof V1VirtualMachineInstanceSpec
      */
-    resourceClaims?: Array<K8sIoApiCoreV1PodResourceClaim>;
+    resourceClaims?: Array<V1VirtualMachineInstanceResourceClaim>;
     /**
      * If specified, the VMI will be dispatched by specified scheduler. If not specified, the VMI will be dispatched by default scheduler.
      * @type {string}
      * @memberof V1VirtualMachineInstanceSpec
      */
     schedulerName?: string;
+    /**
+     * ServiceAccountName is the name of the ServiceAccount to use to run the virt-launcher pod. This sets pod.spec.serviceAccountName but does NOT automatically expose the service account token to the VM guest. To expose the token to the VM, use a serviceAccount volume.
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceSpec
+     */
+    serviceAccountName?: string;
     /**
      * StartStrategy can be set to "Paused" if Virtual Machine should be started in paused state.
      * @type {string}
@@ -285,8 +291,9 @@ export function V1VirtualMachineInstanceSpecFromJSONTyped(json: any, ignoreDiscr
         'nodeSelector': json['nodeSelector'] == null ? undefined : json['nodeSelector'],
         'priorityClassName': json['priorityClassName'] == null ? undefined : json['priorityClassName'],
         'readinessProbe': json['readinessProbe'] == null ? undefined : V1ProbeFromJSON(json['readinessProbe']),
-        'resourceClaims': json['resourceClaims'] == null ? undefined : ((json['resourceClaims'] as Array<any>).map(K8sIoApiCoreV1PodResourceClaimFromJSON)),
+        'resourceClaims': json['resourceClaims'] == null ? undefined : ((json['resourceClaims'] as Array<any>).map(V1VirtualMachineInstanceResourceClaimFromJSON)),
         'schedulerName': json['schedulerName'] == null ? undefined : json['schedulerName'],
+        'serviceAccountName': json['serviceAccountName'] == null ? undefined : json['serviceAccountName'],
         'startStrategy': json['startStrategy'] == null ? undefined : json['startStrategy'],
         'subdomain': json['subdomain'] == null ? undefined : json['subdomain'],
         'terminationGracePeriodSeconds': json['terminationGracePeriodSeconds'] == null ? undefined : json['terminationGracePeriodSeconds'],
@@ -321,8 +328,9 @@ export function V1VirtualMachineInstanceSpecToJSONTyped(value?: V1VirtualMachine
         'nodeSelector': value['nodeSelector'],
         'priorityClassName': value['priorityClassName'],
         'readinessProbe': V1ProbeToJSON(value['readinessProbe']),
-        'resourceClaims': value['resourceClaims'] == null ? undefined : ((value['resourceClaims'] as Array<any>).map(K8sIoApiCoreV1PodResourceClaimToJSON)),
+        'resourceClaims': value['resourceClaims'] == null ? undefined : ((value['resourceClaims'] as Array<any>).map(V1VirtualMachineInstanceResourceClaimToJSON)),
         'schedulerName': value['schedulerName'],
+        'serviceAccountName': value['serviceAccountName'],
         'startStrategy': value['startStrategy'],
         'subdomain': value['subdomain'],
         'terminationGracePeriodSeconds': value['terminationGracePeriodSeconds'],

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../../runtime';
+import { mapValues } from '../../../runtime';
 /**
  * VirtualMachineExportBackupEndpoint contains the endpoint type and URL to interact with a backup export
  * @export

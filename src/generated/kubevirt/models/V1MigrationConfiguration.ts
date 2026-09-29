@@ -98,6 +98,12 @@ export interface V1MigrationConfiguration {
      */
     matchSELinuxLevelOnMigration?: boolean;
     /**
+     * MaxDowntimeMs specifies the maximum tolerable downtime (in milliseconds) during switchover. Defaults to 900
+     * @type {number}
+     * @memberof V1MigrationConfiguration
+     */
+    maxDowntimeMs?: number;
+    /**
      * Network is the name of the CNI network to use for live migrations. By default, migrations go through the pod network.
      * @type {string}
      * @memberof V1MigrationConfiguration
@@ -165,6 +171,7 @@ export function V1MigrationConfigurationFromJSONTyped(json: any, ignoreDiscrimin
         'completionTimeoutPerGiB': json['completionTimeoutPerGiB'] == null ? undefined : json['completionTimeoutPerGiB'],
         'disableTLS': json['disableTLS'] == null ? undefined : json['disableTLS'],
         'matchSELinuxLevelOnMigration': json['matchSELinuxLevelOnMigration'] == null ? undefined : json['matchSELinuxLevelOnMigration'],
+        'maxDowntimeMs': json['maxDowntimeMs'] == null ? undefined : json['maxDowntimeMs'],
         'network': json['network'] == null ? undefined : json['network'],
         'nodeDrainTaintKey': json['nodeDrainTaintKey'] == null ? undefined : json['nodeDrainTaintKey'],
         'parallelMigrationsPerCluster': json['parallelMigrationsPerCluster'] == null ? undefined : json['parallelMigrationsPerCluster'],
@@ -193,6 +200,7 @@ export function V1MigrationConfigurationToJSONTyped(value?: V1MigrationConfigura
         'completionTimeoutPerGiB': value['completionTimeoutPerGiB'],
         'disableTLS': value['disableTLS'],
         'matchSELinuxLevelOnMigration': value['matchSELinuxLevelOnMigration'],
+        'maxDowntimeMs': value['maxDowntimeMs'],
         'network': value['network'],
         'nodeDrainTaintKey': value['nodeDrainTaintKey'],
         'parallelMigrationsPerCluster': value['parallelMigrationsPerCluster'],

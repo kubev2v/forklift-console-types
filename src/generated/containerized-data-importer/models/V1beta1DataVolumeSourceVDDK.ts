@@ -26,6 +26,12 @@ export interface V1beta1DataVolumeSourceVDDK {
      */
     backingFile?: string;
     /**
+     * CertConfigMap provides a reference to a ConfigMap containing the certificate authority (CA) certificate for the vCenter or ESXi host
+     * @type {string}
+     * @memberof V1beta1DataVolumeSourceVDDK
+     */
+    certConfigMap?: string;
+    /**
      * ExtraArgs is a reference to a ConfigMap containing extra arguments to pass directly to the VDDK library
      * @type {string}
      * @memberof V1beta1DataVolumeSourceVDDK
@@ -81,6 +87,7 @@ export function V1beta1DataVolumeSourceVDDKFromJSONTyped(json: any, ignoreDiscri
     return {
         
         'backingFile': json['backingFile'] == null ? undefined : json['backingFile'],
+        'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
         'extraArgs': json['extraArgs'] == null ? undefined : json['extraArgs'],
         'initImageURL': json['initImageURL'] == null ? undefined : json['initImageURL'],
         'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
@@ -97,6 +104,7 @@ export function V1beta1DataVolumeSourceVDDKToJSON(value?: V1beta1DataVolumeSourc
     return {
         
         'backingFile': value['backingFile'],
+        'certConfigMap': value['certConfigMap'],
         'extraArgs': value['extraArgs'],
         'initImageURL': value['initImageURL'],
         'secretRef': value['secretRef'],

@@ -45,7 +45,7 @@ export interface V1beta1DataImportCronSpec {
      */
     managedDataSource: string;
     /**
-     * RetentionPolicy specifies whether the created DataVolumes and DataSources are retained when their DataImportCron is deleted. Default is RatainAll.
+     * RetentionPolicy specifies whether the created DataVolumes and DataSources are retained when their DataImportCron is deleted. Default is RetainAll.
      * @type {string}
      * @memberof V1beta1DataImportCronSpec
      */

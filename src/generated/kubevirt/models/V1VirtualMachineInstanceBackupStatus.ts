@@ -64,6 +64,12 @@ export interface V1VirtualMachineInstanceBackupStatus {
      */
     failed?: boolean;
     /**
+     * QuiesceStatus indicates whether filesystem freeze succeeded, failed, or was skipped.
+     * @type {string}
+     * @memberof V1VirtualMachineInstanceBackupStatus
+     */
+    quiesceStatus?: string;
+    /**
      * Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.
      * @type {string}
      * @memberof V1VirtualMachineInstanceBackupStatus
@@ -100,6 +106,7 @@ export function V1VirtualMachineInstanceBackupStatusFromJSONTyped(json: any, ign
         'completed': json['completed'] == null ? undefined : json['completed'],
         'endTimestamp': json['endTimestamp'] == null ? undefined : json['endTimestamp'],
         'failed': json['failed'] == null ? undefined : json['failed'],
+        'quiesceStatus': json['quiesceStatus'] == null ? undefined : json['quiesceStatus'],
         'startTimestamp': json['startTimestamp'] == null ? undefined : json['startTimestamp'],
         'volumes': json['volumes'] == null ? undefined : ((json['volumes'] as Array<any>).map(V1alpha1BackupVolumeInfoFromJSON)),
     };
@@ -122,6 +129,7 @@ export function V1VirtualMachineInstanceBackupStatusToJSONTyped(value?: V1Virtua
         'completed': value['completed'],
         'endTimestamp': value['endTimestamp'] == null ? undefined : value['endTimestamp'],
         'failed': value['failed'],
+        'quiesceStatus': value['quiesceStatus'],
         'startTimestamp': value['startTimestamp'] == null ? undefined : value['startTimestamp'],
         'volumes': value['volumes'] == null ? undefined : ((value['volumes'] as Array<any>).map(V1alpha1BackupVolumeInfoToJSON)),
     };

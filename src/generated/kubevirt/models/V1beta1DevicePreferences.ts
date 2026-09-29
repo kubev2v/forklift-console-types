@@ -186,6 +186,12 @@ export interface V1beta1DevicePreferences {
      */
     preferredUseVirtioTransitional?: boolean;
     /**
+     * PreferredVideoType optionally defines the preferred type for Video devices.
+     * @type {string}
+     * @memberof V1beta1DevicePreferences
+     */
+    preferredVideoType?: string;
+    /**
      * 
      * @type {V1VGPUOptions}
      * @memberof V1beta1DevicePreferences
@@ -234,6 +240,7 @@ export function V1beta1DevicePreferencesFromJSONTyped(json: any, ignoreDiscrimin
         'preferredSoundModel': json['preferredSoundModel'] == null ? undefined : json['preferredSoundModel'],
         'preferredTPM': json['preferredTPM'] == null ? undefined : V1TPMDeviceFromJSON(json['preferredTPM']),
         'preferredUseVirtioTransitional': json['preferredUseVirtioTransitional'] == null ? undefined : json['preferredUseVirtioTransitional'],
+        'preferredVideoType': json['preferredVideoType'] == null ? undefined : json['preferredVideoType'],
         'preferredVirtualGPUOptions': json['preferredVirtualGPUOptions'] == null ? undefined : V1VGPUOptionsFromJSON(json['preferredVirtualGPUOptions']),
     };
 }
@@ -273,6 +280,7 @@ export function V1beta1DevicePreferencesToJSONTyped(value?: V1beta1DevicePrefere
         'preferredSoundModel': value['preferredSoundModel'],
         'preferredTPM': V1TPMDeviceToJSON(value['preferredTPM']),
         'preferredUseVirtioTransitional': value['preferredUseVirtioTransitional'],
+        'preferredVideoType': value['preferredVideoType'],
         'preferredVirtualGPUOptions': V1VGPUOptionsToJSON(value['preferredVirtualGPUOptions']),
     };
 }

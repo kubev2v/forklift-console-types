@@ -81,7 +81,7 @@ export interface V1KubeVirtSpec {
      */
     customizeComponents?: V1CustomizeComponents;
     /**
-     * The ImagePullPolicy to use.
+     * The ImagePullPolicy to use for KubeVirt operator-managed infrastructure images (virt-api, virt-controller, virt-handler, virt-exportproxy, etc.). For pull policy of user workload pods, see spec.configuration.imagePullPolicy.
      * 
      * Possible enum values:
      *  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.

@@ -255,7 +255,6 @@ export {
   V1VolumeStatus,
   V1Watchdog,
   // V1alpha1 types
-  V1alpha1Condition,
   V1alpha1MigrationPolicy,
   V1alpha1MigrationPolicyList,
   V1alpha1MigrationPolicySpec,

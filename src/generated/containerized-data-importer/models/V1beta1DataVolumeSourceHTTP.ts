@@ -38,6 +38,12 @@ export interface V1beta1DataVolumeSourceHTTP {
      */
     extraHeaders?: Array<string>;
     /**
+     * InsecureSkipVerify is a flag to skip certificate verification for the HTTP endpoint
+     * @type {boolean}
+     * @memberof V1beta1DataVolumeSourceHTTP
+     */
+    insecureSkipVerify?: boolean;
+    /**
      * SecretExtraHeaders is a list of Secret references, each containing an extra HTTP header that may include sensitive information
      * @type {Array<string>}
      * @memberof V1beta1DataVolumeSourceHTTP
@@ -78,6 +84,7 @@ export function V1beta1DataVolumeSourceHTTPFromJSONTyped(json: any, ignoreDiscri
         'certConfigMap': json['certConfigMap'] == null ? undefined : json['certConfigMap'],
         'checksum': json['checksum'] == null ? undefined : json['checksum'],
         'extraHeaders': json['extraHeaders'] == null ? undefined : json['extraHeaders'],
+        'insecureSkipVerify': json['insecureSkipVerify'] == null ? undefined : json['insecureSkipVerify'],
         'secretExtraHeaders': json['secretExtraHeaders'] == null ? undefined : json['secretExtraHeaders'],
         'secretRef': json['secretRef'] == null ? undefined : json['secretRef'],
         'url': json['url'],
@@ -93,6 +100,7 @@ export function V1beta1DataVolumeSourceHTTPToJSON(value?: V1beta1DataVolumeSourc
         'certConfigMap': value['certConfigMap'],
         'checksum': value['checksum'],
         'extraHeaders': value['extraHeaders'],
+        'insecureSkipVerify': value['insecureSkipVerify'],
         'secretExtraHeaders': value['secretExtraHeaders'],
         'secretRef': value['secretRef'],
         'url': value['url'],

@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { K8sIoApimachineryPkgApisMetaV1Condition } from './K8sIoApimachineryPkgApisMetaV1Condition';
+import {
+    K8sIoApimachineryPkgApisMetaV1ConditionFromJSON,
+    K8sIoApimachineryPkgApisMetaV1ConditionFromJSONTyped,
+    K8sIoApimachineryPkgApisMetaV1ConditionToJSON,
+    K8sIoApimachineryPkgApisMetaV1ConditionToJSONTyped,
+} from './K8sIoApimachineryPkgApisMetaV1Condition';
 import type { V1alpha1BackupVolumeInfo } from './V1alpha1BackupVolumeInfo';
 import {
     V1alpha1BackupVolumeInfoFromJSON,
@@ -20,13 +27,6 @@ import {
     V1alpha1BackupVolumeInfoToJSON,
     V1alpha1BackupVolumeInfoToJSONTyped,
 } from './V1alpha1BackupVolumeInfo';
-import type { V1alpha1Condition } from './V1alpha1Condition';
-import {
-    V1alpha1ConditionFromJSON,
-    V1alpha1ConditionFromJSONTyped,
-    V1alpha1ConditionToJSON,
-    V1alpha1ConditionToJSONTyped,
-} from './V1alpha1Condition';
 
 /**
  * VirtualMachineBackupStatus is the status for a VirtualMachineBackup resource
@@ -42,16 +42,22 @@ export interface V1alpha1VirtualMachineBackupStatus {
     checkpointName?: string;
     /**
      * 
-     * @type {Array<V1alpha1Condition>}
+     * @type {Array<K8sIoApimachineryPkgApisMetaV1Condition>}
      * @memberof V1alpha1VirtualMachineBackupStatus
      */
-    conditions?: Array<V1alpha1Condition>;
+    conditions?: Array<K8sIoApimachineryPkgApisMetaV1Condition>;
     /**
      * EndpointCert is the raw CACert that is to be used when connecting to an exported backup endpoint in pull mode.
      * @type {string}
      * @memberof V1alpha1VirtualMachineBackupStatus
      */
     endpointCert?: string;
+    /**
+     * ExportUID tracks the UID of the associated VMExport for pull-mode backups used to detect VMExport recreation and re-initiate the export handshake
+     * @type {string}
+     * @memberof V1alpha1VirtualMachineBackupStatus
+     */
+    exportUID?: string;
     /**
      * IncludedVolumes lists the volumes that were included in the backup
      * @type {Array<V1alpha1BackupVolumeInfo>}
@@ -84,8 +90,9 @@ export function V1alpha1VirtualMachineBackupStatusFromJSONTyped(json: any, ignor
     return {
         
         'checkpointName': json['checkpointName'] == null ? undefined : json['checkpointName'],
-        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(V1alpha1ConditionFromJSON)),
+        'conditions': json['conditions'] == null ? undefined : ((json['conditions'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1ConditionFromJSON)),
         'endpointCert': json['endpointCert'] == null ? undefined : json['endpointCert'],
+        'exportUID': json['exportUID'] == null ? undefined : json['exportUID'],
         'includedVolumes': json['includedVolumes'] == null ? undefined : ((json['includedVolumes'] as Array<any>).map(V1alpha1BackupVolumeInfoFromJSON)),
         'type': json['type'] == null ? undefined : json['type'],
     };
@@ -103,8 +110,9 @@ export function V1alpha1VirtualMachineBackupStatusToJSONTyped(value?: V1alpha1Vi
     return {
         
         'checkpointName': value['checkpointName'],
-        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(V1alpha1ConditionToJSON)),
+        'conditions': value['conditions'] == null ? undefined : ((value['conditions'] as Array<any>).map(K8sIoApimachineryPkgApisMetaV1ConditionToJSON)),
         'endpointCert': value['endpointCert'],
+        'exportUID': value['exportUID'],
         'includedVolumes': value['includedVolumes'] == null ? undefined : ((value['includedVolumes'] as Array<any>).map(V1alpha1BackupVolumeInfoToJSON)),
         'type': value['type'],
     };

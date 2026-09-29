@@ -370,10 +370,11 @@ Track which upstream versions are currently included. **Update this table after 
 
 | Source | Current Version | Last Updated | Updated By |
 |--------|-----------------|--------------|------------|
-| Forklift | main (eb281b4) | 2026-AUG-27 | aturgema (made with cursor) |
-| Kubernetes | v1.36.0 | 2026-APR-28 | aturgema (made with cursor) |
-| KubeVirt | v1.8.2 | 2026-APR-28 | aturgema (made with cursor) |
-| CDI | v1.65.0 | 2026-APR-28 | aturgema (made with cursor) |
+
+| Forklift | main (46d0c5b) | 2026-SEP-29 | aturgema (made with cursor) |
+| Kubernetes | v1.37.1 | 2026-SEP-29 | aturgema (made with cursor) |
+| KubeVirt | v1.9.0 | 2026-SEP-29 | aturgema (made with cursor) |
+| CDI | v1.66.1 | 2026-SEP-29 | aturgema (made with cursor) |
 
 ---
 

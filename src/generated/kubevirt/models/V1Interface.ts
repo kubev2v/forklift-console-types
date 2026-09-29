@@ -27,6 +27,13 @@ import {
     V1PluginBindingToJSON,
     V1PluginBindingToJSONTyped,
 } from './V1PluginBinding';
+import type { V1PortRange } from './V1PortRange';
+import {
+    V1PortRangeFromJSON,
+    V1PortRangeFromJSONTyped,
+    V1PortRangeToJSON,
+    V1PortRangeToJSONTyped,
+} from './V1PortRange';
 import type { V1Port } from './V1Port';
 import {
     V1PortFromJSON,
@@ -120,7 +127,13 @@ export interface V1Interface {
      */
     pciAddress?: string;
     /**
-     * List of ports to be forwarded to the virtual machine.
+     * List of port ranges to be forwarded to the virtual machine. Mutually exclusive with ports. Only supported on masquerade interfaces. This feature is in Alpha.
+     * @type {Array<V1PortRange>}
+     * @memberof V1Interface
+     */
+    portRanges?: Array<V1PortRange>;
+    /**
+     * List of ports to be forwarded to the virtual machine. Mutually exclusive with portRanges.
      * @type {Array<V1Port>}
      * @memberof V1Interface
      */
@@ -182,6 +195,7 @@ export function V1InterfaceFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'passt': json['passt'] == null ? undefined : json['passt'],
         'passtBinding': json['passtBinding'] == null ? undefined : json['passtBinding'],
         'pciAddress': json['pciAddress'] == null ? undefined : json['pciAddress'],
+        'portRanges': json['portRanges'] == null ? undefined : ((json['portRanges'] as Array<any>).map(V1PortRangeFromJSON)),
         'ports': json['ports'] == null ? undefined : ((json['ports'] as Array<any>).map(V1PortFromJSON)),
         'slirp': json['slirp'] == null ? undefined : json['slirp'],
         'sriov': json['sriov'] == null ? undefined : json['sriov'],
@@ -214,6 +228,7 @@ export function V1InterfaceToJSONTyped(value?: V1Interface | null, ignoreDiscrim
         'passt': value['passt'],
         'passtBinding': value['passtBinding'],
         'pciAddress': value['pciAddress'],
+        'portRanges': value['portRanges'] == null ? undefined : ((value['portRanges'] as Array<any>).map(V1PortRangeToJSON)),
         'ports': value['ports'] == null ? undefined : ((value['ports'] as Array<any>).map(V1PortToJSON)),
         'slirp': value['slirp'],
         'sriov': value['sriov'],

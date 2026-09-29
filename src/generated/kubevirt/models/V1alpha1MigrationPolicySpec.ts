@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { V1ExperimentalMigrationOptions } from './V1ExperimentalMigrationOptions';
+import {
+    V1ExperimentalMigrationOptionsFromJSON,
+    V1ExperimentalMigrationOptionsFromJSONTyped,
+    V1ExperimentalMigrationOptionsToJSON,
+    V1ExperimentalMigrationOptionsToJSONTyped,
+} from './V1ExperimentalMigrationOptions';
 import type { V1alpha1Selectors } from './V1alpha1Selectors';
 import {
     V1alpha1SelectorsFromJSON,
@@ -95,6 +102,18 @@ export interface V1alpha1MigrationPolicySpec {
     completionTimeoutPerGiB?: number;
     /**
      * 
+     * @type {V1ExperimentalMigrationOptions}
+     * @memberof V1alpha1MigrationPolicySpec
+     */
+    experimental?: V1ExperimentalMigrationOptions;
+    /**
+     * 
+     * @type {number}
+     * @memberof V1alpha1MigrationPolicySpec
+     */
+    maxDowntimeMs?: number;
+    /**
+     * 
      * @type {V1alpha1Selectors}
      * @memberof V1alpha1MigrationPolicySpec
      */
@@ -124,6 +143,8 @@ export function V1alpha1MigrationPolicySpecFromJSONTyped(json: any, ignoreDiscri
         'allowWorkloadDisruption': json['allowWorkloadDisruption'] == null ? undefined : json['allowWorkloadDisruption'],
         'bandwidthPerMigration': json['bandwidthPerMigration'] == null ? undefined : json['bandwidthPerMigration'],
         'completionTimeoutPerGiB': json['completionTimeoutPerGiB'] == null ? undefined : json['completionTimeoutPerGiB'],
+        'experimental': json['experimental'] == null ? undefined : V1ExperimentalMigrationOptionsFromJSON(json['experimental']),
+        'maxDowntimeMs': json['maxDowntimeMs'] == null ? undefined : json['maxDowntimeMs'],
         'selectors': V1alpha1SelectorsFromJSON(json['selectors']),
     };
 }
@@ -144,6 +165,8 @@ export function V1alpha1MigrationPolicySpecToJSONTyped(value?: V1alpha1Migration
         'allowWorkloadDisruption': value['allowWorkloadDisruption'],
         'bandwidthPerMigration': value['bandwidthPerMigration'],
         'completionTimeoutPerGiB': value['completionTimeoutPerGiB'],
+        'experimental': V1ExperimentalMigrationOptionsToJSON(value['experimental']),
+        'maxDowntimeMs': value['maxDowntimeMs'],
         'selectors': V1alpha1SelectorsToJSON(value['selectors']),
     };
 }

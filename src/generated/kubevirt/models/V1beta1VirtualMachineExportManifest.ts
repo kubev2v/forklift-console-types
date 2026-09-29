@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../../runtime';
+import { mapValues } from '../../../runtime';
 /**
  * VirtualMachineExportManifest contains the type and URL of the exported manifest
  * @export
