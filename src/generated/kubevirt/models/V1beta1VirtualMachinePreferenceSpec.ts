@@ -62,6 +62,13 @@ import {
     V1beta1MachinePreferencesToJSON,
     V1beta1MachinePreferencesToJSONTyped,
 } from './V1beta1MachinePreferences';
+import type { V1LaunchSecurity } from './V1LaunchSecurity';
+import {
+    V1LaunchSecurityFromJSON,
+    V1LaunchSecurityFromJSONTyped,
+    V1LaunchSecurityToJSON,
+    V1LaunchSecurityToJSONTyped,
+} from './V1LaunchSecurity';
 import type { V1beta1FirmwarePreferences } from './V1beta1FirmwarePreferences';
 import {
     V1beta1FirmwarePreferencesFromJSON,
@@ -131,6 +138,12 @@ export interface V1beta1VirtualMachinePreferenceSpec {
      */
     preferredArchitecture?: string;
     /**
+     * 
+     * @type {V1LaunchSecurity}
+     * @memberof V1beta1VirtualMachinePreferenceSpec
+     */
+    preferredLaunchSecurity?: V1LaunchSecurity;
+    /**
      * Subdomain of the VirtualMachineInstance
      * @type {string}
      * @memberof V1beta1VirtualMachinePreferenceSpec
@@ -182,6 +195,7 @@ export function V1beta1VirtualMachinePreferenceSpecFromJSONTyped(json: any, igno
         'machine': json['machine'] == null ? undefined : V1beta1MachinePreferencesFromJSON(json['machine']),
         'preferSpreadSocketToCoreRatio': json['preferSpreadSocketToCoreRatio'] == null ? undefined : json['preferSpreadSocketToCoreRatio'],
         'preferredArchitecture': json['preferredArchitecture'] == null ? undefined : json['preferredArchitecture'],
+        'preferredLaunchSecurity': json['preferredLaunchSecurity'] == null ? undefined : V1LaunchSecurityFromJSON(json['preferredLaunchSecurity']),
         'preferredSubdomain': json['preferredSubdomain'] == null ? undefined : json['preferredSubdomain'],
         'preferredTerminationGracePeriodSeconds': json['preferredTerminationGracePeriodSeconds'] == null ? undefined : json['preferredTerminationGracePeriodSeconds'],
         'requirements': json['requirements'] == null ? undefined : V1beta1PreferenceRequirementsFromJSON(json['requirements']),
@@ -209,6 +223,7 @@ export function V1beta1VirtualMachinePreferenceSpecToJSONTyped(value?: V1beta1Vi
         'machine': V1beta1MachinePreferencesToJSON(value['machine']),
         'preferSpreadSocketToCoreRatio': value['preferSpreadSocketToCoreRatio'],
         'preferredArchitecture': value['preferredArchitecture'],
+        'preferredLaunchSecurity': V1LaunchSecurityToJSON(value['preferredLaunchSecurity']),
         'preferredSubdomain': value['preferredSubdomain'],
         'preferredTerminationGracePeriodSeconds': value['preferredTerminationGracePeriodSeconds'],
         'requirements': V1beta1PreferenceRequirementsToJSON(value['requirements']),

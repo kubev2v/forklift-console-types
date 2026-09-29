@@ -342,6 +342,18 @@ Can be overridden per VM via spec.vms[].scsiReservation.
    * @required {false}
    */
   scsiReservation?: boolean;
+  /** selinuxRelabelAtBoot
+   * SelinuxRelabelAtBoot defers SELinux relabeling until the guest's first boot after conversion.
+Passed to virt-v2v as --selinux-relabel-at-boot. Can be overridden per VM via spec.vms[].selinuxRelabelAtBoot.
+   *
+   * @required {false}
+   */
+  selinuxRelabelAtBoot?: boolean;
+  /** selinuxRelabelExclude
+   *
+   * @required {false}
+   */
+  selinuxRelabelExclude?: string[];
   /** serviceAccount
    * ServiceAccount is the name of the ServiceAccount to use for migration
 pods in the target namespace. Overrides the global setting.

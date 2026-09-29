@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../../runtime';
+import type { V1ClaimRequest } from './V1ClaimRequest';
+import {
+    V1ClaimRequestFromJSON,
+    V1ClaimRequestFromJSONTyped,
+    V1ClaimRequestToJSON,
+    V1ClaimRequestToJSONTyped,
+} from './V1ClaimRequest';
 import type { V1PodNetwork } from './V1PodNetwork';
 import {
     V1PodNetworkFromJSON,
@@ -52,6 +59,12 @@ export interface V1Network {
      * @memberof V1Network
      */
     pod?: V1PodNetwork;
+    /**
+     * 
+     * @type {V1ClaimRequest}
+     * @memberof V1Network
+     */
+    resourceClaim?: V1ClaimRequest;
 }
 
 /**
@@ -75,6 +88,7 @@ export function V1NetworkFromJSONTyped(json: any, ignoreDiscriminator: boolean):
         'multus': json['multus'] == null ? undefined : V1MultusNetworkFromJSON(json['multus']),
         'name': json['name'],
         'pod': json['pod'] == null ? undefined : V1PodNetworkFromJSON(json['pod']),
+        'resourceClaim': json['resourceClaim'] == null ? undefined : V1ClaimRequestFromJSON(json['resourceClaim']),
     };
 }
 
@@ -92,6 +106,7 @@ export function V1NetworkToJSONTyped(value?: V1Network | null, ignoreDiscriminat
         'multus': V1MultusNetworkToJSON(value['multus']),
         'name': value['name'],
         'pod': V1PodNetworkToJSON(value['pod']),
+        'resourceClaim': V1ClaimRequestToJSON(value['resourceClaim']),
     };
 }
 

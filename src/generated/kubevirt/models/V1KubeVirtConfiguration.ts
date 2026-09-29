@@ -41,6 +41,13 @@ import {
     V1VirtTemplateDeploymentToJSON,
     V1VirtTemplateDeploymentToJSONTyped,
 } from './V1VirtTemplateDeployment';
+import type { V1ConfidentialComputeConfiguration } from './V1ConfidentialComputeConfiguration';
+import {
+    V1ConfidentialComputeConfigurationFromJSON,
+    V1ConfidentialComputeConfigurationFromJSONTyped,
+    V1ConfidentialComputeConfigurationToJSON,
+    V1ConfidentialComputeConfigurationToJSONTyped,
+} from './V1ConfidentialComputeConfiguration';
 import type { V1NetworkConfiguration } from './V1NetworkConfiguration';
 import {
     V1NetworkConfigurationFromJSON,
@@ -76,6 +83,13 @@ import {
     V1MigrationConfigurationToJSON,
     V1MigrationConfigurationToJSONTyped,
 } from './V1MigrationConfiguration';
+import type { V1PersistentReservationConfiguration } from './V1PersistentReservationConfiguration';
+import {
+    V1PersistentReservationConfigurationFromJSON,
+    V1PersistentReservationConfigurationFromJSONTyped,
+    V1PersistentReservationConfigurationToJSON,
+    V1PersistentReservationConfigurationToJSONTyped,
+} from './V1PersistentReservationConfiguration';
 import type { V1ReloadableComponentConfiguration } from './V1ReloadableComponentConfiguration';
 import {
     V1ReloadableComponentConfigurationFromJSON,
@@ -198,6 +212,12 @@ export interface V1KubeVirtConfiguration {
     commonInstancetypesDeployment?: V1CommonInstancetypesDeployment;
     /**
      * 
+     * @type {V1ConfidentialComputeConfiguration}
+     * @memberof V1KubeVirtConfiguration
+     */
+    confidentialCompute?: V1ConfidentialComputeConfiguration;
+    /**
+     * 
      * @type {V1ReloadableComponentConfiguration}
      * @memberof V1KubeVirtConfiguration
      */
@@ -287,6 +307,8 @@ export interface V1KubeVirtConfiguration {
      */
     hypervisors?: Array<V1HypervisorConfiguration>;
     /**
+     * The ImagePullPolicy to use for user workload pods and their containers (launcher pods, exporter pods, etc.). For KubeVirt infrastructure images, use spec.imagePullPolicy instead.
+     * 
      * Possible enum values:
      *  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
      *  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
@@ -368,7 +390,13 @@ export interface V1KubeVirtConfiguration {
      */
     permittedHostDevices?: V1PermittedHostDevices;
     /**
-     * RoleAggregationStrategy controls whether RBAC cluster roles should be aggregated to the default Kubernetes roles (admin, edit, view). When set to "AggregateToDefault" (default) or not specified, the aggregate-to-* labels are added to the cluster roles. When set to "Manual", the labels are not added, and roles will not be aggregated to the default roles. Setting this field to "Manual" requires the OptOutRoleAggregation feature gate to be enabled. This is an Alpha feature and subject to change.
+     * 
+     * @type {V1PersistentReservationConfiguration}
+     * @memberof V1KubeVirtConfiguration
+     */
+    persistentReservationConfiguration?: V1PersistentReservationConfiguration;
+    /**
+     * RoleAggregationStrategy controls whether RBAC cluster roles should be aggregated to the default Kubernetes roles (admin, edit, view). When set to "AggregateToDefault" (default) or not specified, the aggregate-to-* labels are added to the cluster roles. When set to "Manual", the labels are not added, and roles will not be aggregated to the default roles. Setting RoleAggregationStrategy to "Manual" requires the OptOutRoleAggregation feature gate to be enabled (Beta, enabled by default since v1.9.0).
      * @type {string}
      * @memberof V1KubeVirtConfiguration
      */
@@ -482,6 +510,7 @@ export function V1KubeVirtConfigurationFromJSONTyped(json: any, ignoreDiscrimina
         'autoCPULimitNamespaceLabelSelector': json['autoCPULimitNamespaceLabelSelector'] == null ? undefined : K8sIoApimachineryPkgApisMetaV1LabelSelectorFromJSON(json['autoCPULimitNamespaceLabelSelector']),
         'changedBlockTrackingLabelSelectors': json['changedBlockTrackingLabelSelectors'] == null ? undefined : V1ChangedBlockTrackingSelectorsFromJSON(json['changedBlockTrackingLabelSelectors']),
         'commonInstancetypesDeployment': json['commonInstancetypesDeployment'] == null ? undefined : V1CommonInstancetypesDeploymentFromJSON(json['commonInstancetypesDeployment']),
+        'confidentialCompute': json['confidentialCompute'] == null ? undefined : V1ConfidentialComputeConfigurationFromJSON(json['confidentialCompute']),
         'controllerConfiguration': json['controllerConfiguration'] == null ? undefined : V1ReloadableComponentConfigurationFromJSON(json['controllerConfiguration']),
         'cpuModel': json['cpuModel'] == null ? undefined : json['cpuModel'],
         'cpuRequest': json['cpuRequest'] == null ? undefined : json['cpuRequest'],
@@ -504,6 +533,7 @@ export function V1KubeVirtConfigurationFromJSONTyped(json: any, ignoreDiscrimina
         'obsoleteCPUModels': json['obsoleteCPUModels'] == null ? undefined : json['obsoleteCPUModels'],
         'ovmfPath': json['ovmfPath'] == null ? undefined : json['ovmfPath'],
         'permittedHostDevices': json['permittedHostDevices'] == null ? undefined : V1PermittedHostDevicesFromJSON(json['permittedHostDevices']),
+        'persistentReservationConfiguration': json['persistentReservationConfiguration'] == null ? undefined : V1PersistentReservationConfigurationFromJSON(json['persistentReservationConfiguration']),
         'roleAggregationStrategy': json['roleAggregationStrategy'] == null ? undefined : json['roleAggregationStrategy'],
         'seccompConfiguration': json['seccompConfiguration'] == null ? undefined : V1SeccompConfigurationFromJSON(json['seccompConfiguration']),
         'selinuxLauncherType': json['selinuxLauncherType'] == null ? undefined : json['selinuxLauncherType'],
@@ -537,6 +567,7 @@ export function V1KubeVirtConfigurationToJSONTyped(value?: V1KubeVirtConfigurati
         'autoCPULimitNamespaceLabelSelector': K8sIoApimachineryPkgApisMetaV1LabelSelectorToJSON(value['autoCPULimitNamespaceLabelSelector']),
         'changedBlockTrackingLabelSelectors': V1ChangedBlockTrackingSelectorsToJSON(value['changedBlockTrackingLabelSelectors']),
         'commonInstancetypesDeployment': V1CommonInstancetypesDeploymentToJSON(value['commonInstancetypesDeployment']),
+        'confidentialCompute': V1ConfidentialComputeConfigurationToJSON(value['confidentialCompute']),
         'controllerConfiguration': V1ReloadableComponentConfigurationToJSON(value['controllerConfiguration']),
         'cpuModel': value['cpuModel'],
         'cpuRequest': value['cpuRequest'],
@@ -559,6 +590,7 @@ export function V1KubeVirtConfigurationToJSONTyped(value?: V1KubeVirtConfigurati
         'obsoleteCPUModels': value['obsoleteCPUModels'],
         'ovmfPath': value['ovmfPath'],
         'permittedHostDevices': V1PermittedHostDevicesToJSON(value['permittedHostDevices']),
+        'persistentReservationConfiguration': V1PersistentReservationConfigurationToJSON(value['persistentReservationConfiguration']),
         'roleAggregationStrategy': value['roleAggregationStrategy'],
         'seccompConfiguration': V1SeccompConfigurationToJSON(value['seccompConfiguration']),
         'selinuxLauncherType': value['selinuxLauncherType'],

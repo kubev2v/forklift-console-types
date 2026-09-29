@@ -122,6 +122,12 @@ export interface V1beta1CDIConfigSpec {
      * @memberof V1beta1CDIConfigSpec
      */
     uploadProxyURLOverride?: string;
+    /**
+     * WebhookPvcRendering controls whether the PVC mutating webhook that completes PVC specs from StorageProfiles is enabled or disabled Allowed values are "Enabled" (default) and "Disabled"
+     * @type {string}
+     * @memberof V1beta1CDIConfigSpec
+     */
+    webhookPvcRendering?: string;
 }
 
 /**
@@ -153,6 +159,7 @@ export function V1beta1CDIConfigSpecFromJSONTyped(json: any, ignoreDiscriminator
         'scratchSpaceStorageClass': json['scratchSpaceStorageClass'] == null ? undefined : json['scratchSpaceStorageClass'],
         'tlsSecurityProfile': json['tlsSecurityProfile'] == null ? undefined : V1beta1TLSSecurityProfileFromJSON(json['tlsSecurityProfile']),
         'uploadProxyURLOverride': json['uploadProxyURLOverride'] == null ? undefined : json['uploadProxyURLOverride'],
+        'webhookPvcRendering': json['webhookPvcRendering'] == null ? undefined : json['webhookPvcRendering'],
     };
 }
 
@@ -174,6 +181,7 @@ export function V1beta1CDIConfigSpecToJSON(value?: V1beta1CDIConfigSpec | null):
         'scratchSpaceStorageClass': value['scratchSpaceStorageClass'],
         'tlsSecurityProfile': V1beta1TLSSecurityProfileToJSON(value['tlsSecurityProfile']),
         'uploadProxyURLOverride': value['uploadProxyURLOverride'],
+        'webhookPvcRendering': value['webhookPvcRendering'],
     };
 }
 

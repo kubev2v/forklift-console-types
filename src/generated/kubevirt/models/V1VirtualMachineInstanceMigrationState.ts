@@ -27,13 +27,13 @@ import {
     V1VirtualMachineInstanceMigrationTargetStateToJSON,
     V1VirtualMachineInstanceMigrationTargetStateToJSONTyped,
 } from './V1VirtualMachineInstanceMigrationTargetState';
-import type { V1MigrationConfiguration } from './V1MigrationConfiguration';
+import type { V1VMIMConfigurationOptions } from './V1VMIMConfigurationOptions';
 import {
-    V1MigrationConfigurationFromJSON,
-    V1MigrationConfigurationFromJSONTyped,
-    V1MigrationConfigurationToJSON,
-    V1MigrationConfigurationToJSONTyped,
-} from './V1MigrationConfiguration';
+    V1VMIMConfigurationOptionsFromJSON,
+    V1VMIMConfigurationOptionsFromJSONTyped,
+    V1VMIMConfigurationOptionsToJSON,
+    V1VMIMConfigurationOptionsToJSONTyped,
+} from './V1VMIMConfigurationOptions';
 
 /**
  * 
@@ -79,10 +79,10 @@ export interface V1VirtualMachineInstanceMigrationState {
     failureReason?: string;
     /**
      * 
-     * @type {V1MigrationConfiguration}
+     * @type {V1VMIMConfigurationOptions}
      * @memberof V1VirtualMachineInstanceMigrationState
      */
-    migrationConfiguration?: V1MigrationConfiguration;
+    migrationConfiguration?: V1VMIMConfigurationOptions;
     /**
      * The type of migration network, either 'pod' or 'migration'
      * @type {string}
@@ -270,7 +270,7 @@ export function V1VirtualMachineInstanceMigrationStateFromJSONTyped(json: any, i
         'endTimestamp': json['endTimestamp'] == null ? undefined : json['endTimestamp'],
         'failed': json['failed'] == null ? undefined : json['failed'],
         'failureReason': json['failureReason'] == null ? undefined : json['failureReason'],
-        'migrationConfiguration': json['migrationConfiguration'] == null ? undefined : V1MigrationConfigurationFromJSON(json['migrationConfiguration']),
+        'migrationConfiguration': json['migrationConfiguration'] == null ? undefined : V1VMIMConfigurationOptionsFromJSON(json['migrationConfiguration']),
         'migrationNetworkType': json['migrationNetworkType'] == null ? undefined : json['migrationNetworkType'],
         'migrationPolicyName': json['migrationPolicyName'] == null ? undefined : json['migrationPolicyName'],
         'migrationUid': json['migrationUid'] == null ? undefined : json['migrationUid'],
@@ -312,7 +312,7 @@ export function V1VirtualMachineInstanceMigrationStateToJSONTyped(value?: V1Virt
         'endTimestamp': value['endTimestamp'] == null ? undefined : value['endTimestamp'],
         'failed': value['failed'],
         'failureReason': value['failureReason'],
-        'migrationConfiguration': V1MigrationConfigurationToJSON(value['migrationConfiguration']),
+        'migrationConfiguration': V1VMIMConfigurationOptionsToJSON(value['migrationConfiguration']),
         'migrationNetworkType': value['migrationNetworkType'],
         'migrationPolicyName': value['migrationPolicyName'],
         'migrationUid': value['migrationUid'],

@@ -4002,6 +4002,10 @@
      "uploadProxyURLOverride": {
       "description": "Override the URL used when uploading to a DataVolume",
       "type": "string"
+     },
+     "webhookPvcRendering": {
+      "description": "WebhookPvcRendering controls whether the PVC mutating webhook that completes PVC specs from StorageProfiles is enabled or disabled Allowed values are \"Enabled\" (default) and \"Disabled\"",
+      "type": "string"
      }
     }
    },
@@ -4392,7 +4396,7 @@
       "default": ""
      },
      "retentionPolicy": {
-      "description": "RetentionPolicy specifies whether the created DataVolumes and DataSources are retained when their DataImportCron is deleted. Default is RatainAll.",
+      "description": "RetentionPolicy specifies whether the created DataVolumes and DataSources are retained when their DataImportCron is deleted. Default is RetainAll.",
       "type": "string"
      },
      "schedule": {
@@ -4794,6 +4798,10 @@
        "default": ""
       }
      },
+     "insecureSkipVerify": {
+      "description": "InsecureSkipVerify is a flag to skip certificate verification for the HTTP endpoint",
+      "type": "boolean"
+     },
      "secretExtraHeaders": {
       "description": "SecretExtraHeaders is a list of Secret references, each containing an extra HTTP header that may include sensitive information",
       "type": "array",
@@ -4971,6 +4979,10 @@
     "properties": {
      "backingFile": {
       "description": "BackingFile is the path to the virtual hard disk to migrate from vCenter/ESXi",
+      "type": "string"
+     },
+     "certConfigMap": {
+      "description": "CertConfigMap provides a reference to a ConfigMap containing the certificate authority (CA) certificate for the vCenter or ESXi host",
       "type": "string"
      },
      "extraArgs": {

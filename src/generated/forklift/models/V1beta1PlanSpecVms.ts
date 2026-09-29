@@ -215,6 +215,18 @@ When explicitly set to false, shared RDM LUNs for this VM get lun.reservation=fa
    * @required {false}
    */
   scsiReservation?: boolean;
+  /** selinuxRelabelAtBoot
+   * SelinuxRelabelAtBoot overrides the plan-level selinuxRelabelAtBoot for this VM.
+When nil (default), the plan-level value is used.
+   *
+   * @required {false}
+   */
+  selinuxRelabelAtBoot?: boolean;
+  /** selinuxRelabelExclude
+   *
+   * @required {false}
+   */
+  selinuxRelabelExclude?: string[];
   /** targetName
    * TargetName specifies a custom name for the VM in the target cluster.
 If not provided, the original VM name will be used and automatically adjusted to meet k8s DNS1123 requirements.

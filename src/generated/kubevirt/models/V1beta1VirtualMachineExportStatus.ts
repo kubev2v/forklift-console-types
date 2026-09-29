@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../../runtime';
+import { mapValues } from '../../../runtime';
 import type { V1beta1VirtualMachineExportLinks } from './V1beta1VirtualMachineExportLinks';
 import {
     V1beta1VirtualMachineExportLinksFromJSON,

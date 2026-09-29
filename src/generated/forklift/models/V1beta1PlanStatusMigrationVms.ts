@@ -290,6 +290,18 @@ When explicitly set to false, shared RDM LUNs for this VM get lun.reservation=fa
    * @required {false}
    */
   scsiReservation?: boolean;
+  /** selinuxRelabelAtBoot
+   * SelinuxRelabelAtBoot overrides the plan-level selinuxRelabelAtBoot for this VM.
+When nil (default), the plan-level value is used.
+   *
+   * @required {false}
+   */
+  selinuxRelabelAtBoot?: boolean;
+  /** selinuxRelabelExclude
+   *
+   * @required {false}
+   */
+  selinuxRelabelExclude?: string[];
   /** started
    * Started timestamp.
    *
