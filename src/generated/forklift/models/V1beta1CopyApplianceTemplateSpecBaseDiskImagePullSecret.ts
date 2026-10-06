@@ -15,7 +15,7 @@
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateSpecBaseDiskImagePullSecret {
+export interface V1beta1CopyApplianceTemplateSpecBaseDiskImagePullSecret {
   /** name
    * Name of the referent.
 This field is effectively required, but due to backwards compatibility is

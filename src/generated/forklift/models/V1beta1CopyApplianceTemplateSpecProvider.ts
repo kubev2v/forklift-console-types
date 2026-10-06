@@ -11,11 +11,11 @@
  */
 
 /**
- * Multus NAD for the OVA build pod (same as Plan.spec.transferNetwork).
+ * Reference to a vSphere Provider.
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateSpecTransferNetwork {
+export interface V1beta1CopyApplianceTemplateSpecProvider {
   /** apiVersion
    * API version of the referent.
    *

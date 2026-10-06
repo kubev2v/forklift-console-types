@@ -48,7 +48,7 @@ CRDS=(
   "forklift.konveyor.io_plans.yaml"
   "forklift.konveyor.io_providers.yaml"
   "forklift.konveyor.io_storagemaps.yaml"
-  "forklift.konveyor.io_toeholdtemplates.yaml"
+  "forklift.konveyor.io_copyappliancetemplates.yaml"
   "forklift.konveyor.io_vspherexcopyvolumepopulators.yaml"
 )
 

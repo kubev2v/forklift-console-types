@@ -11,10 +11,10 @@
  */
 
 import { IoK8sApimachineryPkgApisMetaV1ObjectMeta } from '../../kubernetes/models/IoK8sApimachineryPkgApisMetaV1ObjectMeta';
-import { V1beta1ToeholdTemplateSpec } from './V1beta1ToeholdTemplateSpec';
-import { V1beta1ToeholdTemplateStatus } from './V1beta1ToeholdTemplateStatus';
+import { V1beta1CopyApplianceTemplateSpec } from './V1beta1CopyApplianceTemplateSpec';
+import { V1beta1CopyApplianceTemplateStatus } from './V1beta1CopyApplianceTemplateStatus';
 
-export interface V1beta1ToeholdTemplate {
+export interface V1beta1CopyApplianceTemplate {
   /** apiVersion
    * APIVersion defines the versioned schema of this representation of an object.
 Servers should convert recognized schemas to the latest internal value, and
@@ -37,19 +37,19 @@ More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-
   /** metadata
    *
    * @required {false}
-   * @originalType {V1beta1ToeholdTemplateMetadata}
+   * @originalType {V1beta1CopyApplianceTemplateMetadata}
    */
   metadata?: IoK8sApimachineryPkgApisMetaV1ObjectMeta;
   /** spec
-   * ToeholdTemplateSpec defines the desired state of ToeholdTemplate.
+   * CopyApplianceTemplateSpec defines the desired state of CopyApplianceTemplate.
    *
    * @required {false}
    */
-  spec?: V1beta1ToeholdTemplateSpec;
+  spec?: V1beta1CopyApplianceTemplateSpec;
   /** status
-   * ToeholdTemplateStatus defines the observed state of ToeholdTemplate.
+   * CopyApplianceTemplateStatus defines the observed state of CopyApplianceTemplate.
    *
    * @required {false}
    */
-  status?: V1beta1ToeholdTemplateStatus;
+  status?: V1beta1CopyApplianceTemplateStatus;
 }

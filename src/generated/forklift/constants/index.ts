@@ -1,5 +1,6 @@
 export * from './ConversionModel.v1beta1';
 export * from './CopyApplianceModel.v1beta1';
+export * from './CopyApplianceTemplateModel.v1beta1';
 export * from './ForkliftControllerModel.v1beta1';
 export * from './HookModel.v1beta1';
 export * from './HostModel.v1beta1';
@@ -12,5 +13,4 @@ export * from './OvirtVolumePopulatorModel.v1beta1';
 export * from './PlanModel.v1beta1';
 export * from './ProviderModel.v1beta1';
 export * from './StorageMapModel.v1beta1';
-export * from './ToeholdTemplateModel.v1beta1';
 export * from './VSphereXcopyVolumePopulatorModel.v1beta1';

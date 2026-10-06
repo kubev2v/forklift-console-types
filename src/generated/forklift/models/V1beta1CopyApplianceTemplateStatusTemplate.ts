@@ -15,7 +15,7 @@
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateStatusTemplate {
+export interface V1beta1CopyApplianceTemplateStatusTemplate {
   /** baseContainerImage
    * containerImage used for the base disk at build time.
    *

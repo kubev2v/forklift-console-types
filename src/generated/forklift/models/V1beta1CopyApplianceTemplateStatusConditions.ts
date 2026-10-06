@@ -15,7 +15,7 @@
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateStatusConditions {
+export interface V1beta1CopyApplianceTemplateStatusConditions {
   /** category
    * The condition category.
    *

@@ -10,23 +10,23 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
-import { V1beta1ToeholdTemplateSpecBaseDisk } from './V1beta1ToeholdTemplateSpecBaseDisk';
-import { V1beta1ToeholdTemplateSpecProvider } from './V1beta1ToeholdTemplateSpecProvider';
-import { V1beta1ToeholdTemplateSpecResources } from './V1beta1ToeholdTemplateSpecResources';
-import { V1beta1ToeholdTemplateSpecTransferNetwork } from './V1beta1ToeholdTemplateSpecTransferNetwork';
+import { V1beta1CopyApplianceTemplateSpecBaseDisk } from './V1beta1CopyApplianceTemplateSpecBaseDisk';
+import { V1beta1CopyApplianceTemplateSpecProvider } from './V1beta1CopyApplianceTemplateSpecProvider';
+import { V1beta1CopyApplianceTemplateSpecResources } from './V1beta1CopyApplianceTemplateSpecResources';
+import { V1beta1CopyApplianceTemplateSpecTransferNetwork } from './V1beta1CopyApplianceTemplateSpecTransferNetwork';
 
 /**
- * ToeholdTemplateSpec defines the desired state of ToeholdTemplate.
+ * CopyApplianceTemplateSpec defines the desired state of CopyApplianceTemplate.
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateSpec {
+export interface V1beta1CopyApplianceTemplateSpec {
   /** baseDisk
    * Base containerdisk image for overlay customization.
    *
    * @required {true}
    */
-  baseDisk: V1beta1ToeholdTemplateSpecBaseDisk;
+  baseDisk: V1beta1CopyApplianceTemplateSpecBaseDisk;
   /** builderImage
    * Override for the toehold builder container image.
 Defaults to the controller TOEHOLD_BUILDER_IMAGE setting when empty.
@@ -56,7 +56,7 @@ Defaults to the controller TOEHOLD_BUILDER_IMAGE setting when empty.
    * Optional node selector for the build pod.
    *
    * @required {false}
-   * @originalType {V1beta1ToeholdTemplateSpecNodeSelector}
+   * @originalType {V1beta1CopyApplianceTemplateSpecNodeSelector}
    */
   nodeSelector?: {[key: string]: string};
   /** provider
@@ -64,13 +64,13 @@ Defaults to the controller TOEHOLD_BUILDER_IMAGE setting when empty.
    *
    * @required {true}
    */
-  provider: V1beta1ToeholdTemplateSpecProvider;
+  provider: V1beta1CopyApplianceTemplateSpecProvider;
   /** resources
    * OVF hardware descriptor overrides.
    *
    * @required {false}
    */
-  resources?: V1beta1ToeholdTemplateSpecResources;
+  resources?: V1beta1CopyApplianceTemplateSpecResources;
   /** templateName
    * vCenter template name after OVF import.
    *
@@ -82,5 +82,5 @@ Defaults to the controller TOEHOLD_BUILDER_IMAGE setting when empty.
    *
    * @required {false}
    */
-  transferNetwork?: V1beta1ToeholdTemplateSpecTransferNetwork;
+  transferNetwork?: V1beta1CopyApplianceTemplateSpecTransferNetwork;
 }
