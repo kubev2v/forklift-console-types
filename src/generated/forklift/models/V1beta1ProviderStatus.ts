@@ -58,4 +58,16 @@ Used to detect when credentials have been rotated.
    * @required {false}
    */
   service?: V1beta1ProviderStatusService;
+  /** toeholdSSHPrivateSecret
+   * Name of the secret with the toehold SSH private key and TLS material.
+   *
+   * @required {false}
+   */
+  toeholdSSHPrivateSecret?: string;
+  /** toeholdSSHPublicSecret
+   * Name of the secret with the toehold SSH public key.
+   *
+   * @required {false}
+   */
+  toeholdSSHPublicSecret?: string;
 }
