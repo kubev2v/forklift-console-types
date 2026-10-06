@@ -503,7 +503,7 @@ it carries no registry credential, so it has to be readable without one.
    */
   feature_ova_appliance_management?: 'true' | 'false';
   /** feature_toehold
-   * Provision toehold templates for vSphere providers.
+   * Provision copy appliance templates for vSphere providers.
    *
    * @required {false}
    * @required {false}
@@ -967,7 +967,7 @@ it carries no registry credential, so it has to be readable without one.
    */
   populator_vsphere_copy_offload_image_fqin?: string;
   /** toehold_base_disk_container_image_fqin
-   * Fully-qualified base containerdisk image for toehold templates
+   * Fully-qualified base containerdisk image for copy appliance templates
 (e.g. "registry.redhat.io/rhel9/rhel-guest-image:latest").
    *
    * @required {false}
@@ -979,20 +979,20 @@ it carries no registry credential, so it has to be readable without one.
    * @required {false}
    */
   toehold_builder_image_fqin?: string;
-  /** toehold_template_cpu
-   * Default OVF CPU count for toehold templates.
+  /** copy_appliance_template_cpu
+   * Default OVF CPU count for copy appliance templates.
    *
    * @required {false}
    * @required {2}
    */
-  toehold_template_cpu?: string;
-  /** toehold_template_memory_mib
-   * Default OVF memory in MiB for toehold templates.
+  copy_appliance_template_cpu?: string;
+  /** copy_appliance_template_memory_mib
+   * Default OVF memory in MiB for copy appliance templates.
    *
    * @required {false}
    * @required {4096}
    */
-  toehold_template_memory_mib?: string;
+  copy_appliance_template_memory_mib?: string;
   /** ui_plugin_container_limits_cpu
    * UI plugin CPU limit.
    *

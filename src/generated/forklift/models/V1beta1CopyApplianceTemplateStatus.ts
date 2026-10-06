@@ -10,22 +10,22 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
-import { V1beta1ToeholdTemplateStatusBuildPod } from './V1beta1ToeholdTemplateStatusBuildPod';
-import { V1beta1ToeholdTemplateStatusConditions } from './V1beta1ToeholdTemplateStatusConditions';
-import { V1beta1ToeholdTemplateStatusTemplate } from './V1beta1ToeholdTemplateStatusTemplate';
+import { V1beta1CopyApplianceTemplateStatusBuildPod } from './V1beta1CopyApplianceTemplateStatusBuildPod';
+import { V1beta1CopyApplianceTemplateStatusConditions } from './V1beta1CopyApplianceTemplateStatusConditions';
+import { V1beta1CopyApplianceTemplateStatusTemplate } from './V1beta1CopyApplianceTemplateStatusTemplate';
 
 /**
- * ToeholdTemplateStatus defines the observed state of ToeholdTemplate.
+ * CopyApplianceTemplateStatus defines the observed state of CopyApplianceTemplate.
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateStatus {
+export interface V1beta1CopyApplianceTemplateStatus {
   /** buildPod
    * Reference to the build pod when a template was successfully created.
    *
    * @required {false}
    */
-  buildPod?: V1beta1ToeholdTemplateStatusBuildPod;
+  buildPod?: V1beta1CopyApplianceTemplateStatusBuildPod;
   /** completionTime
    *
    * @required {false}
@@ -37,7 +37,7 @@ export interface V1beta1ToeholdTemplateStatus {
    *
    * @required {false}
    */
-  conditions?: V1beta1ToeholdTemplateStatusConditions[];
+  conditions?: V1beta1CopyApplianceTemplateStatusConditions[];
   /** message
    *
    * @required {false}
@@ -51,14 +51,14 @@ export interface V1beta1ToeholdTemplateStatus {
    */
   observedGeneration?: number;
   /** phase
-   * ToeholdTemplatePhase is the high-level lifecycle state of a ToeholdTemplate resource.
+   * CopyApplianceTemplatePhase is the high-level lifecycle state of a CopyApplianceTemplate resource.
    *
    * @required {false}
    * @originalType {string}
    */
   phase?: 'Pending' | 'Running' | 'Succeeded' | 'Failed';
   /** stage
-   * ToeholdTemplateStage is the fine-grained pipeline position within the Running phase.
+   * CopyApplianceTemplateStage is the fine-grained pipeline position within the Running phase.
    *
    * @required {false}
    */
@@ -68,5 +68,5 @@ export interface V1beta1ToeholdTemplateStatus {
    *
    * @required {false}
    */
-  template?: V1beta1ToeholdTemplateStatusTemplate;
+  template?: V1beta1CopyApplianceTemplateStatusTemplate;
 }

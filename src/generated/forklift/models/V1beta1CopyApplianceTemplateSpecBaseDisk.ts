@@ -10,14 +10,14 @@
  * https://github.com/yaacov/crdtoapi/README.crdtotypes
  */
 
-import { V1beta1ToeholdTemplateSpecBaseDiskImagePullSecret } from './V1beta1ToeholdTemplateSpecBaseDiskImagePullSecret';
+import { V1beta1CopyApplianceTemplateSpecBaseDiskImagePullSecret } from './V1beta1CopyApplianceTemplateSpecBaseDiskImagePullSecret';
 
 /**
  * Base containerdisk image for overlay customization.
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateSpecBaseDisk {
+export interface V1beta1CopyApplianceTemplateSpecBaseDisk {
   /** containerImage
    * OCI image embedding the base qcow2 (KubeVirt containerdisk layout under /disk).
    *
@@ -29,7 +29,7 @@ export interface V1beta1ToeholdTemplateSpecBaseDisk {
    *
    * @required {false}
    */
-  imagePullSecret?: V1beta1ToeholdTemplateSpecBaseDiskImagePullSecret;
+  imagePullSecret?: V1beta1CopyApplianceTemplateSpecBaseDiskImagePullSecret;
   /** workGiB
    * emptyDir size limit for the qcow2 overlay workspace. Unset means no limit.
    *

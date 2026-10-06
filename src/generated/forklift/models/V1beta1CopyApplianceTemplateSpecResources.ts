@@ -15,7 +15,7 @@
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateSpecResources {
+export interface V1beta1CopyApplianceTemplateSpecResources {
   /** cpu
    *
    * @required {false}

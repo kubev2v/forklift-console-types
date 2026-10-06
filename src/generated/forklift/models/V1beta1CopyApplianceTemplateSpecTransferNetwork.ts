@@ -11,11 +11,11 @@
  */
 
 /**
- * Reference to the build pod when a template was successfully created.
+ * Multus NAD for the OVA build pod (same as Plan.spec.transferNetwork).
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateStatusBuildPod {
+export interface V1beta1CopyApplianceTemplateSpecTransferNetwork {
   /** apiVersion
    * API version of the referent.
    *

@@ -11,11 +11,11 @@
  */
 
 /**
- * Reference to a vSphere Provider.
+ * Reference to the build pod when a template was successfully created.
  *
  * @export
  */
-export interface V1beta1ToeholdTemplateSpecProvider {
+export interface V1beta1CopyApplianceTemplateStatusBuildPod {
   /** apiVersion
    * API version of the referent.
    *
