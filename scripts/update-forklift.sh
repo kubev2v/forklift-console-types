@@ -29,11 +29,13 @@ MODEL_DIR="$TARGET_DIR/models"
 CONSTANTS_DIR="$TARGET_DIR/constants"
 
 # Upstream CRD base URL
-BASE_URL="https://raw.githubusercontent.com/kubev2v/forklift/${VERSION}/operator/config/crd/bases"
+FORKLIFT_REPO="${FORKLIFT_REPO:-kubev2v/forklift}"
+BASE_URL="https://raw.githubusercontent.com/${FORKLIFT_REPO}/${VERSION}/operator/config/crd/bases"
 
 # List of CRD files to download
 CRDS=(
   "forklift.konveyor.io_conversions.yaml"
+  "forklift.konveyor.io_copyappliances.yaml"
   "forklift.konveyor.io_forkliftcontrollers.yaml"
   "forklift.konveyor.io_hooks.yaml"
   "forklift.konveyor.io_hosts.yaml"
@@ -46,6 +48,7 @@ CRDS=(
   "forklift.konveyor.io_plans.yaml"
   "forklift.konveyor.io_providers.yaml"
   "forklift.konveyor.io_storagemaps.yaml"
+  "forklift.konveyor.io_toeholdtemplates.yaml"
   "forklift.konveyor.io_vspherexcopyvolumepopulators.yaml"
 )
 

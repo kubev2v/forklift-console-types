@@ -8,6 +8,8 @@ export interface VSphereDataStore extends TypedVSphereResource {
   capacity: number;
   // Free            int64  `json:"free"`
   free: number;
+  // Accessible      bool   `json:"accessible"`
+  accessible?: boolean;
   // MaintenanceMode string `json:"maintenance"`
   maintenance: string;
   // BackingDevicesNames []string `json:"backingDevicesNames"`

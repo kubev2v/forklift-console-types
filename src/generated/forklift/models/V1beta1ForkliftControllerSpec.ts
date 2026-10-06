@@ -427,6 +427,21 @@ Example: "\{\{trunc 10 .PlanName\}\}-\{\{.TargetVmName\}\}-\{\{.DiskIndex\}\}"
    * @originalType {integer}
    */
   controller_windows_reboot_timeout?: number;
+  /** copy_appliance_container_image_fqin
+   * Fully-qualified nbd-container image loaded onto copy appliances
+(e.g. "quay.io/kubev2v/nbd-container:latest"). The setup pod that reads
+it carries no registry credential, so it has to be readable without one.
+   *
+   * @required {false}
+   */
+  copy_appliance_container_image_fqin?: string;
+  /** copy_appliance_ssh_user
+   * SSH user the controller logs in to copy appliances as. Defaults to root.
+   *
+   * @required {false}
+   * @required {root}
+   */
+  copy_appliance_ssh_user?: string;
   /** deep_inspection_image_fqin
    * Deep inspection image. Optional. If left empty, the operator automatically sets this from the release payload.
    *
@@ -487,6 +502,14 @@ Example: "\{\{trunc 10 .PlanName\}\}-\{\{.TargetVmName\}\}-\{\{.DiskIndex\}\}"
    * @originalType {string}
    */
   feature_ova_appliance_management?: 'true' | 'false';
+  /** feature_toehold
+   * Provision toehold templates for vSphere providers.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_toehold?: 'true' | 'false';
   /** feature_ui_plugin
    * Enable UI plugin.
    *
@@ -943,6 +966,33 @@ Example: "\{\{trunc 10 .PlanName\}\}-\{\{.TargetVmName\}\}-\{\{.DiskIndex\}\}"
    * @required {false}
    */
   populator_vsphere_copy_offload_image_fqin?: string;
+  /** toehold_base_disk_container_image_fqin
+   * Fully-qualified base containerdisk image for toehold templates
+(e.g. "registry.redhat.io/rhel9/rhel-guest-image:latest").
+   *
+   * @required {false}
+   */
+  toehold_base_disk_container_image_fqin?: string;
+  /** toehold_builder_image_fqin
+   * Toehold builder image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  toehold_builder_image_fqin?: string;
+  /** toehold_template_cpu
+   * Default OVF CPU count for toehold templates.
+   *
+   * @required {false}
+   * @required {2}
+   */
+  toehold_template_cpu?: string;
+  /** toehold_template_memory_mib
+   * Default OVF memory in MiB for toehold templates.
+   *
+   * @required {false}
+   * @required {4096}
+   */
+  toehold_template_memory_mib?: string;
   /** ui_plugin_container_limits_cpu
    * UI plugin CPU limit.
    *
