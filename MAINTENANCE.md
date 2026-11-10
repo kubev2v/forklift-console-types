@@ -371,7 +371,7 @@ Track which upstream versions are currently included. **Update this table after 
 | Source | Current Version | Last Updated | Updated By |
 |--------|-----------------|--------------|------------|
 
-| Forklift | feature/toehold-controller (0a9e8b96d) | 2026-OCT-06 | mnecas (made with cursor) |
+| Forklift | main (e706e3297) | 2026-NOV-10 | aturgema (made with codex) |
 | Kubernetes | v1.37.1 | 2026-SEP-29 | aturgema (made with cursor) |
 | KubeVirt | v1.9.0 | 2026-SEP-29 | aturgema (made with cursor) |
 | CDI | v1.66.1 | 2026-SEP-29 | aturgema (made with cursor) |

@@ -82,8 +82,8 @@ spec:
                 type: object
               builderImage:
                 description: |-
-                  Override for the toehold builder container image.
-                  Defaults to the controller TOEHOLD_BUILDER_IMAGE setting when empty.
+                  Override for the copy appliance template builder container image.
+                  Defaults to the controller COPY_APPLIANCE_TEMPLATE_BUILDER_IMAGE setting when empty.
                 type: string
               datastore:
                 description: Target vCenter datastore.
@@ -209,7 +209,8 @@ spec:
             - templateName
             type: object
           status:
-            description: CopyApplianceTemplateStatus defines the observed state of CopyApplianceTemplate.
+            description: CopyApplianceTemplateStatus defines the observed state of
+              CopyApplianceTemplate.
             properties:
               buildPod:
                 description: Reference to the build pod when a template was successfully
@@ -306,8 +307,8 @@ spec:
                 format: int64
                 type: integer
               phase:
-                description: CopyApplianceTemplatePhase is the high-level lifecycle state
-                  of a CopyApplianceTemplate resource.
+                description: CopyApplianceTemplatePhase is the high-level lifecycle
+                  state of a CopyApplianceTemplate resource.
                 enum:
                 - Pending
                 - Running
@@ -315,8 +316,8 @@ spec:
                 - Failed
                 type: string
               stage:
-                description: CopyApplianceTemplateStage is the fine-grained pipeline position
-                  within the Running phase.
+                description: CopyApplianceTemplateStage is the fine-grained pipeline
+                  position within the Running phase.
                 type: string
               template:
                 description: TemplateStatus tracks the vCenter template artifact.

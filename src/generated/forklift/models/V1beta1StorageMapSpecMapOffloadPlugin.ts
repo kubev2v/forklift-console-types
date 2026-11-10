@@ -11,6 +11,7 @@
  */
 
 import { V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport } from './V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport';
+import { V1beta1StorageMapSpecMapOffloadPluginVsphereNfsCopyConfig } from './V1beta1StorageMapSpecMapOffloadPluginVsphereNfsCopyConfig';
 import { V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig } from './V1beta1StorageMapSpecMapOffloadPluginVsphereXcopyConfig';
 
 /**
@@ -27,6 +28,14 @@ volume directly — no populator pod, no CR, no service account is launched.
    * @required {false}
    */
   csiVolumeImport?: V1beta1StorageMapSpecMapOffloadPluginCsiVolumeImport;
+  /** vsphereNfsCopyConfig
+   * VSphereNfsCopyPluginConfig offloads the copy of a disk on a vSphere NFS datastore
+to the storage array, which copies the disk file into the destination NFS export.
+The source datastore and the destination StorageClass must be served by the same array.
+   *
+   * @required {false}
+   */
+  vsphereNfsCopyConfig?: V1beta1StorageMapSpecMapOffloadPluginVsphereNfsCopyConfig;
   /** vsphereXcopyConfig
    * VSphereXcopyPluginConfig works with the Vsphere Xcopy Volume Populator
 to offload the copy to Vsphere and the storage array.

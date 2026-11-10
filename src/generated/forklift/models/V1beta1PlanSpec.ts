@@ -121,7 +121,7 @@ Note:
    * DeleteVmOnFailMigration controls whether the target VM created by this Plan is deleted when a migration fails.
 When true and the migration fails after the target VM has been created, the controller
 will delete the target VM (and related target-side resources) during failed-migration cleanup
-and when the Plan is deleted. When false (default), the target VM is preserved to aid
+and when the Plan is deleted. When false the target VM is preserved to aid
 troubleshooting. The source VM is never modified.
 
 Note: If the Plan-level option is set to true, the VM-level option will be ignored.
@@ -219,6 +219,21 @@ Examples:
    * @required {false}
    */
   networkNameTemplate?: string;
+  /** offloadPopulatorPriorityClassName
+   * OffloadPopulatorPriorityClassName sets the existing PriorityClass for vSphere XCOPY populator pods.
+   *
+   * @required {false}
+   */
+  offloadPopulatorPriorityClassName?: string;
+  /** preCopySourceDisks
+   * PreCopySourceDisks enables two-phase disk transfer for Hyper-V migrations.
+When true, an init container converts the source VHDX files to raw format
+directly on the target block device using qemu-img, then virt-v2v performs
+only in-place guest customization.
+   *
+   * @required {false}
+   */
+  preCopySourceDisks?: boolean;
   /** preserveClusterCpuModel
    * Preserve the CPU model and flags the VM runs with in its oVirt cluster.
    *

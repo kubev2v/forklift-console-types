@@ -83,10 +83,8 @@ pkg/nbd-container/announce). The controller installs the CA and the
 server half on the appliance and keeps the client half to query the
 exports with.
 
-The server certificate must be issued for the logical name "nbd-server"
-rather than for an address. The appliance is cloned on demand and its
-address is not known when the certificate is issued, so the client
-verifies the name instead of where it reached it.
+Server cert is minted at setup with DNS SAN "nbd-server" and an IP SAN for
+the guest address (nbds://). CA key stays in this secret for that mint.
    *
    * @required {true}
    */
