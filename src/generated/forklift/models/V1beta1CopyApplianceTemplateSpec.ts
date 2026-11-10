@@ -28,8 +28,8 @@ export interface V1beta1CopyApplianceTemplateSpec {
    */
   baseDisk: V1beta1CopyApplianceTemplateSpecBaseDisk;
   /** builderImage
-   * Override for the toehold builder container image.
-Defaults to the controller TOEHOLD_BUILDER_IMAGE setting when empty.
+   * Override for the copy appliance template builder container image.
+Defaults to the controller COPY_APPLIANCE_TEMPLATE_BUILDER_IMAGE setting when empty.
    *
    * @required {false}
    */

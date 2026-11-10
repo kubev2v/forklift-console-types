@@ -25,6 +25,18 @@ export interface V1beta1ProviderStatus {
    * @required {false}
    */
   conditions?: V1beta1ProviderStatusConditions[];
+  /** copyApplianceSSHPrivateSecret
+   * Name of the secret with the copyApplianceTemplate SSH private key and TLS material.
+   *
+   * @required {false}
+   */
+  copyApplianceSSHPrivateSecret?: string;
+  /** copyApplianceSSHPublicSecret
+   * Name of the secret with the copyApplianceTemplate SSH public key.
+   *
+   * @required {false}
+   */
+  copyApplianceSSHPublicSecret?: string;
   /** fingerprint
    * Fingerprint.
    *
@@ -58,16 +70,4 @@ Used to detect when credentials have been rotated.
    * @required {false}
    */
   service?: V1beta1ProviderStatusService;
-  /** toeholdSSHPrivateSecret
-   * Name of the secret with the toehold SSH private key and TLS material.
-   *
-   * @required {false}
-   */
-  toeholdSSHPrivateSecret?: string;
-  /** toeholdSSHPublicSecret
-   * Name of the secret with the toehold SSH public key.
-   *
-   * @required {false}
-   */
-  toeholdSSHPublicSecret?: string;
 }

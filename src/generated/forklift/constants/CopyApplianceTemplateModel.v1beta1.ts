@@ -13,7 +13,7 @@ export const CopyApplianceTemplateModel = {
   kind: 'CopyApplianceTemplate',
   plural: 'copyappliancetemplates',
 
-  abbr: 'CAT',
+  abbr: 'CO',
   color: undefined,
   id: 'copyappliancetemplates.forklift.konveyor.io',
   namespaced: true,

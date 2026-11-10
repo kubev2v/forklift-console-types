@@ -14,6 +14,7 @@ import { V1beta1ConversionSpecConnection } from './V1beta1ConversionSpecConnecti
 import { V1beta1ConversionSpecDestination } from './V1beta1ConversionSpecDestination';
 import { V1beta1ConversionSpecDiskEncryption } from './V1beta1ConversionSpecDiskEncryption';
 import { V1beta1ConversionSpecDisks } from './V1beta1ConversionSpecDisks';
+import { V1beta1ConversionSpecExtraInitContainers } from './V1beta1ConversionSpecExtraInitContainers';
 import { V1beta1ConversionSpecExtraMounts } from './V1beta1ConversionSpecExtraMounts';
 import { V1beta1ConversionSpecExtraVolumes } from './V1beta1ConversionSpecExtraVolumes';
 import { V1beta1ConversionSpecPodSettings } from './V1beta1ConversionSpecPodSettings';
@@ -56,6 +57,12 @@ Conversion controller can reconstruct pod volumes without re-deriving paths.
    * @required {false}
    */
   disks?: V1beta1ConversionSpecDisks[];
+  /** extraInitContainers
+   * A single application container that you want to run within a pod.
+   *
+   * @required {false}
+   */
+  extraInitContainers?: V1beta1ConversionSpecExtraInitContainers[];
   /** extraMounts
    * VolumeMount describes a mounting of a Volume within a container.
    *

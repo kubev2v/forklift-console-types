@@ -285,6 +285,15 @@ Overridden by Plan-level serviceAccount.
    * @required {false}
    */
   controller_migration_service_account?: string;
+  /** controller_multus_network_name_always_qualified
+   * Always use qualified namespace/nad-name format for Multus networks.
+When false, uses unqualified nad-name when NAD is in same namespace as target VM.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  controller_multus_network_name_always_qualified?: 'true' | 'false';
   /** controller_ocp_pvc_name_template
    * Global default Go template for generating PVC names during OpenShift (OCP) migrations.
 Used when the Plan-level pvcNameTemplate is empty. When this field is also empty,
@@ -442,6 +451,33 @@ it carries no registry credential, so it has to be readable without one.
    * @required {root}
    */
   copy_appliance_ssh_user?: string;
+  /** copy_appliance_template_base_disk_container_image_fqin
+   * Fully-qualified base containerdisk image for copy appliance templates
+(e.g. "registry.redhat.io/rhel9/rhel-guest-image:latest").
+   *
+   * @required {false}
+   */
+  copy_appliance_template_base_disk_container_image_fqin?: string;
+  /** copy_appliance_template_builder_image_fqin
+   * Copy appliance template builder image. Optional. If left empty, the operator automatically sets this from the release payload.
+   *
+   * @required {false}
+   */
+  copy_appliance_template_builder_image_fqin?: string;
+  /** copy_appliance_template_cpu
+   * Default OVF CPU count for copy appliance templates.
+   *
+   * @required {false}
+   * @required {2}
+   */
+  copy_appliance_template_cpu?: string;
+  /** copy_appliance_template_memory_mib
+   * Default OVF memory in MiB for copy appliance templates.
+   *
+   * @required {false}
+   * @required {4096}
+   */
+  copy_appliance_template_memory_mib?: string;
   /** deep_inspection_image_fqin
    * Deep inspection image. Optional. If left empty, the operator automatically sets this from the release payload.
    *
@@ -470,6 +506,14 @@ it carries no registry credential, so it has to be readable without one.
    * @originalType {string}
    */
   feature_cli_download?: 'true' | 'false';
+  /** feature_copy_appliance
+   * Provision copy appliance templates for vSphere providers.
+   *
+   * @required {false}
+   * @required {false}
+   * @originalType {string}
+   */
+  feature_copy_appliance?: 'true' | 'false';
   /** feature_copy_offload
    * Enable copy offload plugins.
    *
@@ -502,14 +546,14 @@ it carries no registry credential, so it has to be readable without one.
    * @originalType {string}
    */
   feature_ova_appliance_management?: 'true' | 'false';
-  /** feature_toehold
-   * Provision copy appliance templates for vSphere providers.
+  /** feature_split_virt_customize
+   * Run virt-v2v and virt-customize as separate commands.
    *
    * @required {false}
-   * @required {false}
+   * @required {true}
    * @originalType {string}
    */
-  feature_toehold?: 'true' | 'false';
+  feature_split_virt_customize?: 'true' | 'false';
   /** feature_ui_plugin
    * Enable UI plugin.
    *
@@ -966,33 +1010,6 @@ it carries no registry credential, so it has to be readable without one.
    * @required {false}
    */
   populator_vsphere_copy_offload_image_fqin?: string;
-  /** toehold_base_disk_container_image_fqin
-   * Fully-qualified base containerdisk image for copy appliance templates
-(e.g. "registry.redhat.io/rhel9/rhel-guest-image:latest").
-   *
-   * @required {false}
-   */
-  toehold_base_disk_container_image_fqin?: string;
-  /** toehold_builder_image_fqin
-   * Toehold builder image. Optional. If left empty, the operator automatically sets this from the release payload.
-   *
-   * @required {false}
-   */
-  toehold_builder_image_fqin?: string;
-  /** copy_appliance_template_cpu
-   * Default OVF CPU count for copy appliance templates.
-   *
-   * @required {false}
-   * @required {2}
-   */
-  copy_appliance_template_cpu?: string;
-  /** copy_appliance_template_memory_mib
-   * Default OVF memory in MiB for copy appliance templates.
-   *
-   * @required {false}
-   * @required {4096}
-   */
-  copy_appliance_template_memory_mib?: string;
   /** ui_plugin_container_limits_cpu
    * UI plugin CPU limit.
    *

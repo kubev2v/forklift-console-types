@@ -18,6 +18,12 @@ If empty, the host where the source VM is registered will be used.
    * @required {false}
    */
   migrationHost?: string;
+  /** priorityClassName
+   * PriorityClassName sets the scheduling priority for the XCOPY populator pod.
+   *
+   * @required {false}
+   */
+  priorityClassName?: string;
   /** secretName
    * The secret name with vsphere and storage credentials
    *
